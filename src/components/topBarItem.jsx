@@ -10,13 +10,13 @@ class TopBarItem extends React.Component
     {
         const styles = StyleSheet.create({
             container: {
+            
                 flex: 1,
-
 
                 
                 marginLeft: '3%',
                 marginRight: '3%',
-                height: '80%',
+              
                
                 borderRadius: 10,
                 backgroundColor: 'rgba(128,128,128,1)',
@@ -27,9 +27,9 @@ class TopBarItem extends React.Component
             innerContainer: {
                 paddingRight: "5%",
                 paddingLeft: "5%",
-                flex: 1,
-                paddingTop: '12%',
-                paddingBottom: '12%',
+          
+                paddingTop: '5%',
+                paddingBottom: '5%',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 alignItems: 'center'

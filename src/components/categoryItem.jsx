@@ -13,35 +13,61 @@ class CategoryItem extends React.Component
 
 
                 marginTop: '2%',
+
                 marginLeft: '3%',
                 marginRight: '3%',
-                maxHeight: '5%',
+
+
                 borderRadius: 10,
                 backgroundColor: 'rgba(128,128,128,0.4)',
-               
+                justifyContent: 'center',
+
+
 
 
             },
             innerContainer: {
+
                 paddingRight: "5%",
                 paddingLeft: "5%",
-                flex: 1,
+                height: 40,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center'
+
+
+
+
+
+
             },
-           
-          
+            textView: {
+                alignSelf: 'center',
+                textAlign: 'center',
+                flexDirection: 'column',
+
+
+            }
+
+
         })
 
-       
+
         return (
             <View style={ styles.container }>
                 <View style={ styles.innerContainer }>
-                    <Text >Category</Text>
-                    <Text  >Amount</Text>
+
+                    <Text style={ styles.textView }>
+                        Category
+                        </Text>
+
+
+                    <Text style={ styles.textView } >
+                        Amount
+                        </Text>
+
                 </View>
-                
+
             </View>
         );
     }

@@ -10,9 +10,14 @@ class HomePage extends React.Component
     {
         return (
             <View style={ styles.container }>
-                <TopBar />
-                <CategorySection/>
-
+                <View style={styles.topContainer}>
+                    <TopBar/>
+                </View>
+                <View style={ styles.lowerContainer}>
+                
+                    <CategorySection style={ {flex: 1}}/>
+                </View>
+               
 
             </View>
         );
@@ -22,8 +27,21 @@ class HomePage extends React.Component
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+       
+        flexDirection: 'column',
+      
+        backgroundColor: 'white',
     },
+    topContainer: {
+    flex: 1
+        
+    },
+    lowerContainer: {
+        flex: 2,
+       
+       
+
+    }
 });
 
 export default HomePage;

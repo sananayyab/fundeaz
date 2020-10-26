@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, View } from 'react-native';
 import CategoryItem from './categoryItem.jsx';
 class CategorySection extends React.Component
 {
@@ -9,27 +9,30 @@ class CategorySection extends React.Component
     {
         const styles = StyleSheet.create({
             container: {
+
+
+
+
+
+
+            
+
+
+
+
+                marginTop: 20,
+                marginBottom: '4%',
+                marginLeft: '3%',
+                marginRight: '3%',
+                borderRadius: 10,
+                backgroundColor: 'rgba(128,128,128,0.4)',
                 flex: 1,
 
 
-                marginTop: '50%',
-                marginLeft: '3%',
-                marginRight: '3%',
-                maxHeight: '50%',
-                borderRadius: 10,
-                flexDirection: 'row',
-                backgroundColor: 'rgba(128,128,128,0.4)',
-                justifyContent: 'space-around',
-                flexWrap: 'wrap',
-
-                alignItems: 'center'
 
 
             },
-            innerContainer: {
-                paddingRight: "5%",
-                paddingLeft: "5%",
-                flex: 1,
+            outterContainer: {
 
 
 
@@ -41,10 +44,44 @@ class CategorySection extends React.Component
 
         return (
             <View style={ styles.container }>
-                <CategoryItem />
-                <CategoryItem />
-                <CategoryItem />
+                <ScrollView  >
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
+                    <CategoryItem />
 
+
+
+                </ScrollView>
             </View>
         );
     }

@@ -16,7 +16,7 @@ class TopBar extends React.Component
                 marginTop: '2%',
                 marginLeft: '3%',
                 marginRight: '3%',
-                maxHeight: '20%',
+            
                 borderRadius: 10,
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -26,13 +26,7 @@ class TopBar extends React.Component
 
 
             },
-            innerContainer: {
-               
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-            },
+     
 
 
         })
