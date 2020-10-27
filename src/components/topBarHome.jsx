@@ -35,8 +35,8 @@ class TopBar extends React.Component
         return (
             <View style={ styles.container }>
                
-                    <TopBarItem />
-                    <TopBarItem />
+                <TopBarItem style={ {flex: 1}}/>
+                <TopBarItem style={ { flex: 1 } } />
               
 
             </View>

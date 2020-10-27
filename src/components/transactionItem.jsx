@@ -18,14 +18,15 @@ class TransactionItem extends React.Component
                 maxHeight: '6%',
                 borderRadius: 10,
                 backgroundColor: 'rgba(128,128,128,0.4)',
-               
+                justifyContent: 'center',
 
 
             },
             innerContainer: {
                 paddingRight: "5%",
                 paddingLeft: "5%",
-                flex: 1,
+            
+                height: 60,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center'
@@ -37,14 +38,26 @@ class TransactionItem extends React.Component
              
             },
             amountText: {
-                fontSize: 13
+                fontSize: 13,
+                alignSelf: 'center',
+                textAlign: 'center',
+                flexDirection: 'column',
+
             },
             numberColor: {
                 fontSize: 13,
-                color: 'green'
+                color: 'green',
+                alignSelf: 'center',
+                textAlign: 'center',
+                flexDirection: 'column',
+
             },
             categoryText: {
-                fontSize: 15
+                fontSize: 15,
+                alignSelf: 'center',
+                textAlign: 'center',
+                flexDirection: 'column',
+
             
             }
            

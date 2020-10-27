@@ -30,7 +30,7 @@ class CategoryItem extends React.Component
 
                 paddingRight: "5%",
                 paddingLeft: "5%",
-                height: 40,
+                height: 50,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center'

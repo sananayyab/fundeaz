@@ -25,11 +25,12 @@ class TopBarItem extends React.Component
 
             },
             innerContainer: {
+                flex: 0.8,
                 paddingRight: "5%",
                 paddingLeft: "5%",
           
-                paddingTop: '5%',
-                paddingBottom: '5%',
+                marginTop: '20%',
+                marginBottom: '20%',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 alignItems: 'center'
