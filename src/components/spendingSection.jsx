@@ -12,15 +12,15 @@ class SpendingSection extends React.Component
                 flex: 1,
 
 
-                marginTop: '50%',
+                marginTop: 20,
                 marginLeft: '3%',
                 marginRight: '3%',
-                maxHeight: '50%',
+                maxHeight: '90%',
                 borderRadius: 10,
-                flexDirection: 'row',
+                flexDirection: 'column',
                 backgroundColor: 'rgba(128,128,128,0.4)',
                 justifyContent: 'space-around',
-                flexWrap: 'wrap',
+              
                
                 alignItems: 'center'
 

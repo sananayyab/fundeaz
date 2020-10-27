@@ -14,14 +14,11 @@ class SpendingItem extends React.Component
 
 
 
-                marginLeft: '3%',
-                marginRight: '3%',
-                height: '40%',
-                width: '48%',
-                minWidth: '44%',
-                minheight: '40%',
-                maxWidth: '48%',
-                maxheight: '40%',
+                marginTop: '3%',
+                marginBottom: '3%',
+                maxHeight: '25%',
+                width: '90%',
+          
                 borderRadius: 10,
                 backgroundColor: 'rgba(128,128,128,1)',
 
@@ -34,7 +31,7 @@ class SpendingItem extends React.Component
                 flex: 1,
                 paddingTop: '12%',
                 paddingBottom: '12%',
-                flexDirection: 'column',
+                flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center'
             },

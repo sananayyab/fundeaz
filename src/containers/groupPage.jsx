@@ -3,9 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { registerRootComponent } from 'expo';
 import TopBar from '../components/topBarHome.jsx';
-import SpendingSection from '../components/spendingSection.jsx';
-import CategorySection from '../components/categorySection.jsx';
-import TransactionSection from '../components/transactionSection.jsx';
+import InformationSection from '../components/informationSection.jsx';
 class GroupPage extends React.Component
 {
     render()
@@ -17,7 +15,7 @@ class GroupPage extends React.Component
                 </View>
                 <View style={ styles.lowerContainer }>
 
-                    <TransactionSection style={ { flex: 1 } } />
+                    <InformationSection style={ { flex: 1 } } />
                 </View>
 
 
