@@ -3,7 +3,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { registerRootComponent } from 'expo';
 import TopBar from '../components/topBarHome.jsx';
-import InformationSection from '../components/informationSection.jsx';
+import InformationSection from '../components/informationSection.jsx'; 
+import BottomBar from '../components/bottomBar.jsx';
 class GroupPage extends React.Component
 {
     render()
@@ -16,6 +17,9 @@ class GroupPage extends React.Component
                 <View style={ styles.lowerContainer }>
 
                     <InformationSection style={ { flex: 1 } } />
+                </View>
+                <View style={ styles.bottomBar }>
+                    <BottomBar />
                 </View>
 
 
@@ -33,14 +37,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     topContainer: {
-        flex: 1
+        flex: 3
 
     },
     lowerContainer: {
-        flex: 3,
+        flex: 10,
 
 
 
+    },
+    bottomBar:
+    {
+        flex: 0.8
     }
 });
 

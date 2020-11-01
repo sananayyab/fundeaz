@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions} from 'react-native';
+import { StyleSheet, View, Dimensions} from 'react-native';
 import SpendingSection from '../components/spendingSection.jsx';
 import CategorySection from '../components/categorySection.jsx';
 import TransactionSection from '../components/transactionSection.jsx';
