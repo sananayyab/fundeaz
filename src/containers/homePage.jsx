@@ -5,11 +5,14 @@ import { registerRootComponent } from 'expo';
 import TopBar from '../components/topBarHome.jsx';
 import CategorySection from '../components/categorySection.jsx';
 import BottomBar from '../components/bottomBar.jsx';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 class HomePage extends React.Component
 {
     constructor(props)
     {
         super(props)
+
     }
     render()
     {
@@ -41,7 +44,7 @@ class HomePage extends React.Component
             <View style={ styles.container }>
                 <View style={ styles.topContainer }>
                   
-                        <TopBar />
+                    <TopBar navigation={this.props.navigation}/>
                  
                 </View>
                 <View style={ styles.lowerContainer}>

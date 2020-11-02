@@ -2,12 +2,22 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import TopBarItem from './topBarItem.jsx'
 import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 class TopBar extends React.Component
 {
-    test()
+
+    constructor(props)
     {
-        ToastAndroid.show("A pikachu appeared nearby !", ToastAndroid.SHORT);
+        super(props)
+        this.navigationToDetails = this.navigationToDetails.bind(this);
+    }
+    navigationToDetails( )
+    {
+     
+        this.props.navigation.navigate('GroupPage')
+        ToastAndroid.show("test",ToastAndroid.SHORT)
     }
 
     render()
@@ -41,7 +51,7 @@ class TopBar extends React.Component
             <TouchableOpacity
 
                 style={ styles.container }
-                onPress={ this.test }
+                onPress={ this.navigationToDetails }
                 activeOpacity={ 1 }>
                 <TopBarItem style={ { flex: 1 } } />
                 <TopBarItem style={ { flex: 1 } } />

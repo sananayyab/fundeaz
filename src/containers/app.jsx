@@ -17,7 +17,7 @@ class App extends React.Component
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="HomePage">
                     <Stack.Screen name="HomePage" component={ HomePage } />
-                    <Stack.Screen name="Groupage" component={ GroupPage} />
+                    <Stack.Screen name="GroupPage" component={ GroupPage} />
                 </Stack.Navigator>
                 </NavigationContainer>
         );
