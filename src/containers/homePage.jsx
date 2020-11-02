@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, ToastAndroid} from 'react-native';
 import { registerRootComponent } from 'expo';
 import TopBar from '../components/topBarHome';
 import CategorySection from '../components/categorySection';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import BottomBar from '../components/bottomBar.jsx';
 class HomePage extends React.Component
 {
     render()
@@ -20,7 +20,9 @@ class HomePage extends React.Component
                 
                     <CategorySection style={ {flex: 1}}/>
                 </View>
-               
+                <View style={ styles.bottomBar }>
+                    <BottomBar />
+                </View>
 
             </View>
         );
@@ -37,14 +39,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     topContainer: {
-    flex: 1
-        
+        flex: 3
+
     },
     lowerContainer: {
-        flex: 3,
-       
-       
+        flex: 10,
 
+
+
+    },
+    bottomBar:
+    {
+        flex: 0.8
     }
 });
 
