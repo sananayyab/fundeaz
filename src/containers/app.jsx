@@ -2,14 +2,14 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { registerRootComponent } from 'expo';
-import TranscationAdding from '../components/transactionAdditionSection.jsx'
+import HomePage from './homePage.jsx'
 class App extends React.Component
 {
     render()
     {
         return (
             <View style={ styles.container }>
-                <TranscationAdding style={{flex: 1}} />
+                <HomePage style={{flex: 1} }/>
                
            
             </View>
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        marginTop: Expo.Constants.statusBarHeight
     },
 });
 
