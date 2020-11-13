@@ -1,11 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, ToastAndroid, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-
+import {bindActionCreators } from 'redux'
+import {addGroup} from '../action/homepageAction'
+import { connect } from 'react-redux';
 class BottomBar extends React.Component
 {
 
+
+    constructor(props)
+    {
+        super(props)
+        this.test = this.test.bind(this)
+
+    }
+    test(){
+        ToastAndroid.show("A pikachu appeared nearby !", ToastAndroid.SHORT);
+    }
+    
     render()
     {
         const styles = StyleSheet.create({
@@ -50,9 +63,11 @@ class BottomBar extends React.Component
                     backgroundColor='teal'
                     name="add"
                     size={ 30 }
+                    onPress={this.props.add}
                     iconStyle={ {
                         marginRight: 0
-                    } } />
+                    } } 
+                    />
                 <MaterialIcons.Button
                     backgroundColor='teal'
                     name="add"
@@ -67,6 +82,14 @@ class BottomBar extends React.Component
     }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+    add: bindActionCreators(addGroup, dispatch)
+  })
 
 
-export default BottomBar
+const mapStateToProps = (state) => {
+    const stuff  = state
+    return { stuff }
+  };
+  
+export default connect(mapStateToProps,mapDispatchToProps)(BottomBar)

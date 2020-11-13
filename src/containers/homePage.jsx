@@ -19,9 +19,9 @@ class HomePage extends React.Component
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
-
+                
                 flexDirection: 'column',
-
+                
                 backgroundColor: 'white',
             },
             topContainer: {
@@ -49,7 +49,7 @@ class HomePage extends React.Component
                 </View>
                 <View style={ styles.lowerContainer}>
                 
-                    <CategorySection style={ {flex: 1}}/>
+                    <CategorySection section={"group"}style={ {flex: 1}}/>
                 </View>
                 <View style={ styles.bottomBar }>
                     <BottomBar />

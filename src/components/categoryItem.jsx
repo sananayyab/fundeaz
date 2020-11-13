@@ -58,7 +58,7 @@ class CategoryItem extends React.Component
                 <View style={ styles.innerContainer }>
 
                     <Text style={ styles.textView }>
-                        Category
+                        {this.props.name}
                         </Text>
 
 
