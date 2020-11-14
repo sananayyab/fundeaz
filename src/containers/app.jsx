@@ -8,24 +8,34 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createStore} from 'redux'
 import {Provider} from 'react-redux'
-import Store from '../reducer/store'
+import {store, persistor} from '../reducer/store'
 import homepageReducer from '../reducer/homepageReducer'
+import { PersistGate } from 'redux-persist/integration/react';
 class App extends React.Component
 {
    
+
+    constructor(props)
+    {
+        super(props)
+        persistor.purge()
+    }
     render()
     {
-        const store = createStore(homepageReducer);
+       
         const Stack = createStackNavigator();
         return (
             
             <Provider store={store}>
+
+                <PersistGate loading={null} persistor={persistor}>
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="HomePage">
                     <Stack.Screen name="HomePage" component={ HomePage } />
                     <Stack.Screen name="GroupPage" component={ GroupPage} />
                 </Stack.Navigator>
                 </NavigationContainer>
+                </PersistGate>
                 </Provider>
         );
     }

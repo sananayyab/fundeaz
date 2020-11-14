@@ -29,7 +29,7 @@ class CategorySection extends React.Component {
         return (
             <View style={styles.container}>
                 <ScrollView  >
-                {this.props.stuff.Groups.map((item) => ( <CategoryItem  key={item.id} name={item.name}/>))}
+                {this.props.stuff.Groups.map((item) => ( <CategoryItem key={item.id} name={item.name}/>))}
                 </ScrollView>
             </View>
         );
