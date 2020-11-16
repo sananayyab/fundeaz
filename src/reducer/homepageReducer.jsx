@@ -1,6 +1,8 @@
 //add initial state 
 const initialState = {
 
+
+    //change name to groupname 
     id: 3,
     Groups: [
         {id: 0, name: 'testOne'},
@@ -9,7 +11,7 @@ const initialState = {
     ]
 }
 
-export default function homepageReducer(state = initialState, action){
+export function homepageReducer(state = initialState, action){
     switch(action.type){
         case 'ADD_GROUP':
             return {...state,
