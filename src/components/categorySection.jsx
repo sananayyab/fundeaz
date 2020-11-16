@@ -4,10 +4,8 @@ import { StyleSheet, ScrollView, View } from 'react-native';
 import { connect } from 'react-redux';
 import CategoryItem from './categoryItem.jsx';
 class CategorySection extends React.Component {
-
     render() {
         const styles = StyleSheet.create({
-
             container: {
                 marginTop: 20,
                 marginBottom: '4%',
@@ -19,29 +17,18 @@ class CategorySection extends React.Component {
             },
             outterContainer: {
             },
-
-
         })
-    
-    
-        
-     
         return (
             <View style={styles.container}>
                 <ScrollView  >
-                {this.props.stuff.Groups.map((item) => ( <CategoryItem key={item.id} name={item.name}/>))}
+                {this.props.stuff.Groups.map((item) => ( <CategoryItem key={item.id} name={item.name} navigation={this.props.navigation}/>))}
                 </ScrollView>
             </View>
         );
     }
 }
-
-
 const mapStateToProps = (state) => {
-    const stuff  = state
-    return { stuff }
+    const {home}  = state
+    return { stuff: home }
   };
-  
 export default connect(mapStateToProps)(CategorySection);
-
-
