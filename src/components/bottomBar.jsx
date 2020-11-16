@@ -7,47 +7,28 @@ import {addGroup} from '../action/homepageAction'
 import { connect } from 'react-redux';
 class BottomBar extends React.Component
 {
-
-
     constructor(props)
     {
         super(props)
         this.test = this.test.bind(this)
-
     }
     test(){
-        ToastAndroid.show("A pikachu appeared nearby !", ToastAndroid.SHORT);
+        ToastAndroid.show(this.props.number.toString(), ToastAndroid.SHORT);
     }
-    
     render()
     {
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
-
-
-
-
                 marginLeft: '3%',
                 marginRight: '3%',
                 marginBottom: '5%',
-
                 borderRadius: 10,
-
                 flexDirection: 'row',
                 justifyContent: 'space-around',
                 alignItems: 'center'
-
-
-
-
             },
-
-
-
         })
-
-
         return (
             <View style={ styles.container }>
                 <MaterialIcons.Button
@@ -57,13 +38,12 @@ class BottomBar extends React.Component
                     iconStyle={ {
                         marginRight: 0
                     } }
-
                 />
                 <MaterialIcons.Button
                     backgroundColor='teal'
                     name="add"
                     size={ 30 }
-                    onPress={this.props.add}
+                    onPress={this.test}
                     iconStyle={ {
                         marginRight: 0
                     } } 
@@ -75,21 +55,15 @@ class BottomBar extends React.Component
                     iconStyle={ {
                         marginRight: 0
                     } } />
-
-
             </View>
         );
     }
 }
-
 const mapDispatchToProps = (dispatch) => ({
     add: bindActionCreators(addGroup, dispatch)
   })
-
-
 const mapStateToProps = (state) => {
-    const stuff  = state
-    return { stuff }
+    const {groups} = state
+    return { number: groups.currentIndex}
   };
-  
 export default connect(mapStateToProps,mapDispatchToProps)(BottomBar)

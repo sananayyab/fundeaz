@@ -5,6 +5,10 @@ import SpendingSection from '../components/spendingSection.jsx';
 import CategorySection from '../components/categorySection.jsx';
 import TransactionSection from '../components/transactionSection.jsx';
 import Carousel from 'react-native-snap-carousel';
+import {updateIndex} from '../action/groupPageAction'
+import { connect } from 'react-redux';
+import {bindActionCreators } from 'redux'
+
 class InformationSection extends React.Component
 {
      sliderWidth = Dimensions.get('window').width;
@@ -31,6 +35,7 @@ class InformationSection extends React.Component
             <View style={ styles.container }>
            
                 <Carousel
+                    onSnapToItem={(slideIndex) => {this.props.changeIndex(slideIndex)}}
                     data={ this.state.data }
                     renderItem={ this.items }
                     sliderWidth={ this.sliderWidth }
@@ -52,4 +57,11 @@ const styles = StyleSheet.create({
  
 });
 
-export default InformationSection;
+const mapDispatchToProps = (dispatch) => {
+  return {
+      changeIndex: (newIndex) => dispatch(updateIndex(newIndex))
+  }
+}
+
+export default connect(null,mapDispatchToProps)(InformationSection)
+
