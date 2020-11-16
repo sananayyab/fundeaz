@@ -53,8 +53,8 @@ class TopBar extends React.Component
                 style={ styles.container }
                 onPress={ this.navigationToDetails }
                 activeOpacity={ 1 }>
-                <TopBarItem style={ { flex: 1 } } />
-                <TopBarItem style={ { flex: 1 } } />
+                <TopBarItem style={ { flex: 1 } } name={this.props.name}/>
+                <TopBarItem style={ { flex: 1 } } name={this.props.name} />
             </TouchableOpacity>
 
 

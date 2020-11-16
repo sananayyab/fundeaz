@@ -1,34 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
 class TopBarItem extends React.Component
 {
-
-
     render()
     {
         const styles = StyleSheet.create({
             container: {
-            
                 flex: 1,
-
-                
                 marginLeft: '3%',
                 marginRight: '3%',
-              
-               
                 borderRadius: 10,
                 backgroundColor: 'rgba(128,128,128,1)',
-
-
-
             },
             innerContainer: {
                 flex: 0.8,
                 paddingRight: "5%",
                 paddingLeft: "5%",
-          
                 marginTop: '20%',
                 marginBottom: '20%',
                 flexDirection: 'column',
@@ -37,25 +25,16 @@ class TopBarItem extends React.Component
             },
             text: {
                 fontSize: 23,
-                
             }
-
-
         })
-
-
         return (
             <View style={ styles.container }>
                 <View style={ styles.innerContainer }>
-                    <Text style={styles.text}>Category</Text>
+        <Text style={styles.text}>{this.props.name}</Text>
                     <Text style={ styles.text } >Amount</Text>
                 </View>
-
             </View>
         );
     }
 }
-
-
-
 export default TopBarItem
