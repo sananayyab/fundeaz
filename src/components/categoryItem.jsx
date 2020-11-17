@@ -25,19 +25,18 @@ class CategoryItem extends React.Component
     {
         const styles = StyleSheet.create({
             container: {
-                flex: 1,
-                marginTop: '2%',
-                marginLeft: '3%',
-                marginRight: '3%',
+                height: "95%",
+                width: "95%",
+         
                 borderRadius: 10,
-                backgroundColor: 'rgba(128,128,128,0.4)',
+                backgroundColor: '#00487C',
                 justifyContent: 'center',
             },
             innerContainer: {
                 paddingRight: "5%",
                 paddingLeft: "5%",
                 height: 50,
-                flexDirection: 'row',
+                flexDirection: 'column',
                 justifyContent: 'space-between',
                 alignItems: 'center'
             },

@@ -3,50 +3,27 @@ import React from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity, Text} from 'react-native';
 class TranscationAdding extends React.Component
 {
-
     render()
     {
         const styles = StyleSheet.create({
             container: {
-
-
-
-
-
-
-
-
-
-
-
-                
                 marginBottom: '20%',
                 marginLeft: '3%',
                 marginRight: '3%',
                 borderRadius: 10,
-               
                 flex: 1,
-
-
-
-
             },
             outterContainer: {
                 flex: 1,
                 borderRadius: 25,
                 backgroundColor: 'rgba(128,128,128,0.4)',
                 textAlign: 'center'
-                
-            
             },
             textInputes: {
                 marginTop: '10%',
                 flex: 1.5,
-                
                 flexDirection: 'column',
                 justifyContent: 'center'
-               
-
             },
             textViews: {
                 height: '13%',
@@ -54,7 +31,6 @@ class TranscationAdding extends React.Component
                 marginLeft: '2%',
                 marginBottom: '5%',
                 marginTop: '5%'
-               
             },
             buttonStyle: {
                 height: '23%',
@@ -65,11 +41,7 @@ class TranscationAdding extends React.Component
                 alignItems: 'center',
                 borderRadius: 30,
             }
-
-
         })
-
-
         return (
             <View style={ styles.container }>
                 <View style={styles.textInputes}>
@@ -78,8 +50,6 @@ class TranscationAdding extends React.Component
                             style={ styles.outterContainer }
                             value="Payee"
                         />
-
-
                     </View>
                     <View style={ styles.textViews }>
                         <TextInput
@@ -101,12 +71,8 @@ class TranscationAdding extends React.Component
                         <Text>Add</Text>
                     </TouchableOpacity>
                 </View>
-
             </View>
         );
     }
 }
-
-
-
 export default TranscationAdding

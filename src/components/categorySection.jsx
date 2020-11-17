@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, ScrollView, View, Dimensions } from 'react-native';
+import { StyleSheet, ScrollView, View, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import CategoryItem from './categoryItem.jsx';
 import Carousel from 'react-native-snap-carousel';
@@ -34,7 +34,8 @@ class CategorySection extends React.Component {
                 backgroundColor: '#8D8D92',
                 flex: 1,
             },
-            outterContainer: {
+            ListButton: {
+                backgroundColor: 'white',
             },
         })
         return (
@@ -47,6 +48,7 @@ class CategorySection extends React.Component {
                     sliderWidth={ this.sliderWidth }
                     itemWidth={ this.sliderWidth / 2.5}
                 />
+            
             </View>
         );
     }
