@@ -1,37 +1,61 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-class TopBarItem extends React.Component
-{
-    render()
-    {
+class TopBarItem extends React.Component {
+    render() {
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
                 marginLeft: '3%',
                 marginRight: '3%',
+               
                 borderRadius: 10,
-                backgroundColor: 'rgba(128,128,128,1)',
+                flexDirection: 'row',
+               
             },
-            innerContainer: {
+            innerContainerAmount: {
                 flex: 0.8,
+                height: '80%',
                 paddingRight: "5%",
                 paddingLeft: "5%",
-                marginTop: '20%',
-                marginBottom: '20%',
+                borderRadius: 5,
                 flexDirection: 'column',
-                justifyContent: 'space-between',
-                alignItems: 'center'
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#1D2D44',
             },
-            text: {
+            innerContainerText: {
+                flex: 0.5,
+                
+                top:8,
+                height: '53%',
+                paddingRight: "5%",
+                paddingLeft: "5%",
+                borderBottomRightRadius: 5,
+                borderTopRightRadius: 5,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#05845D',
+            },
+            textAmount: {
                 fontSize: 23,
+                color: 'white',
+            },
+            textText: {
+                fontSize: 23,
+                color: 'white',
             }
         })
         return (
-            <View style={ styles.container }>
-                <View style={ styles.innerContainer }>
-        <Text style={styles.text}>{this.props.name}</Text>
-                    <Text style={ styles.text } >Amount</Text>
+            <View style={styles.container}>
+                <View style={styles.innerContainerAmount}>
+                    
+                    <Text style={styles.textAmount} >6000.50</Text>
+                </View>
+                <View style={styles.innerContainerText}>
+                    <Text style={styles.textText}>Available</Text>
+                   
                 </View>
             </View>
         );
