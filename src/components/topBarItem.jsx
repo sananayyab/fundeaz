@@ -27,8 +27,8 @@ class TopBarItem extends React.Component {
             innerContainerText: {
                 flex: 0.5,
                 
-                top:8,
-                height: '53%',
+                top:5,
+                height: '60%',
                 paddingRight: "5%",
                 paddingLeft: "5%",
                 borderBottomRightRadius: 5,
