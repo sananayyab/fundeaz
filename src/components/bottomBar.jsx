@@ -20,11 +20,11 @@ class BottomBar extends React.Component
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
-                marginLeft: '3%',
-                marginRight: '3%',
-                marginBottom: '5%',
+       
                 borderRadius: 10,
                 flexDirection: 'row',
+              
+                
                 justifyContent: 'space-around',
                 alignItems: 'center'
             },

@@ -20,25 +20,48 @@ class HomePage extends React.Component {
                 backgroundColor: 'white',
             },
             topContainer: {
-                flex: 5
+                flex: 4.5
             },
             lowerContainer: {
                 flex: 6.5,
                 flexDirection: 'row'
             },
             spendingContainer: {
+                
                 flex: 14,
                 flexDirection: 'row'
             },
             bottomBar:
             {
+                paddingTop: '4%',
+                paddingBottom: '3%',
                 flex: 1.4
             },
-            categoryBotton:{
-                width: 10000,
-                    backgroundColor: 'white',
+            categoryButton:{
+                width: '9%',
+                borderTopRightRadius: 15,
+                borderBottomRightRadius: 15,
+                marginBottom: '4%',
+                alignSelf: 'flex-start',
+         
+                marginRight: '2%',
+                    height:'50%',
+                    backgroundColor: '#C8C8C8',
                     
-            }
+            },
+            TransactionButton:{
+                width: '9%',
+                borderTopRightRadius: 15,
+                borderBottomRightRadius: 15,
+                marginBottom: '4%',
+                alignSelf: 'flex-start',
+              
+                marginRight: '2%',
+                    height:'40%',
+                    backgroundColor: '#C8C8C8',
+                    
+            },
+      
         });
         return (
             <View style={styles.container}>
@@ -50,17 +73,13 @@ class HomePage extends React.Component {
                   
                     <CategorySection section={"group"} style={{ flex: 1 }} navigation={this.props.navigation} />
                     <TouchableOpacity style={styles.categoryButton}>
-                        <Text>
-                            test
-                        </Text>
+                     
                     </TouchableOpacity>
                 </View>
                 <View style={styles.spendingContainer}>
-                    <SpendingSection />
-                    <TouchableOpacity style={styles.categoryButton}>
-                        <Text>
-                            test
-                        </Text>
+                    <SpendingSection  />
+                    <TouchableOpacity style={styles.TransactionButton}>
+              
                     </TouchableOpacity>
                 </View>
                 <View style={styles.bottomBar}>

@@ -19,7 +19,7 @@ class TopBar extends React.Component
     {
         const styles = StyleSheet.create({
             container: {
-                flex: 0.8,
+                flex: 1,
                 marginTop: '3%',
                 marginLeft: '3%',
                 marginRight: '3%',

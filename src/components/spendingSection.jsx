@@ -15,9 +15,10 @@ class SpendingSection extends React.Component
 
           
                 marginLeft: '3%',
-                marginRight: '3%',
-                maxHeight: '90%',
-                borderRadius: 10,
+            
+                borderBottomLeftRadius: 15,
+                borderTopLeftRadius: 15,
+                borderBottomRightRadius: 15,
               
                 backgroundColor: '#8D8D92',
     
@@ -37,11 +38,12 @@ class SpendingSection extends React.Component
 
 
         return (
-            <ScrollView style={ styles.container }>
+            <ScrollView style={ styles.container } showsVerticalScrollIndicator ={false}
+            showsHorizontalScrollIndicator={false}>
                <SpendingItem/>
                <SpendingItem/>
                <SpendingItem/>
-               <SpendingItem/>
+                 <SpendingItem/>
                <SpendingItem/>
                <SpendingItem/>
                

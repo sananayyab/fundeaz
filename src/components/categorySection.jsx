@@ -28,8 +28,10 @@ class CategorySection extends React.Component {
                 marginTop: 0,
                 marginBottom: '4%',
                 marginLeft: '3%',
-                marginRight: '3%',
-                borderRadius: 10,
+              
+                borderBottomLeftRadius: 15,
+                borderTopLeftRadius: 15,
+                borderBottomRightRadius: 15,
                 flexDirection: 'row',
                 backgroundColor: '#8D8D92',
                 flex: 1,
