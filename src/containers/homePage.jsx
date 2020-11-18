@@ -28,6 +28,7 @@ class HomePage extends React.Component {
             },
             spendingContainer: {
                 flex: 14,
+                flexDirection: 'row'
             },
             bottomBar:
             {
@@ -46,15 +47,21 @@ class HomePage extends React.Component {
                 </View>
                 <View style={styles.lowerContainer}>
                     
+                  
+                    <CategorySection section={"group"} style={{ flex: 1 }} navigation={this.props.navigation} />
                     <TouchableOpacity style={styles.categoryButton}>
                         <Text>
                             test
                         </Text>
                     </TouchableOpacity>
-                    <CategorySection section={"group"} style={{ flex: 1 }} navigation={this.props.navigation} />
                 </View>
                 <View style={styles.spendingContainer}>
                     <SpendingSection />
+                    <TouchableOpacity style={styles.categoryButton}>
+                        <Text>
+                            test
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar />

@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
+
 import SpendingItem from './spendingItem.jsx';
 class SpendingSection extends React.Component
 {
@@ -17,13 +18,9 @@ class SpendingSection extends React.Component
                 marginRight: '3%',
                 maxHeight: '90%',
                 borderRadius: 10,
-                flexDirection: 'column',
-                backgroundColor: '#8D8D92',
-                justifyContent: 'space-around',
               
-               
-                alignItems: 'center'
-
+                backgroundColor: '#8D8D92',
+    
 
             },
             innerContainer: {
@@ -40,12 +37,16 @@ class SpendingSection extends React.Component
 
 
         return (
-            <View style={ styles.container }>
+            <ScrollView style={ styles.container }>
+               <SpendingItem/>
+               <SpendingItem/>
+               <SpendingItem/>
                <SpendingItem/>
                <SpendingItem/>
                <SpendingItem/>
                
-            </View>
+               
+            </ScrollView>
         );
     }
 }
