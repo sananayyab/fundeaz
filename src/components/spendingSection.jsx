@@ -14,7 +14,7 @@ class SpendingSection extends React.Component
 
 
           
-                marginLeft: '3%',
+                marginLeft: '2%',
             
                 borderBottomLeftRadius: 15,
                 borderTopLeftRadius: 15,

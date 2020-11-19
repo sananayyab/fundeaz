@@ -27,7 +27,7 @@ class CategorySection extends React.Component {
             container: {
                 marginTop: 0,
                 marginBottom: '4%',
-                marginLeft: '3%',
+                marginLeft: '2%',
               
                 borderBottomLeftRadius: 15,
                 borderTopLeftRadius: 15,

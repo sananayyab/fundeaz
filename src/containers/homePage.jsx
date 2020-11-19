@@ -8,6 +8,7 @@ import BottomBar from '../components/bottomBar.jsx';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SpendingSection from '../components/spendingSection.jsx';
+import { Feather } from '@expo/vector-icons'; 
 class HomePage extends React.Component {
     constructor(props) {
         super(props)
@@ -45,7 +46,7 @@ class HomePage extends React.Component {
                 alignSelf: 'flex-start',
          
                 marginRight: '2%',
-                    height:'50%',
+                height: 53,
                     backgroundColor: '#C8C8C8',
                     
             },
@@ -55,12 +56,21 @@ class HomePage extends React.Component {
                 borderBottomRightRadius: 15,
                 marginBottom: '4%',
                 alignSelf: 'flex-start',
-              
+                flexDirection: 'row',
+
                 marginRight: '2%',
-                    height:'40%',
+                    height: 53,
                     backgroundColor: '#C8C8C8',
                     
             },
+            lines: {
+                alignSelf: 'center',
+                marginLeft:10,
+                height:80,
+                            backgroundColor: 'black',
+                            width:3,
+
+            }
       
         });
         return (
@@ -73,12 +83,13 @@ class HomePage extends React.Component {
                   
                     <CategorySection section={"group"} style={{ flex: 1 }} navigation={this.props.navigation} />
                     <TouchableOpacity style={styles.categoryButton}>
-                     
+                    <Feather name="list" size={30} color="black" style={{top: 12, left: 3}}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.spendingContainer}>
                     <SpendingSection  />
                     <TouchableOpacity style={styles.TransactionButton}>
+                    <Feather name="list" size={30} color="black" style={{top: 12, left: 3}}/>
               
                     </TouchableOpacity>
                 </View>

@@ -23,9 +23,11 @@ class BottomBar extends React.Component
        
                 borderRadius: 10,
                 flexDirection: 'row',
-              
+                marginLeft: '4%',
+
+                marginRight: '4%',
                 
-                justifyContent: 'space-around',
+                justifyContent: 'space-between',
                 alignItems: 'center'
             },
         })

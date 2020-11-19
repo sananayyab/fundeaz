@@ -21,8 +21,8 @@ class TopBar extends React.Component
             container: {
                 flex: 1,
                 marginTop: '3%',
-                marginLeft: '3%',
-                marginRight: '3%',
+                marginLeft: '2%',
+                marginRight: '2%',
                 borderRadius: 10,
                 flexDirection: 'column',
                 alignItems: 'center',
