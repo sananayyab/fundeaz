@@ -26,6 +26,8 @@ class CategoryItem extends React.Component
         const styles = StyleSheet.create({
             container: {
                flex: 1,
+               marginLeft: '4%',
+               marginRight: '4%',
                 marginBottom: '5%',
                 borderRadius: 10,
                 backgroundColor: '#00487C',
@@ -39,7 +41,7 @@ class CategoryItem extends React.Component
                 height: '28%',
                 borderRadius: 5,
                justifyContent: 'center',
-                marginBottom: '10%',
+                marginBottom: '15%',
                 backgroundColor: '#1D2D44'
             },
             amountContainer: {
