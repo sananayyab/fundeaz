@@ -3,6 +3,17 @@ import React from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import TransactionItem from './transactionItem';
 class TransactionSection extends React.Component {
+
+    constructor(props)
+    {
+        super(props)
+        this.loadTransactionList = this.loadTransactionList.bind(this)
+    }
+
+    loadTransactionList()
+    {
+        this.props.navigation.navigate('TransactionList')
+    }
     render() {
         const styles = StyleSheet.create({
             container: {
@@ -37,7 +48,8 @@ class TransactionSection extends React.Component {
         })
         return (
             <View style={styles.container} >
-                <TouchableOpacity style={styles.TransactionButton}>
+                <TouchableOpacity style={styles.TransactionButton}
+                onPress={this.loadTransactionList}>
                     <View style={styles.lines} />
                 </TouchableOpacity>
                 <ScrollView style={styles.TransactionContainer} showsVerticalScrollIndicator={false}
