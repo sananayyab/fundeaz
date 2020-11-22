@@ -5,6 +5,7 @@ import { registerRootComponent } from 'expo';
 import HomePage from './homePage.jsx';
 import GroupPage from './groupPage.jsx';
 import CategoryListPage from './categoryListPage.jsx'
+import TransactionListPage from './transactionListPage.jsx'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createStore} from 'redux'
@@ -36,6 +37,7 @@ class App extends React.Component
                     <Stack.Screen name="HomePage" component={ HomePage } />
                     <Stack.Screen name="GroupPage" component={ GroupPage} />
                     <Stack.Screen name="CategoryList" component={ CategoryListPage} />
+                    <Stack.Screen name="TransactionList" component={ TransactionListPage} />
                 </Stack.Navigator>
                 </NavigationContainer>
                 </PersistGate>
