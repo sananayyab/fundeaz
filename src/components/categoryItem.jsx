@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
 import { StyleSheet, Text, ToastAndroid, View , TouchableOpacity} from 'react-native';
 class CategoryItem extends React.Component
@@ -25,33 +25,48 @@ class CategoryItem extends React.Component
     {
         const styles = StyleSheet.create({
             container: {
-                height: "95%",
-                width: "95%",
-         
+               flex: 1,
+                marginBottom: '5%',
                 borderRadius: 10,
                 backgroundColor: '#00487C',
                 justifyContent: 'center',
             },
-            innerContainer: {
-                paddingRight: "5%",
-                paddingLeft: "5%",
-                height: 50,
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                alignItems: 'center'
+            nameContainer: {
+                marginLeft: '8%',
+                marginRight: '8%',
+                height: '28%',
+                borderRadius: 5,
+               
+                marginBottom: '15%',
+                backgroundColor: '#1D2D44'
+            },
+            amountContainer: {
+               
+                marginLeft: '8%',
+                marginRight: '8%',
+                height: '28%',
+                borderRadius: 5,
+               
+               
+             
+                backgroundColor: '#05845D'
             },
             textView: {
-                alignSelf: 'center',
+                fontSize: 22,
                 textAlign: 'center',
-                flexDirection: 'column',
+               
             }
         })
         return (
             <TouchableOpacity style={ styles.container } onPress={this.pressed}>
-                <View style={ styles.innerContainer }>
+                <View style={ styles.nameContainer }>
                     <Text style={ styles.textView }>
                         {this.props.name}
                         </Text>
+                   
+                </View>
+                <View style={ styles.amountContainer }>
+             
                     <Text style={ styles.textView } >
                         Amount
                         </Text>

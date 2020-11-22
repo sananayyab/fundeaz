@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
 import { StyleSheet, ScrollView, View, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
@@ -6,7 +6,7 @@ import CategoryItem from './categoryItem.jsx';
 import Carousel from 'react-native-snap-carousel';
 
 class CategorySection extends React.Component {
-    sliderWidth = Dimensions.get('window').width;
+    sliderWidth = Dimensions.get('window').width - 20;
 
     constructor(props){
         super(props)
@@ -25,12 +25,15 @@ class CategorySection extends React.Component {
     render() {
         const styles = StyleSheet.create({
             container: {
-                marginTop: 0,
+           
                 marginBottom: '4%',
                 marginLeft: '2%',
-              
+                marginRight: '2%',
+                //borderTopRightRadius: 15,
+                //borderTopLeftRadius: 15,
                 borderBottomLeftRadius: 15,
-                borderTopLeftRadius: 15,
+              
+               
                 borderBottomRightRadius: 15,
                 flexDirection: 'row',
                 backgroundColor: '#8D8D92',
@@ -47,8 +50,8 @@ class CategorySection extends React.Component {
                 
                     data={ this.props.stuff.Groups.map((item) => ( <CategoryItem key={item.id} name={item.name} navigation={this.props.navigation}/>))}
                     renderItem={ this.items }
-                    sliderWidth={ this.sliderWidth }
-                    itemWidth={ this.sliderWidth / 2.5}
+                    sliderWidth={ this.sliderWidth  }
+                    itemWidth={ 190}
                 />
             
             </View>
