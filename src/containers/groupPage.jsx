@@ -13,6 +13,12 @@ import { Feather } from '@expo/vector-icons';
 class GroupPage extends React.Component {
     constructor(props) {
         super(props)
+        this.loadCategoryList = this.loadCategoryList.bind(this)
+    }
+
+    loadCategoryList()
+    {
+        this.props.navigation.navigate('CategoryList')
     }
     render() {
         const styles = StyleSheet.create({
@@ -56,6 +62,7 @@ class GroupPage extends React.Component {
                 backgroundColor: '#C8C8C8',
                 width: '30%',
             }
+      
         });
         return (
             <View style={styles.container}>
@@ -64,14 +71,15 @@ class GroupPage extends React.Component {
                     <TopBar navigation={this.props.navigation} />
                 </View>
                 <View style={styles.categoryContainer}>
-                    <TouchableOpacity style={styles.categoryButton}>
+                    <TouchableOpacity style={styles.categoryButton}
+                    onPress={this.loadCategoryList}>
                         <View style={styles.lines} />
                     </TouchableOpacity>
                     <CategorySection section={"group"} style={{ flex: 1 }} navigation={this.props.navigation} />
                 </View>
                 <View style={styles.spendingContainer}>
                 
-                    <TransactionSection />
+                    <TransactionSection navigation={this.props.navigation}/>
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar />
