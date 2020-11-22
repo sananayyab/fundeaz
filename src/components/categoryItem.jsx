@@ -38,8 +38,8 @@ class CategoryItem extends React.Component
                 marginRight: '8%',
                 height: '28%',
                 borderRadius: 5,
-               
-                marginBottom: '15%',
+               justifyContent: 'center',
+                marginBottom: '10%',
                 backgroundColor: '#1D2D44'
             },
             amountContainer: {
@@ -50,20 +50,27 @@ class CategoryItem extends React.Component
                 borderRadius: 5,
                
                
-             
+                justifyContent: 'center',
                 backgroundColor: '#05845D'
             },
             textView: {
                 color: 'white',
-                fontSize: 22,
+                fontSize: 21,
                 textAlign: 'center',
+               
+            },
+            Nametext: {
+                color: 'white',
+                fontSize: 18,
+                textAlign: 'center',
+                
                
             }
         })
         return (
             <TouchableOpacity style={ styles.container } onPress={this.pressed}>
                 <View style={ styles.nameContainer }>
-                    <Text style={ styles.textView }>
+                    <Text style={ styles.Nametext }>
                         {this.props.name}
                         </Text>
                    
@@ -71,7 +78,7 @@ class CategoryItem extends React.Component
                 <View style={ styles.amountContainer }>
              
                     <Text style={ styles.textView } >
-                        Amount
+                        500
                         </Text>
                 </View>
             </TouchableOpacity>
