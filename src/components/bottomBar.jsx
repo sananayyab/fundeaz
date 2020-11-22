@@ -20,12 +20,12 @@ class BottomBar extends React.Component
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
-       
+                
                 borderRadius: 10,
                 flexDirection: 'row',
-                marginLeft: '4%',
+                marginLeft: '3%',
 
-                marginRight: '4%',
+                marginRight: '3%',
                 
                 justifyContent: 'space-between',
                 alignItems: 'center'
@@ -34,26 +34,29 @@ class BottomBar extends React.Component
         return (
             <View style={ styles.container }>
                 <MaterialIcons.Button
-                    backgroundColor='teal'
-                    name="add"
-                    size={ 30 }
+                    backgroundColor='#7C7D8D'
+                    name="settings"
+                    color='black'
+                    size={ 35}
                     iconStyle={ {
                         marginRight: 0
                     } }
                 />
                 <MaterialIcons.Button
-                    backgroundColor='teal'
+                    backgroundColor='#7C7D8D'
                     name="add"
-                    size={ 30 }
+                    color='black'
+                    size={ 35 }
                     onPress={this.test}
                     iconStyle={ {
                         marginRight: 0
                     } } 
                     />
                 <MaterialIcons.Button
-                    backgroundColor='teal'
-                    name="add"
-                    size={ 30 }
+                    backgroundColor='#7C7D8D'
+                    color='black'
+                    name="pie-chart"
+                    size={ 35}
                     iconStyle={ {
                         marginRight: 0
                     } } />
