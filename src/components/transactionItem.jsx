@@ -12,7 +12,7 @@ class TransactionItem extends React.Component {
                 borderRadius: 10,
             },
             CategoryContainer: {
-                flex: 1,
+                flex: 2,
                 backgroundColor: '#1D2D44',
                 paddingLeft: 13,
            
@@ -28,6 +28,7 @@ class TransactionItem extends React.Component {
                 color: "white",
             },
             amountContainer: {
+                flex: 1.1,
                 alignSelf: "flex-end",
                 borderBottomLeftRadius: 10,
                 borderBottomRightRadius: 10,
