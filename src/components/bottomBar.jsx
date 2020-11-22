@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
 import { Button, StyleSheet, ToastAndroid, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';

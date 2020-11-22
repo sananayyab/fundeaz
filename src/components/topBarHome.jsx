@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
 import TopBarItem from './topBarItem.jsx'
 import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid } from 'react-native';

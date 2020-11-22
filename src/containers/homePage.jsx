@@ -1,14 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
-import { StyleSheet, Text, View, ToastAndroid, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ToastAndroid, TouchableOpacity, StatusBar } from 'react-native';
 import { registerRootComponent } from 'expo';
 import TopBar from '../components/topBarHome.jsx';
 import CategorySection from '../components/categorySection.jsx';
 import BottomBar from '../components/bottomBar.jsx';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SpendingSection from '../components/spendingSection.jsx';
 import { Feather } from '@expo/vector-icons'; 
+import TransactionSection from '../components/transactionSection';
 class HomePage extends React.Component {
     constructor(props) {
         super(props)
@@ -75,6 +75,7 @@ class HomePage extends React.Component {
         });
         return (
             <View style={styles.container}>
+                 <StatusBar style="default"/>
                 <View style={styles.topContainer}>
                     <TopBar navigation={this.props.navigation} />
                 </View>
@@ -87,7 +88,7 @@ class HomePage extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.spendingContainer}>
-                    <SpendingSection  />
+                    <TransactionSection  />
                     <TouchableOpacity style={styles.TransactionButton}>
                     <Feather name="list" size={30} color="black" style={{top: 12, left: 3}}/>
               

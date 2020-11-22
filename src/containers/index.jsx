@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
 import { registerRootComponent } from 'expo';
 import App from './app'
@@ -21,3 +21,4 @@ class Index extends React.Component {
 
 
 export default registerRootComponent(Index);
+1

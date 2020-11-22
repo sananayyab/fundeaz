@@ -7,7 +7,8 @@ const initialState = {
     Groups: [
         {id: 0, name: 'testOne'},
         {id: 1, name: 'testTwo'},
-        {id: 2, name: 'testThree'}
+        {id: 2, name: 'testThree'},
+     
     ]
 }
 

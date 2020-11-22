@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity, Text} from 'react-native';
 class TranscationAdding extends React.Component

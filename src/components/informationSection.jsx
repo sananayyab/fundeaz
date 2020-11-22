@@ -1,9 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
 import { StyleSheet, View, Dimensions} from 'react-native';
-import SpendingSection from '../components/spendingSection.jsx';
+import SpendingSection from './transactionSection.jsx';
 import CategorySection from '../components/categorySection.jsx';
-import TransactionSection from '../components/transactionSection.jsx';
+import TransactionSection from './null2.jsx';
 import Carousel from 'react-native-snap-carousel';
 import {updateIndex} from '../action/groupPageAction'
 import { connect } from 'react-redux';
@@ -17,7 +17,7 @@ class InformationSection extends React.Component
     {
         super(props);
         this.state = {
-               data: [<TransactionSection/>, <CategorySection/>, <SpendingSection/>]
+               
             }
     }
     items = ({ item, index }) =>

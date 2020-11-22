@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
-import { StyleSheet, Text, View, ToastAndroid, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ToastAndroid, TouchableOpacity, StatusBar } from 'react-native';
 import { registerRootComponent } from 'expo';
 import TopBar from '../components/topBarHome.jsx';
 import CategorySection from '../components/categorySection.jsx';
@@ -16,6 +16,7 @@ class HomePage extends React.Component {
     render() {
         const styles = StyleSheet.create({
             container: {
+                
                 flex: 1,
                 flexDirection: 'column',
                 backgroundColor: 'white',
@@ -57,6 +58,7 @@ class HomePage extends React.Component {
         });
         return (
             <View style={styles.container}>
+              <StatusBar style="default"/>
                 <View style={styles.topContainer}>
                     <TopBar navigation={this.props.navigation} />
                 </View>

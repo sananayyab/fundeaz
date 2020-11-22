@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { registerRootComponent } from 'expo';
@@ -30,7 +30,8 @@ class App extends React.Component
 
                 <PersistGate loading={null} persistor={persistor}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="HomePage">
+                <Stack.Navigator initialRouteName="HomePage" 
+                 screenOptions={{headerShown: false}}>
                     <Stack.Screen name="HomePage" component={ HomePage } />
                     <Stack.Screen name="GroupPage" component={ GroupPage} />
                 </Stack.Navigator>
