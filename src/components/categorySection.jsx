@@ -50,11 +50,11 @@ class CategorySection extends React.Component {
                enableSnap={false}
                inactiveSlideOpacity={1}
                inactiveSlideScale={1}
-                activeSlideAlignment={'center'}
+                activeSlideAlignment={'start'}
                     data={ this.props.stuff.Groups.map((item) => ( <CategoryItem key={item.id} name={item.name} navigation={this.props.navigation}/>))}
                     renderItem={ this.items }
                     sliderWidth={ this.sliderWidth  }
-                    itemWidth={ 180}
+                    itemWidth={ 197}
                 />
             
             </View>

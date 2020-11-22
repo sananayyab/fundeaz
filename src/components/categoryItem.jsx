@@ -16,7 +16,7 @@ class CategoryItem extends React.Component
 
      // passing , navigation: this.props.navigation was causing the issue, find another way to pass navigation 
         this.props.navigation.navigate('GroupPage',{name: this.props.name})
-        ToastAndroid.show("test",ToastAndroid.SHORT)
+    
 
 
     }
