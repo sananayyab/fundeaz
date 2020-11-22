@@ -7,9 +7,10 @@ import CategorySection from '../components/categorySection.jsx';
 import BottomBar from '../components/bottomBar.jsx';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SpendingSection from '../components/transactionSection.jsx';
+import TransactionSection from '../components/transactionSection';
 import { Feather } from '@expo/vector-icons';
-class HomePage extends React.Component {
+
+class GroupPage extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -22,7 +23,7 @@ class HomePage extends React.Component {
                 backgroundColor: 'white',
             },
             topContainer: {
-                flex: 4
+                flex: 5
             },
             categoryContainer: {
                 flex: 8,
@@ -70,7 +71,7 @@ class HomePage extends React.Component {
                 </View>
                 <View style={styles.spendingContainer}>
                 
-                    <SpendingSection />
+                    <TransactionSection />
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar />
@@ -79,4 +80,4 @@ class HomePage extends React.Component {
         );
     }
 }
-export default HomePage;
+export default GroupPage;
