@@ -6,18 +6,18 @@ class TopBarItem extends React.Component {
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
-                marginLeft: '3%',
-                marginRight: '3%',
+                marginLeft: '2%',
+                marginRight: '2%',
                
                 borderRadius: 10,
                 flexDirection: 'row',
                
             },
             innerContainerAmount: {
-                flex: 0.8,
-                height: '80%',
-                paddingRight: "5%",
-                paddingLeft: "5%",
+                flex: 2.5,
+         
+                height: '70%',
+
                 borderRadius: 5,
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -25,12 +25,13 @@ class TopBarItem extends React.Component {
                 backgroundColor: '#1D2D44',
             },
             innerContainerText: {
-                flex: 0.5,
+                flex: 1.2,
                 
-                top:5,
-                height: '60%',
-                paddingRight: "5%",
-                paddingLeft: "5%",
+                top:10,
+                height: '43%',
+            
+              
+           
                 borderBottomRightRadius: 5,
                 borderTopRightRadius: 5,
                 flexDirection: 'column',
@@ -39,11 +40,14 @@ class TopBarItem extends React.Component {
                 backgroundColor: '#05845D',
             },
             textAmount: {
-                fontSize: 23,
+                fontSize: 28,
                 color: 'white',
             },
             textText: {
-                fontSize: 23,
+              
+                alignSelf: 'center',
+                textAlign: 'center',
+                fontSize: 17,
                 color: 'white',
             }
         })
@@ -54,7 +58,7 @@ class TopBarItem extends React.Component {
                     <Text style={styles.textAmount} >6000.50</Text>
                 </View>
                 <View style={styles.innerContainerText}>
-                    <Text style={styles.textText}>Available</Text>
+                    <Text style={styles.textText}>Unallocated</Text>
                    
                 </View>
             </View>
