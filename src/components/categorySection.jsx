@@ -51,7 +51,7 @@ class CategorySection extends React.Component {
                     data={ this.props.stuff.Groups.map((item) => ( <CategoryItem key={item.id} name={item.name} navigation={this.props.navigation}/>))}
                     renderItem={ this.items }
                     sliderWidth={ this.sliderWidth  }
-                    itemWidth={ 190}
+                    itemWidth={ 180}
                 />
             
             </View>
