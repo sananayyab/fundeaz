@@ -7,7 +7,7 @@ import GroupPage from './groupPage.jsx';
 import CategoryListPage from './categoryListPage.jsx'
 import TransactionListPage from './transactionListPage.jsx'
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator , CardStyleInterpolators} from '@react-navigation/stack';
 import { createStore} from 'redux'
 import {Provider} from 'react-redux'
 import {store, persistor} from '../reducer/store'
@@ -33,7 +33,13 @@ class App extends React.Component
                 <PersistGate loading={null} persistor={persistor}>
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="HomePage" 
-                 screenOptions={{headerShown: false}}>
+                 screenOptions={{headerShown: false, 
+                    gestureEnabled: true,
+                    gestureDirection: "horizontal",
+                   cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                    
+                }} 
+              >
                     <Stack.Screen name="HomePage" component={ HomePage } />
                     <Stack.Screen name="GroupPage" component={ GroupPage} />
                     <Stack.Screen name="CategoryList" component={ CategoryListPage} />
