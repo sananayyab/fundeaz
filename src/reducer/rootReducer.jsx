@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
-import { groupPageReducer } from './groupPageReducer';
-import { homepageReducer } from './homepageReducer';
-
+import { fundReducer } from './fundReducer';
+import { groupReducer } from './groupReducer';
+import { statisticsReducer } from './statisticsReducer';
+import { transactionReducer } from './transactionReducer';
 const rootReducer = combineReducers({
-  groups: groupPageReducer,
-  home: homepageReducer
+  groups: groupReducer,
+  fund: fundReducer,
+  statistics: statisticsReducer,
+  transactions: transactionReducer
 });
 
 export default rootReducer
