@@ -13,7 +13,7 @@ const initialState = {
 
     }
 }
-export function groupReducer(state = initialState, action) {
+export function fundReducer(state = initialState, action) {
     switch (action.type) {
         case 'ADD_TOTAL_AVAILABLE':
             return {
