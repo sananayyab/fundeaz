@@ -18,6 +18,7 @@ class TransactionItem extends React.Component {
            
                 flexDirection: 'column',
                 alignContent: 'center',
+                justifyContent: 'center',
                 alignItems: 'flex-start',
                 borderBottomLeftRadius: 10,
                 borderTopRightRadius: 10,
