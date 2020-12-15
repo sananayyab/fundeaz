@@ -4,7 +4,7 @@ import { groupReducer } from './groupReducer';
 import { statisticsReducer } from './statisticsReducer';
 import { transactionReducer } from './transactionReducer';
 const rootReducer = combineReducers({
-  groups: groupReducer,
+  groupData: groupReducer,
   fund: fundReducer,
   statistics: statisticsReducer,
   transactions: transactionReducer

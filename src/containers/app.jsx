@@ -11,7 +11,6 @@ import { createStackNavigator , CardStyleInterpolators} from '@react-navigation/
 import { createStore} from 'redux'
 import {Provider} from 'react-redux'
 import {store, persistor} from '../reducer/store'
-import homepageReducer from '../reducer/homepageReducer'
 import { PersistGate } from 'redux-persist/integration/react';
 class App extends React.Component
 {
