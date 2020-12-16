@@ -4,7 +4,10 @@
     name: 
     currentID:
     categories: {
-
+       [id]:{
+        name: 
+        id:
+       }
     }
 }
 
@@ -14,8 +17,16 @@ const initialState = {
     groups: {
         1: {
             name: 'test',
-            currentCategoryID: 0,
-            categories: {}
+            currentCategoryID: 3,
+            categories: {
+                1: {
+                    name: 'test1'
+                },
+                2: {
+                    name: 'test2'
+                }
+
+            }
         }
     }
 }

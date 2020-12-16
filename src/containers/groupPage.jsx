@@ -5,7 +5,7 @@ import { registerRootComponent } from 'expo';
 import TopBar from '../components/topBarHome.jsx';
 import CategorySection from '../components/categorySection.jsx';
 import BottomBar from '../components/bottomBar.jsx';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import TransactionSection from '../components/transactionSection';
 import { Feather } from '@expo/vector-icons';
@@ -21,6 +21,7 @@ class GroupPage extends React.Component {
         this.props.navigation.navigate('CategoryList')
     }
     render() {
+      
         const styles = StyleSheet.create({
             container: {
                 
@@ -64,7 +65,9 @@ class GroupPage extends React.Component {
             }
       
         });
+        const {route} = this.props
         return (
+
             <View style={styles.container}>
               <StatusBar style="default"/>
                 <View style={styles.topContainer}>
@@ -75,7 +78,7 @@ class GroupPage extends React.Component {
                     onPress={this.loadCategoryList}>
                         <View style={styles.lines} />
                     </TouchableOpacity>
-                    <CategorySection section={"group"} style={{ flex: 1 }} navigation={this.props.navigation} />
+                    <CategorySection section={"category"} groupName={this.props.route.params.name} groupID={route.params.id}  style={{ flex: 1 }} navigation={this.props.navigation} />
                 </View>
                 <View style={styles.spendingContainer}>
                 
@@ -88,4 +91,9 @@ class GroupPage extends React.Component {
         );
     }
 }
-export default GroupPage;
+export default function(props) {
+    const route = useRoute();
+    const navigation = useNavigation();
+  
+    return <GroupPage {...props} navigation={navigation} route={route} />;
+  }

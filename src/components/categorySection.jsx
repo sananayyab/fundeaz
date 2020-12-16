@@ -22,7 +22,19 @@ class CategorySection extends React.Component {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
             }*/
 
-            return(Object.entries(this.props.groupList).map( ([key, value]) =>  <CategoryItem key={key} name={value.name} navigation={this.props.navigation}/>))
+            return(Object.entries(this.props.groupList).map( ([key, value]) =>  <CategoryItem key={key}  id={ key}name={value.name} item={'group'} navigation={this.props.navigation}/>))
+            
+            
+        }
+        if (this.props.section === "category") {
+            /*var tags;
+            var list = this.props.groupList
+            for (var key in list)
+            {
+                tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
+            }*/
+        
+            return(Object.entries(this.props.groupList[this.props.groupID].categories).map( ([key, value]) =>  <CategoryItem key={key} groupID={this.props.groupID} groupName={this.props.groupName} name={value.name} item={'category'} navigation={this.props.navigation}/>))
             
             
         }
