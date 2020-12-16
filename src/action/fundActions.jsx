@@ -54,7 +54,7 @@ export function removeSpendCategory(amount, groupID, categoryID) {
     }
 }
 
-export function initializeCategory(amount, groupID, categoryID) {
+export function initializeCategory(groupID, categoryID) {
     return {
         type: 'INITIALIZE_CATEGORY',
         groupID,
@@ -63,7 +63,7 @@ export function initializeCategory(amount, groupID, categoryID) {
     }
 }
 
-export function initializeGroup(amount, groupID) {
+export function initializeGroup(groupID) {
     return {
         type: 'INITIALIZE_GROUP',
         groupID,
