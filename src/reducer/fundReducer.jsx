@@ -30,7 +30,6 @@ export function fundReducer(state = initialState, action) {
         case 'INITIALIZE_CATEGORY':
             return {
                 ...state,
-                unallocated: state.unallocated - action.amount,
                 groups: {
                     ...state.groups,
                     [action.groupID]: {
@@ -47,7 +46,6 @@ export function fundReducer(state = initialState, action) {
         case 'INITIALIZE_GROUP':
             return {
                 ...state,
-                unallocated: state.unallocated - action.amount,
                 groups: {
                     ...state.groups,
                     [action.groupID]: { 
