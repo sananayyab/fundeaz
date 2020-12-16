@@ -27,6 +27,36 @@ export function fundReducer(state = initialState, action) {
                 available: state.available - action.amount,
                 unallocated: state.unallocated - action.amount,
             }
+        case 'INITIALIZE_CATEGORY':
+            return {
+                ...state,
+                unallocated: state.unallocated - action.amount,
+                groups: {
+                    ...state.groups,
+                    [action.groupID]: {
+                        ...state.groups[action.groupID],
+                        [action.categoryID]: {
+                            available: 0,
+                            allocated: 0,
+
+                        }
+                    }
+
+                }
+            }
+        case 'INITIALIZE_GROUP':
+            return {
+                ...state,
+                unallocated: state.unallocated - action.amount,
+                groups: {
+                    ...state.groups,
+                    [action.groupID]: { 
+                        available: 0,
+                        allocated: 0,
+                    }
+
+                }
+            }
         case 'ALLOCATE_TO_CATEGORY':
             return {
                 ...state,
@@ -47,36 +77,34 @@ export function fundReducer(state = initialState, action) {
 
                 }
             }
-            case 'DEALLOCATE_CATEGORY':
-                allocatedToGroup = state.groups[action.groupID].allocated - amount
-                allocatedToCategory = state.groups[action.groupID].categories[action.categoryID].allocated - amount
-                if(allocatedToGroup < 0)
-                {
-                    allocatedToGroup = 0
-                }
-                if(allocatedToCategory < 0 )
-                {
-                    allocatedToCategory = 0
-                }
-                return {
-                    ...state,
-                    unallocated: state.unallocated + action.amount,
-                    groups: {
-                        ...state.groups,
-                        [action.groupID]: {
-                            ...state.groups[action.groupID],
-                            available: state.groups[action.groupID].available - amount,
-                            allocated: allocatedToGroup,
-                            [action.categoryID]: {
-                                ...state.groups[action.groupID].categories[action.categoryID],
-                                available: state.groups[action.groupID].categories[action.categoryID].available - amount,
-                                allocated: allocatedToCategory,
-    
-                            }
+        case 'DEALLOCATE_CATEGORY':
+            allocatedToGroup = state.groups[action.groupID].allocated - amount
+            allocatedToCategory = state.groups[action.groupID].categories[action.categoryID].allocated - amount
+            if (allocatedToGroup < 0) {
+                allocatedToGroup = 0
+            }
+            if (allocatedToCategory < 0) {
+                allocatedToCategory = 0
+            }
+            return {
+                ...state,
+                unallocated: state.unallocated + action.amount,
+                groups: {
+                    ...state.groups,
+                    [action.groupID]: {
+                        ...state.groups[action.groupID],
+                        available: state.groups[action.groupID].available - amount,
+                        allocated: allocatedToGroup,
+                        [action.categoryID]: {
+                            ...state.groups[action.groupID].categories[action.categoryID],
+                            available: state.groups[action.groupID].categories[action.categoryID].available - amount,
+                            allocated: allocatedToCategory,
+
                         }
-    
                     }
+
                 }
+            }
         case 'SPEND_CATEGORY':
             return {
                 ...state,
