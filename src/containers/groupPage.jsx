@@ -18,7 +18,11 @@ class GroupPage extends React.Component {
 
     loadCategoryList()
     {
-        this.props.navigation.navigate('CategoryList')
+        this.props.navigation.navigate('CategoryList', 
+        this.props.navigation.navigate('CategoryList', {
+            page: 'group',
+            groupID: this.props.route.params.id,
+        }))
     }
     render() {
       
