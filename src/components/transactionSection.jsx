@@ -6,8 +6,7 @@ import { connect } from 'react-redux';
 import CategoryItem from './categoryItem';
 class TransactionSection extends React.Component {
 
-    constructor(props)
-    {
+    constructor(props) {
         super(props)
         this.loadTransactionList = this.loadTransactionList.bind(this)
         this.getData = this.getData.bind(this)
@@ -22,9 +21,9 @@ class TransactionSection extends React.Component {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
             }*/
 
-            return(Object.entries(this.props.transactionList).map( ([key, value]) =>  <TransactionItem key={key}  id={ key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation}/>))
-            
-            
+            return (Object.entries(this.props.transactionList).map(([key, value]) => <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />))
+
+
         }
         if (this.props.page === "group") {
             /*var tags;
@@ -33,15 +32,25 @@ class TransactionSection extends React.Component {
             {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
             }*/
-        
-            return(Object.entries(this.props.transactionList).map( ([key, value]) => (parseInt(value.groupID) === parseInt(this.props.groupID)) && <TransactionItem key={key}  id={ key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation}/>))
-            
-            
-        }}
+
+            return (Object.entries(this.props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(this.props.groupID)) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />))
+
+
+        }
+    }
+
+    loadTransactionList() {
       
-    loadTransactionList()
-    {
-        this.props.navigation.navigate('TransactionList')
+        if (this.props.page === "group") {
+            this.props.navigation.navigate('TransactionList', {
+                groupID: this.props.groupID
+            })
+        }
+        this.props.navigation.navigate('TransactionList', {
+            groupID: null
+        })
+        
+        
     }
     render() {
         const data = this.getData();
@@ -79,14 +88,14 @@ class TransactionSection extends React.Component {
         return (
             <View style={styles.container} >
                 <TouchableOpacity style={styles.TransactionButton}
-                onPress={this.loadTransactionList}>
+                    onPress={this.loadTransactionList}>
                     <View style={styles.lines} />
                 </TouchableOpacity>
                 <ScrollView style={styles.TransactionContainer} showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}>
                     <View style={{ height: 20 }} />
-                   {data}
-                    
+                    {data}
+
                     <View style={{ height: 51 }} />
                 </ScrollView>
             </View>
@@ -96,7 +105,7 @@ class TransactionSection extends React.Component {
 
 const mapStateToProps = (state) => {
     const { transactions } = state
-    return { transactionList: transactions.transactions}
+    return { transactionList: transactions.transactions }
 };
 export default connect(mapStateToProps)(TransactionSection);
 
