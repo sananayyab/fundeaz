@@ -33,6 +33,13 @@ const initialState = {
             categoryName: 'test1',
             amount: 200,
             payee: 'Nike'
+        },
+        4: {
+            groupID: 2,
+            categoryID: 1,
+            categoryName: 'test2',
+            amount: 200,
+            payee: 'Nike'
         }
     }
 }

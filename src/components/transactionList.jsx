@@ -15,7 +15,7 @@ class TransactionList extends React.Component {
     }
 
     getData() {
-        if (this.props.route.params.groupID === null) {
+        if (parseInt(  this.props.groupID) === -1) {
             /*var tags;
             var list = this.props.groupList
             for (var key in list)
@@ -27,7 +27,7 @@ class TransactionList extends React.Component {
 
 
         }
-        if (this.props.route.params.groupID != null) {
+        if (parseInt(  this.props.groupID) === 1) {
             /*var tags;
             var list = this.props.groupList
             for (var key in list)
@@ -35,7 +35,7 @@ class TransactionList extends React.Component {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
             }*/
 
-            return (Object.entries(this.props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(this.props.route.params.groupID )) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />))
+            return (Object.entries(this.props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(this.props.groupID )) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />))
 
 
         }
@@ -69,10 +69,4 @@ const mapStateToProps = (state) => {
     const { transactions } = state
     return { transactionList: transactions.transactions }
 };
-export default connect(mapStateToProps)(function(props) {
-    const route = useRoute();
-    const navigation = useNavigation();
-
-  
-    return <TransactionList {...props} navigation={navigation} route={route} />;
-  })
+export default connect(mapStateToProps)(TransactionList)
