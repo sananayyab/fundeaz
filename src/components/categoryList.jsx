@@ -23,7 +23,7 @@ class CategoryList extends React.Component {
         }
         else if (this.props.data.page === 'group')
         {
-            return(Object.entries(this.props.groupList[this.props.groupID].categories).map( ([key, value]) =>  <CategoryListItem key={key} groupID={this.props.groupID} groupName={this.props.groupName} name={value.name} item={'category'} navigation={this.props.navigation}/>))
+            return(Object.entries(this.props.groupList[this.props.data.groupID].categories).map( ([key, value]) =>  <CategoryListItem key={key} groupID={this.props.data.groupID} amount={this.props.groupFunds[this.props.data.groupID].categories[key].available} name={value.name} item={'category'} navigation={this.props.navigation}/>))
         }
     }
     render() {
