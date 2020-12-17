@@ -5,9 +5,22 @@ import BottomBar from '../components/bottomBar.jsx';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Feather } from '@expo/vector-icons';
+import { useNavigation , useRoute} from '@react-navigation/native';
 class CategoryListPage extends React.Component {
     constructor(props) {
         super(props)
+        if(this.props.route.params.page === 'home')
+        {
+            this.data ={
+                page: 'home'
+            }
+        }else  if(this.props.route.params.page === 'group')
+        {
+            this.data ={
+                page: 'group',
+                groupID : this.props.route.params.groupID
+            }
+        }
     }
     render() {
         const styles = StyleSheet.create({
@@ -29,11 +42,13 @@ class CategoryListPage extends React.Component {
                 flex: 20,
             }
         });
+
+    
         return (
             <View style={styles.container}>
                 <StatusBar style="default" />
                 <View style={styles.list}>
-                    <CategoryList/>
+                    <CategoryList data={this.data} />
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar />
@@ -42,4 +57,10 @@ class CategoryListPage extends React.Component {
         );
     }
 }
-export default CategoryListPage
+export default function(props) {
+    const route = useRoute();
+    const navigation = useNavigation();
+  
+    return <CategoryListPage {...props} navigation={navigation} route={route} />;
+  }
+

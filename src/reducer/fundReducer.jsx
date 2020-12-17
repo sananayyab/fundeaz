@@ -11,7 +11,7 @@ const initialState = {
     unallocated: 0,
     groups: {
         [1]: {
-            available: 0,
+            available: -100,
             allocated: 0,
             categories: {
                 1: {
