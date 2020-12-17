@@ -56,6 +56,27 @@ class CategoryItem extends React.Component {
                 marginBottom: '15%',
                 backgroundColor: '#1D2D44'
             },
+
+            amountContainerPositive: {
+                marginLeft: '8%',
+                marginRight: '8%',
+                height: '28%',
+                borderRadius: 5,
+
+
+                justifyContent: 'center',
+                backgroundColor: '#05845D',
+            },
+            amountContainerNegative: {
+                marginLeft: '8%',
+                marginRight: '8%',
+                height: '28%',
+                borderRadius: 5,
+
+
+                justifyContent: 'center',
+                backgroundColor: '#85041C',
+            },
             amountContainer: {
 
                 marginLeft: '8%',
@@ -89,10 +110,10 @@ class CategoryItem extends React.Component {
                     </Text>
 
                 </View>
-                <View style={styles.amountContainer}>
+                <View style={((parseInt( this.props.amount) >= 0) ? styles.amountContainerPositive : styles.amountContainerNegative)}>
 
                     <Text style={styles.textView} >
-                        500
+                        {this.props.amount}
                         </Text>
                 </View>
             </TouchableOpacity>
