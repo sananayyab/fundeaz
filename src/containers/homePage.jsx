@@ -67,7 +67,7 @@ class HomePage extends React.Component {
             <View style={styles.container}>
               <StatusBar style="default"/>
                 <View style={styles.topContainer}>
-                    <TopBar navigation={this.props.navigation} />
+                    <TopBar section={'home'} navigation={this.props.navigation} />
                 </View>
                 <View style={styles.categoryContainer}>
                     <TouchableOpacity style={styles.categoryButton}
@@ -78,7 +78,7 @@ class HomePage extends React.Component {
                 </View>
                 <View style={styles.spendingContainer}>
                 
-                    <TransactionSection navigation={this.props.navigation}/>
+                    <TransactionSection page={'home'}navigation={this.props.navigation}/>
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar />

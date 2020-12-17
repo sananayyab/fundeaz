@@ -10,6 +10,23 @@ const initialState = {
     available: 0,
     unallocated: 0,
     groups: {
+        [1]: {
+            available: 0,
+            allocated: 0,
+            categories: {
+                1: {
+                    available: 0,
+                    allocated: 0,
+
+                },
+                2: {
+                    available: 0,
+                    allocated: 0,
+
+                }
+
+            }
+        }
 
     }
 }
@@ -48,7 +65,7 @@ export function fundReducer(state = initialState, action) {
                 ...state,
                 groups: {
                     ...state.groups,
-                    [action.groupID]: { 
+                    [action.groupID]: {
                         available: 0,
                         allocated: 0,
                     }

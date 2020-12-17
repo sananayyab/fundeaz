@@ -71,7 +71,7 @@ class GroupPage extends React.Component {
             <View style={styles.container}>
               <StatusBar style="default"/>
                 <View style={styles.topContainer}>
-                    <TopBar navigation={this.props.navigation} />
+                    <TopBar section={'group'} groupID={route.params.id} navigation={this.props.navigation} />
                 </View>
                 <View style={styles.categoryContainer}>
                     <TouchableOpacity style={styles.categoryButton}
@@ -82,7 +82,7 @@ class GroupPage extends React.Component {
                 </View>
                 <View style={styles.spendingContainer}>
                 
-                    <TransactionSection navigation={this.props.navigation}/>
+                    <TransactionSection page={'group'} groupID={route.params.id} navigation={this.props.navigation}/>
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar />
