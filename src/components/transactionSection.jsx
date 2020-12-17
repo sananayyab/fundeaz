@@ -1,20 +1,50 @@
 
 import React from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity, TouchableWithoutFeedbackBase } from 'react-native';
 import TransactionItem from './transactionItem';
+import { connect } from 'react-redux';
+import CategoryItem from './categoryItem';
 class TransactionSection extends React.Component {
 
     constructor(props)
     {
         super(props)
         this.loadTransactionList = this.loadTransactionList.bind(this)
+        this.getData = this.getData.bind(this)
     }
 
+    getData() {
+        if (this.props.page === "home") {
+            /*var tags;
+            var list = this.props.groupList
+            for (var key in list)
+            {
+                tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
+            }*/
+
+            return(Object.entries(this.props.transactionList).map( ([key, value]) =>  <TransactionItem key={key}  id={ key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation}/>))
+            
+            
+        }
+        if (this.props.page === "group") {
+            /*var tags;
+            var list = this.props.groupList
+            for (var key in list)
+            {
+                tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
+            }*/
+        
+            return(Object.entries(this.props.transactionList).map( ([key, value]) => (parseInt(value.groupID) === parseInt(this.props.groupID)) && <TransactionItem key={key}  id={ key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation}/>))
+            
+            
+        }}
+      
     loadTransactionList()
     {
         this.props.navigation.navigate('TransactionList')
     }
     render() {
+        const data = this.getData();
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
@@ -54,17 +84,19 @@ class TransactionSection extends React.Component {
                 </TouchableOpacity>
                 <ScrollView style={styles.TransactionContainer} showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}>
-                    <View style={{ height: '5%' }} />
-                    <TransactionItem />
-                    <TransactionItem />
-                    <TransactionItem />
-                    <TransactionItem />
-                    <TransactionItem />
-                    <TransactionItem />
+                    <View style={{ height: 20 }} />
+                   {data}
+                    
                     <View style={{ height: 51 }} />
                 </ScrollView>
             </View>
         );
     }
 }
-export default TransactionSection
+
+const mapStateToProps = (state) => {
+    const { transactions } = state
+    return { transactionList: transactions.transactions}
+};
+export default connect(mapStateToProps)(TransactionSection);
+

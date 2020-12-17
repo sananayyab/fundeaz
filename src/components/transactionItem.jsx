@@ -4,7 +4,7 @@ class TransactionItem extends React.Component {
     render() {
         const styles = StyleSheet.create({
             container: {
-              height: 70,
+              height: 75,
                 marginLeft: 15,
                 marginBottom: 8,
                 marginTop: 8,
@@ -14,7 +14,9 @@ class TransactionItem extends React.Component {
             CategoryContainer: {
                 flex: 2,
                 backgroundColor: '#1D2D44',
-                paddingLeft: 13,
+                paddingLeft: 20,
+                paddingTop: 2,
+                paddingBottom: 2,
            
                 flexDirection: 'column',
                 alignContent: 'center',
@@ -25,12 +27,13 @@ class TransactionItem extends React.Component {
                 borderTopLeftRadius: 10,
             },
             Categorytext: {
-                fontSize: 14,
+                fontSize: 15,
                 color: "white",
             },
             amountContainer: {
                 flex: 1.1,
                 alignSelf: "flex-end",
+                paddingBottom: 1,
                 borderBottomLeftRadius: 10,
                 borderBottomRightRadius: 10,
                 height: 25,
@@ -47,11 +50,11 @@ class TransactionItem extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.CategoryContainer}>
-                    <Text style={styles.Categorytext}>Category</Text>
-                    <Text style={styles.Categorytext} >Payee</Text>
+                    <Text style={styles.Categorytext}>{this.props.category}</Text>
+                    <Text style={styles.Categorytext} >{this.props.payee}</Text>
                 </View>
                 <View style={styles.amountContainer}>
-                    <Text style={styles.amountText} >Amount</Text>
+                    <Text style={styles.amountText} >{this.props.amount}</Text>
                 </View>
             </View>
         );
