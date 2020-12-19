@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { registerRootComponent } from 'expo';
 import HomePage from './homePage.jsx';
 import GroupPage from './groupPage.jsx';
+import TransactionInput from './transactionDataInputPage.jsx';
 import CategoryListPage from './categoryListPage.jsx'
 import TransactionListPage from './transactionListPage.jsx'
 import { NavigationContainer } from '@react-navigation/native';
@@ -43,6 +44,7 @@ class App extends React.Component
                     <Stack.Screen name="GroupPage" component={ GroupPage} />
                     <Stack.Screen name="CategoryList" component={ CategoryListPage} />
                     <Stack.Screen name="TransactionList" component={ TransactionListPage} />
+                    <Stack.Screen name="TransactionInput" component={ TransactionInput } />
                 </Stack.Navigator>
                 </NavigationContainer>
                 </PersistGate>
