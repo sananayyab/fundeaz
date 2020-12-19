@@ -32,7 +32,8 @@ class App extends React.Component
 
                 <PersistGate loading={null} persistor={persistor}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="HomePage" 
+                
+                <Stack.Navigator initialRouteName="TransactionInput" 
                  screenOptions={{headerShown: false, 
                     gestureEnabled: true,
                     gestureDirection: "horizontal",
