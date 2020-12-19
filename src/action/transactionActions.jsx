@@ -1,4 +1,4 @@
- export function addTransaction(data){
+export function addTransaction(data){
     return{
     type: 'ADD_TRANSACTION',
     data,
