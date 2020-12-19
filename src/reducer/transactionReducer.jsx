@@ -11,7 +11,7 @@
 }
 */
 const initialState = {
-    currentID: 2,
+    currentID: 4,
     transactions: {
         1: {
             groupID: 1,
@@ -48,7 +48,7 @@ export function transactionReducer(state = initialState, action) {
         case 'ADD_TRANSACTION':
             return {
                 ...state,
-                currentID: ++currentID,
+                currentID: ++state.currentID,
                 transactions: {
                     ...state.transactions,
                     [state.currentID]: {...action.data}
