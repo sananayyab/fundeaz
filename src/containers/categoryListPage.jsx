@@ -51,7 +51,7 @@ class CategoryListPage extends React.Component {
                     <CategoryList data={this.data} />
                 </View>
                 <View style={styles.bottomBar}>
-                    <BottomBar />
+                    <BottomBar data={this.data} />
                 </View>
             </View>
         );

@@ -89,7 +89,10 @@ class GroupPage extends React.Component {
                     <TransactionSection page={'group'} groupID={route.params.id} navigation={this.props.navigation}/>
                 </View>
                 <View style={styles.bottomBar}>
-                    <BottomBar />
+                    <BottomBar data={{
+                        page: 'group',
+                        groupID: route.params.id
+                    }}/>
                 </View>
             </View>
         );

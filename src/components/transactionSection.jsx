@@ -43,12 +43,16 @@ class TransactionSection extends React.Component {
       
         if (this.props.page === 'group') {
             this.props.navigation.navigate('TransactionList', {
-                groupID: this.props.groupID
+                data: {groupID: this.props.groupID,
+                page: 'group'}
             })
         } else   if (this.props.page === "home")
         {
         this.props.navigation.navigate('TransactionList', {
-            groupID: -1
+            data: {
+                groupID: -1,
+                page: 'home'
+            }
         })
     }
         

@@ -83,7 +83,9 @@ class HomePage extends React.Component {
                     <TransactionSection page={'home'}navigation={this.props.navigation}/>
                 </View>
                 <View style={styles.bottomBar}>
-                    <BottomBar />
+                    <BottomBar data={{
+                        page: 'home'
+                    }}/>
                 </View>
             </View>
         );
