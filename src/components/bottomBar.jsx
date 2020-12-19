@@ -3,16 +3,35 @@ import { Button, StyleSheet, ToastAndroid, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux'
 import { addGroup } from '../action/groupActions'
+import { addTransaction } from '../action/transactionActions'
 import { connect } from 'react-redux';
 class BottomBar extends React.Component {
     constructor(props) {
         super(props)
-        this.addTestGroup = this.addTestGroup.bind(this)
+        this.processAction = this.processAction.bind(this)
     }
-    addTestGroup() {
-        this.props.add({
-            name: 'testing'
-        })
+    processAction() {
+        const source = this.props.data.page
+        switch (source) {
+            case 'home':
+                this.props.addTransaction({
+                    groupID: 1,
+                    categoryID: 1,
+                    categoryName: 'test1',
+                    amount: 200,
+                    payee: 'Test Add Transaction home page'
+                })
+                break
+            case 'group':
+                this.props.addTransaction({
+                    groupID: this.props.data.groupID,
+                    categoryID: 1,
+                    categoryName: 'test1',
+                    amount: 200,
+                    payee: 'Test Add Transaction group page'
+                })
+                break
+        }
     }
     render() {
         const styles = StyleSheet.create({
@@ -42,7 +61,7 @@ class BottomBar extends React.Component {
                     name="add"
                     color='black'
                     size={35}
-                    onPress={this.addTestGroup}
+                    onPress={this.processAction}
                     iconStyle={{
                         marginRight: 0
                     }}
@@ -61,10 +80,11 @@ class BottomBar extends React.Component {
 }
 const mapDispatchToProps = (dispatch) => {
 
-    return{
-    add: (data) => dispatch(addGroup(data))
+    return {
+        add: (data) => dispatch(addGroup(data)),
+        addTransaction: (data) => dispatch(addTransaction(data))
     }
 }
 
 const mapStateToProps = (state) => ({});
-export default connect(mapStateToProps,mapDispatchToProps)(BottomBar)
+export default connect(mapStateToProps, mapDispatchToProps)(BottomBar)
