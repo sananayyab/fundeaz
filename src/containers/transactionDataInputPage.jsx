@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, View, ToastAndroid, TouchableOpacity, StatusBar
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { MaterialIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
+
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx'
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx'
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
