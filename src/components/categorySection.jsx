@@ -65,7 +65,7 @@ class CategorySection extends React.Component {
 
                 borderBottomRightRadius: 15,
                 flexDirection: 'row',
-                backgroundColor: '#8D8D92',
+                backgroundColor: '#7C7D8D',
                 flex: 1,
             },
             ListButton: {

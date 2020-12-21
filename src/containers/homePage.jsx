@@ -52,7 +52,7 @@ class HomePage extends React.Component {
                 borderTopRightRadius: 15,
                 borderTopLeftRadius: 15,
                 height: '12%',
-                backgroundColor: '#8D8D92',
+                backgroundColor: '#7C7D8D',
             },
 
             lines: {
@@ -85,7 +85,7 @@ class HomePage extends React.Component {
                 <View style={styles.bottomBar}>
                     <BottomBar data={{
                         page: 'home'
-                    }}/>
+                    }} navigation={this.props.navigation}/>
                 </View>
             </View>
         );

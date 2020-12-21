@@ -56,7 +56,7 @@ class GroupPage extends React.Component {
                 borderTopRightRadius: 15,
                 borderTopLeftRadius: 15,
                 height: '12%',
-                backgroundColor: '#8D8D92',
+                backgroundColor: '#7C7D8D',
             },
 
             lines: {
@@ -92,7 +92,7 @@ class GroupPage extends React.Component {
                     <BottomBar data={{
                         page: 'group',
                         groupID: route.params.id
-                    }}/>
+                    }} navigation={this.props.navigation}/>
                 </View>
             </View>
         );

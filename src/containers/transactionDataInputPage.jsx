@@ -25,8 +25,8 @@ class TransactionInput extends React.Component {
                 height: 50,
             },
             inputFields: {
-                flex: 2,
-             
+                flex: 1.8,    
+                
                 width: '96%',
                 left: '2%',
                 borderRadius: 15,

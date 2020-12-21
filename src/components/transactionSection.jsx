@@ -69,7 +69,7 @@ class TransactionSection extends React.Component {
                 borderTopLeftRadius: 15,
                 borderBottomLeftRadius: 15,
                 borderBottomRightRadius: 15,
-                backgroundColor: '#8D8D92',
+                backgroundColor: '#7C7D8D',
             },
             TransactionContainer: {
                 flex: 1,

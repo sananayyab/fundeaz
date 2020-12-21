@@ -20,7 +20,7 @@ class TransactionInputFieldText extends React.Component {
      
         const styles = StyleSheet.create({
             container: {
-                top: 20,
+                top: 10,
                 height: 80,
                
                
@@ -37,7 +37,6 @@ class TransactionInputFieldText extends React.Component {
             },
             textFieldContainer: {
                 marginTop: '10%',
-          
                 borderRadius: 15,
                 zIndex: 2,
                 height: '50%',

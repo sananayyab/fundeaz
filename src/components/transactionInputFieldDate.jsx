@@ -43,7 +43,7 @@ class TransactionInputFieldDate extends React.Component {
 
         const styles = StyleSheet.create({
             container: {
-                top: 20,
+                top: 10,
                 height: 80,
 
             },

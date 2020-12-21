@@ -14,22 +14,19 @@ class BottomBar extends React.Component {
         const source = this.props.data.page
         switch (source) {
             case 'home':
-                this.props.addTransaction({
-                    groupID: 1,
-                    categoryID: 1,
-                    categoryName: 'test1',
-                    amount: 200,
-                    payee: 'Test Add Transaction home page'
+                this.props.navigation.navigate('TransactionInput', {
+                    page: 'home'
+
                 })
                 break
             case 'group':
-                this.props.addTransaction({
+
+                this.props.navigation.navigate('TransactionInput', {
+                    page: 'group',
                     groupID: this.props.data.groupID,
-                    categoryID: 1,
-                    categoryName: 'test1',
-                    amount: 200,
-                    payee: 'Test Add Transaction group page'
+
                 })
+               
                 break
         }
     }
