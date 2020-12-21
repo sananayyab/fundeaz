@@ -24,6 +24,9 @@ const initialState = {
                 },
                 2: {
                     name: 'test2'
+                },
+                3: {
+                    name: 'test3'
                 }
 
             }

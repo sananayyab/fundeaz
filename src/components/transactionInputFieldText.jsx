@@ -27,10 +27,10 @@ class TransactionInputFieldText extends React.Component {
             },
             fieldNameContainer: {
                 position: 'absolute',
-                height: '50%',
+                height: '55%',
                 zIndex: 0,
                 borderRadius: 15,
-                top: '16%',
+                top: '10%',
                 width: '35%',
                 marginLeft: '3%',
                 backgroundColor: '#00487C'

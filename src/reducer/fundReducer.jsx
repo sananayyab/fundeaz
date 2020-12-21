@@ -20,7 +20,12 @@ const initialState = {
 
                 },
                 2: {
-                    available: 0,
+                    available: 10,   
+                    allocated: 0,
+
+                },
+                3: {
+                    available: 20,
                     allocated: 0,
 
                 }
