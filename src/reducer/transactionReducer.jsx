@@ -11,36 +11,9 @@
 }
 */
 const initialState = {
-    currentID: 4,
+    currentID: 1,
     transactions: {
-        1: {
-            groupID: 1,
-            categoryID: 1,
-            categoryName: 'test1',
-            amount: 200,
-            payee: 'Nike'
-        },
-        2: {
-            groupID: 1,
-            categoryID: 1,
-            categoryName: 'test1',
-            amount: 200,
-            payee: 'Nike'
-        },
-        3: {
-            groupID: 1,
-            categoryID: 1,
-            categoryName: 'test1',
-            amount: 200,
-            payee: 'Nike'
-        },
-        4: {
-            groupID: 2,
-            categoryID: 1,
-            categoryName: 'test2',
-            amount: 200,
-            payee: 'Nike'
-        }
+      
     }
 }
 export function transactionReducer(state = initialState, action) {

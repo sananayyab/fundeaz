@@ -3,7 +3,9 @@ import { StyleSheet, ScrollView, View, ToastAndroid, TouchableOpacity, StatusBar
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { MaterialIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
-
+import { connect } from 'react-redux';
+import {spendCategory } from '../action/fundActions.jsx'
+import {addTransaction} from '../action/transactionActions.jsx'
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx'
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx'
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
@@ -35,7 +37,10 @@ class TransactionInput extends React.Component {
 
 
     addTransaction() {
-        console.log(this.data)
+       console.log(this.data.categoryID)
+       this.props.addTransaction(this.data)
+       this.props.updateSpending(parseInt( this.data.amount), this.data.groupID,parseInt( this.data.categoryID))
+
     }
     
     render() {
@@ -147,5 +152,17 @@ class TransactionInput extends React.Component {
         );
     }
 }
-export default TransactionInput
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addTransaction: (data) => dispatch(addTransaction(data)),
+        updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount,groupID,categoryID))
+
+
+    }
+  }
+  
+  export default connect(null,mapDispatchToProps)(TransactionInput)
+
 
