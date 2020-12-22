@@ -20,7 +20,7 @@ const initialState = {
 
                 },
                 2: {
-                    available: 10,   
+                    available: 10,
                     allocated: 0,
 
                 },
@@ -56,11 +56,14 @@ export function fundReducer(state = initialState, action) {
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
+                        categories: {
+                            ...state.groups[action.groupID].categories,
                         [action.categoryID]: {
                             available: 0,
                             allocated: 0,
 
                         }
+                    }
                     }
 
                 }
@@ -87,11 +90,14 @@ export function fundReducer(state = initialState, action) {
                         ...state.groups[action.groupID],
                         available: state.groups[action.groupID].available + amount,
                         allocated: state.groups[action.groupID].allocated + amount,
+                        categories: {
+                            ...state.groups[action.groupID].categories,
                         [action.categoryID]: {
                             ...state.groups[action.groupID].categories[action.categoryID],
                             available: state.groups[action.groupID].categories[action.categoryID].available + amount,
                             allocated: state.groups[action.groupID].categories[action.categoryID].allocated + amount,
 
+                        }
                         }
                     }
 
@@ -115,12 +121,15 @@ export function fundReducer(state = initialState, action) {
                         ...state.groups[action.groupID],
                         available: state.groups[action.groupID].available - amount,
                         allocated: allocatedToGroup,
+                        categories: {
+                            ...state.groups[action.groupID].categories,
                         [action.categoryID]: {
                             ...state.groups[action.groupID].categories[action.categoryID],
                             available: state.groups[action.groupID].categories[action.categoryID].available - amount,
                             allocated: allocatedToCategory,
 
                         }
+                    }
                     }
 
                 }
@@ -139,11 +148,12 @@ export function fundReducer(state = initialState, action) {
                         available: state.groups[action.groupID].available - action.amount,
                         categories: {
                             ...state.groups[action.groupID].categories,
-                        [action.categoryID]: {
-                            ...state.groups[action.groupID].categories[action.categoryID],
-                            available: state.groups[action.groupID].categories[action.categoryID].available - action.amount,
+                            [action.categoryID]: {
+                                ...state.groups[action.groupID].categories[action.categoryID],
+                                available: state.groups[action.groupID].categories[action.categoryID].available - action.amount,
 
-                        }}
+                            }
+                        }
                     }
 
                 }
@@ -157,10 +167,13 @@ export function fundReducer(state = initialState, action) {
                     [action.groupID]: {
                         ...state.groups[action.groupID],
                         available: state.groups[action.groupID].available + amount,
-                        [action.categoryID]: {
-                            ...state.groups[action.groupID].categories[action.categoryID],
-                            available: state.groups[action.groupID].categories[action.categoryID].available + amount,
+                        categories: {
+                            ...state.groups[action.groupID].categories,
+                            [action.categoryID]: {
+                                ...state.groups[action.groupID].categories[action.categoryID],
+                                available: state.groups[action.groupID].categories[action.categoryID].available + amount,
 
+                            }
                         }
                     }
 
