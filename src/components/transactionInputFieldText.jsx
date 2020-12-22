@@ -74,7 +74,8 @@ class TransactionInputFieldText extends React.Component {
                  </Text>
                 </View>
                 <View style={styles.textFieldContainer}>
-               <TextInput style={styles.textInput}> 
+               <TextInput onChangeText={(text) => {this.props.data( {
+                                                                                [this.props.fieldName]: text })}}style={styles.textInput}> 
                 
                </TextInput>
                 </View>

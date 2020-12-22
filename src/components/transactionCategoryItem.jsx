@@ -6,7 +6,7 @@ class TransactionCategoryListItem extends React.Component {
     constructor(props)
     {
         super(props)
-        console.log(this.props.name)
+       
     }
     render() {
         const styles = StyleSheet.create({
@@ -69,7 +69,7 @@ class TransactionCategoryListItem extends React.Component {
             }
         })
         return (
-           <TouchableOpacity onPress={() => {this.props.press(this.props.name, this.props.amount)}} style={styles.container}>
+           <TouchableOpacity onPress={() => {this.props.press(this.props.name, this.props.amount, this.props.groupID,this.props.categoryID)}} style={styles.container}>
 
                 <View style={styles.innerContainerText}>
                     <Text style={styles.textText} >{this.props.name}</Text>

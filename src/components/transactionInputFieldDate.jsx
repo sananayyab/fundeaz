@@ -16,6 +16,10 @@ class TransactionInputFieldDate extends React.Component {
             show: false,
 
         }
+        this.props.data ( {
+          
+            date: this.state.date
+        })
     }
 
     onChange = (event, selectedDate) => {
@@ -24,6 +28,11 @@ class TransactionInputFieldDate extends React.Component {
         this.setState({
             show: Platform.OS=== 'ios',
             date: currentDate
+        })
+
+        this.props.data ( {
+          
+            date: this.state.date
         })
     };
 

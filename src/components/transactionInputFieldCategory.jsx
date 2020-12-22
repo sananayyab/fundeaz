@@ -23,13 +23,20 @@ class TransactionInputFieldCategory extends React.Component {
      
     }
 
-    selected(name, amount){
+    selected(name, amount, group, category){
         this.setState({
             showModal: false,
             chosen: {
                 name: name,
                 amount: amount
             }
+        })
+
+        this.props.data( {
+          
+            groupID: group,
+            categoryID: category,
+            categoryName: name,
         })
     }
 
@@ -43,10 +50,10 @@ class TransactionInputFieldCategory extends React.Component {
                 var categoryName = this.props.groupList[group].categories[category].name
                 var categoryAvailable = this.props.groupFunds[group].categories[category].available
              
-            categoryLists.push( <TransactionCategoryListItem press={this.selected} key={category} groupID={group} amount={categoryAvailable} name={categoryName} item={'category'} />)
+            categoryLists.push( <TransactionCategoryListItem press={this.selected} key={category} groupID={group} categoryID={category} amount={categoryAvailable} name={categoryName} item={'category'} />)
             }
         }
-        console.log('called');
+       
         return categoryLists
     }
 
