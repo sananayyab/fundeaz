@@ -37,9 +37,10 @@ class TransactionInput extends React.Component {
 
 
     addTransaction() {
-       console.log(this.data.categoryID)
+      
        this.props.addTransaction(this.data)
        this.props.updateSpending(parseInt( this.data.amount), this.data.groupID,parseInt( this.data.categoryID))
+       this.props.navigation.goBack()
 
     }
     

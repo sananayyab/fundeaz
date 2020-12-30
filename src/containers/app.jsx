@@ -5,8 +5,9 @@ import { registerRootComponent } from 'expo';
 import HomePage from './homePage.jsx';
 import GroupPage from './groupPage.jsx';
 import TransactionInput from './transactionDataInputPage.jsx';
-import CategoryListPage from './categoryListPage.jsx'
-import TransactionListPage from './transactionListPage.jsx'
+import CategoryListPage from './categoryListPage.jsx';
+import TransactionListPage from './transactionListPage.jsx';
+import AllocationPage from './allocationPage.jsx';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator , CardStyleInterpolators} from '@react-navigation/stack';
 import { createStore} from 'redux'
@@ -20,7 +21,7 @@ class App extends React.Component
     constructor(props)
     {
         super(props)
-      
+        persistor.purge()
     }
     render()
     {
@@ -46,6 +47,8 @@ class App extends React.Component
                     <Stack.Screen name="CategoryList" component={ CategoryListPage} />
                     <Stack.Screen name="TransactionList" component={ TransactionListPage} />
                     <Stack.Screen name="TransactionInput" component={ TransactionInput } />
+                    <Stack.Screen name="AllocationPage" component={ AllocationPage } />
+                    
                 </Stack.Navigator>
                 </NavigationContainer>
                 </PersistGate>

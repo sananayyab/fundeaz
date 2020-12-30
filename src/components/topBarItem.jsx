@@ -74,27 +74,44 @@ class TopBarItem extends React.Component {
     constructor(props)
     {
         super(props)
+
+        
         if(this.props.type === 'unallocated')
         {
-            this.toUse = styles.innerContainerTextAllocation
-            this.text = 'Unallocated'
+
+            this.state ={
+            toUse : styles.innerContainerTextAllocation,
+            text :'Unallocated',
+            value: this.props.value
+            }
         }
         else if(this.props.type === 'allocated')
         {
-            this.toUse = styles.innerContainerTextAllocation
-            this.text = 'Allocated'
+            
+            this.state ={
+                toUse : styles.innerContainerTextAllocation,
+                text :'Allocated',
+                value: this.props.value
+                }
+            
         }
         else if (this.props.type === 'amount')
         {
-            this.text = 'Available'
+            
             if(this.props.value >= 0)
             {
-                this.toUse = styles.innerContainerTextPositive
+                 var toUse = styles.innerContainerTextPositive
             }
             else if(this.props.value < 0)
             {
-                this.toUse = styles.innerContainerTextNegative
+                 var toUse = styles.innerContainerTextNegative
             }
+
+            this.state ={
+                toUse : toUse,
+                text : 'Available',
+                value: this.props.value
+                }
         }
     }
     render() {
@@ -103,10 +120,10 @@ class TopBarItem extends React.Component {
             <View style={styles.container}>
                 <View style={styles.innerContainerAmount}>
                     
-                    <Text style={styles.textAmount} >{this.props.value}</Text>
+                    <Text style={styles.textAmount} >{this.state.value}</Text>
                 </View>
-                <View style={this.toUse}>
-                    <Text style={styles.textText}>{this.text}</Text>
+                <View style={this.state.toUse}>
+                    <Text style={styles.textText}>{this.state.text}</Text>
                    
                 </View>
             </View>

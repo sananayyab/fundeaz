@@ -27,7 +27,48 @@ const initialState = {
                 },
                 3: {
                     name: 'test3'
-                }
+                },
+                4: {
+                    name: 'test3'
+                },
+                5: {
+                    name: 'test3'
+                },
+         
+
+            }
+        },
+        2: {
+            name: 'test',
+            currentCategoryID: 3,
+            categories: {
+                1: {
+                    name: 'test1'
+                },
+                2: {
+                    name: 'test2'
+                },
+                3: {
+                    name: 'test3'
+                },
+         
+
+            }
+        },
+        3: {
+            name: 'test',
+            currentCategoryID: 3,
+            categories: {
+                1: {
+                    name: 'test1'
+                },
+                2: {
+                    name: 'test2'
+                },
+                3: {
+                    name: 'test3'
+                },
+         
 
             }
         }

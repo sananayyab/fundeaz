@@ -1,4 +1,3 @@
-
 import React from 'react';
 import TopBarItem from './topBarItem.jsx'
 import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid } from 'react-native';
@@ -20,15 +19,15 @@ class TopBar extends React.Component
 
             this.state ={
                 type: 'unallocated',
-            available: this.props.fundState.available,
-            unallocated: this.props.fundState.unallocated
+            available: this.props.available,
+            unallocated: this.props.unallocated
             }
            
         }
         if(this.props.section == 'group')
         {
            
-            const groupInfo = this.props.fundState.groups[this.props.groupID]
+            const groupInfo = this.props.groups[this.props.groupID]
       
 
             this.state ={
@@ -42,8 +41,14 @@ class TopBar extends React.Component
     }
     navigationToDetails( )
     {
-        this.props.navigation.navigate('GroupPage')
-        ToastAndroid.show("test",ToastAndroid.SHORT)
+        if(this.props.section == 'home')
+        {
+
+            this.props.navigation.navigate('AllocationPage')
+           
+        }
+      
+      
     }
     render()
     {
@@ -76,7 +81,10 @@ class TopBar extends React.Component
 const mapStateToProps = (state) => {
     const {fund} = state
     return{
-        fundState : fund
+        available : fund.available,
+        allocated: fund.allocated,
+        unallocated: fund.unallocated,
+        groups: fund.groups
     }
 };
 export default connect(mapStateToProps)(TopBar)

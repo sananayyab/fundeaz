@@ -11,6 +11,7 @@ class CategorySection extends React.Component {
     constructor(props) {
         super(props)
         this.getData = this.getData.bind(this)
+        this.data = this.getData();
     }
 
     getData() {
@@ -51,7 +52,7 @@ class CategorySection extends React.Component {
     }
     render() {
 
-        const data = this.getData();
+     
         const styles = StyleSheet.create({
             container: {
 
@@ -80,7 +81,7 @@ class CategorySection extends React.Component {
                     inactiveSlideOpacity={1}
                     inactiveSlideScale={1}
                     activeSlideAlignment={'start'}
-                    data={data}
+                    data={this.data}
                     renderItem={this.items}
                     sliderWidth={this.sliderWidth}
                     itemWidth={197}

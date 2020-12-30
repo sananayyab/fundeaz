@@ -28,7 +28,64 @@ const initialState = {
                     available: 20,
                     allocated: 0,
 
-                }
+                },
+                4: {
+                    available: 20,
+                    allocated: 0,
+
+                },
+                5: {
+                    available: 20,
+                    allocated: 0,
+
+                },
+         
+
+            }
+        },
+        2: {
+            available: -100,
+            allocated: 0,
+            categories: {
+                1: {
+                    available: 0,
+                    allocated: 0,
+
+                },
+                2: {
+                    available: 10,
+                    allocated: 0,
+
+                },
+                3: {
+                    available: 20,
+                    allocated: 0,
+
+                },
+         
+
+            }
+        },
+        3: {
+            available: -100,
+            allocated: 0,
+            categories: {
+                1: {
+                    available: 0,
+                    allocated: 0,
+
+                },
+                2: {
+                    available: 10,
+                    allocated: 0,
+
+                },
+                3: {
+                    available: 20,
+                    allocated: 0,
+
+                },
+         
 
             }
         }
@@ -135,8 +192,7 @@ export function fundReducer(state = initialState, action) {
                 }
             }
         case 'SPEND_CATEGORY':
-            console.log(state.available - action.amount)
-            console.log(state.groups[action.groupID].categories[action.categoryID].available - action.amount)
+          
 
             return {
                 ...state,

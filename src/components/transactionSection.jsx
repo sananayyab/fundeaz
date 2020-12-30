@@ -10,9 +10,15 @@ class TransactionSection extends React.Component {
         super(props)
         this.loadTransactionList = this.loadTransactionList.bind(this)
         this.getData = this.getData.bind(this)
+        this.state = { data: this.getData()}
     }
 
     getData() {
+        
+
+
+    
+    
         if (this.props.page === "home") {
             /*var tags;
             var list = this.props.groupList
@@ -37,6 +43,7 @@ class TransactionSection extends React.Component {
 
 
         }
+
     }
 
     loadTransactionList() {
@@ -59,7 +66,7 @@ class TransactionSection extends React.Component {
         
     }
     render() {
-        const data = this.getData();
+      
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
@@ -100,7 +107,7 @@ class TransactionSection extends React.Component {
                 <ScrollView style={styles.TransactionContainer} showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}>
                     <View style={{ height: 20 }} />
-                    {data}
+                    {this.getData()}
 
                     <View style={{ height: 51 }} />
                 </ScrollView>
