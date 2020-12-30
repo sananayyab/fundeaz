@@ -9,7 +9,7 @@ class AllocationBarGroup extends React.Component {
     render() {
         const styles = StyleSheet.create({
             container: {
-                height: 43,
+                height: 56,
                 marginLeft: 5,
                 marginRight: 5,
                 marginTop: 5,

@@ -11,7 +11,7 @@ class AllocationBarCategory extends React.Component {
     render() {
         const styles = StyleSheet.create({
             container: {
-                height: 43,
+                height: 55,
                 marginLeft: 5,
                 marginRight: 5,
                 marginTop: 5,
@@ -60,7 +60,10 @@ class AllocationBarCategory extends React.Component {
                 marginLeft: '5%',
             },
             textAmount: {
-                left: 3,
+                height: '100%',
+                width: '100%',
+                alignContent: 'center',
+                textAlign: 'center',
                 fontSize: 20,
                 color: 'white',
             }
@@ -72,6 +75,7 @@ class AllocationBarCategory extends React.Component {
                 </View>
                 <View style={((parseInt( this.props.fundAllocated) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
                 <TextInput 
+              
                       onSubmitEditing={(event) => {this.props.allocate(parseInt(event.nativeEvent.text))}}
                         keyboardType={'numeric'}
                         style={styles.textAmount} >

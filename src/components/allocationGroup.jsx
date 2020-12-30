@@ -25,7 +25,7 @@ class AllocationGroup extends React.Component {
 
             },
             groupTag: {
-                height: 55,
+                height: 65,
                 width: '99%'
             },
             categoryTags: {
