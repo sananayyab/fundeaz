@@ -1,8 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid , TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
+import {allocateToCategory, deallocateCategory} from '../action/fundActions.jsx'
 class AllocationBarCategory extends React.Component {
+    constructor(props){
+        super(props)
+        this.state ={ amount: this.props.fundAllocated}
+    }
     render() {
         const styles = StyleSheet.create({
             container: {
@@ -15,7 +20,7 @@ class AllocationBarCategory extends React.Component {
                 flexDirection: 'row',
             },
             innerContainerText: {
-                flex: 2.6,
+                flex: 3,
                 height: '100%',
                 borderRadius: 5,
                 flexDirection: 'column',
@@ -55,6 +60,7 @@ class AllocationBarCategory extends React.Component {
                 marginLeft: '5%',
             },
             textAmount: {
+                left: 3,
                 fontSize: 20,
                 color: 'white',
             }
@@ -65,7 +71,15 @@ class AllocationBarCategory extends React.Component {
                     <Text style={styles.textText} >{this.props.name}</Text>
                 </View>
                 <View style={((parseInt( this.props.fundAllocated) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                    <Text style={styles.textAmount}>{this.props.fundAllocated}</Text>
+                <TextInput 
+                      onSubmitEditing={(event) => {this.props.allocate(parseInt(event.nativeEvent.text))}}
+                        keyboardType={'numeric'}
+                        style={styles.textAmount} >
+
+                            {this.state.amount}
+                            </TextInput>
+                     
+                   
                 </View>
             </View>
         );
@@ -79,4 +93,16 @@ const mapStateToProps = (state, ownProps) => {
         fundAllocated: fund.groups[groupID].categories[categoryID].allocated
     }
 };
-export default connect(mapStateToProps)(AllocationBarCategory)
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+
+    const {groupID, categoryID} = ownProps
+    return {
+        allocate: (amount) => dispatch(allocateToCategory(amount, groupID, categoryID)),
+        deallocate: (amount) => dispatch(deallocateCategory(amount, groupID, categoryID)),
+
+
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllocationBarCategory)

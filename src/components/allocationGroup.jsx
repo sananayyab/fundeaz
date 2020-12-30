@@ -30,8 +30,8 @@ class AllocationGroup extends React.Component {
             },
             categoryTags: {
                 height: 'auto',
-                width: '86%',
-                marginLeft: 50
+                width: '94%',
+                marginLeft: 20
             }
         })
         const { groupID } = this.props

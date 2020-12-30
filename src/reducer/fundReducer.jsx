@@ -145,14 +145,14 @@ export function fundReducer(state = initialState, action) {
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
-                        available: state.groups[action.groupID].available + amount,
-                        allocated: state.groups[action.groupID].allocated + amount,
+                        available: parseInt( state.groups[action.groupID].available) +parseInt(  action.amount),
+                        allocated: parseInt( state.groups[action.groupID].allocated )+ parseInt( action.amount),
                         categories: {
                             ...state.groups[action.groupID].categories,
                         [action.categoryID]: {
                             ...state.groups[action.groupID].categories[action.categoryID],
-                            available: state.groups[action.groupID].categories[action.categoryID].available + amount,
-                            allocated: state.groups[action.groupID].categories[action.categoryID].allocated + amount,
+                            available: parseInt( state.groups[action.groupID].categories[action.categoryID].available) + parseInt( action.amount),
+                            allocated: parseInt( state.groups[action.groupID].categories[action.categoryID].allocated )+ parseInt( action.amount),
 
                         }
                         }
@@ -162,7 +162,7 @@ export function fundReducer(state = initialState, action) {
             }
         case 'DEALLOCATE_CATEGORY':
             allocatedToGroup = state.groups[action.groupID].allocated - amount
-            allocatedToCategory = state.groups[action.groupID].categories[action.categoryID].allocated - amount
+            allocatedToCategory = state.groups[action.groupID].categories[action.categoryID].allocated - action.amount
             if (allocatedToGroup < 0) {
                 allocatedToGroup = 0
             }
@@ -176,13 +176,13 @@ export function fundReducer(state = initialState, action) {
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
-                        available: state.groups[action.groupID].available - amount,
+                        available: state.groups[action.groupID].available - action.amount,
                         allocated: allocatedToGroup,
                         categories: {
                             ...state.groups[action.groupID].categories,
                         [action.categoryID]: {
                             ...state.groups[action.groupID].categories[action.categoryID],
-                            available: state.groups[action.groupID].categories[action.categoryID].available - amount,
+                            available: state.groups[action.groupID].categories[action.categoryID].available - action.amount,
                             allocated: allocatedToCategory,
 
                         }
