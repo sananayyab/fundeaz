@@ -131,6 +131,7 @@ export function fundReducer(state = initialState, action) {
                 groups: {
                     ...state.groups,
                     [action.groupID]: {
+                        ...state.groups[action.groupID],
                         available: 0,
                         allocated: 0,
                     }

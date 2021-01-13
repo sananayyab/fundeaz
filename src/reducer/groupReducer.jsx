@@ -13,10 +13,11 @@
 
 */
 const initialState = {
-    currentID: 2,
+    currentID: 3,
     groups: {
         1: {
             name: 'test',
+            itemStatus: 'created',
             currentCategoryID: 3,
             categories: {
                 1: {
@@ -40,6 +41,7 @@ const initialState = {
         },
         2: {
             name: 'test',
+            itemStatus: 'created',
             currentCategoryID: 3,
             categories: {
                 1: {
@@ -57,6 +59,7 @@ const initialState = {
         },
         3: {
             name: 'test',
+            itemStatus: 'created',
             currentCategoryID: 3,
             categories: {
                 1: {
@@ -79,13 +82,12 @@ export function groupReducer(state = initialState, action) {
         case 'ADD_GROUP':
             return {
                 ...state,
-                currentID: ++state.currentID,
+                currentID: state.currentID + 1,
                 groups: {
                     ...state.groups,
-                    [state.currentID]: {
+                    [state.currentID + 1]: {
                         ...action.data,
                         currentCategoryID: 0,
-
                         categories: {}
                     }
                 }
@@ -117,7 +119,7 @@ export function groupReducer(state = initialState, action) {
                         currentCategoryID: ++currentCategoryID,
                         categories: {
                             ...state.groups[action.groupID].categories,
-                            [state.currentCategoryID]: { ...action.data }
+                            [state.currentCategoryID + 1]: { ...action.data }
                         },
 
 

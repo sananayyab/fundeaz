@@ -2,32 +2,52 @@ import React from 'react';
 import { Button, StyleSheet, ToastAndroid, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux'
-import { addGroup } from '../action/groupActions'
 import { addTransaction } from '../action/transactionActions'
 import { connect } from 'react-redux';
+import {addGroup, addCategory} from '../action/groupActions'
+import {initializeGroup, initializeCategory} from '../action/fundActions'
 class BottomBar extends React.Component {
     constructor(props) {
         super(props)
         this.processAction = this.processAction.bind(this)
     }
     processAction() {
+        const type = this.props.data.type
+       
         const source = this.props.data.page
-        switch (source) {
-            case 'home':
-                this.props.navigation.navigate('TransactionInput', {
-                    page: 'home'
+        if (type === 'category') {
+            
+            switch (source) {
+                case 'home':
+                    this.props.addGroup({itemStatus: 'new'})
+                    this.props.initializeGroup(this.props.currentID + 1)
+                    console.log(this.props.currentID + 1)
+                    break
+                case 'group':
 
-                })
-                break
-            case 'group':
+             
 
-                this.props.navigation.navigate('TransactionInput', {
-                    page: 'group',
-                    groupID: this.props.data.groupID,
+                    break
+            }
+        }
+        else if (type === 'landing') {
+            switch (source) {
+                case 'home':
+                    this.props.navigation.navigate('TransactionInput', {
+                        page: 'home'
 
-                })
-               
-                break
+                    })
+                    break
+                case 'group':
+
+                    this.props.navigation.navigate('TransactionInput', {
+                        page: 'group',
+                        groupID: this.props.data.groupID,
+
+                    })
+
+                    break
+            }
         }
     }
     render() {
@@ -78,10 +98,18 @@ class BottomBar extends React.Component {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        add: (data) => dispatch(addGroup(data)),
-        addTransaction: (data) => dispatch(addTransaction(data))
+        addGroup: (data) => dispatch(addGroup(data)),
+        addTransaction: (data) => dispatch(addTransaction(data)),
+        initializeGroup: (groupID) => dispatch(initializeGroup(groupID))
     }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => {
+    const { groupData } = state
+
+    return {
+        currentID: groupData.currentID,
+        
+    }
+};
 export default connect(mapStateToProps, mapDispatchToProps)(BottomBar)

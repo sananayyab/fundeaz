@@ -81,7 +81,7 @@ class CategorySection extends React.Component {
                     inactiveSlideOpacity={1}
                     inactiveSlideScale={1}
                     activeSlideAlignment={'start'}
-                    data={this.data}
+                    data={this.getData()}
                     renderItem={this.items}
                     sliderWidth={this.sliderWidth}
                     itemWidth={197}

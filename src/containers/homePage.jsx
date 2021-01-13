@@ -84,7 +84,8 @@ class HomePage extends React.Component {
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar data={{
-                        page: 'home'
+                        page: 'home',
+                        type: 'landing'
                     }} navigation={this.props.navigation}/>
                 </View>
             </View>

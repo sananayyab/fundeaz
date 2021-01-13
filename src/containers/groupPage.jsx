@@ -91,7 +91,8 @@ class GroupPage extends React.Component {
                 <View style={styles.bottomBar}>
                     <BottomBar data={{
                         page: 'group',
-                        groupID: route.params.id
+                        groupID: route.params.id,
+                        type: 'landing'
                     }} navigation={this.props.navigation}/>
                 </View>
             </View>

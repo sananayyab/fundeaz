@@ -6,22 +6,29 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation , useRoute} from '@react-navigation/native';
+
 class CategoryListPage extends React.Component {
     constructor(props) {
         super(props)
+ 
         if(this.props.route.params.page === 'home')
         {
             this.data ={
-                page: 'home'
+                page: 'home',
+                type: 'category'
             }
         }else  if(this.props.route.params.page === 'group')
         {
             this.data ={
                 page: 'group',
+                type: 'category',
                 groupID : this.props.route.params.groupID
             }
         }
     }
+
+
+ 
     render() {
         const styles = StyleSheet.create({
             container: {
