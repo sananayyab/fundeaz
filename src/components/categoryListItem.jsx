@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import { updateGroup } from '../action/groupActions'
+import { updateGroup, updateCategory} from '../action/groupActions'
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -88,10 +88,19 @@ class CategoryListItem extends React.Component {
                 item: [<View key={this.props.id} style={styles.container}>
                     <View style={styles.textInputBar}>
                         <TextInput onSubmitEditing={(event) => {
+                            if(this.props.item === 'group')
+                            {
                             this.props.updateGroup({
                                 name: event.nativeEvent.text,
                                 itemStatus: 'created',
-                            });
+                            });}
+                            else if (this.props.item === 'category')
+                            {
+                                this.props.updateCategory({
+                                    name: event.nativeEvent.text,
+                                    itemStatus: 'created',
+                                },this.props.id,this.props.groupID);
+                            }
                             this.setItemType(event.nativeEvent.text)
                         }}
                             style={styles.textInputText} > </TextInput>
@@ -145,6 +154,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     const { id } = ownProps
     return {
         updateGroup: (data) => dispatch(updateGroup(data, id)),
+        updateCategory: (data, catID, GrID) => dispatch(updateCategory(data, catID, GrID)),
 
     }
 }

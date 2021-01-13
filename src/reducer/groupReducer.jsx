@@ -13,68 +13,9 @@
 
 */
 const initialState = {
-    currentID: 3,
+    currentID: 0,
     groups: {
-        1: {
-            name: 'test',
-            itemStatus: 'created',
-            currentCategoryID: 3,
-            categories: {
-                1: {
-                    name: 'test1'
-                },
-                2: {
-                    name: 'test2'
-                },
-                3: {
-                    name: 'test3'
-                },
-                4: {
-                    name: 'test3'
-                },
-                5: {
-                    name: 'test3'
-                },
-         
-
-            }
-        },
-        2: {
-            name: 'test',
-            itemStatus: 'created',
-            currentCategoryID: 3,
-            categories: {
-                1: {
-                    name: 'test1'
-                },
-                2: {
-                    name: 'test2'
-                },
-                3: {
-                    name: 'test3'
-                },
-         
-
-            }
-        },
-        3: {
-            name: 'test',
-            itemStatus: 'created',
-            currentCategoryID: 3,
-            categories: {
-                1: {
-                    name: 'test1'
-                },
-                2: {
-                    name: 'test2'
-                },
-                3: {
-                    name: 'test3'
-                },
-         
-
-            }
-        }
+     
     }
 }
 export function groupReducer(state = initialState, action) {
@@ -116,10 +57,10 @@ export function groupReducer(state = initialState, action) {
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
-                        currentCategoryID: ++currentCategoryID,
+                        currentCategoryID: ++state.groups[action.groupID].currentCategoryID,
                         categories: {
                             ...state.groups[action.groupID].categories,
-                            [state.currentCategoryID + 1]: { ...action.data }
+                            [state.groups[action.groupID].currentCategoryID + 1]: { ...action.data }
                         },
 
 

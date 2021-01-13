@@ -13,7 +13,7 @@ class BottomBar extends React.Component {
     }
     processAction() {
         const type = this.props.data.type
-       
+    
         const source = this.props.data.page
         if (type === 'category') {
             
@@ -21,12 +21,15 @@ class BottomBar extends React.Component {
                 case 'home':
                     this.props.addGroup({itemStatus: 'new'})
                     this.props.initializeGroup(this.props.currentID + 1)
-                    console.log(this.props.currentID + 1)
+                    console.log('test')
                     break
                 case 'group':
-
-             
-
+                   
+                 
+                    this.props.addCategory({itemStatus: 'new'}, this.props.data.groupID)
+                   
+                
+                    this.props.initializeCategory(this.props.data.groupID, this.props.groups[this.props.data.groupID].currentCategoryID + 1)
                     break
             }
         }
@@ -98,18 +101,21 @@ class BottomBar extends React.Component {
 const mapDispatchToProps = (dispatch) => {
 
     return {
+        addCategory: (data, groupID) => dispatch(addCategory(data, groupID)),
         addGroup: (data) => dispatch(addGroup(data)),
         addTransaction: (data) => dispatch(addTransaction(data)),
-        initializeGroup: (groupID) => dispatch(initializeGroup(groupID))
+        initializeGroup: (groupID) => dispatch(initializeGroup(groupID)),
+        initializeCategory: (groupID,categoryID) =>  dispatch(initializeCategory(groupID, categoryID)),
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     const { groupData } = state
+   
 
     return {
         currentID: groupData.currentID,
-        
+        groups: groupData.groups
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(BottomBar)
