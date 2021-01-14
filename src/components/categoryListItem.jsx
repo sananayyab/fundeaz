@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { updateGroup, updateCategory} from '../action/groupActions'
+import { updateGroup, updateCategory } from '../action/groupActions'
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -82,26 +82,26 @@ class CategoryListItem extends React.Component {
 
     constructor(props) {
         super(props)
-        this.setItemType = this.setItemType.bind(this)
+        this.setCreatedType = this.setCreatedType.bind(this)
+        this.clickEvent = this.clickEvent.bind(this)
         if (this.props.type === 'new') {
             this.state = {
                 item: [<View key={this.props.id} style={styles.container}>
                     <View style={styles.textInputBar}>
                         <TextInput onSubmitEditing={(event) => {
-                            if(this.props.item === 'group')
-                            {
-                            this.props.updateGroup({
-                                name: event.nativeEvent.text,
-                                itemStatus: 'created',
-                            });}
-                            else if (this.props.item === 'category')
-                            {
+                            if (this.props.item === 'group') {
+                                this.props.updateGroup({
+                                    name: event.nativeEvent.text,
+                                    itemStatus: 'created',
+                                });
+                            }
+                            else if (this.props.item === 'category') {
                                 this.props.updateCategory({
                                     name: event.nativeEvent.text,
                                     itemStatus: 'created',
-                                },this.props.id,this.props.groupID);
+                                }, this.props.id, this.props.groupID);
                             }
-                            this.setItemType(event.nativeEvent.text)
+                            this.setCreatedType(event.nativeEvent.text, 0)
                         }}
                             style={styles.textInputText} > </TextInput>
                     </View>
@@ -111,33 +111,53 @@ class CategoryListItem extends React.Component {
         }
         else if (this.props.type === 'created') {
             this.state = {
-                item: [<View key={this.props.id} style={styles.container}>
+                item: [<TouchableOpacity onPress={this.clickEvent} key={this.props.id} style={styles.container}>
                     <View style={styles.innerContainerText}>
                         <Text style={styles.textText} >{this.props.name}</Text>
                     </View>
                     <View style={((parseInt(this.props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
                         <Text style={styles.textAmount}>{this.props.amount}</Text>
                     </View>
-                </View>]
+                </TouchableOpacity>]
             }
         }
     }
 
-    setItemType(name)
-    {
-      
-       
-            this.setState( {
-                item: [<View key={this.props.id} style={styles.container}>
-                    <View style={styles.innerContainerText}>
-                        <Text style={styles.textText} >{name}</Text>
-                    </View>
-                    <View style={((parseInt(this.props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                        <Text style={styles.textAmount}>{this.props.amount}</Text>
-                    </View>
-                </View>]
+
+    clickEvent() {
+        if (this.props.item === 'group') {
+            /*var tags;
+            var list = this.props.groupList
+            for (var key in list)
+            {
+                tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
+            }*/
+
+
+            // passing , navigation: this.props.navigation was causing the issue, find another way to pass navigation 
+            this.props.navigation.navigate('GroupPage', {
+                name: this.props.name,
+                id: this.props.id
             })
-        
+
+
+        }
+    }
+
+    setCreatedType(name, amount) {
+
+
+        this.setState({
+            item: [<TouchableOpacity onPress={this.clickEvent} key={this.props.id} style={styles.container}>
+                <View style={styles.innerContainerText}>
+                    <Text style={styles.textText} >{name}</Text>
+                </View>
+                <View style={((parseInt(this.props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                    <Text style={styles.textAmount}>{this.props.amount}</Text>
+                </View>
+            </TouchableOpacity>]
+        })
+
     }
     render() {
 

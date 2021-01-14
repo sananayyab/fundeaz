@@ -17,24 +17,23 @@ class TopBar extends React.Component
         if(this.props.section == 'home')
         {
 
-            this.state ={
+            this.data ={
                 type: 'unallocated',
-            available: this.props.available,
-            unallocated: this.props.unallocated
+                groupID: null,
+    
             }
            
         }
         if(this.props.section == 'group')
         {
            
-            const groupInfo = this.props.groups[this.props.groupID]
+          
       
 
-            this.state ={
+            this.data ={
                 type: 'allocated',
-            available:groupInfo.available,
-            unallocated: groupInfo.allocated
-
+                groupID: this.props.groupID,
+         
             }
 
         }
@@ -69,8 +68,8 @@ class TopBar extends React.Component
                 style={ styles.container }
                 onPress={ this.navigationToDetails }
                 activeOpacity={ 1 }>
-                <TopBarItem type={'amount'}  value={this.state.available}style={ { flex: 1 } } name={this.props.name}/>
-                <TopBarItem type={this.state.type} value={this.state.unallocated} style={ { flex: 1 } } name={this.props.name}/>
+                <TopBarItem type={'amount'}  groupID={this.data.groupID}style={ { flex: 1 } } name={this.props.name}/>
+                <TopBarItem type={this.data.type} groupID={this.data.groupID} style={ { flex: 1 } } name={this.props.name}/>
             </TouchableOpacity>
         );
     }

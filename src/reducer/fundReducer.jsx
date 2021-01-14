@@ -7,7 +7,7 @@ category:
 */
 
 const initialState = {
-    available: 1000,
+    available: 0,
     unallocated: 0,
     groups: {
        

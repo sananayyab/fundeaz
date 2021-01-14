@@ -4,7 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { MaterialIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { connect } from 'react-redux';
-import {spendCategory } from '../action/fundActions.jsx'
+import {spendCategory, addTotalAvailable } from '../action/fundActions.jsx'
 import {addTransaction} from '../action/transactionActions.jsx'
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx'
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx'
@@ -38,9 +38,20 @@ class TransactionInput extends React.Component {
 
     addTransaction() {
       
+        if(this.data.type === 'category')
+        {
        this.props.addTransaction(this.data)
        this.props.updateSpending(parseInt( this.data.amount), this.data.groupID,parseInt( this.data.categoryID))
        this.props.navigation.goBack()
+       
+
+       }
+       else if (this.data.type === 'income')
+       {
+            this.props.addTotalAvailable(parseInt( this.data.amount))
+           
+            this.props.navigation.goBack()
+       }
 
     }
     
@@ -158,7 +169,9 @@ class TransactionInput extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         addTransaction: (data) => dispatch(addTransaction(data)),
-        updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount,groupID,categoryID))
+        updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount,groupID,categoryID)),
+        addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount))
+
 
 
     }

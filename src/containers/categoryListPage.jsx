@@ -55,7 +55,7 @@ class CategoryListPage extends React.Component {
             <View style={styles.container}>
                 <StatusBar style="default" />
                 <View style={styles.list}>
-                    <CategoryList data={this.data} />
+                    <CategoryList navigation={this.props.navigation}data={this.data} />
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar data={this.data} />
