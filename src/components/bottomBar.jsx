@@ -68,7 +68,8 @@ class BottomBar extends React.Component {
         })
         return (
             <View style={styles.container}>
-                <MaterialIcons.Button
+           <MaterialIcons.Button 
+                    
                     backgroundColor='#7C7D8D'
                     name="settings"
                     color='black'
@@ -76,7 +77,7 @@ class BottomBar extends React.Component {
                     iconStyle={{
                         marginRight: 0
                     }}
-                />
+                /> 
                 <MaterialIcons.Button
                     backgroundColor='#7C7D8D'
                     name="add"
@@ -87,7 +88,7 @@ class BottomBar extends React.Component {
                         marginRight: 0
                     }}
                 />
-                <MaterialIcons.Button
+                 <MaterialIcons.Button
                     backgroundColor='#7C7D8D'
                     color='black'
                     name="pie-chart"
