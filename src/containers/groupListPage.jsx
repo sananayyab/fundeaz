@@ -7,19 +7,19 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation , useRoute} from '@react-navigation/native';
 
-class CategoryListPage extends React.Component {
+class GroupListPage extends React.Component {
     constructor(props) {
         super(props)
  
-   
-    
+      
             this.data ={
-                page: 'group',
-                type: 'category',
-                groupID : this.props.route.params.groupID
+                page: 'home',
+                type: 'category'
             }
         
+            
     }
+
 
 
  
@@ -62,6 +62,6 @@ export default function(props) {
     const route = useRoute();
     const navigation = useNavigation();
   
-    return <CategoryListPage {...props} navigation={navigation} route={route} />;
+    return <GroupListPage {...props} navigation={navigation} route={route} />;
   }
 

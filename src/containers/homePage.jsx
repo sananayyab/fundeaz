@@ -17,7 +17,7 @@ class HomePage extends React.Component {
 
     loadCategoryList()
     {
-        this.props.navigation.navigate('CategoryList', {
+        this.props.navigation.navigate('GroupList', {
             page: 'home'
         })
     }
