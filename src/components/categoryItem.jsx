@@ -44,8 +44,7 @@ class CategoryItem extends React.Component {
                 borderRadius: 10,
                 backgroundColor: '#00487C',
                 justifyContent: 'center',
-                borderColor: '#CAF3DD',
-                borderWidth: 5,
+             
             },
             nameContainer: {
                 marginLeft: '8%',
