@@ -151,7 +151,8 @@ class TransactionInputFieldCategory extends React.Component {
 
         this.props.data({
 
-            type: 'income',
+            type: 'Income',
+            categoryName: 'Income'
 
 
         })

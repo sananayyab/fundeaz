@@ -23,7 +23,7 @@ class TransactionList extends React.Component {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
             }*/
 
-            return (Object.entries(this.props.transactionList).map(([key, value]) => <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />))
+            return (Object.entries(this.props.transactionList).map(([key, value]) => <TransactionItem key={key} type={value.type} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />))
 
 
         }
@@ -35,7 +35,7 @@ class TransactionList extends React.Component {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
             }*/
 
-            return (Object.entries(this.props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(this.props.groupID )) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />))
+            return (Object.entries(this.props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(this.props.groupID )) && <TransactionItem key={key} type={value.type}  id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />))
 
 
         }

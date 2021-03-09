@@ -1,27 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 class TransactionItem extends React.Component {
-    constructor(props)
-    {super(props)
-        if (this.props.amount >= 0) {
-            var toUse = styles.amoutnTextPositive
-        }
-        else if (value < 0) {
-            var toUse = styles.amountTextNegative
-        }
 
-
-
-        this.state = {
-            toUse: toUse,
-     
-        }
-    }
     render() {
         const styles = StyleSheet.create({
             container: {
-              height: 54,
-              
+                height: 54,
+
                 marginBottom: 8,
                 marginTop: 8,
                 width: '94%',
@@ -36,12 +21,12 @@ class TransactionItem extends React.Component {
                 paddingLeft: 20,
                 paddingTop: 2,
                 paddingBottom: 2,
-           
+
                 flexDirection: 'column',
                 alignContent: 'center',
                 justifyContent: 'center',
                 alignItems: 'flex-start',
-               borderRadius: 10,
+                borderRadius: 10,
             },
             Categorytext: {
                 fontSize: 15,
@@ -51,7 +36,7 @@ class TransactionItem extends React.Component {
             amountContainer: {
                 flex: 0.5,
                 alignSelf: "center",
-              
+
                 borderRadius: 10,
                 height: 30,
                 alignItems: 'center',
@@ -61,17 +46,17 @@ class TransactionItem extends React.Component {
             amoutnTextPositive: {
                 flex: 0.5,
                 alignSelf: "center",
-              
+
                 borderRadius: 10,
                 height: 30,
                 alignItems: 'center',
                 marginRight: 10,
                 backgroundColor: '#05845D',
             },
-           amountTextNegative: {
-            flex: 0.5,
+            amountTextNegative: {
+                flex: 0.5,
                 alignSelf: "center",
-              
+
                 borderRadius: 10,
                 height: 30,
                 alignItems: 'center',
@@ -84,17 +69,42 @@ class TransactionItem extends React.Component {
                 color: "white",
             },
         })
-        return (
-            <View style={styles.container}>
-                <View style={styles.CategoryContainer}>
-                    <Text style={styles.Categorytext}>{this.props.category.trim()}</Text>
-                    <Text style={styles.Categorytext} >{this.props.payee.trim()}</Text>
+
+        if (this.props.category.trim() === "Income") {
+            return (
+                <View style={styles.container}>
+                    <View style={styles.CategoryContainer}>
+
+                        <Text style={styles.Categorytext}>{this.props.category.trim()}</Text>
+                        <Text style={styles.Categorytext} >{this.props.payee.trim()}</Text>
+
+
+                    </View>
+                    <View style={styles.amoutnTextPositive}>
+                        <Text style={styles.amountText} >{this.props.amount}</Text>
+                    </View>
+
                 </View>
-                <View style={this.state.toUse}>
-                    <Text style={styles.amountText} >{this.props.amount}</Text>
+            )
+        }
+        else {
+            return (
+                <View style={styles.container}>
+                    <View style={styles.CategoryContainer}>
+
+                        <Text style={styles.Categorytext}>{this.props.category.trim()}</Text>
+                        <Text style={styles.Categorytext} >{this.props.payee.trim()}</Text>
+
+
+                    </View>
+                    <View style={styles.amountTextNegative}>
+                        <Text style={styles.amountText} >{this.props.amount}</Text>
+                    </View>
+
                 </View>
-            </View>
-        );
+            )
+        }
+
     }
 }
 export default TransactionItem

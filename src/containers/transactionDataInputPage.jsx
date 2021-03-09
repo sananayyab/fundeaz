@@ -52,6 +52,7 @@ class TransactionInput extends React.Component {
 
         }
         else if (this.data.type === 'income') {
+            this.props.addTransaction(this.data)
             this.props.addTotalAvailable(parseInt(this.data.amount))
             this.props.navigation.goBack()
         }
