@@ -37,7 +37,8 @@ class BottomBar extends React.Component {
             switch (source) {
                 case 'home':
                     this.props.navigation.navigate('TransactionInput', {
-                        page: 'home'
+                        page: 'home',
+                        groupID: null
 
                     })
                     break

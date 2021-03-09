@@ -4,8 +4,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { MaterialIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { connect } from 'react-redux';
-import {spendCategory, addTotalAvailable } from '../action/fundActions.jsx'
-import {addTransaction} from '../action/transactionActions.jsx'
+import { spendCategory, addTotalAvailable } from '../action/fundActions.jsx'
+import { addTransaction } from '../action/transactionActions.jsx'
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx'
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx'
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
@@ -26,35 +26,39 @@ class TransactionInput extends React.Component {
             categoryName: '',
 
         }
+        this.pageDetails = {
+            pageName: this.props.route.params.page,
+            groupID: this.props.route.params.groupID
+            
+
+        }
     }
 
-    getData(value){
-            this.data = {
-                ...this.data,
-                ...value
-            }
+    getData(value) {
+        this.data = {
+            ...this.data,
+            ...value
+        }
     }
 
 
     addTransaction() {
-      
-        if(this.data.type === 'category')
-        {
-       this.props.addTransaction(this.data)
-       this.props.updateSpending(parseInt( this.data.amount), this.data.groupID,parseInt( this.data.categoryID))
-       this.props.navigation.goBack()
-       
 
-       }
-       else if (this.data.type === 'income')
-       {
-            this.props.addTotalAvailable(parseInt( this.data.amount))
-           
+        if (this.data.type === 'category') {
+            this.props.addTransaction(this.data)
+            this.props.updateSpending(parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID))
             this.props.navigation.goBack()
-       }
+
+
+        }
+        else if (this.data.type === 'income') {
+            this.props.addTotalAvailable(parseInt(this.data.amount))
+
+            this.props.navigation.goBack()
+        }
 
     }
-    
+
     render() {
         const styles = StyleSheet.create({
             container: {
@@ -110,11 +114,11 @@ class TransactionInput extends React.Component {
                     <StatusBar style="default" />
                     <View style={styles.inputFields}>
 
-                        <TransactionInputFieldNumber data={this.getData}fieldName={'amount'} />
+                        <TransactionInputFieldNumber data={this.getData} fieldName={'amount'} />
                         <TransactionInputFieldText data={this.getData} fieldName={'payee'} />
                         <TransactionInputFieldDate data={this.getData} fieldName={'date'} />
                         <TransactionInputFieldText data={this.getData} fieldName={'note'} />
-                        <TransactionInputFieldCategory data={this.getData} fieldName={'category'} />
+                        <TransactionInputFieldCategory data={this.getData} page= {this.pageDetails}fieldName={'category'} />
 
                     </View >
                     <View style={styles.buttonField}>
@@ -169,14 +173,14 @@ class TransactionInput extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         addTransaction: (data) => dispatch(addTransaction(data)),
-        updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount,groupID,categoryID)),
+        updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount, groupID, categoryID)),
         addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount))
 
 
 
     }
-  }
-  
-  export default connect(null,mapDispatchToProps)(TransactionInput)
+}
+
+export default connect(null, mapDispatchToProps)(TransactionInput)
 
 

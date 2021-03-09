@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         marginTop: '10%',
 
         borderRadius: 15,
-       
+
         zIndex: 2,
         height: '50%',
         marginRight: '3%',
@@ -137,13 +137,13 @@ class TransactionInputFieldCategory extends React.Component {
     }
     incomeselected() {
         this.setState({
-        
+
             showModal: false,
             amountBar: <View></View>,
             category: false,
             chosen: {
                 name: 'Income',
-             
+
             }
 
         })
@@ -152,17 +152,17 @@ class TransactionInputFieldCategory extends React.Component {
         this.props.data({
 
             type: 'income',
-        
-      
+
+
         })
     }
     Categoryselected(name, amount, group, category) {
         this.setState({
             showModal: false,
             amountBar: <View style={styles.amountContainer}>
-            <Text style={styles.amountText} >{amount}</Text>
-        </View>,
-         category: true,
+                <Text style={styles.amountText} >{amount}</Text>
+            </View>,
+            category: true,
             chosen: {
                 name: name,
                 amount: amount
@@ -181,16 +181,26 @@ class TransactionInputFieldCategory extends React.Component {
     getData() {
         var categoryLists = [];
 
-        for (group in this.props.groupList) {
-            for (category in this.props.groupList[group].categories) {
+        if (this.props.page.pageName === 'home') {
+            for (group in this.props.groupList) {
+                for (category in this.props.groupList[group].categories) {
 
-                var categoryName = this.props.groupList[group].categories[category].name
-                var categoryAvailable = this.props.groupFunds[group].categories[category].available
+                    var categoryName = this.props.groupList[group].categories[category].name
+                    var categoryAvailable = this.props.groupFunds[group].categories[category].available
 
-                categoryLists.push(<TransactionCategoryListItem press={this.Categoryselected} key={category} groupID={group} categoryID={category} amount={categoryAvailable} name={categoryName} item={'category'} />)
+                    categoryLists.push(<TransactionCategoryListItem press={this.Categoryselected} key={category + group} groupID={group} categoryID={category} amount={categoryAvailable} name={categoryName} item={'category'} />)
+                }
             }
         }
+        else if (this.props.page.pageName === 'group') {
+            for (category in this.props.groupList[this.props.page.groupID].categories) {
 
+                var categoryName = this.props.groupList[this.props.page.groupID].categories[category].name
+                var categoryAvailable = this.props.groupFunds[this.props.page.groupID].categories[category].available
+
+                categoryLists.push(<TransactionCategoryListItem press={this.Categoryselected} key={category} groupID={this.props.page.groupID} categoryID={category} amount={categoryAvailable} name={categoryName} item={'category'} />)
+            }
+        }
         return categoryLists
     }
 
