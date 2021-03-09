@@ -1,12 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid , TextInput} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
-import {allocateToCategory, deallocateCategory} from '../action/fundActions.jsx'
+import { allocateToCategory, deallocateCategory } from '../action/fundActions.jsx'
+import parseErrorStack from 'react-native/Libraries/Core/Devtools/parseErrorStack';
 class AllocationBarCategory extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state ={ amount: this.props.fundAllocated}
+        this.state = { amount: this.props.fundAllocated, 
+        oldAmount: this.props.fundAllocated}
+        
     }
     render() {
         const styles = StyleSheet.create({
@@ -20,8 +23,8 @@ class AllocationBarCategory extends React.Component {
                 flexDirection: 'row',
             },
             innerContainerText: {
-                flex: 3,
-                height: '100%',
+                flex: 2.29,
+                height: '90%',
                 borderRadius: 5,
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -30,8 +33,8 @@ class AllocationBarCategory extends React.Component {
             },
             innerContainerTextPositive: {
                 flex: 1.3,
-                top: 6,
-                height: '75%',
+                top: 7,
+                height: '65%',
                 borderBottomRightRadius: 5,
                 borderTopRightRadius: 5,
                 flexDirection: 'column',
@@ -41,8 +44,8 @@ class AllocationBarCategory extends React.Component {
             },
             innerContainerTextNegative: {
                 flex: 1.3,
-                top: 6,
-                height: '75%',
+                top: 7,
+                height: '65%',
                 borderBottomRightRadius: 5,
                 borderTopRightRadius: 5,
                 flexDirection: 'column',
@@ -73,26 +76,38 @@ class AllocationBarCategory extends React.Component {
                 <View style={styles.innerContainerText}>
                     <Text style={styles.textText} >{this.props.name}</Text>
                 </View>
-                <View style={((parseInt( this.props.fundAllocated) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                <TextInput 
-              
-                      onSubmitEditing={(event) => {this.props.allocate(parseInt(event.nativeEvent.text))}}
+                <View style={((parseInt(this.props.fundAllocated) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                    <TextInput
+                        selectTextOnFocus={true}
+                        onSubmitEditing={(event) => {
+                            if (event.nativeEvent.text > this.state.amount) {
+                                this.props.allocate((parseInt(event.nativeEvent.text) - parseInt( this.state.amount)))
+                                if(this.state.amount === 0)
+                                {
+                                this.setState({amount:parseInt(event.nativeEvent.text) })
+                                }
+                            }
+                            else if (event.nativeEvent.text < this.state.amount) {
+                                this.props.deallocate(this.state.amount - parseInt( event.nativeEvent.text))
+                                
+                            }
+                        }}
                         keyboardType={'numeric'}
                         style={styles.textAmount} >
 
-                            {this.state.amount}
-                            </TextInput>
-                     
-                   
+                        {this.state.amount}
+                    </TextInput>
+
+
                 </View>
             </View>
         );
     }
 }
 const mapStateToProps = (state, ownProps) => {
-    const {groupData, fund} = state
-    const {groupID, categoryID} = ownProps
-    return{
+    const { groupData, fund } = state
+    const { groupID, categoryID } = ownProps
+    return {
         name: groupData.groups[groupID].categories[categoryID].name,
         fundAllocated: fund.groups[groupID].categories[categoryID].allocated
     }
@@ -100,13 +115,13 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 
-    const {groupID, categoryID} = ownProps
+    const { groupID, categoryID } = ownProps
     return {
         allocate: (amount) => dispatch(allocateToCategory(amount, groupID, categoryID)),
         deallocate: (amount) => dispatch(deallocateCategory(amount, groupID, categoryID)),
 
 
     }
-  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllocationBarCategory)

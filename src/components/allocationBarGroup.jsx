@@ -18,9 +18,8 @@ class AllocationBarGroup extends React.Component {
                 flexDirection: 'row',
             },
             innerContainerText: {
-                flex: 3.3,
-            
-                height: '100%',
+                flex: 2.5,
+                height: '90%',
                 borderRadius: 5,
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -29,8 +28,8 @@ class AllocationBarGroup extends React.Component {
             },
             innerContainerTextPositive: {
                 flex: 1.3,
-                top: 6,
-                height: '75%',
+                top: 7,
+                height: '65%',
                 borderBottomRightRadius: 5,
                 borderTopRightRadius: 5,
                 flexDirection: 'column',
@@ -40,8 +39,8 @@ class AllocationBarGroup extends React.Component {
             },
             innerContainerTextNegative: {
                 flex: 1.3,
-                top: 6,
-                height: '75%',
+                top: 7,
+                height: '65%',
                 borderBottomRightRadius: 5,
                 borderTopRightRadius: 5,
                 flexDirection: 'column',

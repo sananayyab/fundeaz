@@ -88,7 +88,7 @@ class CategoryListItem extends React.Component {
             this.state = {
                 item: [<View key={this.props.id} style={styles.container}>
                     <View style={styles.textInputBar}>
-                        <TextInput onSubmitEditing={(event) => {
+                        <TextInput autoFocus={true} onSubmitEditing={(event) => {
                             if (this.props.item === 'group') {
                                 this.props.updateGroup({
                                     name: event.nativeEvent.text,
