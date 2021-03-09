@@ -1,7 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View , TouchableOpacity} from 'react-native';
+
 class TransactionItem extends React.Component {
 
+    constructor(props){
+        super(props);
+        this.goToTrasaction = this.goToTrasaction.bind(this)
+    }
+    goToTrasaction(){
+
+    }
     render() {
         const styles = StyleSheet.create({
             container: {
@@ -72,7 +80,8 @@ class TransactionItem extends React.Component {
 
         if (this.props.category.trim() === "Income") {
             return (
-                <View style={styles.container}>
+                <TouchableOpacity style={styles.container}
+                onPress={this.goToTrasaction}>
                     <View style={styles.CategoryContainer}>
 
                         <Text style={styles.Categorytext}>{this.props.category.trim()}</Text>
@@ -84,12 +93,13 @@ class TransactionItem extends React.Component {
                         <Text style={styles.amountText} >{this.props.amount}</Text>
                     </View>
 
-                </View>
+                </TouchableOpacity>
             )
         }
         else {
             return (
-                <View style={styles.container}>
+                <TouchableOpacity style={styles.container}
+                onPress={this.goToTrasaction}>
                     <View style={styles.CategoryContainer}>
 
                         <Text style={styles.Categorytext}>{this.props.category.trim()}</Text>
@@ -101,7 +111,7 @@ class TransactionItem extends React.Component {
                         <Text style={styles.amountText} >{this.props.amount}</Text>
                     </View>
 
-                </View>
+                </TouchableOpacity>
             )
         }
 
