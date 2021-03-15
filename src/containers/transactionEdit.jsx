@@ -11,27 +11,18 @@ import TransactionInputFieldNumber from '../components/transactionInputFieldNumb
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
 import TransactionInputFieldCategory from '../components/transactionInputFieldCategory.jsx'
 
-class TransactionInput extends React.Component {
+class TransactionEdit extends React.Component {
     constructor(props) {
         super(props)
         this.addTransaction = this.addTransaction.bind(this)
         this.getData = this.getData.bind(this)
         this.data = {
-            amount: '',
-            payee: '',
-            date: '',
-            note: '',
-            groupID: '',
-            categoryID: '',
-            categoryName: '',
+            ...this.props.transactions[this.props.route.params.key]
 
         }
-        this.pageDetails = {
-            pageName: this.props.route.params.page,
-            groupID: this.props.route.params.groupID
-            
 
-        }
+    
+ 
     }
 
     getData(value) {
@@ -44,18 +35,13 @@ class TransactionInput extends React.Component {
 
     addTransaction() {
 
-        if (this.data.type === 'category') {
+
             this.props.addTransaction(this.data)
             this.props.updateSpending(parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID))
             this.props.navigation.goBack()
 
 
-        }
-        else if (this.data.type === 'income') {
-            this.props.addTransaction(this.data)
-            this.props.addTotalAvailable(parseInt(this.data.amount))
-            this.props.navigation.goBack()
-        }
+
 
     }
 
@@ -114,11 +100,15 @@ class TransactionInput extends React.Component {
                     <StatusBar style="default" />
                     <View style={styles.inputFields}>
 
-                        <TransactionInputFieldNumber data={this.getData} fieldName={'amount'} value={''}/>
-                        <TransactionInputFieldText data={this.getData} value={''} fieldName={'payee'} />
-                        <TransactionInputFieldDate data={this.getData}  value={''} fieldName={'date'} />
-                        <TransactionInputFieldText data={this.getData} value={''} fieldName={'note'} />
-                        <TransactionInputFieldCategory data={this.getData} categoryID={''} groupid={''}page= {this.pageDetails}fieldName={'category'} />
+                        <TransactionInputFieldNumber data={this.getData} fieldName={'amount'} value={this.data.amount} />
+                        <TransactionInputFieldText data={this.getData} value={this.data.payee}fieldName={'payee'} />
+                        <TransactionInputFieldDate data={this.getData} value={this.data.date}fieldName={'date'} />
+                        <TransactionInputFieldText data={this.getData} value={this.data.note} fieldName={'note'} />
+                        <TransactionInputFieldCategory data={this.getData} page= {{
+                                pageName: 'home'
+                        }}fieldName={'category'}
+                        groupID={this.data.groupID}
+                        categoryID={this.data.categoryID}/>
 
                     </View >
                     <View style={styles.buttonField}>
@@ -181,6 +171,13 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(TransactionInput)
+const mapStateToProps = (state) => {
+    const {transactions} = state
+    return{
+        transactions: transactions.transactions 
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionEdit)
 
 

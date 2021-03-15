@@ -9,10 +9,18 @@ class TransactionInputFieldDate extends React.Component {
 
     constructor(props) {
         super(props)
+        var date;
+        if(this.props.value !== '')
+        {
+            date = new Date (this.props.value)
+        }
+        else{
+            date = new Date()
+        }
         this.onChange = this.onChange.bind(this)
         this.showDatepicker = this.showDatepicker.bind(this)
         this.state = {
-            date: new Date(),
+            date: date,
             show: false,
 
         }

@@ -118,18 +118,30 @@ const styles = StyleSheet.create({
 class TransactionInputFieldCategory extends React.Component {
     constructor(props) {
         super(props)
+        var categoryAvailable;
+         var categoryName;
+        if(this.props.categoryID !== '' )
+        {
+             categoryName = this.props.groupList[this.props.groupID].categories[this.props.categoryID].name
+            categoryAvailable = this.props.groupFunds[this.props.groupID].categories[this.props.categoryID].available
+        }
+        else{
+            categoryName = ''
+            categoryAvailable = ''
+        }
+     
         this.getData = this.getData.bind(this)
         this.Categoryselected = this.Categoryselected.bind(this)
         this.incomeselected = this.incomeselected.bind(this)
         this.state = {
             showModal: false,
             amountBar: <View style={styles.amountContainer}>
-                <Text style={styles.amountText} >{''}</Text>
+                <Text style={styles.amountText}> {categoryAvailable}</Text>
             </View>,
             category: true,
             chosen: {
-                name: '',
-                amount: ''
+                name: categoryName,
+                amount:categoryAvailable
             }
         }
         this.data = this.getData()

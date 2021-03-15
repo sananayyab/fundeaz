@@ -6,6 +6,7 @@ import HomePage from './homePage.jsx';
 import GroupPage from './groupPage.jsx';
 import TransactionInput from './transactionDataInputPage.jsx';
 import CategoryListPage from './categoryListPage.jsx';
+import TransactionEdit from './transactionEdit.jsx';
 import GroupListPage from './groupListPage.jsx';
 import TransactionListPage from './transactionListPage.jsx';
 import AllocationPage from './allocationPage.jsx';
@@ -49,6 +50,7 @@ class App extends React.Component
                     <Stack.Screen name="GroupList" component={ GroupListPage} />
                     <Stack.Screen name="TransactionList" component={ TransactionListPage} />
                     <Stack.Screen name="TransactionInput" component={ TransactionInput } />
+                    <Stack.Screen name="TransactionEdit" component={ TransactionEdit } />
                     <Stack.Screen name="AllocationPage" component={ AllocationPage } />
                     
                 </Stack.Navigator>

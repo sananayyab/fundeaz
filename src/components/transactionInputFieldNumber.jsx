@@ -9,7 +9,7 @@ class TransactionInputFieldNumber extends React.Component {
 
     constructor(props) {
         super(props)
-      
+     
         
         
     }
@@ -78,10 +78,11 @@ class TransactionInputFieldNumber extends React.Component {
                 </View>
                 <View style={styles.textFieldContainer}>
                     <TextInput 
-                    onChangeText={(text) => {this.props.data({amount: text})}}
+                    
+                    onChangeText={(text) => {this.props.data({amount: text}) }}
                         keyboardType={'numeric'}
                         style={styles.textInput}>
-
+                    {this.props.value}
                     </TextInput>
                 </View>
             </View>

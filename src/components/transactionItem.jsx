@@ -1,20 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View , TouchableOpacity} from 'react-native';
-
 class TransactionItem extends React.Component {
-
     constructor(props){
         super(props);
         this.goToTrasaction = this.goToTrasaction.bind(this)
     }
     goToTrasaction(){
-
+        this.props.navigation.navigate('TransactionEdit', {
+            key: this.props.id
+        })
     }
     render() {
         const styles = StyleSheet.create({
             container: {
                 height: 54,
-
                 marginBottom: 8,
                 marginTop: 8,
                 width: '94%',
@@ -29,7 +28,6 @@ class TransactionItem extends React.Component {
                 paddingLeft: 20,
                 paddingTop: 2,
                 paddingBottom: 2,
-
                 flexDirection: 'column',
                 alignContent: 'center',
                 justifyContent: 'center',
@@ -44,7 +42,6 @@ class TransactionItem extends React.Component {
             amountContainer: {
                 flex: 0.5,
                 alignSelf: "center",
-
                 borderRadius: 10,
                 height: 30,
                 alignItems: 'center',
@@ -54,7 +51,6 @@ class TransactionItem extends React.Component {
             amoutnTextPositive: {
                 flex: 0.5,
                 alignSelf: "center",
-
                 borderRadius: 10,
                 height: 30,
                 alignItems: 'center',
@@ -64,7 +60,6 @@ class TransactionItem extends React.Component {
             amountTextNegative: {
                 flex: 0.5,
                 alignSelf: "center",
-
                 borderRadius: 10,
                 height: 30,
                 alignItems: 'center',
@@ -77,22 +72,17 @@ class TransactionItem extends React.Component {
                 color: "white",
             },
         })
-
         if (this.props.category.trim() === "Income") {
             return (
                 <TouchableOpacity style={styles.container}
                 onPress={this.goToTrasaction}>
                     <View style={styles.CategoryContainer}>
-
                         <Text style={styles.Categorytext}>{this.props.category.trim()}</Text>
                         <Text style={styles.Categorytext} >{this.props.payee.trim()}</Text>
-
-
                     </View>
                     <View style={styles.amoutnTextPositive}>
                         <Text style={styles.amountText} >{this.props.amount}</Text>
                     </View>
-
                 </TouchableOpacity>
             )
         }
@@ -101,20 +91,15 @@ class TransactionItem extends React.Component {
                 <TouchableOpacity style={styles.container}
                 onPress={this.goToTrasaction}>
                     <View style={styles.CategoryContainer}>
-
                         <Text style={styles.Categorytext}>{this.props.category.trim()}</Text>
                         <Text style={styles.Categorytext} >{this.props.payee.trim()}</Text>
-
-
                     </View>
                     <View style={styles.amountTextNegative}>
                         <Text style={styles.amountText} >{this.props.amount}</Text>
                     </View>
-
                 </TouchableOpacity>
             )
         }
-
     }
 }
 export default TransactionItem
