@@ -5,7 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { connect } from 'react-redux';
 import { spendCategory, addTotalAvailable , removeSpendCategory, removeTotalAvailable} from '../action/fundActions.jsx'
-import { addTransaction , removeTransaction} from '../action/transactionActions.jsx'
+import { addTransaction , removeTransaction, updateTransaction} from '../action/transactionActions.jsx'
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx'
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx'
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
@@ -21,8 +21,9 @@ class TransactionEdit extends React.Component {
             ...this.props.transactions[this.props.route.params.key]
 
         }
+        this.orignalAmount = this.data.amount
 
-    console.log(this.data)
+   
  
     }
 
@@ -35,9 +36,9 @@ class TransactionEdit extends React.Component {
 
     deleteTransaction()
     {
-
+        this.props.removeTransaction(this.props.route.params.key);
         if (this.data.type === 'category') {
-            this.props.removeTransaction(this.props.route.params.key);
+          
             this.props.removeSpending(parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID));
             this.props.navigation.goBack()
 
@@ -45,7 +46,7 @@ class TransactionEdit extends React.Component {
         }
         else if (this.data.type === 'Income') {
 
-            this.props.removeTransaction(this.props.route.params.key);
+          
             this.props.removeTotalAvailable(parseInt(this.data.amount))
             this.props.navigation.goBack()
         }
@@ -54,15 +55,41 @@ class TransactionEdit extends React.Component {
     }
 
     addTransaction() {
+     
+        this.props.updateTransaction(this.data, this.props.route.params.key)
+        if (this.data.type === 'category') {
+        
+            if(parseInt(this.orignalAmount) < parseInt(this.data.amount))
+            {
+               
+                this.props.updateSpending(parseInt(this.data.amount) - parseInt(this.orignalAmount), this.data.groupID, parseInt(this.data.categoryID))
+            
+            }
+            else if(parseInt(this.orignalAmount) > parseInt(this.data.amount)){
+                this.props.removeSpending( parseInt(this.orignalAmount) - parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID));
+               
+            }
+        
+           
 
 
-            this.props.addTransaction(this.data)
-            this.props.updateSpending(parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID))
-            this.props.navigation.goBack()
-
-
-
-
+        }
+        else if (this.data.type === 'Income') {
+          
+            if(parseInt(this.orignalAmount) < parseInt(this.data.amount))
+            {
+                this.props.addTotalAvailable(parseInt(this.data.amount) - parseInt(this.orignalAmount))
+             
+            }
+            else if(parseInt(this.orignalAmount) > parseInt(this.data.amount)){
+                this.props.removeTotalAvailable( parseInt(this.orignalAmount) - parseInt(this.data.amount))
+                
+            }
+          
+        
+        }
+       
+        this.props.navigation.goBack()
     }
 
     render() {
@@ -101,7 +128,7 @@ class TransactionEdit extends React.Component {
             },
             buttonStyle: {
                 flex: 1,
-                left: 200,
+             
 
             }
         });
@@ -188,7 +215,8 @@ const mapDispatchToProps = (dispatch) => {
         updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount, groupID, categoryID)),
         removeSpending: (amount, groupID, categoryID) => dispatch(removeSpendCategory(amount, groupID, categoryID)),
         addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount)),
-        removeTotalAvailable: (amount) => dispatch(removeTotalAvailable(amount))
+        removeTotalAvailable: (amount) => dispatch(removeTotalAvailable(amount)),
+        updateTransaction: (data, id ) => dispatch(updateTransaction(data, id))
 
 
 
