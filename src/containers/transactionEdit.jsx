@@ -21,7 +21,7 @@ class TransactionEdit extends React.Component {
 
         }
 
-    
+    console.log(this.data)
  
     }
 
@@ -106,7 +106,7 @@ class TransactionEdit extends React.Component {
                         <TransactionInputFieldText data={this.getData} value={this.data.note} fieldName={'note'} />
                         <TransactionInputFieldCategory data={this.getData} page= {{
                                 pageName: 'home'
-                        }}fieldName={'category'}
+                        }} fieldName={this.data.type}
                         groupID={this.data.groupID}
                         categoryID={this.data.categoryID}/>
 

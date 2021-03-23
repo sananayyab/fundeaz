@@ -119,29 +119,38 @@ class TransactionInputFieldCategory extends React.Component {
     constructor(props) {
         super(props)
         var categoryAvailable;
-         var categoryName;
-        if(this.props.categoryID !== '' )
-        {
-             categoryName = this.props.groupList[this.props.groupID].categories[this.props.categoryID].name
+        var categoryName;
+        var normalCategory = true;
+
+
+        if (this.props.categoryID !== '') {
+            categoryName = this.props.groupList[this.props.groupID].categories[this.props.categoryID].name
             categoryAvailable = this.props.groupFunds[this.props.groupID].categories[this.props.categoryID].available
+
         }
-        else{
+        else {
             categoryName = ''
             categoryAvailable = ''
         }
-     
+        var bar = <View style={styles.amountContainer}>
+            <Text style={styles.amountText}> {categoryAvailable}</Text>
+        </View>;
+        if (this.props.fieldName === 'income') {
+            normalCategory = false;
+            bar = <View></View>;
+            categoryName = 'Income'
+
+        }
         this.getData = this.getData.bind(this)
         this.Categoryselected = this.Categoryselected.bind(this)
         this.incomeselected = this.incomeselected.bind(this)
         this.state = {
             showModal: false,
-            amountBar: <View style={styles.amountContainer}>
-                <Text style={styles.amountText}> {categoryAvailable}</Text>
-            </View>,
-            category: true,
+            amountBar: bar,
+            category: normalCategory,
             chosen: {
                 name: categoryName,
-                amount:categoryAvailable
+                amount: categoryAvailable
             }
         }
         this.data = this.getData()
@@ -229,7 +238,7 @@ class TransactionInputFieldCategory extends React.Component {
             <View style={styles.container} >
                 <View style={styles.fieldNameContainer}>
                     <Text style={styles.fieldNameText}>
-                        {this.props.fieldName}
+                        {'Category'}
                     </Text>
                 </View>
                 <TouchableOpacity style={this.state.category ? styles.textFieldContainerCategory : styles.textFieldContainerIncome} onPress={() => { this.setState({ showModal: true }) }}>
