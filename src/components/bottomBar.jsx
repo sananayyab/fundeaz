@@ -64,6 +64,7 @@ class BottomBar extends React.Component {
                 marginRight: '15%',
                 justifyContent: 'space-between',
                 alignItems: 'center'
+                
             },
         })
         return (

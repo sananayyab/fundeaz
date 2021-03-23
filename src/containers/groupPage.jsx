@@ -46,8 +46,8 @@ class GroupPage extends React.Component {
             },
             bottomBar:
             {
-                paddingTop: '4%',
-                paddingBottom: '3%',
+                paddingTop: '5%',
+                paddingBottom: '5%',
                 flex: 1
             },
             categoryButton: {
