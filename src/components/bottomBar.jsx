@@ -88,14 +88,8 @@ class BottomBar extends React.Component {
                         marginRight: 0
                     }}
                 />
-                 <MaterialIcons.Button
-                    backgroundColor='#7C7D8D'
-                    color='black'
-                    name="pie-chart"
-                    size={35}
-                    iconStyle={{
-                        marginRight: 0
-                    }} />
+
+      
             </View>
         );
     }
