@@ -4,8 +4,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { MaterialIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { connect } from 'react-redux';
-import { spendCategory, addTotalAvailable } from '../action/fundActions.jsx'
-import { addTransaction } from '../action/transactionActions.jsx'
+import { spendCategory, addTotalAvailable , removeSpendCategory, removeTotalAvailable} from '../action/fundActions.jsx'
+import { addTransaction , removeTransaction} from '../action/transactionActions.jsx'
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx'
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx'
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
@@ -15,6 +15,7 @@ class TransactionEdit extends React.Component {
     constructor(props) {
         super(props)
         this.addTransaction = this.addTransaction.bind(this)
+        this.deleteTransaction = this.deleteTransaction.bind(this)
         this.getData = this.getData.bind(this)
         this.data = {
             ...this.props.transactions[this.props.route.params.key]
@@ -32,6 +33,25 @@ class TransactionEdit extends React.Component {
         }
     }
 
+    deleteTransaction()
+    {
+
+        if (this.data.type === 'category') {
+            this.props.removeTransaction(this.props.route.params.key);
+            this.props.removeSpending(parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID));
+            this.props.navigation.goBack()
+
+
+        }
+        else if (this.data.type === 'Income') {
+
+            this.props.removeTransaction(this.props.route.params.key);
+            this.props.removeTotalAvailable(parseInt(this.data.amount))
+            this.props.navigation.goBack()
+        }
+   
+
+    }
 
     addTransaction() {
 
@@ -118,8 +138,9 @@ class TransactionEdit extends React.Component {
                             <MaterialIcons.Button
                                 backgroundColor='#7C7D8D'
                                 color='black'
-                                name="clear"
+                                name="delete"
                                 size={40}
+                                onPress={this.deleteTransaction}
                                 iconStyle={{
 
                                     marginRight: 0,
@@ -163,8 +184,11 @@ class TransactionEdit extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         addTransaction: (data) => dispatch(addTransaction(data)),
+        removeTransaction: (id) => dispatch(removeTransaction(id)),
         updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount, groupID, categoryID)),
-        addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount))
+        removeSpending: (amount, groupID, categoryID) => dispatch(removeSpendCategory(amount, groupID, categoryID)),
+        addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount)),
+        removeTotalAvailable: (amount) => dispatch(removeTotalAvailable(amount))
 
 
 

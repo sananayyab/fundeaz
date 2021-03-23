@@ -30,7 +30,7 @@ export function transactionReducer(state = initialState, action) {
         case 'REMOVE_TRANSACTION':
             return {
                 ...state,
-                transactions: state.transactions.filter((item, index) => item !== action.id)
+                transactions: Object.fromEntries(Object.entries(state.transactions).filter(([key,value]) => key !== action.id)) 
             }
         case 'UPDATE_TRANSACTION':
             return {

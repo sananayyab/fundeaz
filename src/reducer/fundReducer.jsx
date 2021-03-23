@@ -145,12 +145,12 @@ export function fundReducer(state = initialState, action) {
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
-                        available: state.groups[action.groupID].available + amount,
+                        available: state.groups[action.groupID].available + action.amount,
                         categories: {
                             ...state.groups[action.groupID].categories,
                             [action.categoryID]: {
                                 ...state.groups[action.groupID].categories[action.categoryID],
-                                available: state.groups[action.groupID].categories[action.categoryID].available + amount,
+                                available: state.groups[action.groupID].categories[action.categoryID].available + action.amount,
 
                             }
                         }

@@ -135,7 +135,7 @@ class TransactionInputFieldCategory extends React.Component {
         var bar = <View style={styles.amountContainer}>
             <Text style={styles.amountText}> {categoryAvailable}</Text>
         </View>;
-        if (this.props.fieldName === 'income') {
+        if (this.props.fieldName === 'Income') {
             normalCategory = false;
             bar = <View></View>;
             categoryName = 'Income'

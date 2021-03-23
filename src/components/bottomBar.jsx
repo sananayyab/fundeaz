@@ -60,8 +60,8 @@ class BottomBar extends React.Component {
                 flex: 1,
                 borderRadius: 10,
                 flexDirection: 'row',
-                marginLeft: '3%',
-                marginRight: '3%',
+                marginLeft: '15%',
+                marginRight: '15%',
                 justifyContent: 'space-between',
                 alignItems: 'center'
             },
@@ -75,7 +75,9 @@ class BottomBar extends React.Component {
                     color='black'
                     size={35}
                     iconStyle={{
-                        marginRight: 0
+                        marginRight: 0,
+                        paddingLeft: 20,
+                        paddingRight: 20,
                     }}
                 /> 
                 <MaterialIcons.Button
@@ -85,7 +87,9 @@ class BottomBar extends React.Component {
                     size={35}
                     onPress={this.processAction}
                     iconStyle={{
-                        marginRight: 0
+                        marginRight: 0,
+                        paddingLeft: 20,
+                        paddingRight: 20,
                     }}
                 />
 

@@ -51,7 +51,7 @@ class TransactionInput extends React.Component {
 
 
         }
-        else if (this.data.type === 'income') {
+        else if (this.data.type === 'Income') {
             this.props.addTransaction(this.data)
             this.props.addTotalAvailable(parseInt(this.data.amount))
             this.props.navigation.goBack()
@@ -71,7 +71,7 @@ class TransactionInput extends React.Component {
                 height: 50,
             },
             inputFields: {
-                flex: 1.8,
+                flex: 2.5,
 
                 width: '96%',
                 left: '2%',
@@ -79,15 +79,14 @@ class TransactionInput extends React.Component {
                 backgroundColor: '#7C7D8D'
             },
             buttonField: {
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+            
                 alignItems: 'center',
                 marginLeft: '3%',
                 marginRight: '3%',
-
+           
                 flex: 1,
 
-                marginTop: 20,
+                marginTop: '20%',
 
 
 
@@ -95,7 +94,8 @@ class TransactionInput extends React.Component {
             },
             buttonStyle: {
                 flex: 1,
-                left: 200,
+                left: 100,
+            
 
             }
         });
@@ -123,23 +123,6 @@ class TransactionInput extends React.Component {
                     </View >
                     <View style={styles.buttonField}>
 
-                        <View styles={styles.buttonStyle}>
-
-                            <MaterialIcons.Button
-                                backgroundColor='#7C7D8D'
-                                color='black'
-                                name="clear"
-                                size={40}
-                                iconStyle={{
-
-                                    marginRight: 0,
-                                    paddingRight: '10%',
-                                    paddingLeft: '10%',
-
-                                }}
-                            />
-
-                        </View>
 
                         <View styles={styles.buttonStyle}>
 
