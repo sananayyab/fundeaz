@@ -79,7 +79,7 @@ class TransactionInputFieldNumber extends React.Component {
                 <View style={styles.textFieldContainer}>
                     <TextInput 
                       
-                        onEndEditing={(text) => {this.props.data({amount: text}) }}
+                        onChangeText={(text) => {this.props.data({amount: text}) }}
                         keyboardType={'numeric'}
                         style={styles.textInput}>
                     {this.props.value}

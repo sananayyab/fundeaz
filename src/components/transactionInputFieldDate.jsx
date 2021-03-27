@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity, TouchableWithoutFeedbackBase, Text, Platform, Modal } from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity, TouchableWithoutFeedbackBase, Text, Platform } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { connect } from 'react-redux';

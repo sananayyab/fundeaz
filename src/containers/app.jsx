@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { StyleSheet, Text, View , SafeAreaView} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { registerRootComponent } from 'expo';
 import HomePage from './homePage.jsx';
 import GroupPage from './groupPage.jsx';
@@ -34,9 +34,8 @@ class App extends React.Component
             <Provider store={store}>
 
                 <PersistGate loading={null} persistor={persistor}>
-                <SafeAreaView style={{flex: 1}}> 
             <NavigationContainer>
-       
+                
                 <Stack.Navigator initialRouteName="HomePage" 
                  screenOptions={{headerShown: false, 
                     gestureEnabled: true,
@@ -55,9 +54,7 @@ class App extends React.Component
                     <Stack.Screen name="AllocationPage" component={ AllocationPage } />
                     
                 </Stack.Navigator>
-          
                 </NavigationContainer>
-                </SafeAreaView>
                 </PersistGate>
                 </Provider>
         );

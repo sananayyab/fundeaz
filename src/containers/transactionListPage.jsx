@@ -35,10 +35,10 @@ class TransactionListPage extends React.Component {
             <View style={styles.container}>
                 <StatusBar style="default" />
                 <View style={styles.list}>
-                    <TransactionList groupID={this.props.route.params.data.groupID}/>
+                    <TransactionList groupID={route.params.data.groupID}/>
                 </View>
                 <View style={styles.bottomBar}>
-                    <BottomBar data={this.props.route.params.data} navigation={this.props.navigation} />
+                    <BottomBar data={route.params.data} navigation={this.props.navigation} />
                 </View>
             </View>
         );
