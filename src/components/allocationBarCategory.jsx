@@ -79,7 +79,7 @@ class AllocationBarCategory extends React.Component {
                 <View style={((parseInt(this.props.fundAllocated) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
                     <TextInput
                         selectTextOnFocus={true}
-                        onSubmitEditing={(event) => {
+                        onEndEditing={(event) => {
                             if (event.nativeEvent.text > this.state.amount) {
                                 this.props.allocate((parseInt(event.nativeEvent.text) - parseInt( this.state.amount)))
                                 if(this.state.amount === 0)

@@ -4,6 +4,7 @@ import { registerRootComponent } from 'expo';
 import App from './app'
 import { Provider } from 'redux'
 import Store from '../reducer/store'
+import { SafeAreaView } from 'react-native';
 class Index extends React.Component {
 
   render() {
@@ -13,7 +14,9 @@ class Index extends React.Component {
     return (
 
       <Provider store={store}>
+      
         <App />
+        </SafeAreaView>
       </Provider>
     );
   }

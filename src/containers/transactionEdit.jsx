@@ -4,8 +4,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { MaterialIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { connect } from 'react-redux';
-import { spendCategory, addTotalAvailable , removeSpendCategory, removeTotalAvailable} from '../action/fundActions.jsx'
-import { addTransaction , removeTransaction, updateTransaction} from '../action/transactionActions.jsx'
+import { spendCategory, addTotalAvailable, removeSpendCategory, removeTotalAvailable, spendOnlyCategory, removeSpendOnlyCategory } from '../action/fundActions.jsx'
+import { addTransaction, removeTransaction, updateTransaction } from '../action/transactionActions.jsx'
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx'
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx'
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
@@ -22,9 +22,11 @@ class TransactionEdit extends React.Component {
 
         }
         this.orignalAmount = this.data.amount
+        this.originalGroup = this.data.groupID
+        this.originalCategory = this.data.categoryID
 
-   
- 
+
+
     }
 
     getData(value) {
@@ -34,11 +36,10 @@ class TransactionEdit extends React.Component {
         }
     }
 
-    deleteTransaction()
-    {
+    deleteTransaction() {
         this.props.removeTransaction(this.props.route.params.key);
         if (this.data.type === 'category') {
-          
+
             this.props.removeSpending(parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID));
             this.props.navigation.goBack()
 
@@ -46,49 +47,83 @@ class TransactionEdit extends React.Component {
         }
         else if (this.data.type === 'Income') {
 
-          
+
             this.props.removeTotalAvailable(parseInt(this.data.amount))
             this.props.navigation.goBack()
         }
-   
+
 
     }
 
     addTransaction() {
-     
+
         this.props.updateTransaction(this.data, this.props.route.params.key)
         if (this.data.type === 'category') {
-        
-            if(parseInt(this.orignalAmount) < parseInt(this.data.amount))
-            {
-               
-                this.props.updateSpending(parseInt(this.data.amount) - parseInt(this.orignalAmount), this.data.groupID, parseInt(this.data.categoryID))
-            
+
+            if (this.originalGroup === this.data.groupID && this.originalCategory === this.data.categoryID) {
+                if (parseInt(this.orignalAmount) < parseInt(this.data.amount)) {
+
+                    this.props.updateSpending(parseInt(this.data.amount) - parseInt(this.orignalAmount), this.data.groupID, parseInt(this.data.categoryID))
+
+                }
+                else if (parseInt(this.orignalAmount) > parseInt(this.data.amount)) {
+                    this.props.removeSpending(parseInt(this.orignalAmount) - parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID));
+
+                }
+
             }
-            else if(parseInt(this.orignalAmount) > parseInt(this.data.amount)){
-                this.props.removeSpending( parseInt(this.orignalAmount) - parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID));
-               
-            }
-        
-           
+            else {
+                if (this.originalGroup === this.data.groupID && this.originalCategory !== this.data.categoryID) {
+                    if (parseInt(this.orignalAmount) < parseInt(this.data.amount)) {
+
+                        this.props.spendOnlyCategory(parseInt(this.data.amount) - parseInt(this.orignalAmount), this.data.groupID, parseInt(this.data.categoryID))
+                        this.props.removeSpendOnlyCategory(parseInt(this.orignalAmount), this.originalGroup, parseInt(this.originalCategory));
+
+                    }
+                    else if (parseInt(this.orignalAmount) > parseInt(this.data.amount)) {
+                        this.props.spendOnlyCategory(parseInt(this.orignalAmount) - parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID));
+                        this.props.removeSpendOnlyCategory(parseInt(this.orignalAmount), this.originalGroup, parseInt(this.originalCategory));
+                    }
+                    else{
+
+                        this.props.spendOnlyCategory(parseInt(this.orignalAmount), this.data.groupID, parseInt(this.data.categoryID))
+                        this.props.removeSpendOnlyCategory(parseInt(this.orignalAmount), this.originalGroup, parseInt(this.originalCategory));
+                    }
+                }else{
+                    if (parseInt(this.orignalAmount) < parseInt(this.data.amount)) {
+
+                        this.props.updateSpending(parseInt(this.data.amount) - parseInt(this.orignalAmount), this.data.groupID, parseInt(this.data.categoryID))
+                        this.props.removeSpending(parseInt(this.orignalAmount), this.originalGroup, parseInt(this.originalCategory));
+
+                    }
+                    else if (parseInt(this.orignalAmount) > parseInt(this.data.amount)) {
+                        this.props.updateSpending(parseInt(this.orignalAmount) - parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID));
+                        this.props.removeSpending(parseInt(this.orignalAmount), this.originalGroup, parseInt(this.originalCategory));
+                    }
+                    else{
+
+                        this.props.updateSpending(parseInt(this.orignalAmount), this.data.groupID, parseInt(this.data.categoryID))
+                        this.props.removeSpending(parseInt(this.orignalAmount), this.originalGroup, parseInt(this.originalCategory));
+                    }
+                }
 
 
+            }
         }
         else if (this.data.type === 'Income') {
-          
-            if(parseInt(this.orignalAmount) < parseInt(this.data.amount))
-            {
+
+            if (parseInt(this.orignalAmount) < parseInt(this.data.amount)) {
                 this.props.addTotalAvailable(parseInt(this.data.amount) - parseInt(this.orignalAmount))
-             
+
             }
-            else if(parseInt(this.orignalAmount) > parseInt(this.data.amount)){
-                this.props.removeTotalAvailable( parseInt(this.orignalAmount) - parseInt(this.data.amount))
-                
+            else if (parseInt(this.orignalAmount) > parseInt(this.data.amount)) {
+                this.props.removeTotalAvailable(parseInt(this.orignalAmount) - parseInt(this.data.amount))
+
             }
-          
-        
+
+
         }
-       
+
         this.props.navigation.goBack()
     }
 
@@ -128,7 +163,7 @@ class TransactionEdit extends React.Component {
             },
             buttonStyle: {
                 flex: 1,
-             
+
 
             }
         });
@@ -148,14 +183,14 @@ class TransactionEdit extends React.Component {
                     <View style={styles.inputFields}>
 
                         <TransactionInputFieldNumber data={this.getData} fieldName={'amount'} value={this.data.amount} />
-                        <TransactionInputFieldText data={this.getData} value={this.data.payee}fieldName={'payee'} />
-                        <TransactionInputFieldDate data={this.getData} value={this.data.date}fieldName={'date'} />
+                        <TransactionInputFieldText data={this.getData} value={this.data.payee} fieldName={'payee'} />
+                        <TransactionInputFieldDate data={this.getData} value={this.data.date} fieldName={'date'} />
                         <TransactionInputFieldText data={this.getData} value={this.data.note} fieldName={'note'} />
-                        <TransactionInputFieldCategory data={this.getData} page= {{
-                                pageName: 'home'
+                        <TransactionInputFieldCategory data={this.getData} page={{
+                            pageName: 'home'
                         }} fieldName={this.data.type}
-                        groupID={this.data.groupID}
-                        categoryID={this.data.categoryID}/>
+                            groupID={this.data.groupID}
+                            categoryID={this.data.categoryID} />
 
                     </View >
                     <View style={styles.buttonField}>
@@ -188,7 +223,6 @@ class TransactionEdit extends React.Component {
                                 size={40}
                                 onPress={this.addTransaction}
                                 iconStyle={{
-
                                     marginRight: 0,
                                     paddingRight: '10%',
                                     paddingLeft: '10%',
@@ -213,10 +247,13 @@ const mapDispatchToProps = (dispatch) => {
         addTransaction: (data) => dispatch(addTransaction(data)),
         removeTransaction: (id) => dispatch(removeTransaction(id)),
         updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount, groupID, categoryID)),
+        spendOnlyCategory: (amount, groupID, categoryID) => dispatch(spendOnlyCategory(amount, groupID, categoryID)),
         removeSpending: (amount, groupID, categoryID) => dispatch(removeSpendCategory(amount, groupID, categoryID)),
+        removeSpendOnlyCategory: (amount, groupID, categoryID) => dispatch(removeSpendOnlyCategory(amount, groupID, categoryID)),
+
         addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount)),
         removeTotalAvailable: (amount) => dispatch(removeTotalAvailable(amount)),
-        updateTransaction: (data, id ) => dispatch(updateTransaction(data, id))
+        updateTransaction: (data, id) => dispatch(updateTransaction(data, id))
 
 
 
@@ -224,9 +261,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-    const {transactions} = state
-    return{
-        transactions: transactions.transactions 
+    const { transactions } = state
+    return {
+        transactions: transactions.transactions
     }
 };
 

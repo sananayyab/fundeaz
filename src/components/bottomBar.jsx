@@ -4,8 +4,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux'
 import { addTransaction } from '../action/transactionActions'
 import { connect } from 'react-redux';
-import {addGroup, addCategory} from '../action/groupActions'
-import {initializeGroup, initializeCategory} from '../action/fundActions'
+import { addGroup, addCategory } from '../action/groupActions'
+import { initializeGroup, initializeCategory } from '../action/fundActions'
 class BottomBar extends React.Component {
     constructor(props) {
         super(props)
@@ -13,22 +13,16 @@ class BottomBar extends React.Component {
     }
     processAction() {
         const type = this.props.data.type
-    
         const source = this.props.data.page
         if (type === 'category') {
-            
             switch (source) {
                 case 'home':
-                    this.props.addGroup({itemStatus: 'new'})
+                    this.props.addGroup({ itemStatus: 'new' })
                     this.props.initializeGroup(this.props.currentID + 1)
                     console.log('test')
                     break
                 case 'group':
-                   
-                 
-                    this.props.addCategory({itemStatus: 'new'}, this.props.data.groupID)
-                   
-                
+                    this.props.addCategory({ itemStatus: 'new' }, this.props.data.groupID)
                     this.props.initializeCategory(this.props.data.groupID, this.props.groups[this.props.data.groupID].currentCategoryID + 1)
                     break
             }
@@ -39,17 +33,13 @@ class BottomBar extends React.Component {
                     this.props.navigation.navigate('TransactionInput', {
                         page: 'home',
                         groupID: null
-
                     })
                     break
                 case 'group':
-
                     this.props.navigation.navigate('TransactionInput', {
                         page: 'group',
                         groupID: this.props.data.groupID,
-
                     })
-
                     break
             }
         }
@@ -64,13 +54,11 @@ class BottomBar extends React.Component {
                 marginRight: '15%',
                 justifyContent: 'space-between',
                 alignItems: 'center'
-                
             },
         })
         return (
             <View style={styles.container}>
-           <MaterialIcons.Button 
-                    
+                <MaterialIcons.Button
                     backgroundColor='#7C7D8D'
                     name="settings"
                     color='black'
@@ -80,7 +68,7 @@ class BottomBar extends React.Component {
                         paddingLeft: 20,
                         paddingRight: 20,
                     }}
-                /> 
+                />
                 <MaterialIcons.Button
                     backgroundColor='#7C7D8D'
                     name="add"
@@ -93,27 +81,21 @@ class BottomBar extends React.Component {
                         paddingRight: 20,
                     }}
                 />
-
-      
             </View>
         );
     }
 }
 const mapDispatchToProps = (dispatch) => {
-
     return {
         addCategory: (data, groupID) => dispatch(addCategory(data, groupID)),
         addGroup: (data) => dispatch(addGroup(data)),
         addTransaction: (data) => dispatch(addTransaction(data)),
         initializeGroup: (groupID) => dispatch(initializeGroup(groupID)),
-        initializeCategory: (groupID,categoryID) =>  dispatch(initializeCategory(groupID, categoryID)),
+        initializeCategory: (groupID, categoryID) => dispatch(initializeCategory(groupID, categoryID)),
     }
 }
-
 const mapStateToProps = (state, ownProps) => {
     const { groupData } = state
-   
-
     return {
         currentID: groupData.currentID,
         groups: groupData.groups

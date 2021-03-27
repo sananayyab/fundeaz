@@ -43,6 +43,16 @@ export function spendCategory(amount, groupID, categoryID) {
 
     }
 }
+export function spendOnlyCategory(amount, groupID, categoryID) {
+    return {
+        type: 'SPEND_ONLY_CATEGORY',
+        groupID,
+        categoryID,
+        amount,
+
+    }
+}
+
 
 export function removeSpendCategory(amount, groupID, categoryID) {
     return {
@@ -53,6 +63,16 @@ export function removeSpendCategory(amount, groupID, categoryID) {
 
     }
 }
+export function removeSpendOnlyCategory(amount, groupID, categoryID) {
+    return {
+        type: 'REMOVE_SPEND_ONLY_CATEGORY',
+        groupID,
+        categoryID,
+        amount,
+
+    }
+}
+
 
 export function initializeCategory(groupID, categoryID) {
     return {

@@ -64,7 +64,8 @@ class TransactionInput extends React.Component {
             container: {
                 flex: 1,
                 backgroundColor: 'white',
-                marginTop: '2%'
+                marginTop: '2%', 
+            
 
             },
             amountField: {

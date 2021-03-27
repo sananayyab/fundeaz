@@ -10,15 +10,15 @@ class TransactionSection extends React.Component {
         super(props)
         this.loadTransactionList = this.loadTransactionList.bind(this)
         this.getData = this.getData.bind(this)
-        this.state = { data: this.getData()}
+        this.state = { data: this.getData() }
     }
 
     getData() {
-        
 
 
-    
-    
+
+
+
         if (this.props.page === "home") {
             /*var tags;
             var list = this.props.groupList
@@ -47,26 +47,29 @@ class TransactionSection extends React.Component {
     }
 
     loadTransactionList() {
-      
+
         if (this.props.page === 'group') {
             this.props.navigation.navigate('TransactionList', {
-                data: {groupID: this.props.groupID,
-                page: 'group'}
+                data: {
+                    groupID: this.props.groupID,
+                    page: 'group',
+                    type: 'landing'
+                }
             })
-        } else   if (this.props.page === "home")
-        {
-        this.props.navigation.navigate('TransactionList', {
-            data: {
-                groupID: -1,
-                page: 'home'
-            }
-        })
-    }
-        
-        
+        } else if (this.props.page === "home") {
+            this.props.navigation.navigate('TransactionList', {
+                data: {
+                    groupID: -1,
+                    page: 'home',
+                    type: 'landing'
+                }
+            })
+        }
+
+
     }
     render() {
-      
+
         const styles = StyleSheet.create({
             container: {
                 flex: 1,

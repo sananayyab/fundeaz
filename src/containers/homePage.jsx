@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { StyleSheet, Text, View, ToastAndroid, TouchableOpacity, StatusBar } from 'react-native';
-import { registerRootComponent } from 'expo';
+import { StyleSheet, Text, View, ToastAndroid, TouchableOpacity ,StatusBar} from 'react-native';
+
 import TopBar from '../components/topBarHome.jsx';
 import CategorySection from '../components/categorySection.jsx';
 import BottomBar from '../components/bottomBar.jsx';
@@ -13,6 +13,7 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props)
         this.loadCategoryList = this.loadCategoryList.bind(this)
+ 
     }
 
     loadCategoryList()
@@ -28,6 +29,7 @@ class HomePage extends React.Component {
                 flex: 1,
                 flexDirection: 'column',
                 backgroundColor: 'white',
+            
             },
             topContainer: {
                 flex: 5
@@ -42,9 +44,9 @@ class HomePage extends React.Component {
             },
             bottomBar:
             {
-                paddingTop: '5%',
-                paddingBottom: '5%',
-                flex: 1
+                paddingTop: "5%",
+                paddingBottom:"5%",
+                flex: 2
             },
             categoryButton: {
                 marginLeft: '2%',
@@ -67,7 +69,7 @@ class HomePage extends React.Component {
         });
         return (
             <View style={styles.container}>
-              <StatusBar style="default"/>
+              <StatusBar style="light"/>
                 <View style={styles.topContainer}>
                     <TopBar section={'home'} navigation={this.props.navigation} />
                 </View>
