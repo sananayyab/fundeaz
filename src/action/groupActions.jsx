@@ -5,7 +5,7 @@ export function addGroup(data){
     }
 }
 
-export function reset(){
+export function resetGroup(){
     return{
     type: 'RESET',
   
