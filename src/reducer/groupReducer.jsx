@@ -77,7 +77,7 @@ export function groupReducer(state = initialState, action) {
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
-                        categories: Object.fromEntries(Object.entries( state.groups).filter(([key,value]) => key !== action.categoryID)) 
+                        categories: Object.fromEntries(Object.entries( state.groups[action.groupID].categories).filter(([key,value]) => key !== action.categoryID)) 
                       
                     }
 
