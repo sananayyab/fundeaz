@@ -38,7 +38,8 @@ export function groupReducer(state = initialState, action) {
         case 'REMOVE_GROUP':
             return {
                 ...state,
-                groups: state.groups.filter((item, index) => item !== action.groupID)
+                groups: Object.fromEntries(Object.entries( state.groups).filter(([key,value]) => key !== action.groupID)) 
+          
             }
         case 'UPDATE_GROUP':
             return {
@@ -76,7 +77,8 @@ export function groupReducer(state = initialState, action) {
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
-                        categories: state.groups[groupID].categories.filter((item, index) => item !== action.categoryID)
+                        categories: Object.fromEntries(Object.entries( state.groups).filter(([key,value]) => key !== action.categoryID)) 
+                      
                     }
 
 
