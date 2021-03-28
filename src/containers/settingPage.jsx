@@ -1,8 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { useDispatch } from 'react-redux';
 import {persistor} from '../reducer/store'
-import {reset} from '../action/groupActions'
+import {resetGroup} from '../action/groupActions'
+import {resetFund} from '../action/fundActions'
+import {resetTransaction} from '../action/transactionActions'
+import { useNavigation } from '@react-navigation/native';
+
 
 
 const styles = StyleSheet.create({
@@ -23,11 +27,15 @@ const styles = StyleSheet.create({
 
 function settingPage(props){
     const dispatch = useDispatch()
+    const navigation = useNavigation()
     const resetData = () => {
      
         persistor.purge()
     
-        dispatch(reset())
+        dispatch(resetGroup())
+        dispatch(resetFund())
+        dispatch(resetTransaction())
+        navigation.goBack();
 
     }
         return   <View style={{ flex: 1 , alignItems: 'center', justifyContent: 'center'}}>
