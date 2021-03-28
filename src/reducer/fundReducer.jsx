@@ -12,6 +12,8 @@ const initialState = {
 }
 export function fundReducer(state = initialState, action) {
     switch (action.type) {
+        case 'RESET':
+            return initialState
         case 'ADD_TOTAL_AVAILABLE':
             return {
                 ...state,

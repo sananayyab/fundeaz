@@ -43,6 +43,13 @@ export function spendCategory(amount, groupID, categoryID) {
 
     }
 }
+export function resetFund(){
+    return{
+    type: 'RESET',
+  
+    }
+}
+
 export function spendOnlyCategory(amount, groupID, categoryID) {
     return {
         type: 'SPEND_ONLY_CATEGORY',
