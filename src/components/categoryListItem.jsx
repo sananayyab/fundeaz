@@ -1,8 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { connect, useDispatch } from 'react-redux';
-import { updateGroup, updateCategory } from '../action/groupActions'
+import { updateGroup, updateCategory, removeCategory, removeGroup } from '../action/groupActions'
+import { MaterialIcons } from '@expo/vector-icons';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -12,6 +13,15 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         borderRadius: 10,
         flexDirection: 'row',
+    },
+
+    editTextField: {
+        flex: 8,
+        borderRadius: 5,
+        backgroundColor: '#1D2D44',
+        fontSize: 22,
+        color: 'white',
+        textAlign: 'center'
     },
     innerContainerText: {
         flex: 3.3,
@@ -77,7 +87,7 @@ const styles = StyleSheet.create({
 function CategoryListItem(props) {
     const dispatch = useDispatch();
 
-    const [element, setElement] = useState(0)
+    const [element, setElement] = useState()
 
     const clickEvent = () => {
         if (props.item === 'group') {
@@ -94,9 +104,60 @@ function CategoryListItem(props) {
             })
         }
     }
+
+    const deleteSelected = () => {
+        if (props.item === 'group') {
+            dispatch(removeGroup(props.id));
+        }
+        else if (props.item === 'category') {
+            dispatch(removeCategory( props.id, props.groupID));
+        }
+
+    }
+
+    const activateEditMode = (name) => {
+        setElement(<View style={styles.container}>
+              <TextInput autoFocus={true} onEndEditing={(event) => {
+                        if (props.item === 'group') {
+                            dispatch(updateGroup({
+                                name: event.nativeEvent.text,
+                                itemStatus: 'created',
+                            }, props.id));
+                        }
+                        else if (props.item === 'category') {
+                            dispatch(updateCategory({
+                                name: event.nativeEvent.text,
+                                itemStatus: 'created',
+                            }, props.id, props.groupID));
+                        }
+
+                        setCreatedType(event.nativeEvent.text, 0)
+                     
+                    }}
+                        style={styles.editTextField} >{name}</TextInput>
+
+            <View style={{ width: '5%' }} />
+
+            <MaterialIcons.Button
+                backgroundColor={'white'}
+                color='black'
+                name="delete"
+                size={30}
+                onPress={deleteSelected}
+                iconStyle={{
+
+
+                    marginRight: 0
+
+
+                }}
+            />
+
+        </View>)
+    }
     const setCreatedType = (name, amount) => {
         setElement(
-         <TouchableOpacity onPress={clickEvent} key={props.id} style={styles.container}>
+            <TouchableOpacity onPress={clickEvent} onLongPress={() => {activateEditMode(name)}} key={props.id} style={styles.container}>
                 <View style={styles.innerContainerText}>
                     <Text style={styles.textText} >{name}</Text>
                 </View>
@@ -104,50 +165,51 @@ function CategoryListItem(props) {
                     <Text style={styles.textAmount}>{props.amount}</Text>
                 </View>
             </TouchableOpacity>
-            )
-        }
+        )
+    }
+
+    useEffect(() => {
         if (props.type === 'new') {
-            return (
-                <View key={props.id} style={styles.container}>
-                    <View style={styles.textInputBar}>
-                        <TextInput autoFocus={true} onEndEditing={(event) => {
-                            if (props.item === 'group') {
-                                dispatch(updateGroup({
-                                    name: event.nativeEvent.text,
-                                    itemStatus: 'created',
-                                }, props.id));
-                            }
-                            else if (props.item === 'category') {
-                                dispatch(updateCategory({
-                                    name: event.nativeEvent.text,
-                                    itemStatus: 'created',
-                                }, props.id, props.groupID));
-                            }
-                            setCreatedType(event.nativeEvent.text, 0)
-                        }}
-                            style={styles.textInputText} > </TextInput>
-                    </View>
-                </View>)
+            setElement(<View key={props.id} style={styles.container}>
+                <View style={styles.textInputBar}>
+                    <TextInput autoFocus={true} onEndEditing={(event) => {
+                        if (props.item === 'group') {
+                            dispatch(updateGroup({
+                                name: event.nativeEvent.text,
+                                itemStatus: 'created',
+                            }, props.id));
+                        }
+                        else if (props.item === 'category') {
+                            dispatch(updateCategory({
+                                name: event.nativeEvent.text,
+                                itemStatus: 'created',
+                            }, props.id, props.groupID));
+                        }
+                        setCreatedType(event.nativeEvent.text, 0)
+                    }}
+                        style={styles.textInputText} > </TextInput>
+                </View>
+            </View>)
         }
 
         else if (props.type === 'created') {
-            return (
-                <TouchableOpacity onPress={clickEvent} key={props.id} style={styles.container}>
-                    <View style={styles.innerContainerText}>
-                        <Text style={styles.textText} >{props.name}</Text>
-                    </View>
-                    <View style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                        <Text style={styles.textAmount}>{props.amount}</Text>
-                    </View>
-                </TouchableOpacity>)
+            setElement(<TouchableOpacity onPress={clickEvent} onLongPress={() => {activateEditMode(props.name)}} key={props.id} style={styles.container}>
+                <View style={styles.innerContainerText}>
+                    <Text style={styles.textText} >{props.name}</Text>
+                </View>
+                <View style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                    <Text style={styles.textAmount}>{props.amount}</Text>
+                </View>
+            </TouchableOpacity>)
         }
-    
+    }, [])
 
 
-return (
-    <View style={{ flex: 1 }}>
-        {element}
-    </View>
-);
+
+    return (
+        <View style={{ flex: 1 }}>
+            {element}
+        </View>
+    );
 }
 export default CategoryListItem
