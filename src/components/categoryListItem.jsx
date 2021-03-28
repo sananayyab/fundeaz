@@ -1,6 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { updateGroup, updateCategory } from '../action/groupActions'
 const styles = StyleSheet.create({
     container: {
@@ -14,7 +15,6 @@ const styles = StyleSheet.create({
     },
     innerContainerText: {
         flex: 3.3,
-
         height: '100%',
         borderRadius: 5,
         flexDirection: 'column',
@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#85041C',
     },
     innerContainerAmount: {
-
     },
     textText: {
         paddingLeft: 0,
@@ -55,13 +54,11 @@ const styles = StyleSheet.create({
         marginLeft: '5%',
     },
     textAmount: {
-
         fontSize: 20,
         color: 'white',
     },
     textInputBar: {
         flex: 1,
-
         height: '90%',
         borderRadius: 5,
         flexDirection: 'column',
@@ -76,116 +73,81 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center'
     }
-
 })
-class CategoryListItem extends React.Component {
+function CategoryListItem(props) {
+    const dispatch = useDispatch();
 
-    constructor(props) {
-        super(props)
-        this.setCreatedType = this.setCreatedType.bind(this)
-        this.clickEvent = this.clickEvent.bind(this)
-        if (this.props.type === 'new') {
-            this.state = {
-                item: [<View key={this.props.id} style={styles.container}>
-                    <View style={styles.textInputBar}>
-                        <TextInput autoFocus={true} onEndEditing={(event) => {
-                            if (this.props.item === 'group') {
-                                this.props.updateGroup({
-                                    name: event.nativeEvent.text,
-                                    itemStatus: 'created',
-                                });
-                            }
-                            else if (this.props.item === 'category') {
-                                this.props.updateCategory({
-                                    name: event.nativeEvent.text,
-                                    itemStatus: 'created',
-                                }, this.props.id, this.props.groupID);
-                            }
-                            this.setCreatedType(event.nativeEvent.text, 0)
-                        }}
-                            style={styles.textInputText} > </TextInput>
-                    </View>
+    const [element, setElement] = useState(0)
 
-                </View>]
-            }
-        }
-        else if (this.props.type === 'created') {
-            this.state = {
-                item: [<TouchableOpacity onPress={this.clickEvent} key={this.props.id} style={styles.container}>
-                    <View style={styles.innerContainerText}>
-                        <Text style={styles.textText} >{this.props.name}</Text>
-                    </View>
-                    <View style={((parseInt(this.props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                        <Text style={styles.textAmount}>{this.props.amount}</Text>
-                    </View>
-                </TouchableOpacity>]
-            }
-        }
-    }
-
-
-    clickEvent() {
-        if (this.props.item === 'group') {
+    const clickEvent = () => {
+        if (props.item === 'group') {
             /*var tags;
-            var list = this.props.groupList
+            var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
-
-
-            // passing , navigation: this.props.navigation was causing the issue, find another way to pass navigation 
-            this.props.navigation.navigate('GroupPage', {
-                name: this.props.name,
-                id: this.props.id
+            // passing , navigation: props.navigation was causing the issue, find another way to pass navigation 
+            props.navigation.navigate('GroupPage', {
+                name: props.name,
+                id: props.id
             })
-
-
         }
     }
-
-    setCreatedType(name, amount) {
-
-
-        this.setState({
-            item: [<TouchableOpacity onPress={this.clickEvent} key={this.props.id} style={styles.container}>
+    const setCreatedType = (name, amount) => {
+        setElement(
+         <TouchableOpacity onPress={clickEvent} key={props.id} style={styles.container}>
                 <View style={styles.innerContainerText}>
                     <Text style={styles.textText} >{name}</Text>
                 </View>
-                <View style={((parseInt(this.props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                    <Text style={styles.textAmount}>{this.props.amount}</Text>
+                <View style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                    <Text style={styles.textAmount}>{props.amount}</Text>
                 </View>
-            </TouchableOpacity>]
-        })
+            </TouchableOpacity>
+            )
+        }
+        if (props.type === 'new') {
+            return (
+                <View key={props.id} style={styles.container}>
+                    <View style={styles.textInputBar}>
+                        <TextInput autoFocus={true} onEndEditing={(event) => {
+                            if (props.item === 'group') {
+                                dispatch(updateGroup({
+                                    name: event.nativeEvent.text,
+                                    itemStatus: 'created',
+                                }, props.id));
+                            }
+                            else if (props.item === 'category') {
+                                dispatch(updateCategory({
+                                    name: event.nativeEvent.text,
+                                    itemStatus: 'created',
+                                }, props.id, props.groupID));
+                            }
+                            setCreatedType(event.nativeEvent.text, 0)
+                        }}
+                            style={styles.textInputText} > </TextInput>
+                    </View>
+                </View>)
+        }
 
-    }
-    render() {
+        else if (props.type === 'created') {
+            return (
+                <TouchableOpacity onPress={clickEvent} key={props.id} style={styles.container}>
+                    <View style={styles.innerContainerText}>
+                        <Text style={styles.textText} >{props.name}</Text>
+                    </View>
+                    <View style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                        <Text style={styles.textAmount}>{props.amount}</Text>
+                    </View>
+                </TouchableOpacity>)
+        }
+    
 
-        return (
-            <View style={{ flex: 1 }}>
-                {this.state.item}
-            </View>
-        );
-    }
+
+return (
+    <View style={{ flex: 1 }}>
+        {element}
+    </View>
+);
 }
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-
-    const { id } = ownProps
-    return {
-        updateGroup: (data) => dispatch(updateGroup(data, id)),
-        updateCategory: (data, catID, GrID) => dispatch(updateCategory(data, catID, GrID)),
-
-    }
-}
-
-const mapStateToProps = (state) => {
-
-
-    return {
-
-
-    }
-};
-export default connect(null, mapDispatchToProps)(CategoryListItem)
-
+export default CategoryListItem
