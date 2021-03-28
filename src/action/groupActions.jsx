@@ -5,6 +5,13 @@ export function addGroup(data){
     }
 }
 
+export function reset(){
+    return{
+    type: 'RESET',
+  
+    }
+}
+
 export function removeGroup(groupID){
     return{
     type: 'REMOVE_GROUP',

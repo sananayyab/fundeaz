@@ -15,11 +15,13 @@
 const initialState = {
     currentID: 0,
     groups: {
-     
+
     }
 }
 export function groupReducer(state = initialState, action) {
     switch (action.type) {
+        case 'RESET':
+            return initialState
         case 'ADD_GROUP':
             return {
                 ...state,

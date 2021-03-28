@@ -8,6 +8,7 @@ import TransactionInput from './transactionDataInputPage.jsx';
 import CategoryListPage from './categoryListPage.jsx';
 import TransactionEdit from './transactionEdit.jsx';
 import GroupListPage from './groupListPage.jsx';
+import settingPage from './settingPage.jsx';
 import TransactionListPage from './transactionListPage.jsx';
 import AllocationPage from './allocationPage.jsx';
 import { NavigationContainer } from '@react-navigation/native';
@@ -52,7 +53,7 @@ class App extends React.Component
                     <Stack.Screen name="TransactionInput" component={ TransactionInput } />
                     <Stack.Screen name="TransactionEdit" component={ TransactionEdit } />
                     <Stack.Screen name="AllocationPage" component={ AllocationPage } />
-                    
+                    <Stack.Screen name="SettingPage" component={ settingPage } />
                 </Stack.Navigator>
                 </NavigationContainer>
                 </PersistGate>

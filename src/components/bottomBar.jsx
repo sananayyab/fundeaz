@@ -10,6 +10,12 @@ class BottomBar extends React.Component {
     constructor(props) {
         super(props)
         this.processAction = this.processAction.bind(this)
+        this.loadSettings = this.loadSettings.bind(this)
+    }
+
+    loadSettings(){
+
+        this.props.navigation.navigate('SettingPage')
     }
     processAction() {
         const type = this.props.data.type
@@ -63,6 +69,7 @@ class BottomBar extends React.Component {
                     name="settings"
                     color='black'
                     size={35}
+                    onPress={this.loadSettings}
                     iconStyle={{
                         marginRight: 0,
                         paddingLeft: 20,

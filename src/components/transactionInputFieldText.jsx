@@ -1,29 +1,16 @@
-
 import React from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity, TouchableWithoutFeedbackBase, Text } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-
 import { connect } from 'react-redux';
-
 class TransactionInputFieldText extends React.Component {
-
     constructor(props) {
         super(props)
     }
-
-
-
-
-
     render() {
-
-
         const styles = StyleSheet.create({
             container: {
                 top: 10,
                 height: 80,
-
-
             },
             fieldNameContainer: {
                 position: 'absolute',
@@ -41,19 +28,14 @@ class TransactionInputFieldText extends React.Component {
                 zIndex: 2,
                 height: '50%',
                 marginRight: '3%',
-
                 marginLeft: '20%',
                 backgroundColor: '#1D2D44'
             },
             fieldNameText: {
-
                 paddingRight: '6%',
-
                 alignSelf: 'center',
-
                 fontSize: 19,
                 color: 'white',
-
             },
             textInput: {
                 flex: 1,
@@ -63,8 +45,6 @@ class TransactionInputFieldText extends React.Component {
                 marginRight: 15,
                 marginLeft: 15,
             }
-
-
         })
         return (
             <View style={styles.container} >
@@ -74,7 +54,7 @@ class TransactionInputFieldText extends React.Component {
                     </Text>
                 </View>
                 <View style={styles.textFieldContainer}>
-                    <TextInput onChangeText={(text) => {
+                    <TextInput onEndEditing={(text) => {
                         this.props.data({
                             [this.props.fieldName]: text
                         })
@@ -86,7 +66,4 @@ class TransactionInputFieldText extends React.Component {
         );
     }
 }
-
-
 export default TransactionInputFieldText;
-
