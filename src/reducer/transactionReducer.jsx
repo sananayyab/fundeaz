@@ -18,6 +18,8 @@ const initialState = {
 }
 export function transactionReducer(state = initialState, action) {
     switch (action.type) {
+        case 'RESET':
+            return initialState
         case 'ADD_TRANSACTION':
             return {
                 ...state,

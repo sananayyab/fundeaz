@@ -19,3 +19,9 @@ export function updateTransaction(data, id){
     data,
     }
 }
+export function resetTransaction(){
+    return{
+    type: 'RESET',
+  
+    }
+}
