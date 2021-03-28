@@ -4,43 +4,42 @@ import { StyleSheet, ScrollView, View, Dimensions, TouchableOpacity } from 'reac
 import { connect } from 'react-redux';
 import CategoryItem from './categoryItem.jsx';
 import Carousel from 'react-native-snap-carousel';
+import { useState, useEffect } from 'react';
 
-class CategorySection extends React.Component {
-    sliderWidth = Dimensions.get('window').width - 20;
 
-    constructor(props) {
-        super(props)
-        this.getData = this.getData.bind(this)
-        this.data = this.getData();
-    }
+function CategorySection(props) {
+    const sliderWidth = Dimensions.get('window').width - 20;
 
-    getData() {
-        if (this.props.section === "group") {
+    const [itemList, setItems] = useState([])
+    const getData = () => {
+        if (props.section === "group") {
             /*var tags;
-            var list = this.props.groupList
+            var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
 
-            return(Object.entries(this.props.groupList).map( ([key, value]) =>  <CategoryItem key={key}  id={ key}name={value.name} item={'group'}  amount={this.props.groupFunds[key].available} navigation={this.props.navigation}/>))
-            
-            
+            setItems(Object.entries(props.groupList).map(([key, value]) => <CategoryItem key={key} id={key} name={value.name} item={'group'} amount={props.groupFunds[key].available} navigation={props.navigation} />))
+
+
         }
-        if (this.props.section === "category") {
+        if (props.section === "category") {
             /*var tags;
-            var list = this.props.groupList
+            var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
-            
-            return(Object.entries(this.props.groupList[this.props.groupID].categories).map( ([key, value]) =>  <CategoryItem key={key} groupID={this.props.groupID} groupName={this.props.groupName} name={value.name} item={'category'} amount={this.props.groupFunds[this.props.groupID].categories[key].available} navigation={this.props.navigation}/>))
-            
-            
+
+            setItems(Object.entries(props.groupList[props.groupID].categories).map(([key, value]) => <CategoryItem key={key} groupID={props.groupID} groupName={props.groupName} name={value.name} item={'category'} amount={props.groupFunds[props.groupID].categories[key].available} navigation={props.navigation} />))
+
+
         }
     }
-    items = ({ item, index }) => {
+
+    useEffect(() => { getData() }, [props.groupList])
+    const items = ({ item, index }) => {
         return (
             <View style={{
                 flex: 1,
@@ -50,50 +49,52 @@ class CategorySection extends React.Component {
             </View>
         );
     }
-    render() {
-
-     
-        const styles = StyleSheet.create({
-            container: {
-
-                marginBottom: '4%',
-                marginLeft: '2%',
-                marginRight: '2%',
-                //borderTopRightRadius: 15,
-                //borderTopLeftRadius: 15,
-                borderBottomLeftRadius: 15,
 
 
-                borderBottomRightRadius: 15,
-                flexDirection: 'row',
-                backgroundColor: '#7C7D8D',
-                flex: 1,
-            },
-            ListButton: {
-                backgroundColor: 'white',
-            },
-        })
-        return (
-            <View style={styles.container}>
 
-                <Carousel
-                    enableSnap={false}
-                    inactiveSlideOpacity={1}
-                    inactiveSlideScale={1}
-                    activeSlideAlignment={'start'}
-                    data={this.getData()}
-                    renderItem={this.items}
-                    sliderWidth={this.sliderWidth}
-                    itemWidth={197}
-                />
+    const styles = StyleSheet.create({
+        container: {
 
-            </View>
-        );
-    }
+            marginBottom: '4%',
+            marginLeft: '2%',
+            marginRight: '2%',
+            //borderTopRightRadius: 15,
+            //borderTopLeftRadius: 15,
+            borderBottomLeftRadius: 15,
+
+
+            borderBottomRightRadius: 15,
+            flexDirection: 'row',
+            backgroundColor: '#7C7D8D',
+            flex: 1,
+        },
+        ListButton: {
+            backgroundColor: 'white',
+        },
+    })
+    return (
+        <View style={styles.container}>
+
+            <Carousel
+                enableSnap={false}
+                inactiveSlideOpacity={1}
+                inactiveSlideScale={1}
+                activeSlideAlignment={'start'}
+                data={itemList}
+                renderItem={items}
+                sliderWidth={sliderWidth}
+                itemWidth={197}
+            />
+
+        </View>
+    );
 }
+
 const mapStateToProps = (state) => {
     const { groupData, fund } = state
-    return { groupList: groupData.groups, 
-        groupFunds: fund.groups}
+    return {
+        groupList: groupData.groups,
+        groupFunds: fund.groups
+    }
 };
 export default connect(mapStateToProps)(CategorySection);
