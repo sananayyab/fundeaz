@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         flexDirection: 'row',
     },
-
     editTextField: {
         flex: 8,
         borderRadius: 5,
@@ -86,9 +85,7 @@ const styles = StyleSheet.create({
 })
 function CategoryListItem(props) {
     const dispatch = useDispatch();
-
     const [element, setElement] = useState()
-
     const clickEvent = () => {
         if (props.item === 'group') {
             /*var tags;
@@ -104,20 +101,19 @@ function CategoryListItem(props) {
             })
         }
     }
-
     const deleteSelected = () => {
         if (props.item === 'group') {
             dispatch(removeGroup(props.id));
+            setElement()
         }
         else if (props.item === 'category') {
             dispatch(removeCategory( props.id, props.groupID));
+            setElement()
         }
-
     }
-
     const activateEditMode = (name) => {
         setElement(<View style={styles.container}>
-              <TextInput autoFocus={true} onEndEditing={(event) => {
+              <TextInput onEndEditing={(event) => {
                         if (props.item === 'group') {
                             dispatch(updateGroup({
                                 name: event.nativeEvent.text,
@@ -130,14 +126,10 @@ function CategoryListItem(props) {
                                 itemStatus: 'created',
                             }, props.id, props.groupID));
                         }
-
                         setCreatedType(event.nativeEvent.text, 0)
-                     
                     }}
                         style={styles.editTextField} >{name}</TextInput>
-
             <View style={{ width: '5%' }} />
-
             <MaterialIcons.Button
                 backgroundColor={'white'}
                 color='black'
@@ -145,14 +137,9 @@ function CategoryListItem(props) {
                 size={30}
                 onPress={deleteSelected}
                 iconStyle={{
-
-
                     marginRight: 0
-
-
                 }}
             />
-
         </View>)
     }
     const setCreatedType = (name, amount) => {
@@ -167,7 +154,6 @@ function CategoryListItem(props) {
             </TouchableOpacity>
         )
     }
-
     useEffect(() => {
         if (props.type === 'new') {
             setElement(<View key={props.id} style={styles.container}>
@@ -191,7 +177,6 @@ function CategoryListItem(props) {
                 </View>
             </View>)
         }
-
         else if (props.type === 'created') {
             setElement(<TouchableOpacity onPress={clickEvent} onLongPress={() => {activateEditMode(props.name)}} key={props.id} style={styles.container}>
                 <View style={styles.innerContainerText}>
@@ -203,9 +188,6 @@ function CategoryListItem(props) {
             </TouchableOpacity>)
         }
     }, [])
-
-
-
     return (
         <View style={{ flex: 1 }}>
             {element}
