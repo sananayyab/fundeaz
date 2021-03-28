@@ -32,13 +32,13 @@ function CategorySection(props) {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
 
-            setItems(Object.entries(props.groupList[props.groupID].categories).map(([key, value]) => <CategoryItem key={key} groupID={props.groupID} groupName={props.groupName} name={value.name} item={'category'} amount={props.groupFunds[props.groupID].categories[key].available} navigation={props.navigation} />))
+            setItems(Object.entries(props.groupList[props.groupID].categories).map(([key, value]) => <CategoryItem key={key} id={key} groupID={props.groupID} groupName={props.groupName} name={value.name} item={'category'} amount={props.groupFunds[props.groupID].categories[key].available} navigation={props.navigation} />))
 
 
         }
     }
 
-    useEffect(() => { getData() }, [props.groupList])
+    useEffect(() => { getData() }, [props.groupList, props.groupList.categories])
     const items = ({ item, index }) => {
         return (
             <View style={{
