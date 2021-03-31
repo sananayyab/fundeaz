@@ -46,7 +46,7 @@ class HomePage extends React.Component {
             {
                 paddingTop: "5%",
                 paddingBottom:"5%",
-                flex: 2
+                flex: 1
             },
             categoryButton: {
                 marginLeft: '2%',
@@ -74,10 +74,7 @@ class HomePage extends React.Component {
                     <TopBar section={'home'} navigation={this.props.navigation} />
                 </View>
                 <View style={styles.categoryContainer}>
-                    <TouchableOpacity style={styles.categoryButton}
-                    onPress={this.loadCategoryList}>
-                        <View style={styles.lines} />
-                    </TouchableOpacity>
+                 
                     <CategorySection section={"group"} style={{ flex: 1 }} navigation={this.props.navigation} />
                 </View>
                 <View style={styles.spendingContainer}>

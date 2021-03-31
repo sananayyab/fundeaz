@@ -78,10 +78,7 @@ class GroupPage extends React.Component {
                     <TopBar section={'group'} groupID={route.params.id} navigation={this.props.navigation} />
                 </View>
                 <View style={styles.categoryContainer}>
-                    <TouchableOpacity style={styles.categoryButton}
-                    onPress={this.loadCategoryList}>
-                        <View style={styles.lines} />
-                    </TouchableOpacity>
+                  
                     <CategorySection section={"category"} groupName={this.props.route.params.name} groupID={route.params.id}  style={{ flex: 1 }} navigation={this.props.navigation} />
                 </View>
                 <View style={styles.spendingContainer}>

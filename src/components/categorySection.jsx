@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { StyleSheet, ScrollView, View, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, View, Dimensions, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
 import CategoryItem from './categoryItem.jsx';
 import Carousel from 'react-native-snap-carousel';
@@ -38,7 +38,7 @@ function CategorySection(props) {
         }
     }
 
-    useEffect(() => { getData() }, [props.groupList, props.groupList.categories])
+    useEffect(() => { getData() }, [props.groupList, props.groupList.categories, props.groupFunds])
     const items = ({ item, index }) => {
         return (
             <View style={{
@@ -51,7 +51,11 @@ function CategorySection(props) {
     }
 
 
-
+    function loadCategoryList() {
+        props.navigation.navigate('GroupList', {
+            page: 'home'
+        })
+    }
     const styles = StyleSheet.create({
         container: {
 
@@ -64,28 +68,71 @@ function CategorySection(props) {
 
 
             borderBottomRightRadius: 15,
-            flexDirection: 'row',
-            backgroundColor: '#7C7D8D',
+            flexDirection: 'column',
+
             flex: 1,
         },
         ListButton: {
             backgroundColor: 'white',
         },
+
+
+        lines: {
+          
+            alignSelf: 'center',
+            marginTop: '1.5%',
+            height: '50%',
+            borderRadius: 30,
+            backgroundColor: '#C8C8C8',
+            width: '30%',
+            marginRight: '5%',
+        },
+        categoryButton: {
+            flex: 1.2,
+            alignItems: 'center',
+           justifyContent: 'center',
+            borderTopRightRadius: 15,
+            borderTopLeftRadius: 15,
+            flexDirection: 'row',
+            height: '12%',
+            backgroundColor: '#7C7D8D',
+        },
+        caresoul: {
+            flex: 9,
+            backgroundColor: '#7C7D8D',
+            borderBottomLeftRadius: 15,
+            borderBottomRightRadius: 15,
+        },
+        tag: {
+           
+            justifyContent: 'flex-start',
+            marginLeft: '5%'
+            
+        }
+
     })
     return (
         <View style={styles.container}>
 
-            <Carousel
-                enableSnap={false}
-                inactiveSlideOpacity={1}
-                inactiveSlideScale={1}
-                activeSlideAlignment={'start'}
-                data={itemList}
-                renderItem={items}
-                sliderWidth={sliderWidth}
-                itemWidth={197}
-            />
-
+            <TouchableOpacity style={styles.categoryButton}
+                onPress={loadCategoryList}>
+                    <View style={styles.tag}>
+           
+                </View>
+                <View style={styles.lines} />
+            </TouchableOpacity>
+            <View style={styles.caresoul}>
+                <Carousel
+                    enableSnap={false}
+                    inactiveSlideOpacity={1}
+                    inactiveSlideScale={1}
+                    activeSlideAlignment={'start'}
+                    data={itemList}
+                    renderItem={items}
+                    sliderWidth={sliderWidth}
+                    itemWidth={197}
+                />
+            </View>
         </View>
     );
 }
