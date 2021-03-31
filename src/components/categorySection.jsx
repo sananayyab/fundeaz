@@ -114,7 +114,7 @@ function CategorySection(props) {
     return (
         <View style={styles.container}>
 
-            <TouchableOpacity style={styles.categoryButton}
+            <TouchableOpacity activeOpacity={1} style={styles.categoryButton}
                 onPress={loadCategoryList}>
                     <View style={styles.tag}>
            

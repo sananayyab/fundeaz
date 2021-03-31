@@ -114,7 +114,7 @@ class TransactionInputFieldDate extends React.Component {
                         {this.props.fieldName}
                     </Text>
                 </View>
-                <TouchableOpacity style={styles.textFieldContainer} onPress={this.showDatepicker} >
+                <TouchableOpacity activeOpacity={1} style={styles.textFieldContainer} onPress={this.showDatepicker} >
 
                     <Text style={styles.textInput}>
                     {this.state.date.toDateString()}

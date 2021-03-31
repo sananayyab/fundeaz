@@ -39,7 +39,7 @@ function settingPage(props){
 
     }
         return   <View style={{ flex: 1 , alignItems: 'center', justifyContent: 'center'}}>
-        <TouchableOpacity style={styles.container} onPress={resetData}>
+        <TouchableOpacity activeOpacity={1} style={styles.container} onPress={resetData}>
             <Text style={{fontSize: 30, textAlignVertical: 'center', textAlign: 'center', bottom: 4}}>
                 Reset Data
             </Text>

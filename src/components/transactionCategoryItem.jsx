@@ -69,7 +69,7 @@ class TransactionCategoryListItem extends React.Component {
             }
         })
         return (
-           <TouchableOpacity onPress={() => {this.props.press(this.props.name, this.props.amount, this.props.groupID,this.props.categoryID)}} style={styles.container}>
+           <TouchableOpacity activeOpacity={1} onPress={() => {this.props.press(this.props.name, this.props.amount, this.props.groupID,this.props.categoryID)}} style={styles.container}>
 
                 <View style={styles.innerContainerText}>
                     <Text style={styles.textText} >{this.props.name}</Text>

@@ -3,9 +3,7 @@ import { StyleSheet, Text, View, ToastAndroid, TouchableOpacity, StatusBar } fro
 import TransactionList from '../components/transactionList.jsx'
 import BottomBar from '../components/bottomBar.jsx';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Feather } from '@expo/vector-icons';
+
 class TransactionListPage extends React.Component {
     constructor(props) {
         super(props)
@@ -21,7 +19,7 @@ class TransactionListPage extends React.Component {
             {
                 paddingTop: '4%',
                 paddingBottom: '3%',
-                flex: 1
+                flex: 2
             },
             list: {
                 margin: '2%',

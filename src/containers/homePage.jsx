@@ -7,7 +7,7 @@ import CategorySection from '../components/categorySection.jsx';
 import BottomBar from '../components/bottomBar.jsx';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Feather } from '@expo/vector-icons'; 
+
 import TransactionSection from '../components/transactionSection';
 class HomePage extends React.Component {
     constructor(props) {
@@ -46,7 +46,7 @@ class HomePage extends React.Component {
             {
                 paddingTop: "5%",
                 paddingBottom:"5%",
-                flex: 1
+                flex: 2
             },
             categoryButton: {
                 marginLeft: '2%',

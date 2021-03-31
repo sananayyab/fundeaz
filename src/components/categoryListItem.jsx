@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { connect, useDispatch } from 'react-redux';
 import { updateGroup, updateCategory, removeCategory, removeGroup } from '../action/groupActions'
-import { MaterialIcons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -130,7 +130,7 @@ function CategoryListItem(props) {
                     }}
                         style={styles.editTextField} >{name}</TextInput>
             <View style={{ width: '5%' }} />
-            <MaterialIcons.Button
+            <Icon.Button
                 backgroundColor={'white'}
                 color='black'
                 name="delete"
@@ -144,7 +144,7 @@ function CategoryListItem(props) {
     }
     const setCreatedType = (name, amount) => {
         setElement(
-            <TouchableOpacity onPress={clickEvent} onLongPress={() => {activateEditMode(name)}} key={props.id} style={styles.container}>
+            <TouchableOpacity activeOpacity={1} onPress={clickEvent} onLongPress={() => {activateEditMode(name)}} key={props.id} style={styles.container}>
                 <View style={styles.innerContainerText}>
                     <Text style={styles.textText} >{name}</Text>
                 </View>
@@ -178,7 +178,7 @@ function CategoryListItem(props) {
             </View>)
         }
         else if (props.type === 'created') {
-            setElement(<TouchableOpacity onPress={clickEvent} onLongPress={() => {activateEditMode(props.name)}} key={props.id} style={styles.container}>
+            setElement(<TouchableOpacity  activeOpacity={1} onPress={clickEvent} onLongPress={() => {activateEditMode(props.name)}} key={props.id} style={styles.container}>
                 <View style={styles.innerContainerText}>
                     <Text style={styles.textText} >{props.name}</Text>
                 </View>

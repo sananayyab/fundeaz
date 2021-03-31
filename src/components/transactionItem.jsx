@@ -74,7 +74,7 @@ class TransactionItem extends React.Component {
         })
         if (this.props.category.trim() === "Income") {
             return (
-                <TouchableOpacity style={styles.container}
+                <TouchableOpacity activeOpacity={1} style={styles.container}
                 onPress={this.goToTrasaction}>
                     <View style={styles.CategoryContainer}>
                         <Text style={styles.Categorytext}>{this.props.category.trim()}</Text>
@@ -88,7 +88,7 @@ class TransactionItem extends React.Component {
         }
         else {
             return (
-                <TouchableOpacity style={styles.container}
+                <TouchableOpacity activeOpacity={1} style={styles.container}
                 onPress={this.goToTrasaction}>
                     <View style={styles.CategoryContainer}>
                         <Text style={styles.Categorytext}>{this.props.category.trim()}</Text>

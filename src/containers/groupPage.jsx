@@ -8,7 +8,7 @@ import BottomBar from '../components/bottomBar.jsx';
 import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import TransactionSection from '../components/transactionSection';
-import { Feather } from '@expo/vector-icons';
+
 
 class GroupPage extends React.Component {
     constructor(props) {

@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default registerRootComponent(App);
+export default App;

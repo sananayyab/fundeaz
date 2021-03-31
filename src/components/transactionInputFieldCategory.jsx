@@ -241,7 +241,7 @@ class TransactionInputFieldCategory extends React.Component {
                         {'Category'}
                     </Text>
                 </View>
-                <TouchableOpacity style={this.state.category ? styles.textFieldContainerCategory : styles.textFieldContainerIncome} onPress={() => { this.setState({ showModal: true }) }}>
+                <TouchableOpacity  activeOpacity={1} style={this.state.category ? styles.textFieldContainerCategory : styles.textFieldContainerIncome} onPress={() => { this.setState({ showModal: true }) }}>
                     <Modal onRequestClose={() => {
                         this.setState({
                             showModal: false
@@ -249,7 +249,7 @@ class TransactionInputFieldCategory extends React.Component {
                     }} style={styles.categoryPopUpStyle} isVisible={this.state.showModal}>
 
                         <View style={styles.incomeBar}>
-                            <TouchableOpacity onPress={this.incomeselected} style={{ justifyContent: 'center', }} >
+                            <TouchableOpacity  activeOpacity={1} onPress={this.incomeselected} style={{ justifyContent: 'center', }} >
                                 <Text style={styles.incomeText}>Income</Text>
                             </TouchableOpacity>
                         </View>

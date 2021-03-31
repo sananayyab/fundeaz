@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, ToastAndroid, TouchableOpacity, StatusBar, KeyboardAvoidingView, Dimensions, Button } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { MaterialIcons } from '@expo/vector-icons';
-import Constants from 'expo-constants';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { spendCategory, addTotalAvailable } from '../action/fundActions.jsx'
 import { addTransaction } from '../action/transactionActions.jsx'
@@ -127,7 +126,7 @@ class TransactionInput extends React.Component {
 
                         <View styles={styles.buttonStyle}>
 
-                            <MaterialIcons.Button
+                            <Icon.Button
                                 backgroundColor='#7C7D8D'
                                 color='black'
                                 name="check"

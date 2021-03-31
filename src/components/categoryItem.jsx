@@ -102,7 +102,7 @@ class CategoryItem extends React.Component {
             }
         })
         return (
-            <TouchableOpacity style={styles.container} onPress={this.pressed}>
+            <TouchableOpacity  activeOpacity={1} style={styles.container} onPress={this.pressed}>
                 <View style={styles.nameContainer}>
                     <Text style={styles.Nametext}>
                         {this.props.name}

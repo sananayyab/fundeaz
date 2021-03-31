@@ -65,6 +65,7 @@ class TopBar extends React.Component
         })
         return (
             <TouchableOpacity
+            
                 style={ styles.container }
                 onPress={ this.navigationToDetails }
                 activeOpacity={ 1 }>

@@ -4,7 +4,7 @@ import CategoryList from '../components/categoryList.jsx'
 import BottomBar from '../components/bottomBar.jsx';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Feather } from '@expo/vector-icons';
+
 import { useNavigation , useRoute} from '@react-navigation/native';
 
 class GroupListPage extends React.Component {
@@ -34,7 +34,7 @@ class GroupListPage extends React.Component {
             {
                 paddingTop: '4%',
                 paddingBottom: '3%',
-                flex: 1
+                flex: 2
             },
             list: {
                 margin: '2%',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, StyleSheet, ToastAndroid, View } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import Icon  from 'react-native-vector-icons/MaterialIcons';
 import { bindActionCreators } from 'redux'
 import { addTransaction } from '../action/transactionActions'
 import { connect } from 'react-redux';
@@ -64,7 +64,7 @@ class BottomBar extends React.Component {
         })
         return (
             <View style={styles.container}>
-                <MaterialIcons.Button
+                <Icon.Button
                     backgroundColor='#7C7D8D'
                     name="settings"
                     color='black'
@@ -76,7 +76,7 @@ class BottomBar extends React.Component {
                         paddingRight: 20,
                     }}
                 />
-                <MaterialIcons.Button
+               <Icon.Button
                     backgroundColor='#7C7D8D'
                     name="add"
                     color='black'

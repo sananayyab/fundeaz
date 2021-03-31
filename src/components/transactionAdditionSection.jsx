@@ -67,7 +67,7 @@ class TranscationAdding extends React.Component
                 <View style={ {
                     flex: 1,
                 justifyContent: 'flex-start'} }>
-                    <TouchableOpacity style={styles.buttonStyle }>
+                    <TouchableOpacity  activeOpacity={1} style={styles.buttonStyle }>
                         <Text>Add</Text>
                     </TouchableOpacity>
                 </View>

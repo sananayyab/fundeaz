@@ -103,7 +103,7 @@ class TransactionSection extends React.Component {
         })
         return (
             <View style={styles.container} >
-                <TouchableOpacity style={styles.TransactionButton}
+                <TouchableOpacity activeOpacity={1} style={styles.TransactionButton}
                     onPress={this.loadTransactionList}>
                     <View style={styles.lines} />
                 </TouchableOpacity>
