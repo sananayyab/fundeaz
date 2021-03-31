@@ -15,7 +15,7 @@ class TransactionList extends React.Component {
     }
 
     getData() {
-        if (parseInt(  this.props.groupID) === -1) {
+        if (this.props.page === "home") {
             /*var tags;
             var list = this.props.groupList
             for (var key in list)
@@ -23,11 +23,11 @@ class TransactionList extends React.Component {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
             }*/
 
-            return (Object.entries(this.props.transactionList).map(([key, value]) => <TransactionItem key={key} type={value.type} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />))
+            return (Object.entries(this.props.transactionList).map(([key, value]) => { if (value.categoryName === 'Income') { return(<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />) } else { return (<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={this.props.groupList[value.groupID].categories[value.categoryID].name} navigation={this.props.navigation} /> )} }))
 
 
         }
-        if (parseInt(  this.props.groupID) === 1) {
+        if (this.props.page === "group") {
             /*var tags;
             var list = this.props.groupList
             for (var key in list)
@@ -35,7 +35,7 @@ class TransactionList extends React.Component {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
             }*/
 
-            return (Object.entries(this.props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(this.props.groupID )) && <TransactionItem key={key} type={value.type}  id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />))
+            return (Object.entries(this.props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(this.props.groupID)) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={this.props.groupList[value.groupID].categories[value.categoryID].name} navigation={this.props.navigation} />))
 
 
         }
@@ -66,7 +66,8 @@ class TransactionList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const { transactions } = state
-    return { transactionList: transactions.transactions }
+    const { transactions, groupData} = state
+    return { transactionList: transactions.transactions,
+        groupList: groupData.groups }
 };
 export default connect(mapStateToProps)(TransactionList)

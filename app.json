@@ -24,8 +24,8 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "app.fundeaz"
     }
-
   }
 }

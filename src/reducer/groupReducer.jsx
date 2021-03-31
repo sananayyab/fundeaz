@@ -15,7 +15,7 @@
 const initialState = {
     currentID: 0,
     groups: {
-
+       
     }
 }
 export function groupReducer(state = initialState, action) {
