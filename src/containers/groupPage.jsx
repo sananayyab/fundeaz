@@ -48,7 +48,7 @@ class GroupPage extends React.Component {
             {
                 paddingTop: '5%',
                 paddingBottom: '5%',
-                flex: 1
+                flex: 2
             },
             categoryButton: {
                 marginLeft: '2%',
@@ -79,7 +79,7 @@ class GroupPage extends React.Component {
                 </View>
                 <View style={styles.categoryContainer}>
                   
-                    <CategorySection section={"category"} groupName={this.props.route.params.name} groupID={route.params.id}  style={{ flex: 1 }} navigation={this.props.navigation} />
+                    <CategorySection section={"category"} page={'group'}groupName={this.props.route.params.name} groupID={route.params.id}  style={{ flex: 1 }} navigation={this.props.navigation} />
                 </View>
                 <View style={styles.spendingContainer}>
                 

@@ -19,7 +19,7 @@ class CategoryItem extends React.Component {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
             }*/
 
-
+            console.log('group')
             // passing , navigation: this.props.navigation was causing the issue, find another way to pass navigation 
             this.props.navigation.navigate('GroupPage', {
                 name: this.props.name,

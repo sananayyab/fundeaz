@@ -75,7 +75,7 @@ class HomePage extends React.Component {
                 </View>
                 <View style={styles.categoryContainer}>
                  
-                    <CategorySection section={"group"} style={{ flex: 1 }} navigation={this.props.navigation} />
+                    <CategorySection section={"group"} page={'home'} style={{ flex: 1 }} navigation={this.props.navigation} />
                 </View>
                 <View style={styles.spendingContainer}>
                 

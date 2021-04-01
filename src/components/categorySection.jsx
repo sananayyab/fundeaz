@@ -19,7 +19,7 @@ function CategorySection(props) {
             {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
-
+         
             setItems(Object.entries(props.groupList).map(([key, value]) => <CategoryItem key={key} id={key} name={value.name} item={'group'} amount={props.groupFunds[key].available} navigation={props.navigation} />))
 
 
@@ -31,7 +31,7 @@ function CategorySection(props) {
             {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
-
+          
             setItems(Object.entries(props.groupList[props.groupID].categories).map(([key, value]) => <CategoryItem key={key} id={key} groupID={props.groupID} groupName={props.groupName} name={value.name} item={'category'} amount={props.groupFunds[props.groupID].categories[key].available} navigation={props.navigation} />))
 
 
@@ -52,9 +52,19 @@ function CategorySection(props) {
 
 
     function loadCategoryList() {
+        if(props.page === 'home')
+        {
         props.navigation.navigate('GroupList', {
             page: 'home'
-        })
+        }) 
+    }
+    else if(props.page === 'group')
+    {
+        props.navigation.navigate('CategoryList', {
+            page: 'group', 
+            groupID: props.groupID
+        }) 
+    }
     }
     const styles = StyleSheet.create({
         container: {
