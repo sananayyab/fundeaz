@@ -34,7 +34,7 @@ class AllocationBarCategory extends React.Component {
             innerContainerTextPositive: {
                 flex: 1.3,
                 top: 7,
-                height: '65%',
+                height: '70%',
                 borderBottomRightRadius: 5,
                 borderTopRightRadius: 5,
                 flexDirection: 'column',
@@ -43,9 +43,9 @@ class AllocationBarCategory extends React.Component {
                 backgroundColor: '#05845D',
             },
             innerContainerTextNegative: {
-                flex: 1.3,
+                flex: 1.4,
                 top: 7,
-                height: '65%',
+                height: '70%',
                 borderBottomRightRadius: 5,
                 borderTopRightRadius: 5,
                 flexDirection: 'column',
@@ -58,16 +58,18 @@ class AllocationBarCategory extends React.Component {
             textText: {
                 paddingLeft: 0,
                 padding: '3%',
-                fontSize: 22,
+                fontSize: 15,
                 color: 'white',
                 marginLeft: '5%',
             },
             textAmount: {
-                height: '100%',
+               
+                height: '150%',
                 width: '100%',
-                alignContent: 'center',
+            
                 textAlign: 'center',
                 fontSize: 20,
+                
                 color: 'white',
             }
         })
