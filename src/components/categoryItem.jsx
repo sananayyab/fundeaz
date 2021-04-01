@@ -95,7 +95,7 @@ class CategoryItem extends React.Component {
             },
             Nametext: {
                 color: 'white',
-                fontSize: 18,
+                fontSize: 14,
                 textAlign: 'center',
 
 

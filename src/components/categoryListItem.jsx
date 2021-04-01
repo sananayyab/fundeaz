@@ -114,15 +114,20 @@ function CategoryListItem(props) {
     const activateEditMode = (name) => {
         setElement(<View style={styles.container}>
               <TextInput onEndEditing={(event) => {
+                        var nameToUse = ""
+                        if(name !== null)
+                        {
+                            nameToUse = event.nativeEvent.text
+                        }
                         if (props.item === 'group') {
                             dispatch(updateGroup({
-                                name: event.nativeEvent.text,
+                                name: nameToUse,
                                 itemStatus: 'created',
                             }, props.id));
                         }
                         else if (props.item === 'category') {
                             dispatch(updateCategory({
-                                name: event.nativeEvent.text,
+                                name: nameToUse,
                                 itemStatus: 'created',
                             }, props.id, props.groupID));
                         }
