@@ -42,7 +42,7 @@ class TransactionInputFieldNumber extends React.Component {
 
                 borderRadius: 15,
                 zIndex: 2,
-                height: '50%',
+                height: '55%',
                 marginRight: '3%',
 
                 marginLeft: '20%',

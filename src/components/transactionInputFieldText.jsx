@@ -26,7 +26,7 @@ class TransactionInputFieldText extends React.Component {
                 marginTop: '10%',
                 borderRadius: 15,
                 zIndex: 2,
-                height: '50%',
+                height: '55%',
                 marginRight: '3%',
                 marginLeft: '20%',
                 backgroundColor: '#1D2D44'
@@ -41,9 +41,10 @@ class TransactionInputFieldText extends React.Component {
                 flex: 1,
                 color: 'white',
                 textAlign: 'center',
-                fontSize: 20,
+                fontSize: 19,
                 marginRight: 15,
                 marginLeft: 15,
+                
             }
         })
         return (
@@ -54,7 +55,7 @@ class TransactionInputFieldText extends React.Component {
                     </Text>
                 </View>
                 <View style={styles.textFieldContainer}>
-                    <TextInput onChangeText={(text) => {
+                    <TextInput  onChangeText={(text) => {
                         this.props.data({
                             [this.props.fieldName]: text
                         })

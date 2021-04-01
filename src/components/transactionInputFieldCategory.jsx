@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         borderBottomRightRadius: 0,
         zIndex: 2,
-        height: '50%',
+        height: '55%',
         marginRight: '3%',
 
         marginLeft: '20%',
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
 
         zIndex: 2,
-        height: '50%',
+        height: '55%',
         marginRight: '3%',
 
         marginLeft: '20%',
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 20,
+     
         marginRight: 15,
         marginLeft: 15,
         top: 4,

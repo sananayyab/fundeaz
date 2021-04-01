@@ -9,7 +9,6 @@ import TransactionInputFieldText from '../components/transactionInputFieldText.j
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx'
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
 import TransactionInputFieldCategory from '../components/transactionInputFieldCategory.jsx'
-
 class TransactionInput extends React.Component {
     constructor(props) {
         super(props)
@@ -71,7 +70,7 @@ class TransactionInput extends React.Component {
                 height: 50,
             },
             inputFields: {
-                flex: 2.5,
+                flex: 3,
 
                 width: '96%',
                 left: '2%',
