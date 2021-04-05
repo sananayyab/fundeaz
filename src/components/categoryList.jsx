@@ -1,40 +1,32 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import CategoryListItem from './categoryListItem.jsx'
 import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
-class CategoryList extends React.Component {
-    constructor(props) {
-        super(props)
-        this.navigationToDetails = this.navigationToDetails.bind(this);
-        this.loadData = this.loadData.bind(this);
-   
-        console.log(this.props.data.page)
-        this.state ={
-            data: this.loadData()
-        }
+function CategoryList (props) {
 
-    }
-    navigationToDetails() {
-        this.props.navigation.navigate('GroupPage')
+    /*
+
+    where not used, keeping in case it will be needed
+   function navigationToDetails() {
+        props.navigation.navigate('GroupPage')
 
     }
 
+    const [data, setData] = useState(loadData())
  
- 
-
-    loadData() {
-        if (this.props.data.page === 'home') {
-            return (Object.entries(this.props.groupList).map(([key, value]) => <CategoryListItem key={key} id={key} name={value.name} amount={this.props.groupFunds[key].available} item={'group'} type={value.itemStatus }navigation={this.props.navigation} />))
+*/
+   function loadData() {
+        if (props.data.page === 'home') {
+            return (Object.entries(props.groupList).map(([key, value]) => <CategoryListItem key={key} id={key} name={value.name} amount={props.groupFunds[key].available} item={'group'} type={value.itemStatus }navigation={props.navigation} />))
         }
-        else if (this.props.data.page === 'group') {
+        else if (props.data.page === 'group') {
           
-            return (Object.entries(this.props.groupList[this.props.data.groupID].categories).map(([key, value]) => <CategoryListItem key={key}  id={key} type={value.itemStatus } groupID={this.props.data.groupID} amount={this.props.groupFunds[this.props.data.groupID].categories[key].available} name={value.name} item={'category'} navigation={this.props.navigation} />))
+            return (Object.entries(props.groupList[props.data.groupID].categories).map(([key, value]) => <CategoryListItem key={key}  id={key} type={value.itemStatus } groupID={props.data.groupID} amount={props.groupFunds[props.data.groupID].categories[key].available} name={value.name} item={'category'} navigation={props.navigation} />))
         }
     }
-    render() {
- 
+
         const styles = StyleSheet.create({
             container: {
 
@@ -50,11 +42,11 @@ class CategoryList extends React.Component {
         })
         return (
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
-                {this.loadData()}
+                {loadData()}
             </ScrollView>
         );
     }
-}
+
 const mapStateToProps = (state) => {
     const { groupData, fund } = state
 
