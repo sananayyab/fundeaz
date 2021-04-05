@@ -1,50 +1,46 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import TransactionItem from './transactionItem.jsx'
 import { connect, useSelector } from 'react-redux'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid,ScrollView } from 'react-native';
 
 
-class TransactionList extends React.Component {
+function TransactionList (props) {
  
-    constructor(props) {
-        super(props)
-     
-        this.getData = this.getData.bind(this)
-    }
 
-    getData() {
-        if (this.props.page === "home") {
+   function getData() {
+        if (props.page === "home") {
             /*var tags;
-            var list = this.props.groupList
+            var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
 
-            return (Object.entries(this.props.transactionList).map(([key, value]) => { if (value.categoryName === 'Income') { return(<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />) } else { return (<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={this.props.groupList[value.groupID].categories[value.categoryID].name} navigation={this.props.navigation} /> )} }))
+            return (Object.entries(props.transactionList).map(([key, value]) => { if (value.categoryName === 'Income') { return(<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={props.navigation} />) } else { return (<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={props.groupList[value.groupID].categories[value.categoryID].name} navigation={props.navigation} /> )} }))
 
 
         }
-        if (this.props.page === "group") {
+        if (props.page === "group") {
             /*var tags;
-            var list = this.props.groupList
+            var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
 
-            return (Object.entries(this.props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(this.props.groupID)) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={this.props.groupList[value.groupID].categories[value.categoryID].name} navigation={this.props.navigation} />))
+            return (Object.entries(props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(props.groupID)) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={props.groupList[value.groupID].categories[value.categoryID].name} navigation={props.navigation} />))
 
 
         }
     }
 
 
-    render() {
+        const data;
 
-        const data = this.getData()
+        useEffect(() => {  data = getData()}, [props.transactionList])
+       
         const styles = StyleSheet.create({
             container: {
                
@@ -63,7 +59,7 @@ class TransactionList extends React.Component {
             </ScrollView>
         );
     }
-}
+
 
 const mapStateToProps = (state) => {
     const { transactions, groupData} = state
