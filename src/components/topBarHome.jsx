@@ -1,87 +1,78 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TopBarItem from './topBarItem.jsx'
 import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
-class TopBar extends React.Component
-{
-    constructor(props)
-    {
-        super(props)
-        this.navigationToDetails = this.navigationToDetails.bind(this);
-        this.state ={
-            type: '',
-            available: '',
-            unallocated: ''
-         }
-        if(this.props.section == 'home')
-        {
+function TopBar(props) {
 
-            this.data ={
-                type: 'unallocated',
-                groupID: null,
-    
-            }
-           
-        }
-        if(this.props.section == 'group')
-        {
-           
-          
-      
+    const data = {
 
-            this.data ={
-                type: 'allocated',
-                groupID: this.props.groupID,
-         
-            }
+
+    }
+
+    if (props.section == 'home') {
+
+        data = {
+            type: 'unallocated',
+            groupID: null,
 
         }
-    }
-    navigationToDetails( )
-    {
-        if(this.props.section == 'home')
-        {
 
-            this.props.navigation.navigate('AllocationPage')
-           
+    }
+    if (props.section == 'group') {
+
+
+
+
+        data = {
+            type: 'allocated',
+            groupID: props.groupID,
+
         }
-      
-      
+
     }
-    render()
-    {
-        const styles = StyleSheet.create({
-            container: {
-                flex: 1,
-                marginTop: '3%',
-                marginLeft: '2%',
-                marginRight: '2%',
-                borderRadius: 10,
-                flexDirection: 'column',
-                alignItems: 'center',
-                
-            },
-        })
-        return (
-            <TouchableOpacity
-            
-                style={ styles.container }
-                onPress={ this.navigationToDetails }
-                activeOpacity={ 1 }>
-                <TopBarItem type={'amount'}  groupID={this.data.groupID}style={ { flex: 1 } } name={this.props.name}/>
-                <TopBarItem type={this.data.type} groupID={this.data.groupID} style={ { flex: 1 } } name={this.props.name}/>
-            </TouchableOpacity>
-        );
+
+    function navigationToDetails() {
+        if (props.section == 'home') {
+
+            props.navigation.navigate('AllocationPage')
+
+        }
+
+
     }
+
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            marginTop: '3%',
+            marginLeft: '2%',
+            marginRight: '2%',
+            borderRadius: 10,
+            flexDirection: 'column',
+            alignItems: 'center',
+
+        },
+    })
+    return (
+        <TouchableOpacity
+
+            style={styles.container}
+            onPress={navigationToDetails}
+            activeOpacity={1}>
+            <TopBarItem type={'amount'} groupID={data.groupID} style={{ flex: 1 }} name={props.name} />
+            <TopBarItem type={data.type} groupID={data.groupID} style={{ flex: 1 }} name={props.name} />
+        </TouchableOpacity>
+    );
 }
 
 
 
+
 const mapStateToProps = (state) => {
-    const {fund} = state
-    return{
-        available : fund.available,
+    const { fund } = state
+    return {
+        available: fund.available,
         allocated: fund.allocated,
         unallocated: fund.unallocated,
         groups: fund.groups
