@@ -98,5 +98,5 @@ function TransactionItem (props) {
             )
         }
     }
-}
+
 export default TransactionItem
