@@ -1,14 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View , TouchableOpacity} from 'react-native';
 
-class TransactionCategoryListItem extends React.Component {
+function TransactionCategoryListItem (props) {
 
-    constructor(props)
-    {
-        super(props)
-       
-    }
-    render() {
+
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
@@ -69,17 +64,17 @@ class TransactionCategoryListItem extends React.Component {
             }
         })
         return (
-           <TouchableOpacity activeOpacity={1} onPress={() => {this.props.press(this.props.name, this.props.amount, this.props.groupID,this.props.categoryID)}} style={styles.container}>
+           <TouchableOpacity activeOpacity={1} onPress={() => {props.press(props.name, props.amount, props.groupID,props.categoryID)}} style={styles.container}>
 
                 <View style={styles.innerContainerText}>
-                    <Text style={styles.textText} >{this.props.name}</Text>
+                    <Text style={styles.textText} >{props.name}</Text>
                 </View>
-                <View style={((parseInt( this.props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                    <Text style={styles.textAmount}>{this.props.amount}</Text>
+                <View style={((parseInt( props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                    <Text style={styles.textAmount}>{props.amount}</Text>
                 </View>
       
             </TouchableOpacity>
         );
     }
-}
+
 export default TransactionCategoryListItem
