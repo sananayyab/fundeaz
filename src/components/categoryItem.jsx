@@ -1,29 +1,26 @@
 
 import React from 'react';
 import { StyleSheet, Text, ToastAndroid, View, TouchableOpacity } from 'react-native';
-class CategoryItem extends React.Component {
+function CategoryItem (props) {
 
 
-    constructor(props) {
-        super(props)
-        this.pressed = this.pressed.bind(this);
-    }
 
-    pressed() {
 
-        if (this.props.item === "group") {
+  function  pressed() {
+
+        if (props.item === "group") {
             /*var tags;
-            var list = this.props.groupList
+            var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
 
             console.log('group')
-            // passing , navigation: this.props.navigation was causing the issue, find another way to pass navigation 
-            this.props.navigation.navigate('GroupPage', {
-                name: this.props.name,
-                id: this.props.id
+            // passing , navigation: props.navigation was causing the issue, find another way to pass navigation 
+            props.navigation.navigate('GroupPage', {
+                name: props.name,
+                id: props.id
             })
 
 
@@ -34,7 +31,7 @@ class CategoryItem extends React.Component {
 
     }
 
-    render() {
+   
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
@@ -102,21 +99,21 @@ class CategoryItem extends React.Component {
             }
         })
         return (
-            <TouchableOpacity  activeOpacity={1} style={styles.container} onPress={this.pressed}>
+            <TouchableOpacity  activeOpacity={1} style={styles.container} onPress={pressed}>
                 <View style={styles.nameContainer}>
                     <Text style={styles.Nametext}>
-                        {this.props.name}
+                        {props.name}
                     </Text>
 
                 </View>
-                <View style={((parseInt( this.props.amount) >= 0) ? styles.amountContainerPositive : styles.amountContainerNegative)}>
+                <View style={((parseInt( props.amount) >= 0) ? styles.amountContainerPositive : styles.amountContainerNegative)}>
 
                     <Text style={styles.textView} >
-                        {this.props.amount}
+                        {props.amount}
                         </Text>
                 </View>
             </TouchableOpacity>
         );
     }
-}
+
 export default CategoryItem
