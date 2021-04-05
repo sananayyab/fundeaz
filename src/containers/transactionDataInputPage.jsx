@@ -9,12 +9,10 @@ import TransactionInputFieldText from '../components/transactionInputFieldText.j
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx'
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
 import TransactionInputFieldCategory from '../components/transactionInputFieldCategory.jsx'
-class TransactionInput extends React.Component {
-    constructor(props) {
-        super(props)
-        this.addTransaction = this.addTransaction.bind(this)
-        this.getData = this.getData.bind(this)
-        this.data = {
+function TransactionInput (props) {
+   
+
+        const data = {
             amount: '',
             payee: '',
             date: '',
@@ -24,40 +22,40 @@ class TransactionInput extends React.Component {
             categoryName: '',
 
         }
-        this.pageDetails = {
-            pageName: this.props.route.params.page,
-            groupID: this.props.route.params.groupID
+        const pageDetails = {
+            pageName: props.route.params.page,
+            groupID: props.route.params.groupID
             
 
         }
-    }
+    
 
-    getData(value) {
-        this.data = {
-            ...this.data,
+    function getData(value) {
+        data = {
+            ...data,
             ...value
         }
     }
 
 
-    addTransaction() {
+    function addTransaction() {
 
-        if (this.data.type === 'category') {
-            this.props.addTransaction(this.data)
-            this.props.updateSpending(parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID))
-            this.props.navigation.goBack()
+        if (data.type === 'category') {
+            props.addTransaction(data)
+            props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID))
+            props.navigation.goBack()
 
 
         }
-        else if (this.data.type === 'Income') {
-            this.props.addTransaction(this.data)
-            this.props.addTotalAvailable(parseInt(this.data.amount))
-            this.props.navigation.goBack()
+        else if (data.type === 'Income') {
+            props.addTransaction(data)
+            props.addTotalAvailable(parseInt(data.amount))
+            props.navigation.goBack()
         }
 
     }
 
-    render() {
+    
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
@@ -113,11 +111,11 @@ class TransactionInput extends React.Component {
                     <StatusBar style="default" />
                     <View style={styles.inputFields}>
 
-                        <TransactionInputFieldNumber data={this.getData} fieldName={'amount'} value={''}/>
-                        <TransactionInputFieldText data={this.getData} value={''} fieldName={'payee'} />
-                        <TransactionInputFieldDate data={this.getData}  value={''} fieldName={'date'} />
-                        <TransactionInputFieldText data={this.getData} value={''} fieldName={'note'} />
-                        <TransactionInputFieldCategory data={this.getData} categoryID={''} groupid={''}page= {this.pageDetails}fieldName={'category'} />
+                        <TransactionInputFieldNumber data={getData} fieldName={'amount'} value={''}/>
+                        <TransactionInputFieldText data={getData} value={''} fieldName={'payee'} />
+                        <TransactionInputFieldDate data={getData}  value={''} fieldName={'date'} />
+                        <TransactionInputFieldText data={getData} value={''} fieldName={'note'} />
+                        <TransactionInputFieldCategory data={getData} categoryID={''} groupid={''}page= {pageDetails}fieldName={'category'} />
 
                     </View >
                     <View style={styles.buttonField}>
@@ -130,7 +128,7 @@ class TransactionInput extends React.Component {
                                 color='black'
                                 name="check"
                                 size={40}
-                                onPress={this.addTransaction}
+                                onPress={addTransaction}
                                 iconStyle={{
 
                                     marginRight: 0,
@@ -149,7 +147,6 @@ class TransactionInput extends React.Component {
 
         );
     }
-}
 
 
 const mapDispatchToProps = (dispatch) => {
