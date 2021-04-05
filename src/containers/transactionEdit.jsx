@@ -23,7 +23,7 @@ class TransactionEdit extends React.Component {
         this.orignalAmount = this.data.amount
         this.originalGroup = this.data.groupID
         this.originalCategory = this.data.categoryID
-
+        this.oldType = this.data.type
 
 
     }
@@ -56,8 +56,8 @@ class TransactionEdit extends React.Component {
 
     addTransaction() {
 
-        this.props.updateTransaction(this.data, this.props.route.params.key)
-        if (this.data.type === 'category') {
+       
+        if (this.data.type === 'category' && this.oldType === 'category') {
 
             if (this.originalGroup === this.data.groupID && this.originalCategory === this.data.categoryID) {
                 if (parseInt(this.orignalAmount) < parseInt(this.data.amount)) {
@@ -108,14 +108,38 @@ class TransactionEdit extends React.Component {
 
 
             }
-        }
-        else if (this.data.type === 'Income') {
 
+            this.props.updateTransaction(this.data, this.props.route.params.key)
+        }
+        else if (this.data.type === 'Income' && this.oldType === 'Income') {
+
+           
+            if (parseInt(this.orignalAmount) < parseInt(this.data.amount)) {
+
+                this.props.addTotalAvailable(parseInt(this.data.amount) - parseInt(this.orignalAmount))
+
+            }
+            else if (parseInt(this.orignalAmount) > parseInt(this.data.amount)) {
+                this.props.removeTotalAvailable(parseInt(this.orignalAmount) - parseInt(this.data.amount));
+              
+            }
+            this.props.updateTransaction(this.data, this.props.route.params.key)
+
+
+        }
+        else if (this.oldType === 'category' && this.data.type === 'Income' ) {
             this.props.addTotalAvailable(parseInt(this.data.amount))
             this.props.removeSpending(parseInt(this.orignalAmount), this.originalGroup, parseInt(this.originalCategory));
-  
-
-
+            this.data ={
+                ...this.data,
+                groupID: '',
+                categoryID: '',
+            }
+            this.props.updateTransaction(this.data, this.props.route.params.key)
+        } else if (this.oldType === 'Income' && this.data.type === 'category' )  {
+            this.props.removeTotalAvailable(parseInt(this.orignalAmount));
+            this.props.updateSpending(parseInt(this.data.amount), this.data.groupID, parseInt(this.data.categoryID))
+            this.props.updateTransaction(this.data, this.props.route.params.key)
         }
 
         this.props.navigation.goBack()
