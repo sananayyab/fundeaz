@@ -5,6 +5,7 @@ import { connect, useSelector } from 'react-redux'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid,ScrollView } from 'react-native';
 
+var data = null;
 
 function TransactionList (props) {
  
@@ -37,8 +38,7 @@ function TransactionList (props) {
     }
 
 
-        const data;
-
+    
         useEffect(() => {  data = getData()}, [props.transactionList])
        
         const styles = StyleSheet.create({

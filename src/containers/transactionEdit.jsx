@@ -13,7 +13,7 @@ import TransactionInputFieldCategory from '../components/transactionInputFieldCa
 function  TransactionEdit (props) {
  
        
-        const data = {
+        var data = {
             ...props.transactions[props.route.params.key]
 
         }

@@ -11,7 +11,7 @@ function CategoryListPage (props) {
     const route = useRoute();
     const navigation = useNavigation();
     
-           const data ={
+           var data ={
                 page: 'group',
                 type: 'category',
                 groupID : route.params.groupID

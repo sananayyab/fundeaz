@@ -12,7 +12,7 @@ import TransactionInputFieldCategory from '../components/transactionInputFieldCa
 function TransactionInput (props) {
    
 
-        const data = {
+        var data = {
             amount: '',
             payee: '',
             date: '',

@@ -11,7 +11,7 @@ function GroupListPage (props) {
   
    
     const navigation = useNavigation();
-            const data ={
+            var data ={
                 page: 'home',
                 type: 'category'
             }

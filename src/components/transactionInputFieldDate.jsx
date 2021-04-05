@@ -59,10 +59,7 @@ function TransactionInputFieldDate (props) {
 
 
     const [showDatePicker, setShowDatePicker] = useState(false);
-    const [date, setDate] = useState()
-    useEffect(() => {
-  
-        var initialDate;
+    const [date, setDate] = useState(() => {     var initialDate;
         if(props.value !== '')
         {
             initialDate = new Date (props.value)
@@ -70,12 +67,14 @@ function TransactionInputFieldDate (props) {
         else{
             initialDate = new Date()
         }
-        setDate(initialDate)
         props.data ( {
           
-            date: date
+            date: initialDate
         })
-    }, [])
+        return initialDate
+     
+       })
+
 
    const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;

@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 function TopBar(props) {
 
-    const data = {
+    var data = {
 
 
     }

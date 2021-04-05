@@ -69,9 +69,10 @@ const styles = StyleSheet.create({
         color: 'white',
     }
 })
-function TopBarItem(props) {
-    const amount
+var amount = null;
 
+function TopBarItem(props) {
+   
     const [toUse, setTouse] = useState()
     const [text, setText] = useState()
 

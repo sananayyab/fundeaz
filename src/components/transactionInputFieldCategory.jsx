@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 20,
-     
+
         marginRight: 15,
         marginLeft: 15,
         top: 4,
@@ -116,13 +116,11 @@ const styles = StyleSheet.create({
 
 
 })
-function  TransactionInputFieldCategory (props) {
-  
-       
-  
-        const [data, setData]  = useState()
-        const [modal, setModal] = useState(false)
-        useEffect(() => {
+function TransactionInputFieldCategory(props) {
+
+
+
+    const [data, setData] = useState(() => {
         var categoryAvailable;
         var categoryName;
         var normalCategory = true;
@@ -144,135 +142,134 @@ function  TransactionInputFieldCategory (props) {
             categoryName = 'Income'
 
         }
+        return ({
 
-       setData({
-         
             amountBar: bar,
             category: normalCategory,
             chosen: {
                 name: categoryName,
                 amount: categoryAvailable
             }
-        })
-       
-    }, [])
-      
+        })})
+    const [modal, setModal] = useState(false)
 
-    
-  function  incomeselected() {
-      setModal(false)
+
+
+
+function incomeselected() {
+    setModal(false)
     setData({
 
-         
-            amountBar: <View></View>,
-            category: false,
-            chosen: {
-                name: 'Income',
 
-            }
+        amountBar: <View></View>,
+        category: false,
+        chosen: {
+            name: 'Income',
 
-        })
+        }
 
-
-        props.data({
-         
-            type: 'Income',
-            categoryName: 'Income'
+    })
 
 
-        })
-    }
-   function  Categoryselected(name, amount, group, category) {
-       setModal(false)
+    props.data({
+
+        type: 'Income',
+        categoryName: 'Income'
+
+
+    })
+}
+function Categoryselected(name, amount, group, category) {
+    setModal(false)
     setData({
-           
-            amountBar: <View style={styles.amountContainer}>
-                <Text style={styles.amountText} >{amount}</Text>
-            </View>,
-            category: true,
-            chosen: {
-                name: name,
-                amount: amount
-            }
-        })
-        
-    
-        props.data({
 
-            type: 'category',
-            groupID: group,
-            categoryID: category,
-            categoryName: name,
-        })
-    }
+        amountBar: <View style={styles.amountContainer}>
+            <Text style={styles.amountText} >{amount}</Text>
+        </View>,
+        category: true,
+        chosen: {
+            name: name,
+            amount: amount
+        }
+    })
 
-    function getInfo() {
-        var categoryLists = [];
 
-        if (props.page.pageName === 'home') {
-            for (group in props.groupList) {
-                for (category in props.groupList[group].categories) {
+    props.data({
 
-                    var categoryName = props.groupList[group].categories[category].name
-                    var categoryAvailable = props.groupFunds[group].categories[category].available
+        type: 'category',
+        groupID: group,
+        categoryID: category,
+        categoryName: name,
+    })
+}
 
-                    categoryLists.push(<TransactionCategoryListItem press={Categoryselected} key={category + group} groupID={group} categoryID={category} amount={categoryAvailable} name={categoryName} item={'category'} />)
-                }
+function getInfo() {
+    var categoryLists = [];
+
+    if (props.page.pageName === 'home') {
+        for (group in props.groupList) {
+            for (category in props.groupList[group].categories) {
+
+                var categoryName = props.groupList[group].categories[category].name
+                var categoryAvailable = props.groupFunds[group].categories[category].available
+
+                categoryLists.push(<TransactionCategoryListItem press={Categoryselected} key={category + group} groupID={group} categoryID={category} amount={categoryAvailable} name={categoryName} item={'category'} />)
             }
         }
-        else if (props.page.pageName === 'group') {
-            for (category in props.groupList[props.page.groupID].categories) {
-
-                var categoryName = props.groupList[props.page.groupID].categories[category].name
-                var categoryAvailable = props.groupFunds[props.page.groupID].categories[category].available
-
-                categoryLists.push(<TransactionCategoryListItem press={Categoryselected} key={category} groupID={props.page.groupID} categoryID={category} amount={categoryAvailable} name={categoryName} item={'category'} />)
-            }
-        }
-        return categoryLists
-    
-
-
     }
+    else if (props.page.pageName === 'group') {
+        for (category in props.groupList[props.page.groupID].categories) {
 
-    const listOfCategories = getInfo()
+            var categoryName = props.groupList[props.page.groupID].categories[category].name
+            var categoryAvailable = props.groupFunds[props.page.groupID].categories[category].available
 
-
-        return ( <View style={styles.container} >
-                <View style={styles.fieldNameContainer}>
-                    <Text style={styles.fieldNameText}>
-                        {'Category'}
-                    </Text>
-                </View>
-                <TouchableOpacity  activeOpacity={1} style={data.category ? styles.textFieldContainerCategory : styles.textFieldContainerIncome} onPress={() => {  setModal(true) }}>
-                    <Modal onRequestClose={() => {
-                        setModal(false)
-                    }} style={styles.categoryPopUpStyle} isVisible={modal}>
-
-                        <View style={styles.incomeBar}>
-                            <TouchableOpacity  activeOpacity={1} onPress={incomeselected} style={{ justifyContent: 'center', }} >
-                                <Text style={styles.incomeText}>Income</Text>
-                            </TouchableOpacity>
-                        </View>
+            categoryLists.push(<TransactionCategoryListItem press={Categoryselected} key={category} groupID={props.page.groupID} categoryID={category} amount={categoryAvailable} name={categoryName} item={'category'} />)
+        }
+    }
+    return categoryLists
 
 
-                        <ScrollView showsVerticalScrollIndicator={false} >
-                            {listOfCategories}
-                        </ScrollView>
-                    </Modal>
-                    <Text style={styles.textInput}>
 
-                        {data.chosen.name}
-                    </Text>
+}
+
+const listOfCategories = getInfo()
+
+
+return (<View style={styles.container} >
+    <View style={styles.fieldNameContainer}>
+        <Text style={styles.fieldNameText}>
+            {'Category'}
+        </Text>
+    </View>
+    <TouchableOpacity activeOpacity={1} style={data.category ? styles.textFieldContainerCategory : styles.textFieldContainerIncome} onPress={() => { setModal(true) }}>
+        <Modal onRequestClose={() => {
+            setModal(false)
+        }} style={styles.categoryPopUpStyle} isVisible={modal}>
+
+            <View style={styles.incomeBar}>
+                <TouchableOpacity activeOpacity={1} onPress={incomeselected} style={{ justifyContent: 'center', }} >
+                    <Text style={styles.incomeText}>Income</Text>
                 </TouchableOpacity>
-                <View >
-
-
-                    {data.amountBar}
-
-                </View>
             </View>
-        )
+
+
+            <ScrollView showsVerticalScrollIndicator={false} >
+                {listOfCategories}
+            </ScrollView>
+        </Modal>
+        <Text style={styles.textInput}>
+
+            {data.chosen.name}
+        </Text>
+    </TouchableOpacity>
+    <View >
+
+
+        {data.amountBar}
+
+    </View>
+</View>
+)
     }
 
 
