@@ -111,14 +111,9 @@ class TransactionEdit extends React.Component {
         }
         else if (this.data.type === 'Income') {
 
-            if (parseInt(this.orignalAmount) < parseInt(this.data.amount)) {
-                this.props.addTotalAvailable(parseInt(this.data.amount) - parseInt(this.orignalAmount))
-
-            }
-            else if (parseInt(this.orignalAmount) > parseInt(this.data.amount)) {
-                this.props.removeTotalAvailable(parseInt(this.orignalAmount) - parseInt(this.data.amount))
-
-            }
+            this.props.addTotalAvailable(parseInt(this.data.amount))
+            this.props.removeSpending(parseInt(this.orignalAmount), this.originalGroup, parseInt(this.originalCategory));
+  
 
 
         }
