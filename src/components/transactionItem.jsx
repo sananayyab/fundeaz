@@ -1,16 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View , TouchableOpacity} from 'react-native';
-class TransactionItem extends React.Component {
-    constructor(props){
-        super(props);
-        this.goToTrasaction = this.goToTrasaction.bind(this)
-    }
-    goToTrasaction(){
-        this.props.navigation.navigate('TransactionEdit', {
-            key: this.props.id
+function TransactionItem (props) {
+ 
+   function goToTrasaction(){
+        props.navigation.navigate('TransactionEdit', {
+            key: props.id
         })
     }
-    render() {
+
         const styles = StyleSheet.create({
             container: {
                 height: 54,
@@ -72,16 +69,16 @@ class TransactionItem extends React.Component {
                 color: "white",
             },
         })
-        if (this.props.category.trim() === "Income") {
+        if (props.category.trim() === "Income") {
             return (
                 <TouchableOpacity activeOpacity={1} style={styles.container}
-                onPress={this.goToTrasaction}>
+                onPress={goToTrasaction}>
                     <View style={styles.CategoryContainer}>
-                        <Text style={styles.Categorytext}>{this.props.category.trim()}</Text>
-                        <Text style={styles.Categorytext} >{this.props.payee.trim()}</Text>
+                        <Text style={styles.Categorytext}>{props.category.trim()}</Text>
+                        <Text style={styles.Categorytext} >{props.payee.trim()}</Text>
                     </View>
                     <View style={styles.amoutnTextPositive}>
-                        <Text style={styles.amountText} >{this.props.amount}</Text>
+                        <Text style={styles.amountText} >{props.amount}</Text>
                     </View>
                 </TouchableOpacity>
             )
@@ -89,13 +86,13 @@ class TransactionItem extends React.Component {
         else {
             return (
                 <TouchableOpacity activeOpacity={1} style={styles.container}
-                onPress={this.goToTrasaction}>
+                onPress={goToTrasaction}>
                     <View style={styles.CategoryContainer}>
-                        <Text style={styles.Categorytext}>{this.props.category.trim()}</Text>
-                        <Text style={styles.Categorytext} >{this.props.payee.trim()}</Text>
+                        <Text style={styles.Categorytext}>{props.category.trim()}</Text>
+                        <Text style={styles.Categorytext} >{props.payee.trim()}</Text>
                     </View>
                     <View style={styles.amountTextNegative}>
-                        <Text style={styles.amountText} >{this.props.amount}</Text>
+                        <Text style={styles.amountText} >{props.amount}</Text>
                     </View>
                 </TouchableOpacity>
             )
