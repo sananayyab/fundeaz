@@ -8,43 +8,44 @@ import { connect } from 'react-redux';
 function TransactionInputFieldDate (props) {
     const styles = StyleSheet.create({
         container: {
+            marginBottom: '5%',
             top: 10,
-            height: 80,
-
+            height: 50,
+            justifyContent: 'center'
         },
         fieldNameContainer: {
             position: 'absolute',
-            height: '55%',
+            height: '80%',
             zIndex: 0,
-            borderRadius: 15,
-            top: '10%',
-            width: '35%',
+            borderRadius: 5,
             marginLeft: '3%',
+            width: '30%',
+            justifyContent: 'center',
             backgroundColor: '#00487C'
         },
         textFieldContainer: {
-            marginTop: '10%',
-
-            borderRadius: 15,
+          
+           
+            borderRadius: 5,
             zIndex: 2,
-            height: '55%',
+            height: '100%',
             marginRight: '3%',
 
-            marginLeft: '20%',
+            marginLeft: '28%',
             backgroundColor: '#1D2D44'
         },
         fieldNameText: {
 
-            paddingRight: '6%',
-
-            alignSelf: 'center',
-
+            paddingLeft: '8%',
+            
+            alignSelf: 'flex-start',
+            bottom: '5%',
             fontSize: 19,
             color: 'white',
 
         },
         textInput: {
-            top: 3,
+            textAlignVertical: 'center',
             flex: 1,
             color: 'white',
             textAlign: 'center',
