@@ -9,20 +9,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import TransactionSection from '../components/transactionSection';
-class HomePage extends React.Component {
-    constructor(props) {
-        super(props)
-        this.loadCategoryList = this.loadCategoryList.bind(this)
+function  HomePage (props) {
  
-    }
-
-    loadCategoryList()
-    {
-        this.props.navigation.navigate('GroupList', {
-            page: 'home'
-        })
-    }
-    render() {
+   
+   
         const styles = StyleSheet.create({
             container: {
                 
@@ -71,24 +61,24 @@ class HomePage extends React.Component {
             <View style={styles.container}>
               <StatusBar style="light"/>
                 <View style={styles.topContainer}>
-                    <TopBar section={'home'} navigation={this.props.navigation} />
+                    <TopBar section={'home'} navigation={props.navigation} />
                 </View>
                 <View style={styles.categoryContainer}>
                  
-                    <CategorySection section={"group"} page={'home'} style={{ flex: 1 }} navigation={this.props.navigation} />
+                    <CategorySection section={"group"} page={'home'} style={{ flex: 1 }} navigation={props.navigation} />
                 </View>
                 <View style={styles.spendingContainer}>
                 
-                    <TransactionSection page={'home'}navigation={this.props.navigation}/>
+                    <TransactionSection page={'home'}navigation={props.navigation}/>
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar data={{
                         page: 'home',
                         type: 'landing'
-                    }} navigation={this.props.navigation}/>
+                    }} navigation={props.navigation}/>
                 </View>
             </View>
         );
     }
-}
+
 export default HomePage;
