@@ -60,20 +60,22 @@ function TransactionInput (props) {
             container: {
                 flex: 1,
                 backgroundColor: 'white',
-                marginTop: '2%', 
             
+              
 
             },
             amountField: {
                 height: 50,
             },
             inputFields: {
+                  backgroundColor: '#7C7D8D',
+                marginTop: '5%',
                 flex: 3,
 
                 width: '96%',
                 left: '2%',
                 borderRadius: 15,
-                backgroundColor: '#7C7D8D'
+              
             },
             buttonField: {
             
