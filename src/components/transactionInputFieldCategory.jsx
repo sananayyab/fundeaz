@@ -9,64 +9,53 @@ import categoryList from './categoryList.jsx';
 
 const styles = StyleSheet.create({
     container: {
+        marginBottom: '5%',
         top: 10,
-        height: 80,
-
+        height: 50,
+        justifyContent: 'center'
     },
     fieldNameContainer: {
         position: 'absolute',
-        height: '55%',
+        height: '80%',
         zIndex: 0,
-        borderRadius: 15,
-        top: '10%',
-        width: '35%',
+        borderRadius: 5,
         marginLeft: '3%',
+        width: '30%',
+        justifyContent: 'center',
         backgroundColor: '#00487C'
     },
     textFieldContainerCategory: {
-        marginTop: '10%',
+    
 
-        borderRadius: 15,
-        borderBottomRightRadius: 0,
+        borderRadius: 5,
         zIndex: 2,
-        height: '55%',
+        height: '100%',
         marginRight: '3%',
 
-        marginLeft: '20%',
+        marginLeft: '28%',
         backgroundColor: '#1D2D44'
     },
-    textFieldContainerIncome: {
-        marginTop: '10%',
 
-        borderRadius: 15,
-
-        zIndex: 2,
-        height: '55%',
-        marginRight: '3%',
-
-        marginLeft: '20%',
-        backgroundColor: '#1D2D44'
-    },
     fieldNameText: {
 
-        paddingRight: '6%',
+        paddingLeft: '8%',
 
-        alignSelf: 'center',
-
-        fontSize: 19,
+        alignSelf: 'flex-start',
+        bottom: '5%',
+        fontSize: 17,
         color: 'white',
 
     },
     textInput: {
+        textAlignVertical: 'center',
         flex: 1,
         color: 'white',
         textAlign: 'center',
         fontSize: 20,
-
         marginRight: 15,
         marginLeft: 15,
-        top: 4,
     },
+
     amountContainer: {
 
         alignSelf: "flex-end",
@@ -241,7 +230,7 @@ return (<View style={styles.container} >
             {'Category'}
         </Text>
     </View>
-    <TouchableOpacity activeOpacity={1} style={data.category ? styles.textFieldContainerCategory : styles.textFieldContainerIncome} onPress={() => { setModal(true) }}>
+    <TouchableOpacity activeOpacity={1} style={styles.textFieldContainerCategory } onPress={() => { setModal(true) }}>
         <Modal onRequestClose={() => {
             setModal(false)
         }} style={styles.categoryPopUpStyle} isVisible={modal}>
@@ -262,12 +251,7 @@ return (<View style={styles.container} >
             {data.chosen.name}
         </Text>
     </TouchableOpacity>
-    <View >
-
-
-        {data.amountBar}
-
-    </View>
+   
 </View>
 )
     }
