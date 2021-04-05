@@ -6,62 +6,58 @@ import { addTransaction } from '../action/transactionActions'
 import { connect } from 'react-redux';
 import { addGroup, addCategory } from '../action/groupActions'
 import { initializeGroup, initializeCategory } from '../action/fundActions'
-class BottomBar extends React.Component {
-    constructor(props) {
-        super(props)
-        this.processAction = this.processAction.bind(this)
-        this.loadSettings = this.loadSettings.bind(this)
-    }
+function  BottomBar(props){
 
-    loadSettings(){
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            borderRadius: 10,
+            flexDirection: 'row',
+            marginLeft: '15%',
+            marginRight: '15%',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+        },
+    })
+    function loadSettings(){
 
-        this.props.navigation.navigate('SettingPage')
+        props.navigation.navigate('SettingPage')
     }
-    processAction() {
-        const type = this.props.data.type
-        const source = this.props.data.page
+   function processAction() {
+        const type = props.data.type
+        const source = props.data.page
         if (type === 'category') {
             switch (source) {
                 case 'home':
-                    this.props.addGroup({ itemStatus: 'new' })
-                    this.props.initializeGroup(this.props.currentID + 1)
+                    props.addGroup({ itemStatus: 'new' })
+                    props.initializeGroup(props.currentID + 1)
                     console.log('test')
                     break
                 case 'group':
-                    this.props.addCategory({ itemStatus: 'new' }, this.props.data.groupID)
-                    this.props.initializeCategory(this.props.data.groupID, this.props.groups[this.props.data.groupID].currentCategoryID + 1)
+                    props.addCategory({ itemStatus: 'new' }, props.data.groupID)
+                    props.initializeCategory(props.data.groupID, props.groups[props.data.groupID].currentCategoryID + 1)
                     break
             }
         }
         else if (type === 'landing') {
             switch (source) {
                 case 'home':
-                    this.props.navigation.navigate('TransactionInput', {
+                    props.navigation.navigate('TransactionInput', {
                         page: 'home',
                         groupID: null
                     })
                     break
                 case 'group':
-                    this.props.navigation.navigate('TransactionInput', {
+                    props.navigation.navigate('TransactionInput', {
                         page: 'group',
-                        groupID: this.props.data.groupID,
+                        groupID: props.data.groupID,
                     })
                     break
             }
         }
     }
-    render() {
-        const styles = StyleSheet.create({
-            container: {
-                flex: 1,
-                borderRadius: 10,
-                flexDirection: 'row',
-                marginLeft: '15%',
-                marginRight: '15%',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-            },
-        })
+ 
+
         return (
             <View style={styles.container}>
                 <Icon.Button
@@ -69,7 +65,7 @@ class BottomBar extends React.Component {
                     name="settings"
                     color='black'
                     size={35}
-                    onPress={this.loadSettings}
+                    onPress={loadSettings}
                     iconStyle={{
                         marginRight: 0,
                         paddingLeft: 20,
@@ -81,7 +77,7 @@ class BottomBar extends React.Component {
                     name="add"
                     color='black'
                     size={35}
-                    onPress={this.processAction}
+                    onPress={processAction}
                     iconStyle={{
                         marginRight: 0,
                         paddingLeft: 20,
@@ -91,7 +87,7 @@ class BottomBar extends React.Component {
             </View>
         );
     }
-}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         addCategory: (data, groupID) => dispatch(addCategory(data, groupID)),
