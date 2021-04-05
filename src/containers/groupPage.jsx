@@ -10,21 +10,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import TransactionSection from '../components/transactionSection';
 
 
-class GroupPage extends React.Component {
-    constructor(props) {
-        super(props)
-        this.loadCategoryList = this.loadCategoryList.bind(this)
-    }
+function GroupPage (props){
 
-    loadCategoryList()
-    {
-        
-        this.props.navigation.navigate('CategoryList', {
-            page: 'group',
-            groupID: this.props.route.params.id,
-        })
-    }
-    render() {
+    const route = useRoute();
+    const navigation = useNavigation();
+
+
       
         const styles = StyleSheet.create({
             container: {
@@ -69,36 +60,32 @@ class GroupPage extends React.Component {
             }
       
         });
-        const {route} = this.props
+    
         return (
 
             <View style={styles.container}>
               <StatusBar style="default"/>
                 <View style={styles.topContainer}>
-                    <TopBar section={'group'} groupID={route.params.id} navigation={this.props.navigation} />
+                    <TopBar section={'group'} groupID={route.params.id} navigation={navigation} />
                 </View>
                 <View style={styles.categoryContainer}>
                   
-                    <CategorySection section={"category"} page={'group'}groupName={this.props.route.params.name} groupID={route.params.id}  style={{ flex: 1 }} navigation={this.props.navigation} />
+                    <CategorySection section={"category"} page={'group'}groupName={route.params.name} groupID={route.params.id}  style={{ flex: 1 }} navigation={navigation} />
                 </View>
                 <View style={styles.spendingContainer}>
                 
-                    <TransactionSection page={'group'} groupID={route.params.id} navigation={this.props.navigation}/>
+                    <TransactionSection page={'group'} groupID={route.params.id} navigation={navigation}/>
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar data={{
                         page: 'group',
                         groupID: route.params.id,
                         type: 'landing'
-                    }} navigation={this.props.navigation}/>
+                    }} navigation={navigation}/>
                 </View>
             </View>
         );
     }
-}
-export default function(props) {
-    const route = useRoute();
-    const navigation = useNavigation();
+
+export default GroupPage
   
-    return <GroupPage {...props} navigation={navigation} route={route} />;
-  }
