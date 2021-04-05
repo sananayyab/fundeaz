@@ -5,36 +5,36 @@ import { connect } from 'react-redux';
 import AllocationBarGroup from './allocationBarGroup.jsx'
 import AllocationBarCategory from './allocationBarCategory.jsx';
 
-class AllocationGroup extends React.Component {
+function  AllocationGroup (props) {
+    const styles = StyleSheet.create({
+        container: {
+           
+          height: 'auto',
+          margin: 10,
+          borderRadius: 20,
+          backgroundColor: '#7C7D8D',
+            
 
-    render() {
+        },
+        groupContainer: {
+            margin: 8,
+          
 
-        const styles = StyleSheet.create({
-            container: {
-               
-              height: 'auto',
-              margin: 10,
-              borderRadius: 20,
-              backgroundColor: '#7C7D8D',
-                
+        },
+        groupTag: {
+            height: 65,
+            width: '99%'
+        },
+        categoryTags: {
+            height: 'auto',
+            width: '94%',
+            marginLeft: 20
+        }
+    })
+ 
 
-            },
-            groupContainer: {
-                margin: 8,
-              
-
-            },
-            groupTag: {
-                height: 65,
-                width: '99%'
-            },
-            categoryTags: {
-                height: 'auto',
-                width: '94%',
-                marginLeft: 20
-            }
-        })
-        const { groupID } = this.props
+       
+        const { groupID } = props
         return (
             <View style={styles.container}>
                <View style={styles.groupContainer}>
@@ -42,11 +42,11 @@ class AllocationGroup extends React.Component {
                         <AllocationBarGroup key={groupID} groupID={groupID} />
                     </View>
                     <View style={styles.categoryTags}>
-                        {Object.entries(this.props.groups).map(([key, value]) => <AllocationBarCategory key={key} categoryID={key} groupID={groupID} />)}
+                        {Object.entries(props.groups).map(([key, value]) => <AllocationBarCategory key={key} categoryID={key} groupID={groupID} />)}
                     </View>
                     </View>
             </View>)
-    }
+    
 }
 
 const mapStateToProps = (state, ownProps) => {
