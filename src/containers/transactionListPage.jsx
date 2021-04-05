@@ -4,11 +4,10 @@ import TransactionList from '../components/transactionList.jsx'
 import BottomBar from '../components/bottomBar.jsx';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-class TransactionListPage extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    render() {
+function TransactionListPage (props) {
+    const route = useRoute();
+    const navigation = useNavigation();
+ 
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
@@ -28,7 +27,7 @@ class TransactionListPage extends React.Component {
                 flex: 20,
             }
         });
-        const {route} = this.props
+     
         return (
             <View style={styles.container}>
                 <StatusBar style="default" />
@@ -36,16 +35,11 @@ class TransactionListPage extends React.Component {
                     <TransactionList page={route.params.data.page}groupID={route.params.data.groupID}/>
                 </View>
                 <View style={styles.bottomBar}>
-                    <BottomBar data={route.params.data} navigation={this.props.navigation} />
+                    <BottomBar data={route.params.data} navigation={navigation} />
                 </View>
             </View>
         );
     }
-}
-export default function(props) {
-    const route = useRoute();
-    const navigation = useNavigation();
-  
-    return < TransactionListPage {...props} navigation={navigation} route={route} />;
-  }
+
+export default TransactionListPage
 
