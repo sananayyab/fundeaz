@@ -1,63 +1,59 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity, TouchableWithoutFeedbackBase } from 'react-native';
 import TransactionItem from './transactionItem';
 import { connect } from 'react-redux';
 import CategoryItem from './categoryItem';
-class TransactionSection extends React.Component {
+function TransactionSection (props) {
 
-    constructor(props) {
-        super(props)
-        this.loadTransactionList = this.loadTransactionList.bind(this)
-        this.getData = this.getData.bind(this)
-        this.state = { data: this.getData() }
-    }
-
-    getData() {
+    const [data, setData] = useState()
+    function getData() {
 
 
 
 
 
-        if (this.props.page === "home") {
+        if (props.page === "home") {
             /*var tags;
-            var list = this.props.groupList
+            var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
 
-            return (Object.entries(this.props.transactionList).map(([key, value]) => { if (value.categoryName === 'Income') { return(<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={this.props.navigation} />) } else { return (<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={this.props.groupList[value.groupID].categories[value.categoryID].name} navigation={this.props.navigation} /> )} }))
+            return (Object.entries(props.transactionList).map(([key, value]) => { if (value.categoryName === 'Income') { return(<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={props.navigation} />) } else { return (<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={props.groupList[value.groupID].categories[value.categoryID].name} navigation={props.navigation} /> )} }))
 
 
         }
-        if (this.props.page === "group") {
+        if (props.page === "group") {
             /*var tags;
-            var list = this.props.groupList
+            var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={this.props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
 
-            return (Object.entries(this.props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(this.props.groupID)) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={this.props.groupList[value.groupID].categories[value.categoryID].name} navigation={this.props.navigation} />))
+            return (Object.entries(props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(props.groupID)) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={props.groupList[value.groupID].categories[value.categoryID].name} navigation={props.navigation} />))
 
 
         }
 
     }
 
-    loadTransactionList() {
 
-        if (this.props.page === 'group') {
-            this.props.navigation.navigate('TransactionList', {
+    useEffect(() => {setData(getData())},[props.transactionList] )
+   function loadTransactionList() {
+
+        if (props.page === 'group') {
+            props.navigation.navigate('TransactionList', {
                 data: {
-                    groupID: this.props.groupID,
+                    groupID: props.groupID,
                     page: 'group',
                     type: 'landing'
                 }
             })
-        } else if (this.props.page === "home") {
-            this.props.navigation.navigate('TransactionList', {
+        } else if (props.page === "home") {
+            props.navigation.navigate('TransactionList', {
                 data: {
                     groupID: -1,
                     page: 'home',
@@ -68,7 +64,7 @@ class TransactionSection extends React.Component {
 
 
     }
-    render() {
+
 
         const styles = StyleSheet.create({
             container: {
@@ -104,20 +100,20 @@ class TransactionSection extends React.Component {
         return (
             <View style={styles.container} >
                 <TouchableOpacity activeOpacity={1} style={styles.TransactionButton}
-                    onPress={this.loadTransactionList}>
+                    onPress={loadTransactionList}>
                     <View style={styles.lines} />
                 </TouchableOpacity>
                 <ScrollView style={styles.TransactionContainer} showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}>
                     <View style={{ height: 20 }} />
-                    {this.getData()}
+                    {data}
 
                     <View style={{ height: 51 }} />
                 </ScrollView>
             </View>
         );
     }
-}
+
 
 const mapStateToProps = (state) => {
     const { transactions, groupData } = state
