@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -69,35 +69,35 @@ const styles = StyleSheet.create({
         color: 'white',
     }
 })
-class TopBarItem extends React.Component {
+function TopBarItem(props) {
+    const amount
+
+    const [toUse, setTouse] = useState()
+    const [text, setText] = useState()
 
 
-    constructor(props) {
-        super(props)
-        this.updateData = this.updateData.bind(this)
+    useEffect(() => {
+        if (props.type === 'unallocated') {
 
-        if (this.props.type === 'unallocated') {
 
-            this.state = {
-                toUse: styles.innerContainerTextAllocation,
-                text: 'Unallocated',
-                value: this.props.unallocated
-            }
+            setTouse(styles.innerContainerTextAllocation)
+            setText('Unallocated')
+
+
+            amount = props.unallocated
         }
-        else if (this.props.type === 'allocated') {
+        else if (props.type === 'allocated') {
 
-            this.state = {
-                toUse: styles.innerContainerTextAllocation,
-                text: 'Allocated',
-                value: this.props.groups[this.props.groupID].allocated
-            }
+            setTouse(styles.innerContainerTextAllocation)
+            setText('Allocated')
 
+            amount = props.groups[props.groupID].allocated
         }
-        else if (this.props.type === 'amount') {
-            if (this.props.groupID === null) {
-                var value = this.props.available
+        else if (props.type === 'amount') {
+            if (props.groupID === null) {
+                var value = props.available
             } else {
-                var value = this.props.groups[this.props.groupID].available
+                var value = props.groups[props.groupID].available
             }
 
             if (value >= 0) {
@@ -107,74 +107,32 @@ class TopBarItem extends React.Component {
                 var toUse = styles.innerContainerTextNegative
             }
 
-
-
-            this.state = {
-                toUse: toUse,
-                text: 'Available',
-                value: value
-            }
-        }
-    }
-    updateData() {
-
-    }
-
-    render() {
-        if (this.props.type === 'unallocated') {
-
-            this.state = {
-                toUse: styles.innerContainerTextAllocation,
-                text: 'Unallocated',
-
-            }
-            amount =   this.props.unallocated
-        }
-        else if (this.props.type === 'allocated') {
-
-            this.state = {
-                toUse: styles.innerContainerTextAllocation,
-                text: 'Allocated',
-
-            }
-            amount =   this.props.groups[this.props.groupID].allocated
-        }
-        else if (this.props.type === 'amount') {
-            if (this.props.groupID === null) {
-                var value = this.props.available
-            } else {
-                var value = this.props.groups[this.props.groupID].available
-            }
-
-            if (value >= 0) {
-                var toUse = styles.innerContainerTextPositive
-            }
-            else if (value < 0) {
-                var toUse = styles.innerContainerTextNegative
-            }
-
-            this.state = {
-                toUse: toUse,
-                text: 'Available',
-                
-            }
+            setTouse(toUse)
+            setText('Available')
             amount = value
         }
-    
-        return (
-            <View style={styles.container}>
-                <View style={styles.innerContainerAmount}>
 
-                    <Text style={styles.textAmount} >{amount}</Text>
-                </View>
-                <View style={this.state.toUse}>
-                    <Text style={styles.textText}>{this.state.text}</Text>
+    })
 
-                </View>
+
+
+
+
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.innerContainerAmount}>
+
+                <Text style={styles.textAmount} >{amount}</Text>
             </View>
-        );
-    }
+            <View style={toUse}>
+                <Text style={styles.textText}>{text}</Text>
+
+            </View>
+        </View>
+    );
 }
+
 
 
 const mapStateToProps = (state) => {
