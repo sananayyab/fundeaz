@@ -7,23 +7,21 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { useNavigation , useRoute} from '@react-navigation/native';
 
-class CategoryListPage extends React.Component {
-    constructor(props) {
-        super(props)
- 
-   
+function CategoryListPage (props) {
+    const route = useRoute();
+    const navigation = useNavigation();
     
-            this.data ={
+           const data ={
                 page: 'group',
                 type: 'category',
-                groupID : this.props.route.params.groupID
+                groupID : route.params.groupID
             }
         
-    }
+    
 
 
  
-    render() {
+
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
@@ -49,19 +47,13 @@ class CategoryListPage extends React.Component {
             <View style={styles.container}>
                 <StatusBar style="default" />
                 <View style={styles.list}>
-                    <CategoryList navigation={this.props.navigation}data={this.data} />
+                    <CategoryList navigation={navigation}data={data} />
                 </View>
                 <View style={styles.bottomBar}>
-                    <BottomBar data={this.data} />
+                    <BottomBar data={data} />
                 </View>
             </View>
         );
     }
-}
-export default function(props) {
-    const route = useRoute();
-    const navigation = useNavigation();
-  
-    return <CategoryListPage {...props} navigation={navigation} route={route} />;
-  }
 
+export default CategoryListPage
