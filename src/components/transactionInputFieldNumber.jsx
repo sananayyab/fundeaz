@@ -5,20 +5,12 @@ import { TextInput } from 'react-native-gesture-handler';
 
 import { connect } from 'react-redux';
 
-class TransactionInputFieldNumber extends React.Component {
-
-    constructor(props) {
-        super(props)
-     
-        
-        
-    }
-
-  
+function TransactionInputFieldNumber (props) {
 
 
 
-    render() {
+
+
 
 
         const styles = StyleSheet.create({
@@ -73,22 +65,22 @@ class TransactionInputFieldNumber extends React.Component {
             <View style={styles.container} >
                 <View style={styles.fieldNameContainer}>
                     <Text style={styles.fieldNameText}>
-                        {this.props.fieldName}
+                        {props.fieldName}
                     </Text>
                 </View>
                 <View style={styles.textFieldContainer}>
                     <TextInput 
                       
-                        onChangeText={(text) => {this.props.data({amount: text}) }}
+                        onChangeText={(text) => {props.data({amount: text}) }}
                         keyboardType={'numeric'}
                         style={styles.textInput}>
-                    {this.props.value}
+                    {props.value}
                     </TextInput>
                 </View>
             </View>
         );
     }
-}
+
 
 
 export default TransactionInputFieldNumber;
