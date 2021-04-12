@@ -20,8 +20,13 @@ function  BottomBar(props){
         },
     })
     function loadSettings(){
-
-        props.navigation.navigate('SettingPage')
+        const source = props.data.page
+        switch (source) {
+            case 'home':
+                props.navigation.navigate('SettingPage')
+                break
+        }
+       
     }
    function processAction() {
         const type = props.data.type
