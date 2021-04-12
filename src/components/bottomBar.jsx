@@ -36,7 +36,7 @@ function  BottomBar(props){
                 case 'home':
                     props.addGroup({ itemStatus: 'new' })
                     props.initializeGroup(props.currentID + 1)
-                    console.log('test')
+                 
                     break
                 case 'group':
                     props.addCategory({ itemStatus: 'new' }, props.data.groupID)
