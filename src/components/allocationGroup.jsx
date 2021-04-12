@@ -22,7 +22,7 @@ function  AllocationGroup (props) {
 
         },
         groupTag: {
-            height: 65,
+            height: 55,
             width: '99%'
         },
         categoryTags: {
