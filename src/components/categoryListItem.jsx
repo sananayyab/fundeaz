@@ -6,7 +6,7 @@ import { updateGroup, updateCategory, removeCategory, removeGroup } from '../act
 import Icon from 'react-native-vector-icons/MaterialIcons';
 const styles = StyleSheet.create({
     container: {
-        height: 45,
+        height: 48,
         margin: 5,
         borderRadius: 10,
         flexDirection: 'row',
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     },
     editTextField: {
         flex: 8,
-        borderRadius: 10,
+        borderRadius: 5,
         backgroundColor: '#1D2D44',
         fontSize: 22,
         color: 'white',
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     innerContainerText: {
         flex: 3.3,
         height: '100%',
-        borderRadius: 10,
+        borderRadius: 5,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-start',
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
     },
     textText: {
         paddingLeft: 0,
-     
-        fontSize: 20,
+        padding: '3%',
+        fontSize: 22,
         color: 'white',
         marginLeft: '5%',
     },
@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     textInputBar: {
-        flex: 1,
-        height: '90%',
+        width: "100%",
+        height: '100%',
         borderRadius: 5,
         flexDirection: 'column',
         justifyContent: 'center',
@@ -74,8 +74,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#1D2D44',
     },
     textInputText: {
+     
+        height: '100%',
         width: "100%",
-        padding: '3%',
+       
         fontSize: 22,
         color: 'white',
         textAlign: 'center'
