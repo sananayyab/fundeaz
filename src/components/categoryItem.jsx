@@ -92,7 +92,7 @@ function CategoryItem (props) {
             },
             Nametext: {
                 color: 'white',
-                fontSize: 14,
+                fontSize: 15,
                 textAlign: 'center',
 
 
