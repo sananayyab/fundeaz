@@ -16,7 +16,7 @@ function CategoryItem (props) {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
 
-            console.log('group')
+          
             // passing , navigation: props.navigation was causing the issue, find another way to pass navigation 
             props.navigation.navigate('GroupPage', {
                 name: props.name,
