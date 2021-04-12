@@ -10,56 +10,58 @@ function AllocationBarCategory(props) {
 
     const styles = StyleSheet.create({
         container: {
-            height: 55,
+            height: 45,
             marginLeft: 5,
             marginRight: 5,
             marginTop: 5,
             marginBottom: 5,
             borderRadius: 10,
             flexDirection: 'row',
+            backgroundColor: '#1D2D44',
+            justifyContent: 'center',
+            alignItems: 'center',
         },
         innerContainerText: {
-            flex: 2.29,
-            height: '90%',
-            borderRadius: 5,
+            flex: 2.5,
+            height: '100%',
+            borderRadius: 10,
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'flex-start',
             backgroundColor: '#1D2D44',
         },
         innerContainerTextPositive: {
-            flex: 1.3,
-            top: 7,
+            flex: 1.63,
+            marginRight: '3%',
             height: '70%',
-            borderBottomRightRadius: 5,
-            borderTopRightRadius: 5,
+            borderRadius: 6,
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: '#05845D',
         },
         innerContainerTextNegative: {
-            flex: 1.4,
-            top: 7,
+            flex: 1.63,
+            marginRight: '3%',
             height: '70%',
-            borderBottomRightRadius: 5,
-            borderTopRightRadius: 5,
+            borderRadius: 6,
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: '#85041C',
         },
         innerContainerAmount: {
+            
         },
         textText: {
             paddingLeft: 0,
-            padding: '3%',
-            fontSize: 15,
+           
+            fontSize: 17,
             color: 'white',
             marginLeft: '5%',
         },
         textAmount: {
-           
+           top: '5%',
             height: '150%',
             width: '100%',
         
