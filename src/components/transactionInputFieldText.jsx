@@ -9,15 +9,19 @@ function TransactionInputFieldText (props) {
                 marginBottom: '5%',
                 top: 10,
                 height: 50,
-                justifyContent: 'center'
+                marginRight: '3%',
+                marginLeft: '3%',
+                borderRadius: 5,
+                justifyContent: 'center',
+                backgroundColor: '#1D2D44'
             },
             fieldNameContainer: {
                 position: 'absolute',
-                height: '80%',
-                zIndex: 0,
+                height: '70%',
+                zIndex: 1,
                 borderRadius: 5,
-                marginLeft: '3%',
-                width: '30%',
+                marginLeft: '2%',
+                width: '25%',
                 justifyContent: 'center',
                 backgroundColor: '#00487C'
             },
@@ -25,12 +29,12 @@ function TransactionInputFieldText (props) {
               
 
                 borderRadius: 5,
-                zIndex: 2,
+                zIndex: 0,
                 height: '100%',
-                marginRight: '3%',
+              
 
-                marginLeft: '28%',
-                backgroundColor: '#1D2D44'
+                marginLeft: '34%',
+               
             },
             fieldNameText: {
 
