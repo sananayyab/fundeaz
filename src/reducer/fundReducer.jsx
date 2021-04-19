@@ -160,7 +160,35 @@ export function fundReducer(state = initialState, action) {
                     }
                 }
             }
-            case 'REMOVE_SPEND_ONLY_CATEGORY':
+        case 'REMOVE_SPEND_ONLY_CATEGORY':
+            return {
+                ...state,
+                groups: {
+                    ...state.groups,
+                    [action.groupID]: {
+                        ...state.groups[action.groupID],
+                        categories: {
+                            ...state.groups[action.groupID].categories,
+                            [action.categoryID]: {
+                                ...state.groups[action.groupID].categories[action.categoryID],
+                                available: state.groups[action.groupID].categories[action.categoryID].available + action.amount,
+                            }
+                        }
+                    }
+                }
+            }
+        case 'START_OF_MONTH_RESET_GROUP':
+            return {
+                ...state,
+                groups:{
+                    ...state.groups,
+                    [action.groupID]: {
+                        ...state.groups[action.groupID],
+                        allocated: 0
+                    }
+                }
+            }
+            case 'START_OF_MONTH_RESET_CATEGORY':
                 return {
                     ...state,
                     groups: {
@@ -169,11 +197,11 @@ export function fundReducer(state = initialState, action) {
                             ...state.groups[action.groupID],
                             categories: {
                                 ...state.groups[action.groupID].categories,
-                                [action.categoryID]: {
-                                    ...state.groups[action.groupID].categories[action.categoryID],
-                                    available: state.groups[action.groupID].categories[action.categoryID].available + action.amount,
-                                }
+                            [action.categoryID]: {
+                                ...state.groups[action.groupID].categories[action.categoryID],
+                                allocated: 0
                             }
+                        }
                         }
                     }
                 }

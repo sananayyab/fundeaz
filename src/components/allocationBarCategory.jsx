@@ -148,6 +148,7 @@ function AllocationBarCategory(props) {
                     </View>
                     <View style={styleToUse}>
                         <TextInput
+                        
                             ref={textFieldRef}
                             selectTextOnFocus={true}
                             onEndEditing={(event) => {
