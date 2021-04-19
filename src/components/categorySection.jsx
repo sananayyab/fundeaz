@@ -76,7 +76,7 @@ function CategorySection(props) {
             //borderTopLeftRadius: 15,
             borderBottomLeftRadius: 15,
 
-
+            elevation: 5,
             borderBottomRightRadius: 15,
             flexDirection: 'column',
 

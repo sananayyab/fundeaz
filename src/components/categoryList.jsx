@@ -36,7 +36,7 @@ function CategoryList (props) {
                 marginRight: '2%',
                 borderRadius: 10,
                 flexDirection: 'column',
-
+                
 
             },
         })

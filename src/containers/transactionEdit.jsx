@@ -154,7 +154,7 @@ function  TransactionEdit (props) {
             },
             inputFields: {
                 flex: 1.8,
-
+                elevation:5,
                 width: '96%',
                 left: '2%',
                 borderRadius: 15,

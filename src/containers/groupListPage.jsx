@@ -28,6 +28,7 @@ function GroupListPage (props) {
                 flex: 1,
                 flexDirection: 'column',
                 backgroundColor: 'white',
+               
             },
             bottomBar:
             {
@@ -40,6 +41,7 @@ function GroupListPage (props) {
                 borderRadius: 15,
                 backgroundColor: '#7C7D8D',
                 flex: 20,
+                elevation: 5,
             }
         });
 

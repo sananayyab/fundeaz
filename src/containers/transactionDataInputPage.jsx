@@ -60,7 +60,7 @@ function TransactionInput (props) {
             container: {
                 flex: 1,
                 backgroundColor: 'white',
-            
+           
               
 
             },
@@ -75,7 +75,7 @@ function TransactionInput (props) {
                 width: '96%',
                 left: '2%',
                 borderRadius: 15,
-              
+                elevation:5,
             },
             buttonField: {
             

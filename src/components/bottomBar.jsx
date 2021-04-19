@@ -75,6 +75,7 @@ function  BottomBar(props){
                         marginRight: 0,
                         paddingLeft: 20,
                         paddingRight: 20,
+                      
                     }}
                 />
                <Icon.Button
@@ -87,6 +88,7 @@ function  BottomBar(props){
                         marginRight: 0,
                         paddingLeft: 20,
                         paddingRight: 20,
+                      
                     }}
                 />
             </View>
