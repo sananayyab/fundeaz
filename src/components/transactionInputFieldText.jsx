@@ -13,7 +13,7 @@ function TransactionInputFieldText (props) {
                 marginLeft: '3%',
                 borderRadius: 5,
                 justifyContent: 'center',
-                backgroundColor: '#1D2D44'
+                backgroundColor: '#385782'
             },
             fieldNameContainer: {
                 position: 'absolute',
@@ -23,7 +23,7 @@ function TransactionInputFieldText (props) {
                 marginLeft: '2%',
                 width: '25%',
                 justifyContent: 'center',
-                backgroundColor: '#2F496D'
+                backgroundColor: '#1D2D44'
             },
             textFieldContainer: {
               

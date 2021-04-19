@@ -68,7 +68,7 @@ function TransactionInput (props) {
                 height: 50,
             },
             inputFields: {
-                  backgroundColor: '#7C7D8D',
+                  backgroundColor: '#98B0D3',
                 marginTop: '5%',
                 flex: 3,
 
@@ -126,7 +126,7 @@ function TransactionInput (props) {
                         <View styles={styles.buttonStyle}>
 
                             <Icon.Button
-                                backgroundColor='#7C7D8D'
+                                backgroundColor='#98B0D3'
                                 color='black'
                                 name="check"
                                 size={40}

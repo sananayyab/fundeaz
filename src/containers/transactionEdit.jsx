@@ -158,7 +158,7 @@ function  TransactionEdit (props) {
                 width: '96%',
                 left: '2%',
                 borderRadius: 15,
-                backgroundColor: '#7C7D8D'
+                backgroundColor: '#98B0D3'
             },
             buttonField: {
                 flexDirection: 'row',
@@ -212,7 +212,7 @@ function  TransactionEdit (props) {
                         <View styles={styles.buttonStyle}>
 
                             <Icon.Button
-                                backgroundColor='#7C7D8D'
+                                backgroundColor='#98B0D3'
                                 color='black'
                                 name="delete"
                                 size={40}
@@ -231,7 +231,7 @@ function  TransactionEdit (props) {
                         <View styles={styles.buttonStyle}>
 
                             <Icon.Button
-                                backgroundColor='#7C7D8D'
+                                backgroundColor='#98B0D3'
                                 color='black'
                                 name="check"
                                 size={40}
