@@ -105,11 +105,11 @@ function CategorySection(props) {
             borderTopLeftRadius: 15,
             flexDirection: 'row',
             height: '12%',
-            backgroundColor: '#7C7D8D',
+            backgroundColor: '#98B0D3',
         },
         caresoul: {
             flex: 9,
-            backgroundColor: '#7C7D8D',
+            backgroundColor: '#98B0D3',
             borderBottomLeftRadius: 15,
             borderBottomRightRadius: 15,
         },

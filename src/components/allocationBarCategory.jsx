@@ -25,7 +25,7 @@ function AllocationBarCategory(props) {
             marginBottom: 5,
             borderRadius: 10,
             flexDirection: 'row',
-            backgroundColor: '#1D2D44',
+            backgroundColor: '#385782',
             justifyContent: 'center',
             alignItems: 'center',
             position: 'absolute',
@@ -38,7 +38,7 @@ function AllocationBarCategory(props) {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'flex-start',
-            backgroundColor: '#1D2D44',
+            backgroundColor: '#385782',
         },
         innerContainerTextPositive: {
             flex: 1.63,

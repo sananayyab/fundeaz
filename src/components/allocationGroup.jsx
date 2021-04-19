@@ -12,7 +12,7 @@ function  AllocationGroup (props) {
           height: 'auto',
           margin: 10,
           borderRadius: 20,
-          backgroundColor: '#7C7D8D',
+          backgroundColor: '#98B0D3',
             
 
         },

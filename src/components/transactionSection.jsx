@@ -75,7 +75,7 @@ function TransactionSection (props) {
                 borderTopLeftRadius: 15,
                 borderBottomLeftRadius: 15,
                 borderBottomRightRadius: 15,
-                backgroundColor: '#7C7D8D',
+                backgroundColor: '#98B0D3',
                 elevation: 5,
             },
             TransactionContainer: {
