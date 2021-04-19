@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         color: "white",
     },
     categoryPopUpStyle: {
-        backgroundColor: 'white',
+        backgroundColor: '#98B0D3',
 
         borderRadius: 15,
         height: '60%'
