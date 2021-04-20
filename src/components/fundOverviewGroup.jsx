@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import FundOverviewBarGroup from './fundOverviewBarGroup.jsx'
 import FundOverviewBarCategory from './fundOverviewBarCategory.jsx';
-
+import Icon  from 'react-native-vector-icons/MaterialIcons';
 function  FundOverviewGroup (props) {
     const styles = StyleSheet.create({
         container: {
@@ -29,6 +29,10 @@ function  FundOverviewGroup (props) {
             height: 'auto',
             width: '94%',
             marginLeft: 20
+        },
+        addButton: {
+            marginLeft: '0%',
+            width: '50%',
         }
     })
  
@@ -37,6 +41,19 @@ function  FundOverviewGroup (props) {
         const { groupID } = props
         return (
             <View style={styles.container}>
+             
+
+                    <View style={styles.addButton}> 
+                    <Icon.Button
+                    backgroundColor='#98B0D3'
+                    name="add"
+                    color='black'
+                    size={25}
+                    
+                   
+                />
+                    </View>
+            
                <View style={styles.groupContainer}>
                     <View style={styles.groupTag}>
                         <FundOverviewBarGroup key={groupID} groupID={groupID} />
