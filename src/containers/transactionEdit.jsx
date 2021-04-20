@@ -155,7 +155,7 @@ function  TransactionEdit (props) {
             inputFields: {
                 backgroundColor: '#98B0D3',
               marginTop: '5%',
-              flex: 2.5,
+              height: '50%',
 
               width: '96%',
               left: '2%',
@@ -170,9 +170,9 @@ function  TransactionEdit (props) {
                 marginLeft: '7%',
                 marginRight: '7%',
 
-                flex: 2,
+          
 
-                marginTop: '10%',
+                marginTop: '40%',
 
 
 
