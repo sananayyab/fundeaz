@@ -104,7 +104,10 @@ function TopBarItem(props) {
         if (props.section == 'home') {
      if(props.type === 'unallocated') {
       navigation.navigate('AllocationPage')
+     }else if (props.type === 'amount'){
+        navigation.navigate('FundOverviewPage')
      }
+
      }
     }
     return (

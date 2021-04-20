@@ -9,6 +9,7 @@ import CategoryListPage from './categoryListPage.jsx';
 import TransactionEdit from './transactionEdit.jsx';
 import GroupListPage from './groupListPage.jsx';
 import settingPage from './settingPage.jsx';
+import fundOverviewPage from './fundOverviewPage.jsx'
 import TransactionListPage from './transactionListPage.jsx';
 import AllocationPage from './allocationPage.jsx';
 import { NavigationContainer } from '@react-navigation/native';
@@ -48,6 +49,7 @@ function App(props) {
                         <Stack.Screen name="TransactionEdit" component={TransactionEdit} />
                         <Stack.Screen name="AllocationPage" component={AllocationPage} />
                         <Stack.Screen name="SettingPage" component={settingPage} />
+                        <Stack.Screen name="FundOverviewPage" component={fundOverviewPage} />
                     </Stack.Navigator>
                 </NavigationContainer>
             </PersistGate>
