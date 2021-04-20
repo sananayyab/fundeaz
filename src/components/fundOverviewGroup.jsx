@@ -31,13 +31,16 @@ function  FundOverviewGroup (props) {
             marginLeft: 20
         },
         addButton: {
-            marginLeft: '0%',
-            width: '50%',
+          
+            width: '15%',
         }
     })
  
 
-       
+       function addingAction()
+       {
+        
+       }
         const { groupID } = props
         return (
             <View style={styles.container}>
@@ -47,9 +50,14 @@ function  FundOverviewGroup (props) {
                     <Icon.Button
                     backgroundColor='#98B0D3'
                     name="add"
+                    onPress={ addingAction}
                     color='black'
-                    size={25}
-                    
+                    size={30}
+                    iconStyle={{
+                        marginRight: 0,
+                     
+                      
+                    }}
                    
                 />
                     </View>
