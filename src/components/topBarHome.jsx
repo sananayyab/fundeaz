@@ -60,8 +60,8 @@ function TopBar(props) {
             style={styles.container}
             onPress={navigationToDetails}
             activeOpacity={1}>
-            <TopBarItem type={'amount'} groupID={data.groupID} style={{ flex: 1 }} name={props.name} />
-            <TopBarItem type={data.type} groupID={data.groupID} style={{ flex: 1 }} name={props.name} />
+            <TopBarItem type={'amount'} section= { props.section}groupID={data.groupID} style={{ flex: 1 }} name={props.name} />
+            <TopBarItem type={data.type} section= { props.section} groupID={data.groupID} style={{ flex: 1 }} name={props.name} />
         </TouchableOpacity>
     );
 }

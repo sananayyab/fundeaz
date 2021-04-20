@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View , TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 const styles = StyleSheet.create({
     container: {
@@ -64,6 +65,10 @@ const styles = StyleSheet.create({
 })
 
 function TopBarItem(props) {
+
+
+    const navigation = useNavigation()
+    
     const [toUse, setTouse] = useState()
     const [text, setText] = useState()
     const [amount, setAmount] = useState()
@@ -95,15 +100,22 @@ function TopBarItem(props) {
             setAmount(value)
         }
     }, [props.fund])
+    function handleTouch(){
+        if (props.section == 'home') {
+     if(props.type === 'unallocated') {
+      navigation.navigate('AllocationPage')
+     }
+     }
+    }
     return (
-        <View style={styles.container}>
+        <TouchableOpacity  activeOpacity={1} onPress={handleTouch} style={styles.container}>
             <View style={styles.innerContainerAmount}>
                 <Text style={styles.textAmount} >{amount}</Text>
             </View>
             <View style={toUse}>
                 <Text style={styles.textText}>{text}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 const mapStateToProps = (state) => {
