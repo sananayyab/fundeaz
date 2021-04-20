@@ -93,7 +93,7 @@ function CategorySection(props) {
             marginTop: '1.5%',
             height: '50%',
             borderRadius: 30,
-            backgroundColor: '#C8C8C8',
+            backgroundColor: '#36537F',
             width: '30%',
             marginRight: '5%',
         },
