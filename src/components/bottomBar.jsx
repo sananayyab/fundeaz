@@ -66,7 +66,7 @@ function  BottomBar(props){
         return (
             <View style={styles.container}>
                 <Icon.Button
-                    backgroundColor='#7C7D8D'
+                    backgroundColor='#98B0D3'
                     name="settings"
                     color='black'
                     size={35}
@@ -75,10 +75,11 @@ function  BottomBar(props){
                         marginRight: 0,
                         paddingLeft: 20,
                         paddingRight: 20,
+                      
                     }}
                 />
                <Icon.Button
-                    backgroundColor='#7C7D8D'
+                    backgroundColor='#98B0D3'
                     name="add"
                     color='black'
                     size={35}
@@ -87,6 +88,7 @@ function  BottomBar(props){
                         marginRight: 0,
                         paddingLeft: 20,
                         paddingRight: 20,
+                      
                     }}
                 />
             </View>

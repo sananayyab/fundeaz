@@ -98,6 +98,23 @@ export function initializeGroup(groupID) {
     }
 }
 
+export function startOfMonthDataResetGroup(groupID) {
+    return {
+        type: 'START_OF_MONTH_RESET_GROUP',
+        groupID
+
+    }
+}
+
+export function startOfMonthDataResetCategory(groupID, categoryID) {
+    return {
+        type: 'START_OF_MONTH_RESET_CATEGORY',
+        groupID,
+        categoryID
+
+    }
+}
+
 
 
 

@@ -39,7 +39,7 @@ function CategoryItem (props) {
                 marginRight: '4%',
                 marginBottom: '5%',
                 borderRadius: 10,
-                backgroundColor: '#00487C',
+                backgroundColor: '#385782',
                 justifyContent: 'center',
              
             },

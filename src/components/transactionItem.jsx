@@ -17,11 +17,11 @@ function TransactionItem (props) {
                 alignSelf: 'center',
                 borderRadius: 10,
                 flexDirection: 'row',
-                backgroundColor: '#1D2D44',
+                backgroundColor: '#385782',
             },
             CategoryContainer: {
                 flex: 1,
-                backgroundColor: '#1D2D44',
+                backgroundColor: '#385782',
                 paddingLeft: 20,
                 paddingTop: 2,
                 paddingBottom: 2,

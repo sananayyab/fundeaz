@@ -10,14 +10,14 @@ const styles = StyleSheet.create({
         margin: 5,
         borderRadius: 10,
         flexDirection: 'row',
-        backgroundColor: '#1D2D44',
+        backgroundColor: '#385782',
         justifyContent: 'center',
         alignItems: 'center',
     },
     editTextField: {
         flex: 8,
         borderRadius: 5,
-        backgroundColor: '#1D2D44',
+        backgroundColor: '#385782',
         fontSize: 22,
         color: 'white',
         textAlign: 'center'
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        backgroundColor: '#1D2D44',
+        backgroundColor: '#385782',
     },
     innerContainerTextPositive: {
         flex: 1.45,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        backgroundColor: '#1D2D44',
+        backgroundColor: '#385782',
     },
     textInputText: {
      

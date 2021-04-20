@@ -3,16 +3,10 @@ import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid, TextInput, Anim
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import { allocateToCategory, deallocateCategory } from '../action/fundActions.jsx'
-
 import { FlingGestureHandler, State, Directions } from 'react-native-gesture-handler';
-
-
-
 var mode;
 var oldAmount;
-
 function AllocationBarCategory(props) {
-
     const position = useRef(new Animated.Value(0)).current;
     const [amount, setAmount] = useState(props.fundAllocated)
     const styles = StyleSheet.create({
@@ -25,7 +19,7 @@ function AllocationBarCategory(props) {
             marginBottom: 5,
             borderRadius: 10,
             flexDirection: 'row',
-            backgroundColor: '#1D2D44',
+            backgroundColor: '#385782',
             justifyContent: 'center',
             alignItems: 'center',
             position: 'absolute',
@@ -38,7 +32,7 @@ function AllocationBarCategory(props) {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'flex-start',
-            backgroundColor: '#1D2D44',
+            backgroundColor: '#385782',
         },
         innerContainerTextPositive: {
             flex: 1.63,
@@ -61,11 +55,9 @@ function AllocationBarCategory(props) {
             backgroundColor: '#85041C',
         },
         innerContainerAmount: {
-
         },
         textText: {
             paddingLeft: 0,
-
             fontSize: 17,
             color: 'white',
             marginLeft: '5%',
@@ -74,23 +66,17 @@ function AllocationBarCategory(props) {
             top: '5%',
             height: '200%',
             width: '100%',
-
             textAlign: 'center',
             fontSize: 20,
-
             color: 'white',
         }
     })
     const [styleToUse, setStyle] = useState(((parseInt(props.fundAllocated) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative))
-
     const textFieldRef = createRef()
-
     var beginX
     function handleState({ nativeEvent }) {
         if (nativeEvent.state === State.BEGAN) {
-
             beginX = nativeEvent.absoluteX
-
         }
         if (nativeEvent.state === State.END) {
             if (nativeEvent.absoluteX > beginX) {
@@ -109,7 +95,6 @@ function AllocationBarCategory(props) {
                 mode = 'deduct'
                 textFieldRef.current.focus()
             }
-
         }
         if (nativeEvent.state === State.CANCELLED) {
             if (nativeEvent.absoluteX > beginX) {
@@ -128,15 +113,10 @@ function AllocationBarCategory(props) {
                 mode = 'deduct'
                 textFieldRef.current.focus()
             }
-
         }
     }
-
-
-
     return (
         <FlingGestureHandler direction={Directions.RIGHT | Directions.LEFT}
-
             onHandlerStateChange={handleState}>
             <View style={{
                 height: 50,
@@ -148,6 +128,7 @@ function AllocationBarCategory(props) {
                     </View>
                     <View style={styleToUse}>
                         <TextInput
+                            pointerEvents={'none'}
                             ref={textFieldRef}
                             selectTextOnFocus={true}
                             onEndEditing={(event) => {
@@ -155,18 +136,13 @@ function AllocationBarCategory(props) {
                                     if (!isNaN(parseInt(event.nativeEvent.text))) {
                                         console.log(parseInt(event.nativeEvent.text))
                                         props.allocate((parseInt(event.nativeEvent.text)))
-
                                         setAmount(parseInt(event.nativeEvent.text) + parseInt(oldAmount))
-
                                         setStyle(styles.innerContainerTextPositive)
                                     }
                                     else {
-
                                         setAmount(parseInt(oldAmount))
                                         setStyle(styles.innerContainerTextPositive)
-
                                     }
-
                                 }
                                 else if (mode === 'deduct') {
                                     if (!isNaN(parseInt(event.nativeEvent.text))) {
@@ -181,12 +157,9 @@ function AllocationBarCategory(props) {
                                             setStyle(styles.innerContainerTextPositive)
                                         }
                                     } else {
-
                                         setAmount(parseInt(oldAmount))
                                         setStyle(styles.innerContainerTextPositive)
                                     }
-
-
                                 }
                             }}
                             onChangeText={(text) => {
@@ -197,18 +170,14 @@ function AllocationBarCategory(props) {
                             }}
                             keyboardType={'numeric'}
                             style={styles.textAmount} >
-
                             {amount}
                         </TextInput>
-
-
                     </View>
                 </Animated.View>
             </View>
         </FlingGestureHandler>
     );
 }
-
 const mapStateToProps = (state, ownProps) => {
     const { groupData, fund } = state
     const { groupID, categoryID } = ownProps
@@ -217,16 +186,11 @@ const mapStateToProps = (state, ownProps) => {
         fundAllocated: fund.groups[groupID].categories[categoryID].allocated
     }
 };
-
 const mapDispatchToProps = (dispatch, ownProps) => {
-
     const { groupID, categoryID } = ownProps
     return {
         allocate: (amount) => dispatch(allocateToCategory(amount, groupID, categoryID)),
         deallocate: (amount) => dispatch(deallocateCategory(amount, groupID, categoryID)),
-
-
     }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(AllocationBarCategory)

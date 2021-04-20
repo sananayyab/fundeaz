@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { registerRootComponent } from 'expo';
 import HomePage from './homePage.jsx';
@@ -18,8 +18,6 @@ import { Provider } from 'react-redux'
 import { store, persistor } from '../reducer/store'
 import { PersistGate } from 'redux-persist/integration/react';
 function App(props) {
-
-
 
 
     //persistor.purge()

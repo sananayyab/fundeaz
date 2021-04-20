@@ -153,23 +153,26 @@ function  TransactionEdit (props) {
                 height: 50,
             },
             inputFields: {
-                flex: 1.8,
+                backgroundColor: '#98B0D3',
+              marginTop: '5%',
+              height: '50%',
 
-                width: '96%',
-                left: '2%',
-                borderRadius: 15,
-                backgroundColor: '#7C7D8D'
-            },
+              width: '96%',
+              left: '2%',
+              borderRadius: 15,
+              elevation:5,
+          },
+      
             buttonField: {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                marginLeft: '3%',
-                marginRight: '3%',
+                marginLeft: '7%',
+                marginRight: '7%',
 
-                flex: 1,
+          
 
-                marginTop: 20,
+                marginTop: '40%',
 
 
 
@@ -212,7 +215,7 @@ function  TransactionEdit (props) {
                         <View styles={styles.buttonStyle}>
 
                             <Icon.Button
-                                backgroundColor='#7C7D8D'
+                                backgroundColor='#98B0D3'
                                 color='black'
                                 name="delete"
                                 size={40}
@@ -231,7 +234,7 @@ function  TransactionEdit (props) {
                         <View styles={styles.buttonStyle}>
 
                             <Icon.Button
-                                backgroundColor='#7C7D8D'
+                                backgroundColor='#98B0D3'
                                 color='black'
                                 name="check"
                                 size={40}

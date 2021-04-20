@@ -23,8 +23,9 @@ function TransactionListPage (props) {
             list: {
                 margin: '2%',
                 borderRadius: 15,
-                backgroundColor: '#7C7D8D',
+                backgroundColor: '#98B0D3',
                 flex: 20,
+                elevation: 5,
             }
         });
      

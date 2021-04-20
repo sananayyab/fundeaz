@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#1D2D44',
+        backgroundColor: '#4972AB',
     },
     innerContainerTextAllocation: {
         flex: 1.2,
