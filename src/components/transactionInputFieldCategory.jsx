@@ -95,7 +95,7 @@ function TransactionInputFieldCategory(props) {
         },
         dropDownMenu: {
             position: 'absolute',
-            top: '105%',
+            top: '110%',
             width: '100%',
             backgroundColor: '#98B0D3',
             borderRadius: 10,
@@ -109,7 +109,7 @@ function TransactionInputFieldCategory(props) {
     useEffect(() => {
         if (dropDownActive) {
             
-            Animated.parallel([Animated.timing(dropDownHeight, { toValue: 100, duration: 150, useNativeDriver: false }), Animated.timing(dropDownBorder, { toValue: 5, duration: 5, useNativeDriver: false })]).start()
+            Animated.parallel([Animated.timing(dropDownHeight, { toValue: 100, duration: 150, useNativeDriver: false }), Animated.timing(dropDownBorder, { toValue: 6, duration: 5, useNativeDriver: false })]).start()
         }
         else {
             Animated.parallel([Animated.timing(dropDownHeight, { toValue: 0, duration: 150, useNativeDriver: false }), Animated.timing(dropDownBorder, { toValue: 0, duration: 150, useNativeDriver: false })]).start()
