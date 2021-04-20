@@ -97,10 +97,11 @@ function  BottomBar(props){
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addCategory: (data, groupID) => dispatch(addCategory(data, groupID)),
+       
         addGroup: (data) => dispatch(addGroup(data)),
         addTransaction: (data) => dispatch(addTransaction(data)),
         initializeGroup: (groupID) => dispatch(initializeGroup(groupID)),
+        addCategory: (data, groupID) => dispatch(addCategory(data, groupID)),
         initializeCategory: (groupID, categoryID) => dispatch(initializeCategory(groupID, categoryID)),
     }
 }

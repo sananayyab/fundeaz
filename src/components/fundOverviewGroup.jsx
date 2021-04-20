@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import FundOverviewBarGroup from './fundOverviewBarGroup.jsx'
 import FundOverviewBarCategory from './fundOverviewBarCategory.jsx';
 import Icon  from 'react-native-vector-icons/MaterialIcons';
+import {addCategory } from '../action/groupActions'
+import { initializeCategory } from '../action/fundActions'
 function  FundOverviewGroup (props) {
+    const { groupID } = props
+
     const styles = StyleSheet.create({
         container: {
            
@@ -38,10 +42,14 @@ function  FundOverviewGroup (props) {
  
 
        function addingAction()
-       {
+       {    
+       
+        props.addCategory({ itemStatus: 'new' }, groupID)
+    
+        props.initializeCategory(groupID, props.currentGroup.currentCategoryID + 1)
         
        }
-        const { groupID } = props
+       
         return (
             <View style={styles.container}>
              
@@ -64,10 +72,10 @@ function  FundOverviewGroup (props) {
             
                <View style={styles.groupContainer}>
                     <View style={styles.groupTag}>
-                        <FundOverviewBarGroup key={groupID} groupID={groupID} />
+                        <FundOverviewBarGroup  key={groupID} groupID={groupID} />
                     </View>
                     <View style={styles.categoryTags}>
-                        {Object.entries(props.groups).map(([key, value]) => <FundOverviewBarCategory key={key} categoryID={key} groupID={groupID} />)}
+                        {Object.entries(props.groups).map(([key, value]) => <FundOverviewBarCategory key={key}type={value.itemStatus } id={key} amount={props.groupFund[key].available}  categoryID={key} name={value.name} groupID={groupID} />)}
                     </View>
                     </View>
             </View>)
@@ -79,11 +87,20 @@ const mapStateToProps = (state, ownProps) => {
     const {groupID} =  ownProps 
     return {
         groups: groupData.groups[groupID].categories,
-
+        currentGroup: groupData.groups[groupID], 
+        groupFund: fund.groups[groupID].categories
 
 
     }
 };
-export default connect(mapStateToProps)(FundOverviewGroup)
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      
+        addCategory: (data, groupID) => dispatch(addCategory(data, groupID)),
+        initializeCategory: (groupID, categoryID) => dispatch(initializeCategory(groupID, categoryID)),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(FundOverviewGroup)
 
 
