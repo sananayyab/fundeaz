@@ -70,7 +70,7 @@ function TransactionInput (props) {
             inputFields: {
                   backgroundColor: '#98B0D3',
                 marginTop: '5%',
-                flex: 3,
+                flex: 2.5,
 
                 width: '96%',
                 left: '2%',
@@ -85,7 +85,7 @@ function TransactionInput (props) {
            
                 flex: 1,
 
-                marginTop: '20%',
+                marginTop: '40%',
 
 
 

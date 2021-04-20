@@ -153,23 +153,26 @@ function  TransactionEdit (props) {
                 height: 50,
             },
             inputFields: {
-                flex: 1.8,
-                elevation:5,
-                width: '96%',
-                left: '2%',
-                borderRadius: 15,
-                backgroundColor: '#98B0D3'
-            },
+                backgroundColor: '#98B0D3',
+              marginTop: '5%',
+              flex: 2.5,
+
+              width: '96%',
+              left: '2%',
+              borderRadius: 15,
+              elevation:5,
+          },
+      
             buttonField: {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                marginLeft: '3%',
-                marginRight: '3%',
+                marginLeft: '7%',
+                marginRight: '7%',
 
-                flex: 1,
+                flex: 2,
 
-                marginTop: 20,
+                marginTop: '10%',
 
 
 
