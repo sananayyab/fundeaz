@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View , TouchableOpacity} from 'react-native';
-
+import { StyleSheet, Text, View , } from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler'
 function TransactionCategoryListItem (props) {
 
 
@@ -58,7 +58,7 @@ function TransactionCategoryListItem (props) {
             },
         })
         return (
-           <TouchableOpacity activeOpacity={1} onPress={() => {props.press(props.name, props.amount, props.groupID,props.categoryID)}} style={styles.container}>
+           <TouchableOpacity activeOpacity={1} onPress={() => {  props.press(props.name, props.amount, props.groupID,props.categoryID)}} style={styles.container}>
 
                 <View style={styles.innerContainerText}>
                     <Text style={styles.textText} >{props.name}</Text>
