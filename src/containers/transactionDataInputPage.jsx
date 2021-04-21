@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, View, ToastAndroid, TouchableOpacity, StatusBar
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
+import { useHeaderHeight } from '@react-navigation/stack';
 import { spendCategory, addTotalAvailable } from '../action/fundActions.jsx'
 import { addTransaction } from '../action/transactionActions.jsx'
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx'
@@ -37,9 +38,10 @@ function TransactionInput (props) {
         }
     }
 
-
+  
     function addTransaction() {
 
+        if(data.amount.trim() !== '' && data.categoryName.trim() !== ''){
         if (data.type === 'category') {
             props.addTransaction(data)
             props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID))
@@ -52,6 +54,10 @@ function TransactionInput (props) {
             props.addTotalAvailable(parseInt(data.amount))
             props.navigation.goBack()
         }
+    }
+    else {
+        ToastAndroid.show('please fill all fields', ToastAndroid.SHORT)
+    }
 
     }
 
@@ -70,7 +76,7 @@ function TransactionInput (props) {
             inputFields: {
                   backgroundColor: '#98B0D3',
                 marginTop: '5%',
-              height: '50%',
+              height: 400,
                 width: '96%',
                 left: '2%',
                 borderRadius: 15,
@@ -99,23 +105,21 @@ function TransactionInput (props) {
 
         return (
 
-            <KeyboardAwareScrollView
+            <KeyboardAvoidingView
+            style={{flex: 1}}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={useHeaderHeight() + 27}>
 
-                resetScrollToCoords={{ x: 0, y: 0 }}
-                contentContainerStyle={styles.container}
-
-            >
-
-                <View style={{ flex: 1 }}>
+                <View style={styles.container}>
 
                     <StatusBar style="default" />
                     <View style={styles.inputFields}>
 
-                        <TransactionInputFieldNumber data={getData} fieldName={'amount'} value={''}/>
+                        <TransactionInputFieldNumber  data={getData} fieldName={'amount'} value={''}/>
                         <TransactionInputFieldText data={getData} value={''} fieldName={'payee'} />
                         <TransactionInputFieldDate data={getData}  value={''} fieldName={'date'} />
                         <TransactionInputFieldText data={getData} value={''} fieldName={'note'} />
-                        <TransactionInputFieldCategory data={getData} categoryID={''} groupid={''}page= {pageDetails}fieldName={'category'} />
+                        <TransactionInputFieldCategory   data={getData} categoryID={''} groupid={''}page= {pageDetails}fieldName={'category'} />
 
                     </View >
                     <View style={styles.buttonField}>
@@ -143,7 +147,7 @@ function TransactionInput (props) {
 
                 </View>
 
-            </KeyboardAwareScrollView>
+            </KeyboardAvoidingView>
 
         );
     }

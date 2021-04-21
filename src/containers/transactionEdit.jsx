@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, View, ToastAndroid, TouchableOpacity, StatusBar
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
+import { useHeaderHeight } from '@react-navigation/stack';
 import { spendCategory, addTotalAvailable, removeSpendCategory, removeTotalAvailable, spendOnlyCategory, removeSpendOnlyCategory } from '../action/fundActions.jsx'
 import { addTransaction, removeTransaction, updateTransaction } from '../action/transactionActions.jsx'
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx'
@@ -52,7 +53,8 @@ function  TransactionEdit (props) {
 
    function addTransaction() {
 
-       
+    if(data.amount.trim() !== '' )
+    {
         if (data.type === 'category' && oldType === 'category') {
 
             if (originalGroup === data.groupID && originalCategory === data.categoryID) {
@@ -140,6 +142,10 @@ function  TransactionEdit (props) {
 
         props.navigation.goBack()
     }
+    else {
+        ToastAndroid.show('please fill all fields', ToastAndroid.SHORT)
+    }
+    }
 
 
         const styles = StyleSheet.create({
@@ -155,13 +161,13 @@ function  TransactionEdit (props) {
             inputFields: {
                 backgroundColor: '#98B0D3',
               marginTop: '5%',
-              height: '50%',
-
+            height: 400,
               width: '96%',
               left: '2%',
               borderRadius: 15,
               elevation:5,
           },
+          
       
             buttonField: {
                 flexDirection: 'row',
@@ -187,12 +193,11 @@ function  TransactionEdit (props) {
 
         return (
 
-            <KeyboardAwareScrollView
+            <KeyboardAvoidingView
+            style={{flex: 1}}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={useHeaderHeight() + 27}>
 
-                resetScrollToCoords={{ x: 0, y: 0 }}
-                contentContainerStyle={styles.container}
-
-            >
 
                 <View style={{ flex: 1 }}>
 
@@ -252,7 +257,7 @@ function  TransactionEdit (props) {
 
                 </View>
 
-            </KeyboardAwareScrollView>
+            </KeyboardAvoidingView>
 
         );
     }
