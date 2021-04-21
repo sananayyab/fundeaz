@@ -13,11 +13,11 @@ function AllocationPage (props) {
                 flexDirection: 'column'
             }, 
             topBarContainer: {
-                top: '2%',
-                flex: 0.1,
-                marginLeft: 5,
-                marginRight: 4
-            }
+                top: 15,
+                  height: 70,
+                  marginLeft: 5,
+                  marginRight: 4
+              }
         })
         return (
             <View style={styles.container}>
