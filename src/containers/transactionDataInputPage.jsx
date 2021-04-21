@@ -55,7 +55,13 @@ function TransactionInput (props) {
             props.navigation.goBack()
         }
     }
-    else {
+    else if (data.amount.trim() === ''){
+        ToastAndroid.show('please enter an amount', ToastAndroid.SHORT)
+    }
+    else if (data.categoryName.trim() !== ''){
+        ToastAndroid.show('please select a category', ToastAndroid.SHORT)
+    }
+    else{
         ToastAndroid.show('please fill all fields', ToastAndroid.SHORT)
     }
 

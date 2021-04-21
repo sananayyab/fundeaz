@@ -143,7 +143,7 @@ function  TransactionEdit (props) {
         props.navigation.goBack()
     }
     else {
-        ToastAndroid.show('please fill all fields', ToastAndroid.SHORT)
+        ToastAndroid.show('please enter an amount', ToastAndroid.SHORT)
     }
     }
 
