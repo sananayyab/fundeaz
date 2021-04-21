@@ -33,7 +33,7 @@ function CategoryListPage (props) {
             {
                 paddingTop: '4%',
                 paddingBottom: '3%',
-                flex: 2
+                height: 100,
             },
             list: {
                 margin: '2%',
