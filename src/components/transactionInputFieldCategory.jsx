@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { StyleSheet, View, TouchableWithoutFeedback, Animated, Text } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import Modal from 'react-native-modal';
+
 import TransactionCategoryListItem from './transactionCategoryItem.jsx';
 import { connect } from 'react-redux';
 import categoryList from './categoryList.jsx';
