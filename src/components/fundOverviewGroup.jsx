@@ -85,14 +85,14 @@ function FundOverviewGroup(props) {
                 <View style={styles.groupTag}>
                     <FundOverviewBarGroup key={groupID} groupID={groupID} />
                 </View>
-                <SafeAreaView style={styles.categoryTags}>
+                <View style={styles.categoryTags}>
                     <FlatList
                     initialNumToRender={15}
                         data={data}
                         renderItem={renderItem}
                         keyExtractor={item => item.key}
                     />
-                </SafeAreaView>
+                </View>
 
 
             </View>
