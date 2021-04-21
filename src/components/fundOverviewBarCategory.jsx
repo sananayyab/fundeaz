@@ -13,10 +13,7 @@ function FundOverviewBarCategory(props) {
         container: {
             height: 45,
             width: '97%',
-            marginLeft: 5,
-            marginRight: 5,
-            marginTop: 5,
-            marginBottom: 5,
+         margin: 5,
             borderRadius: 10,
             flexDirection: 'row',
             backgroundColor: '#385782',
@@ -82,7 +79,7 @@ function FundOverviewBarCategory(props) {
      
             height: '100%',
             width: "100%",
-           
+          
             fontSize: 17,
             color: 'white',
             textAlign: 'center'
@@ -146,6 +143,7 @@ function FundOverviewBarCategory(props) {
         if (props.type === 'new') {
             setElement(<View key={props.id} style={styles.container}>
                 <View style={styles.textInputBar}>
+                    
                     <TextInput autoFocus={true} onEndEditing={(event) => {
                         
                        
@@ -181,12 +179,6 @@ function FundOverviewBarCategory(props) {
         </View>
     );
 }
-const mapStateToProps = (state, ownProps) => {
-    const { groupData, fund } = state
-    const { groupID, categoryID } = ownProps
-    return {
-  
-    }
-};
 
-export default connect(mapStateToProps)(FundOverviewBarCategory)
+
+export default FundOverviewBarCategory
