@@ -88,7 +88,34 @@ function FundOverviewBarCategory(props) {
  
 
     const dispatch = useDispatch();
-    const [element, setElement] = useState()
+    const [element, setElement] = useState(() =>{ if (props.type === 'new') {
+        return(<View key={props.id} style={styles.container}>
+            <View style={styles.textInputBar}>
+                
+                <TextInput autoFocus={true} onEndEditing={(event) => {
+                    
+                   
+                        dispatch(updateCategory({
+                            name: event.nativeEvent.text,
+                            itemStatus: 'created',
+                        }, props.id, props.groupID));
+                    
+                    setCreatedType(event.nativeEvent.text, 0)
+                }}
+                    style={styles.textInputText} > </TextInput>
+            </View>
+        </View>)
+    }
+    else if (props.type === 'created') {
+        return(<TouchableOpacity  activeOpacity={1}  onLongPress={() => {activateEditMode(props.name)}} key={props.id} style={styles.container}>
+            <View style={styles.innerContainerText}>
+                <Text style={styles.textText} >{props.name}</Text>
+            </View>
+            <View style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                <Text style={styles.textAmount}>{props.amount}</Text>
+            </View>
+        </TouchableOpacity>)}
+    })
 
     const deleteSelected = () => {
        
@@ -139,36 +166,7 @@ function FundOverviewBarCategory(props) {
             </TouchableOpacity>
         )
     }
-    useEffect(() => {
-        if (props.type === 'new') {
-            setElement(<View key={props.id} style={styles.container}>
-                <View style={styles.textInputBar}>
-                    
-                    <TextInput autoFocus={true} onEndEditing={(event) => {
-                        
-                       
-                            dispatch(updateCategory({
-                                name: event.nativeEvent.text,
-                                itemStatus: 'created',
-                            }, props.id, props.groupID));
-                        
-                        setCreatedType(event.nativeEvent.text, 0)
-                    }}
-                        style={styles.textInputText} > </TextInput>
-                </View>
-            </View>)
-        }
-        else if (props.type === 'created') {
-            setElement(<TouchableOpacity  activeOpacity={1}  onLongPress={() => {activateEditMode(props.name)}} key={props.id} style={styles.container}>
-                <View style={styles.innerContainerText}>
-                    <Text style={styles.textText} >{props.name}</Text>
-                </View>
-                <View style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                    <Text style={styles.textAmount}>{props.amount}</Text>
-                </View>
-            </TouchableOpacity>)
-        }
-    }, [])
+    
     return (<View style={{
             height: 50,
             width: '100%'
@@ -179,6 +177,7 @@ function FundOverviewBarCategory(props) {
         </View>
     );
 }
+
 
 
 export default FundOverviewBarCategory
