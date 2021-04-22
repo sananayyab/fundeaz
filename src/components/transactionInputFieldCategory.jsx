@@ -118,9 +118,16 @@ function TransactionInputFieldCategory(props) {
         var categoryAvailable;
         var categoryName;
         var normalCategory = true;
-        if (props.categoryID !== '') {
+        if (props.categoryID !== null) {
+           
             categoryName = props.groupList[props.groupID].categories[props.categoryID].name
             categoryAvailable = props.groupFunds[props.groupID].categories[props.categoryID].available
+            props.data({
+                type: 'category',
+                groupID: props.groupID,
+                categoryID: props.categoryID,
+                categoryName,
+            })
         }
         else {
             categoryName = ''
@@ -143,7 +150,7 @@ function TransactionInputFieldCategory(props) {
             }
         })
     })
-    const [modal, setModal] = useState(false)
+
     function incomeselected() {
         setModal(false)
         setData({
@@ -199,6 +206,14 @@ function TransactionInputFieldCategory(props) {
         }
         return categoryLists
     }
+    const handleDropDown = () => { 
+        if(props.page.pageName !== 'category')
+        {
+        if (!dropDownActive) 
+        { setDropDown(true) } 
+        else { setDropDown(false) } 
+        }
+    }
     const listOfCategories = getInfo()
     return (<View style={styles.container} >
         <View style={styles.fieldNameContainer}>
@@ -206,7 +221,7 @@ function TransactionInputFieldCategory(props) {
                 {'Category'}
             </Text>
         </View>
-        <TouchableOpacity activeOpacity={1} style={styles.textFieldContainerCategory} onPress={() => { if (!dropDownActive) { setDropDown(true) } else { setDropDown(false) } }}>
+        <TouchableOpacity activeOpacity={1} style={styles.textFieldContainerCategory} onPress={handleDropDown}>
             <Text style={styles.textInput}>
                 {data.chosen.name}
             </Text>

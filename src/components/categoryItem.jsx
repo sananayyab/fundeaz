@@ -24,7 +24,18 @@ function CategoryItem (props) {
             })
 
 
+        
+        }else if(props.item === "category")
+        {
+            props.navigation.navigate('CategoryPage', {
+                name: props.name,
+                groupID: props.groupID,
+                categoryID: props.id
+
+            })
+
         }
+        
 
 
 

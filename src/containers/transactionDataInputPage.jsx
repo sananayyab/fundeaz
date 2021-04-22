@@ -10,9 +10,11 @@ import TransactionInputFieldText from '../components/transactionInputFieldText.j
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx'
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
 import TransactionInputFieldCategory from '../components/transactionInputFieldCategory.jsx'
+import { useRoute } from '@react-navigation/core';
 function TransactionInput (props) {
    
-
+    const route = useRoute()
+   
         var data = {
             amount: '',
             payee: '',
@@ -24,13 +26,14 @@ function TransactionInput (props) {
 
         }
         const pageDetails = {
-            pageName: props.route.params.page,
-            groupID: props.route.params.groupID
+            pageName: route.params.page,
+            groupID: route.params.groupID,
+            categoryID: route.params.categoryID
             
 
         }
     
-
+   
     function getData(value) {
         data = {
             ...data,
@@ -125,7 +128,7 @@ function TransactionInput (props) {
                         <TransactionInputFieldText data={getData} value={''} fieldName={'payee'} />
                         <TransactionInputFieldDate data={getData}  value={''} fieldName={'date'} />
                         <TransactionInputFieldText data={getData} value={''} fieldName={'note'} />
-                        <TransactionInputFieldCategory   data={getData} categoryID={''} groupid={''}page= {pageDetails}fieldName={'category'} />
+                        <TransactionInputFieldCategory   data={getData} categoryID={pageDetails.categoryID} groupID={pageDetails.groupID}page= {pageDetails}fieldName={'category'} />
 
                     </View >
                     <View style={styles.buttonField}>

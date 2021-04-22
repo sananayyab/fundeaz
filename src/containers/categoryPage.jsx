@@ -15,7 +15,7 @@ function CategoryPage (props){
     const navigation = useNavigation();
 
 
-    const categoryID = categoryID;
+    const categoryID = route.params.categoryID;
     const groupID = route.params.groupID; 
     const name = route.params.name;
 

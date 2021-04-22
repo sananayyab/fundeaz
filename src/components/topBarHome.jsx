@@ -15,7 +15,7 @@ function TopBar(props) {
         data = {
             type: 'unallocated',
             groupID: null,
-
+            categoryID: null
         }
 
     }
@@ -27,10 +27,25 @@ function TopBar(props) {
         data = {
             type: 'allocated',
             groupID: props.groupID,
+            categoryID: null
 
         }
 
     }
+    if (props.section == 'category') {
+
+
+
+
+        data = {
+            type: 'allocated',
+            groupID: props.groupID,
+            categoryID: props.categoryID
+
+        }
+
+    }
+
 
     function navigationToDetails() {
         if (props.section == 'home') {
@@ -60,8 +75,8 @@ function TopBar(props) {
             style={styles.container}
             onPress={navigationToDetails}
             activeOpacity={1}>
-            <TopBarItem type={'amount'} section= { props.section}groupID={data.groupID} style={{ flex: 1 }} name={props.name} />
-            <TopBarItem type={data.type} section= { props.section} groupID={data.groupID} style={{ flex: 1 }} name={props.name} />
+            <TopBarItem type={'amount'} section= { props.section} data={data}style={{ flex: 1 }} name={props.name} />
+            <TopBarItem type={data.type} section= { props.section} data={data} style={{ flex: 1 }} name={props.name} />
         </TouchableOpacity>
     );
 }

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import CategoryItem from './categoryItem';
 function TransactionSection (props) {
 
-    const [data, setData] = useState()
+    
     function getData() {
 
 
@@ -25,7 +25,7 @@ function TransactionSection (props) {
 
 
         }
-        if (props.page === "group") {
+        else if (props.page === "group") {
             /*var tags;
             var list = props.groupList
             for (var key in list)
@@ -37,9 +37,21 @@ function TransactionSection (props) {
 
 
         }
+       else  if (props.page === "category") {
+            /*var tags;
+            var list = props.groupList
+            for (var key in list)
+            {
+                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
+            }*/
+
+            return (Object.entries(props.transactionList).map(([key, value]) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={props.groupList[value.groupID].categories[value.categoryID].name} navigation={props.navigation} />)))
+
+
+        }
 
     }
-
+    const [data, setData] = useState(getData())
 
     useEffect(() => {setData(getData())},[props.transactionList] )
    function loadTransactionList() {
@@ -47,6 +59,7 @@ function TransactionSection (props) {
         if (props.page === 'group') {
             props.navigation.navigate('TransactionList', {
                 data: {
+                    categoryID: -1,
                     groupID: props.groupID,
                     page: 'group',
                     type: 'landing'
@@ -55,8 +68,18 @@ function TransactionSection (props) {
         } else if (props.page === "home") {
             props.navigation.navigate('TransactionList', {
                 data: {
+                    categoryID: -1,
                     groupID: -1,
                     page: 'home',
+                    type: 'landing'
+                }
+            })
+        } else if (props.page === "category") {
+            props.navigation.navigate('TransactionList', {
+                data: {
+                    categoryID: props.categoryID,
+                    groupID: props.groupID,
+                    page: 'category',
                     type: 'landing'
                 }
             })

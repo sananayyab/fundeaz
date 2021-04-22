@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View , TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 const styles = StyleSheet.create({
@@ -68,7 +68,7 @@ function TopBarItem(props) {
 
 
     const navigation = useNavigation()
-    
+
     const [toUse, setTouse] = useState()
     const [text, setText] = useState()
     const [amount, setAmount] = useState()
@@ -79,15 +79,23 @@ function TopBarItem(props) {
             setAmount(props.unallocated)
         }
         else if (props.type === 'allocated') {
+
+             if(props.data.categoryID === null){
+                var allocatedValue = props.groups[props.data.groupID].allocated
+            } else {
+                var allocatedValue = props.groups[props.data.groupID].categories[props.data.categoryID].allocated
+            }
             setTouse(styles.innerContainerTextAllocation)
             setText('Allocated')
-            setAmount(props.groups[props.groupID].allocated)
+            setAmount(allocatedValue)
         }
         else if (props.type === 'amount') {
-            if (props.groupID === null) {
+            if (props.data.groupID === null) {
                 var value = props.available
+            } else if(props.data.categoryID === null){
+                var value = props.groups[props.data.groupID].available
             } else {
-                var value = props.groups[props.groupID].available
+                var value = props.groups[props.data.groupID].categories[props.data.categoryID].available
             }
             if (value >= 0) {
                 var toUse = styles.innerContainerTextPositive
@@ -100,18 +108,18 @@ function TopBarItem(props) {
             setAmount(value)
         }
     }, [props.fund])
-    function handleTouch(){
+    function handleTouch() {
         if (props.section == 'home') {
-     if(props.type === 'unallocated') {
-      navigation.navigate('AllocationPage')
-     }else if (props.type === 'amount'){
-        navigation.navigate('FundOverviewPage')
-     }
+            if (props.type === 'unallocated') {
+                navigation.navigate('AllocationPage')
+            } else if (props.type === 'amount') {
+                navigation.navigate('FundOverviewPage')
+            }
 
-     }
+        }
     }
     return (
-        <TouchableOpacity  activeOpacity={1} onPress={handleTouch} style={styles.container}>
+        <TouchableOpacity activeOpacity={1} onPress={handleTouch} style={styles.container}>
             <View style={styles.innerContainerAmount}>
                 <Text style={styles.textAmount} >{amount}</Text>
             </View>
@@ -127,7 +135,7 @@ const mapStateToProps = (state) => {
         available: fund.available,
         allocated: fund.allocated,
         unallocated: fund.unallocated,
-        groups: fund.groups, 
+        groups: fund.groups,
         fund: fund
     }
 };
