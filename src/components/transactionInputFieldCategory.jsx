@@ -35,7 +35,7 @@ function TransactionInputFieldCategory(props) {
             borderRadius: 5,
             zIndex: 0,
             height: '100%',
-            marginLeft: '34%',
+            marginLeft: '208%',
         },
         fieldNameText: {
             paddingLeft: '8%',

@@ -35,7 +35,7 @@ function TransactionInputFieldDate (props) {
             height: '100%',
           
 
-            marginLeft: '34%',
+            marginLeft: '25%',
            
         },
         fieldNameText: {

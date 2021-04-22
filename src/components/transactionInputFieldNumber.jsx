@@ -42,7 +42,7 @@ function TransactionInputFieldNumber (props) {
                 height: '100%',
               
 
-                marginLeft: '34%',
+                marginLeft: '20%',
                
             },
             fieldNameText: {
