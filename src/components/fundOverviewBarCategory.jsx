@@ -68,7 +68,7 @@ function FundOverviewBarCategory(props) {
             marginLeft: '5%',
         },
         textAmount: {
-            top: '10%',
+            top: '5%',
             height: '100%',
             width: '100%',
             textAlign: 'center',
