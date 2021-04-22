@@ -118,8 +118,10 @@ function TransactionInputFieldCategory(props) {
         var categoryAvailable;
         var categoryName;
         var normalCategory = true;
-        if (props.categoryID !== null) {
-           
+        if (props.categoryID !== '' && props.fieldName !== 'income') {
+           console.log(props.groupID)
+           console.log(props.categoryID)
+
             categoryName = props.groupList[props.groupID].categories[props.categoryID].name
             categoryAvailable = props.groupFunds[props.groupID].categories[props.categoryID].available
             props.data({
@@ -152,7 +154,7 @@ function TransactionInputFieldCategory(props) {
     })
 
     function incomeselected() {
-        setModal(false)
+       
         setData({
             amountBar: <View></View>,
             category: false,
@@ -167,7 +169,7 @@ function TransactionInputFieldCategory(props) {
         setDropDown(false)
     }
     function Categoryselected(name, amount, group, category) {
-        setModal(false)
+     
         setData({
             amountBar: <View style={styles.amountContainer}>
                 <Text style={styles.amountText} >{amount}</Text>

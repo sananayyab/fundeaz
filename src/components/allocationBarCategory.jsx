@@ -134,7 +134,7 @@ function AllocationBarCategory(props) {
                             onEndEditing={(event) => {
                                 if (mode === 'add') {
                                     if (!isNaN(parseInt(event.nativeEvent.text))) {
-                                        console.log(parseInt(event.nativeEvent.text))
+                                      
                                         props.allocate((parseInt(event.nativeEvent.text)))
                                         setAmount(parseInt(event.nativeEvent.text) + parseInt(oldAmount))
                                         setStyle(styles.innerContainerTextPositive)

@@ -9,8 +9,9 @@ import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid,ScrollView } fro
 
 function TransactionList (props) {
  
-const [data, setData] = useState(getData())
+var data = getData()
    function getData() {
+   console.log("called")
         if (props.page === "home") {
             /*var tags;
             var list = props.groupList
@@ -51,7 +52,7 @@ const [data, setData] = useState(getData())
 
 
     
-        useEffect(() => {  setData( getData())}, [props.transactionList])
+     
        
         const styles = StyleSheet.create({
             container: {

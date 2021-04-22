@@ -33,7 +33,7 @@ function TransactionListPage (props) {
             <View style={styles.container}>
                 <StatusBar style="default" />
                 <View style={styles.list}>
-                    <TransactionList page={route.params.data.page}groupID={route.params.data.groupID}/>
+                    <TransactionList page={route.params.data.page}groupID={route.params.data.groupID} categoryID={route.params.data.categoryID}/>
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar data={route.params.data} navigation={navigation} />

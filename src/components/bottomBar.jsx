@@ -50,14 +50,14 @@ function BottomBar(props) {
                     props.navigation.navigate('TransactionInput', {
                         page: 'home',
                         groupID: null, 
-                        categoryID: null,
+                        categoryID: '',
                     })
                     break
                 case 'group':
                     props.navigation.navigate('TransactionInput', {
                         page: 'group',
                         groupID: props.data.groupID,
-                        categoryID: null,
+                        categoryID: '',
                     })
                     break
                 case 'category':
