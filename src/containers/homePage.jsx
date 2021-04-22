@@ -95,7 +95,8 @@ function HomePage(props) {
             <View style={styles.bottomBar}>
                 <BottomBar data={{
                     page: 'home',
-                    type: 'landing'
+                    type: 'landing', 
+                    categoryID: ''
                 }} navigation={props.navigation} />
             </View>
         </View>

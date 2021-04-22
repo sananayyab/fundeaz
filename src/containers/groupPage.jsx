@@ -79,6 +79,7 @@ function GroupPage (props){
                 <View style={styles.bottomBar}>
                     <BottomBar data={{
                         page: 'group',
+                        categoryID: '',
                         groupID: route.params.id,
                         type: 'landing'
                     }} navigation={navigation}/>
