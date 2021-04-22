@@ -60,16 +60,26 @@ function FundOverviewBarGroup(props) {
             color: 'white',
         }
     })
+
+    const navigation = useNavigation()
+    const clickEvent = () => {
+     
+            navigation.navigate('GroupPage', {
+                name: props.name,
+                id: props.groupID
+            })
+        
+    }
  
         return (
-            <View style={styles.container}>
+            <TouchableOpacity activeOpacity={1} onPress={clickEvent} style={styles.container}>
                 <View style={styles.innerContainerText}>
                     <Text style={styles.textText} >{props.name}</Text>
                 </View>
                 <View style={((parseInt( props.available) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
                     <Text style={styles.textAmount}>{props.available}</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     
 }
