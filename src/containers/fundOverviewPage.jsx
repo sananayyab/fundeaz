@@ -8,6 +8,12 @@ import TopBarItem from '../components/topBarItem.jsx';
 import { FlatList } from 'react-native-gesture-handler';
 function fundOverviewPage (props) {
 
+   var pageData = {
+      
+        groupID: null,
+        categoryID: null
+    }
+
     
         const styles = StyleSheet.create({
             container: {
@@ -39,7 +45,7 @@ function fundOverviewPage (props) {
             keyboardVerticalOffset={useHeaderHeight() + 27}>
             <View style={styles.container}>
                 <View style={styles.topBarContainer}>
-                    <TopBarItem type={'amount'} groupID={null}value={props.available} style={{ flex: 1 }} />
+                    <TopBarItem type={'amount'} data={pageData}value={props.available} style={{ flex: 1 }} />
                 </View>
                 <SafeAreaView style={{flex: 1}}>
                     <FlatList
