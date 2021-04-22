@@ -1,15 +1,15 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import TransactionItem from './transactionItem.jsx'
 import { connect, useSelector } from 'react-redux'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid,ScrollView } from 'react-native';
 
-var data = null;
+
 
 function TransactionList (props) {
  
-
+const [data, setData] = useState(getData())
    function getData() {
         if (props.page === "home") {
             /*var tags;
@@ -39,7 +39,7 @@ function TransactionList (props) {
 
 
     
-        useEffect(() => {  data = getData()}, [props.transactionList])
+        useEffect(() => {  setData( getData())}, [props.transactionList])
        
         const styles = StyleSheet.create({
             container: {
