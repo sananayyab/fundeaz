@@ -56,7 +56,7 @@ function FundOverviewGroup(props) {
 
     const renderItem = (itemData) => (
 
-        <FundOverviewBarCategory key={itemData.item.key} type={itemData.item.value.itemStatus} id={itemData.item.key} amount={props.groupFund[itemData.item.key].available} categoryID={itemData.item.key} name={itemData.item.value.name} groupID={groupID} />
+        <FundOverviewBarCategory key={itemData.item.key} groupID={groupID}type={itemData.item.value.itemStatus} id={itemData.item.key} amount={props.groupFund[itemData.item.key].available} categoryID={itemData.item.key} name={itemData.item.value.name} groupID={groupID} />
     );
 
     useEffect(() => { setData(Object.entries(props.groups).map(([key, value]) => ({ key: key, value: value }))) }, [props.groups])

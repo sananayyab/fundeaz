@@ -4,6 +4,7 @@ import { FlingGestureHandler } from 'react-native-gesture-handler';
 import { connect, useDispatch } from 'react-redux';
 import Icon  from 'react-native-vector-icons/MaterialIcons';
 import {  updateCategory, removeCategory } from '../action/groupActions'
+import { useNavigation } from '@react-navigation/core';
 var mode;
 var oldAmount;
 function FundOverviewBarCategory(props) {
@@ -87,6 +88,20 @@ function FundOverviewBarCategory(props) {
     })
  
 
+
+    const navigation = useNavigation()
+    const goToCategoryPage = () => {
+     
+        navigation.navigate('CategoryPage', {
+            name: props.name,
+            groupID: props.groupID,
+            categoryID: props.id
+
+        })
+
+        
+    }
+ 
     const dispatch = useDispatch();
     const [element, setElement] = useState(() =>{ if (props.type === 'new') {
         return(<View key={props.id} style={styles.container}>
@@ -107,7 +122,7 @@ function FundOverviewBarCategory(props) {
         </View>)
     }
     else if (props.type === 'created') {
-        return(<TouchableOpacity  activeOpacity={1}  onLongPress={() => {activateEditMode(props.name)}} key={props.id} style={styles.container}>
+        return(<TouchableOpacity  activeOpacity={1}  onPress={goToCategoryPage } onLongPress={() => {activateEditMode(props.name)}} key={props.id} style={styles.container}>
             <View style={styles.innerContainerText}>
                 <Text style={styles.textText} >{props.name}</Text>
             </View>
@@ -156,7 +171,7 @@ function FundOverviewBarCategory(props) {
     }
     const setCreatedType = (name, amount) => {
         setElement(
-            <TouchableOpacity activeOpacity={1} onLongPress={() => {activateEditMode(name)}} key={props.id} style={styles.container}>
+            <TouchableOpacity activeOpacity={1} onPress={goToCategoryPage }onLongPress={() => {activateEditMode(name)}} key={props.id} style={styles.container}>
                 <View style={styles.innerContainerText}>
                     <Text style={styles.textText} >{name}</Text>
                 </View>
