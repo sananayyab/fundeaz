@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import { connect, useDispatch } from 'react-redux';
 import { updateGroup, updateCategory, removeCategory, removeGroup } from '../action/groupActions'
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/core';
 const styles = StyleSheet.create({
     container: {
         height: 48,
@@ -84,6 +85,7 @@ const styles = StyleSheet.create({
     }
 })
 function CategoryListItem(props) {
+    const navigation = useNavigation()
     const dispatch = useDispatch();
     const [element, setElement] = useState()
     const clickEvent = () => {
@@ -92,10 +94,10 @@ function CategoryListItem(props) {
             var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name}/>)
             }*/
-            // passing , navigation: props.navigation was causing the issue, find another way to pass navigation 
-            props.navigation.navigate('GroupPage', {
+            // passing , navigation: navigation was causing the issue, find another way to pass navigation 
+            navigation.navigate('GroupPage', {
                 name: props.name,
                 id: props.id
             })

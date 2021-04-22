@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import CategoryItem from './categoryItem.jsx';
 import Carousel from 'react-native-snap-carousel';
 import { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/core';
 
 
 function CategorySection(props) {
     const sliderWidth = Dimensions.get('window').width - 20;
-
+    const navigation = useNavigation()
    
     const getData = () => {
         if (props.section === "group") {
@@ -17,10 +18,10 @@ function CategorySection(props) {
             var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name} />)
             }*/
          
-            return(Object.entries(props.groupList).map(([key, value]) => <CategoryItem key={key} id={key} name={value.name} item={'group'} amount={props.groupFunds[key].available} navigation={props.navigation} />))
+            return(Object.entries(props.groupList).map(([key, value]) => <CategoryItem key={key} id={key} name={value.name} item={'group'} amount={props.groupFunds[key].available}  />))
 
 
         }
@@ -29,10 +30,10 @@ function CategorySection(props) {
             var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name}/>)
             }*/
           
-            return(Object.entries(props.groupList[props.groupID].categories).map(([key, value]) => <CategoryItem key={key} id={key} groupID={props.groupID} groupName={props.groupName} name={value.name} item={'category'} amount={props.groupFunds[props.groupID].categories[key].available} navigation={props.navigation} />))
+            return(Object.entries(props.groupList[props.groupID].categories).map(([key, value]) => <CategoryItem key={key} id={key} groupID={props.groupID} groupName={props.groupName} name={value.name} item={'category'} amount={props.groupFunds[props.groupID].categories[key].available}  />))
 
 
         }
@@ -54,13 +55,13 @@ function CategorySection(props) {
     function loadCategoryList() {
         if(props.page === 'home')
         {
-        props.navigation.navigate('GroupList', {
+        navigation.navigate('GroupList', {
             page: 'home'
         }) 
     }
     else if(props.page === 'group')
     {
-        props.navigation.navigate('CategoryList', {
+        navigation.navigate('CategoryList', {
             page: 'group', 
             groupID: props.groupID
         }) 

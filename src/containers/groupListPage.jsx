@@ -50,7 +50,7 @@ function GroupListPage (props) {
             <View style={styles.container}>
                 <StatusBar style="default" />
                 <View style={styles.list}>
-                    <CategoryList navigation={navigation}data={data} />
+                    <CategoryList data={data} />
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar data={data} />

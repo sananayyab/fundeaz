@@ -10,9 +10,9 @@ import TransactionInputFieldText from '../components/transactionInputFieldText.j
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx'
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
 import TransactionInputFieldCategory from '../components/transactionInputFieldCategory.jsx'
-import { useRoute } from '@react-navigation/core';
+import { useNavigation, useRoute } from '@react-navigation/core';
 function TransactionInput (props) {
-   
+    const navigation = useNavigation()
     const route = useRoute()
    
         var data = {
@@ -48,14 +48,14 @@ function TransactionInput (props) {
         if (data.type === 'category') {
             props.addTransaction(data)
             props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID))
-            props.navigation.goBack()
+            navigation.goBack()
 
 
         }
         else if (data.type === 'Income') {
             props.addTransaction(data)
             props.addTotalAvailable(parseInt(data.amount))
-            props.navigation.goBack()
+            navigation.goBack()
         }
     }
     else if (data.amount.trim() === ''){

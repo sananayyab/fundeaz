@@ -68,15 +68,15 @@ function CategoryPage (props){
             <View style={styles.container}>
               <StatusBar style="default"/>
                 <View style={styles.topContainer}>
-                    <TopBar section={'category'} groupID={groupID} categoryID={categoryID} navigation={navigation} />
+                    <TopBar section={'category'} groupID={groupID} categoryID={categoryID}/>
                 </View>
                 <View style={styles.categoryContainer}>
                   
-                    <SpentSection section={"category"} page={'group'}groupName={name} groupID={groupID}  style={{ flex: 1 }} navigation={navigation} />
+                    <SpentSection section={"category"} page={'group'}groupName={name} groupID={groupID}  style={{ flex: 1 }}  />
                 </View>
                 <View style={styles.spendingContainer}>
                 
-                    <TransactionSection page={'category'} groupID={groupID} categoryID={categoryID} navigation={navigation}/>
+                    <TransactionSection page={'category'} groupID={groupID} categoryID={categoryID} />
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar data={{
@@ -84,7 +84,7 @@ function CategoryPage (props){
                         groupID: groupID,
                         categoryID: categoryID,
                         type: 'landing'
-                    }} navigation={navigation}/>
+                    }} />
                 </View>
             </View>
         );

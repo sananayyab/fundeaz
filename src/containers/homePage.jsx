@@ -84,20 +84,20 @@ function HomePage(props) {
         <View style={styles.container}>
             <StatusBar style="light" />
             <View style={styles.topContainer}>
-                <TopBar section={'home'} navigation={props.navigation} />
+                <TopBar section={'home'}  />
             </View>
             <View style={styles.categoryContainer}>
-                <CategorySection section={"group"} page={'home'} style={{ flex: 1 }} navigation={props.navigation} />
+                <CategorySection section={"group"} page={'home'} style={{ flex: 1 }}  />
             </View>
             <View style={styles.spendingContainer}>
-                <TransactionSection page={'home'} navigation={props.navigation} />
+                <TransactionSection page={'home'}  />
             </View>
             <View style={styles.bottomBar}>
                 <BottomBar data={{
                     page: 'home',
                     type: 'landing', 
                     categoryID: ''
-                }} navigation={props.navigation} />
+                }} />
             </View>
         </View>
     );

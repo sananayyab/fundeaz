@@ -10,10 +10,11 @@ import TransactionInputFieldText from '../components/transactionInputFieldText.j
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx'
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
 import TransactionInputFieldCategory from '../components/transactionInputFieldCategory.jsx'
+import { useNavigation } from '@react-navigation/core';
 
 function  TransactionEdit (props) {
  
-       
+    const navigation = useNavigation()
         var data = {
             ...props.transactions[props.route.params.key]
 
@@ -37,7 +38,7 @@ function  TransactionEdit (props) {
         if (data.type === 'category') {
 
             props.removeSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
-            props.navigation.goBack()
+            navigation.goBack()
 
 
         }
@@ -45,7 +46,7 @@ function  TransactionEdit (props) {
 
 
             props.removeTotalAvailable(parseInt(data.amount))
-            props.navigation.goBack()
+            navigation.goBack()
         }
 
 
@@ -140,7 +141,7 @@ function  TransactionEdit (props) {
             props.updateTransaction(data, props.route.params.key)
         }
 
-        props.navigation.goBack()
+        navigation.goBack()
     }
     else {
         ToastAndroid.show('please enter an amount', ToastAndroid.SHORT)

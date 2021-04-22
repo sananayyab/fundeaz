@@ -1,9 +1,11 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { StyleSheet, Text, View , TouchableOpacity} from 'react-native';
 function TransactionItem (props) {
  
+    const navigation = useNavigation()
    function goToTrasaction(){
-        props.navigation.navigate('TransactionEdit', {
+        navigation.navigate('TransactionEdit', {
             key: props.id
         })
     }

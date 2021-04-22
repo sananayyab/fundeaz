@@ -4,9 +4,10 @@ import { StyleSheet, View, ScrollView, TouchableOpacity, TouchableWithoutFeedbac
 import TransactionItem from './transactionItem';
 import { connect } from 'react-redux';
 import CategoryItem from './categoryItem';
+import { useNavigation } from '@react-navigation/core';
 function TransactionSection (props) {
 
-    
+    const navigation = useNavigation()
     function getData() {
 
 
@@ -18,10 +19,10 @@ function TransactionSection (props) {
             var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name} />)
             }*/
 
-            return (Object.entries(props.transactionList).map(([key, value]) => { if (value.categoryName === 'Income') { return(<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName} navigation={props.navigation} />) } else { return (<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={props.groupList[value.groupID].categories[value.categoryID].name} navigation={props.navigation} /> )} }))
+            return (Object.entries(props.transactionList).map(([key, value]) => { if (value.categoryName === 'Income') { return(<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={value.categoryName}  />) } else { return (<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={props.groupList[value.groupID].categories[value.categoryID].name}  /> )} }))
 
 
         }
@@ -30,10 +31,10 @@ function TransactionSection (props) {
             var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name} />)
             }*/
 
-            return (Object.entries(props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(props.groupID)) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={props.groupList[value.groupID].categories[value.categoryID].name} navigation={props.navigation} />))
+            return (Object.entries(props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(props.groupID)) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={props.groupList[value.groupID].categories[value.categoryID].name} />))
 
 
         }
@@ -42,10 +43,10 @@ function TransactionSection (props) {
             var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name}>)
             }*/
 
-            return (Object.entries(props.transactionList).map(([key, value]) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={props.groupList[value.groupID].categories[value.categoryID].name} navigation={props.navigation} />)))
+            return (Object.entries(props.transactionList).map(([key, value]) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) && <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount} category={props.groupList[value.groupID].categories[value.categoryID].name} />)))
 
 
         }
@@ -57,7 +58,7 @@ function TransactionSection (props) {
    function loadTransactionList() {
 
         if (props.page === 'group') {
-            props.navigation.navigate('TransactionList', {
+            navigation.navigate('TransactionList', {
                 data: {
                     categoryID: -1,
                     groupID: props.groupID,
@@ -66,7 +67,7 @@ function TransactionSection (props) {
                 }
             })
         } else if (props.page === "home") {
-            props.navigation.navigate('TransactionList', {
+            navigation.navigate('TransactionList', {
                 data: {
                     categoryID: -1,
                     groupID: -1,
@@ -75,7 +76,7 @@ function TransactionSection (props) {
                 }
             })
         } else if (props.page === "category") {
-            props.navigation.navigate('TransactionList', {
+            navigation.navigate('TransactionList', {
                 data: {
                     categoryID: props.categoryID,
                     groupID: props.groupID,

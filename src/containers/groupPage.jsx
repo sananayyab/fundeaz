@@ -66,15 +66,15 @@ function GroupPage (props){
             <View style={styles.container}>
               <StatusBar style="default"/>
                 <View style={styles.topContainer}>
-                    <TopBar section={'group'} groupID={route.params.id} navigation={navigation} />
+                    <TopBar section={'group'} groupID={route.params.id}  />
                 </View>
                 <View style={styles.categoryContainer}>
                   
-                    <CategorySection section={"category"} page={'group'}groupName={route.params.name} groupID={route.params.id}  style={{ flex: 1 }} navigation={navigation} />
+                    <CategorySection section={"category"} page={'group'}groupName={route.params.name} groupID={route.params.id}  style={{ flex: 1 }} />
                 </View>
                 <View style={styles.spendingContainer}>
                 
-                    <TransactionSection page={'group'} groupID={route.params.id} navigation={navigation}/>
+                    <TransactionSection page={'group'} groupID={route.params.id} />
                 </View>
                 <View style={styles.bottomBar}>
                     <BottomBar data={{
@@ -82,7 +82,7 @@ function GroupPage (props){
                         categoryID: '',
                         groupID: route.params.id,
                         type: 'landing'
-                    }} navigation={navigation}/>
+                    }} />
                 </View>
             </View>
         );

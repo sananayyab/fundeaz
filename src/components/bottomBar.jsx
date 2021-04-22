@@ -6,8 +6,10 @@ import { addTransaction } from '../action/transactionActions'
 import { connect } from 'react-redux';
 import { addGroup, addCategory } from '../action/groupActions'
 import { initializeGroup, initializeCategory } from '../action/fundActions'
+import { useNavigation } from '@react-navigation/core';
 function BottomBar(props) {
 
+    const navigation = useNavigation()
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -23,7 +25,7 @@ function BottomBar(props) {
         const source = props.data.page
         switch (source) {
             case 'home':
-                props.navigation.navigate('SettingPage')
+                navigation.navigate('SettingPage')
                 break
         }
 
@@ -47,21 +49,21 @@ function BottomBar(props) {
         else if (type === 'landing') {
             switch (source) {
                 case 'home':
-                    props.navigation.navigate('TransactionInput', {
+                    navigation.navigate('TransactionInput', {
                         page: 'home',
                         groupID: null, 
                         categoryID: '',
                     })
                     break
                 case 'group':
-                    props.navigation.navigate('TransactionInput', {
+                    navigation.navigate('TransactionInput', {
                         page: 'group',
                         groupID: props.data.groupID,
                         categoryID: '',
                     })
                     break
                 case 'category':
-                    props.navigation.navigate('TransactionInput', {
+                    navigation.navigate('TransactionInput', {
                         page: 'category',
                         groupID: props.data.groupID,
                         categoryID: props.data.categoryID

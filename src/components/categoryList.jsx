@@ -19,11 +19,11 @@ function CategoryList (props) {
 */
    function loadData() {
         if (props.data.page === 'home') {
-            return (Object.entries(props.groupList).map(([key, value]) => <CategoryListItem key={key} id={key} name={value.name} amount={props.groupFunds[key].available} item={'group'} type={value.itemStatus }navigation={props.navigation} />))
+            return (Object.entries(props.groupList).map(([key, value]) => <CategoryListItem key={key} id={key} name={value.name} amount={props.groupFunds[key].available} item={'group'} type={value.itemStatus } />))
         }
         else if (props.data.page === 'group') {
           
-            return (Object.entries(props.groupList[props.data.groupID].categories).map(([key, value]) => <CategoryListItem key={key}  id={key} type={value.itemStatus } groupID={props.data.groupID} amount={props.groupFunds[props.data.groupID].categories[key].available} name={value.name} item={'category'} navigation={props.navigation} />))
+            return (Object.entries(props.groupList[props.data.groupID].categories).map(([key, value]) => <CategoryListItem key={key}  id={key} type={value.itemStatus } groupID={props.data.groupID} amount={props.groupFunds[props.data.groupID].categories[key].available} name={value.name} item={'category'} />))
         }
     }
 

@@ -1,10 +1,11 @@
 
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { StyleSheet, Text, ToastAndroid, View, TouchableOpacity } from 'react-native';
 function CategoryItem (props) {
 
 
-
+    const navigation = useNavigation()
 
   function  pressed() {
 
@@ -13,12 +14,12 @@ function CategoryItem (props) {
             var list = props.groupList
             for (var key in list)
             {
-                tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
+                tags.push( <CategoryItem key={key} name={item.name} />)
             }*/
 
           
-            // passing , navigation: props.navigation was causing the issue, find another way to pass navigation 
-            props.navigation.navigate('GroupPage', {
+            // passing , navigation: navigation was causing the issue, find another way to pass navigation 
+            navigation.navigate('GroupPage', {
                 name: props.name,
                 id: props.id
             })
@@ -27,7 +28,7 @@ function CategoryItem (props) {
         
         }else if(props.item === "category")
         {
-            props.navigation.navigate('CategoryPage', {
+            navigation.navigate('CategoryPage', {
                 name: props.name,
                 groupID: props.groupID,
                 categoryID: props.id
