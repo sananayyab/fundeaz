@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 function CategorySection(props) {
     const sliderWidth = Dimensions.get('window').width - 20;
 
-    const [itemList, setItems] = useState([])
+   
     const getData = () => {
         if (props.section === "group") {
             /*var tags;
@@ -20,7 +20,7 @@ function CategorySection(props) {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
          
-            setItems(Object.entries(props.groupList).map(([key, value]) => <CategoryItem key={key} id={key} name={value.name} item={'group'} amount={props.groupFunds[key].available} navigation={props.navigation} />))
+            return(Object.entries(props.groupList).map(([key, value]) => <CategoryItem key={key} id={key} name={value.name} item={'group'} amount={props.groupFunds[key].available} navigation={props.navigation} />))
 
 
         }
@@ -32,13 +32,13 @@ function CategorySection(props) {
                 tags.push( <CategoryItem key={key} name={item.name} navigation={props.navigation}/>)
             }*/
           
-            setItems(Object.entries(props.groupList[props.groupID].categories).map(([key, value]) => <CategoryItem key={key} id={key} groupID={props.groupID} groupName={props.groupName} name={value.name} item={'category'} amount={props.groupFunds[props.groupID].categories[key].available} navigation={props.navigation} />))
+            return(Object.entries(props.groupList[props.groupID].categories).map(([key, value]) => <CategoryItem key={key} id={key} groupID={props.groupID} groupName={props.groupName} name={value.name} item={'category'} amount={props.groupFunds[props.groupID].categories[key].available} navigation={props.navigation} />))
 
 
         }
     }
-
-    useEffect(() => { getData() }, [props.groupList, props.groupList.categories, props.groupFunds])
+    const [itemList, setItems] = useState(getData() )
+    useEffect(() => { setItems(getData()) }, [props.groupList, props.groupList.categories, props.groupFunds])
     const items = ({ item, index }) => {
         return (
             <View style={{
