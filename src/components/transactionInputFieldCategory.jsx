@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { StyleSheet, View, TouchableWithoutFeedback, Animated, Text } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-
 import TransactionCategoryListItem from './transactionCategoryItem.jsx';
 import { connect } from 'react-redux';
 import categoryList from './categoryList.jsx';
@@ -35,7 +34,7 @@ function TransactionInputFieldCategory(props) {
             borderRadius: 5,
             zIndex: 0,
             height: '100%',
-            marginLeft: '208%',
+            marginLeft: '19%',
         },
         fieldNameText: {
             paddingLeft: '8%',
