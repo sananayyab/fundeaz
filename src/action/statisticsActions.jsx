@@ -14,9 +14,18 @@ export function resetCategoryStatistics(categoryID,groupID) {
         groupID
     }
 }
-export function updateCategoryStatistics(data, categoryID,groupID) {
+export function updateCategoryAllocated(data, groupID,categoryID) {
     return {
-        type: 'UPDATE_CATEGORY_STATISTICS',
+        type: 'UPDATE_CATEGORY_ALLOCATED',
+        categoryID,
+        data,
+        groupID
+
+    }
+}
+export function updateCategorySpent(data, groupID,categoryID) {
+    return {
+        type: 'UPDATE_CATEGORY_SPENDING',
         categoryID,
         data,
         groupID

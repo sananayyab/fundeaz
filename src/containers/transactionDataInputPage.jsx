@@ -11,6 +11,7 @@ import TransactionInputFieldNumber from '../components/transactionInputFieldNumb
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx'
 import TransactionInputFieldCategory from '../components/transactionInputFieldCategory.jsx'
 import { useNavigation, useRoute } from '@react-navigation/core';
+import {updateCategorySpent} from '../action/statisticsActions.jsx'
 function TransactionInput (props) {
     const navigation = useNavigation()
     const route = useRoute()
@@ -46,8 +47,10 @@ function TransactionInput (props) {
 
         if(data.amount.trim() !== '' && data.categoryName.trim() !== ''){
         if (data.type === 'category') {
+            
             props.addTransaction(data)
             props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID))
+            props.updateCategorySpent(parseInt(data.amount), data.groupID, parseInt(data.categoryID))
             navigation.goBack()
 
 
@@ -166,13 +169,24 @@ const mapDispatchToProps = (dispatch) => {
     return {
         addTransaction: (data) => dispatch(addTransaction(data)),
         updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount, groupID, categoryID)),
-        addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount))
-
+        addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount)),
+        updateCategorySpent: (data, groupID, categoryID) => dispatch(updateCategorySpent(data, groupID, categoryID))
 
 
     }
 }
 
-export default connect(null, mapDispatchToProps)(TransactionInput)
+
+const mapStateToProps = (state, ownProps) => {
+    const { statistics } = state
+  
+    return {
+        statistics
+
+
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionInput)
 
 

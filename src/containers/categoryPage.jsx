@@ -72,7 +72,7 @@ function CategoryPage (props){
                 </View>
                 <View style={styles.categoryContainer}>
                   
-                    <SpentSection section={"category"} page={'group'}groupName={name} groupID={groupID}  style={{ flex: 1 }}  />
+                    <SpentSection section={"category"} page={'group'}groupName={name} groupID={groupID} categoryID={categoryID} style={{ flex: 1 }}  />
                 </View>
                 <View style={styles.spendingContainer}>
                 
