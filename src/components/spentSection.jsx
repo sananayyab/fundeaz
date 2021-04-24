@@ -10,17 +10,17 @@ import { useState, useEffect } from 'react';
 function SpentSection(props) {
     const sliderWidth = Dimensions.get('window').width - 20;
 
-    const [itemList, setItems] = useState([])
+ 
     const getData = () => {
        
-        var items = [<SpentItem  name={'Spent Last Month'}  amount={200} />, <SpentItem  name={'Allocated Last Month'}  amount={200} /> ,<SpentItem  name={'Spent Average'}  amount={2012} /> , <SpentItem  name={'Allocated Average'}  amount={560} />]
-            setItems(items)
+        var items = [<SpentItem  type={'spentAvg'}  groupID={props.groupID} categoryID={props.categoryID} /> , <SpentItem  type={'allocAvg'} groupID={props.groupID} categoryID={props.categoryID} />, <SpentItem  type={'spentLast'}  groupID={props.groupID} categoryID={props.categoryID}  />, <SpentItem type={'allocLast'} groupID={props.groupID} categoryID={props.categoryID} /> ]
+            return (items)
 
 
         
     }
-
-    useEffect(() => { getData() }, [props.groupList, props.groupList.categories, props.groupFunds])
+    const [itemList, setItems] = useState(getData())
+    
     const items = ({ item, index }) => {
         return (
             <View style={{
@@ -129,11 +129,5 @@ function SpentSection(props) {
     );
 }
 
-const mapStateToProps = (state) => {
-    const { groupData, fund } = state
-    return {
-        groupList: groupData.groups,
-        groupFunds: fund.groups
-    }
-};
-export default connect(mapStateToProps)(SpentSection);
+
+export default SpentSection;
