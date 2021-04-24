@@ -14,18 +14,36 @@ export function resetCategoryStatistics(categoryID,groupID) {
         groupID
     }
 }
-export function updateCategoryAllocated(data, groupID,categoryID) {
+export function addCategoryAllocated(data, groupID,categoryID) {
     return {
-        type: 'UPDATE_CATEGORY_ALLOCATED',
+        type: 'ADD_CATEGORY_ALLOCATED',
         categoryID,
         data,
         groupID
 
     }
 }
-export function updateCategorySpent(data, groupID,categoryID) {
+export function removeCategoryAllocated(data, groupID,categoryID) {
     return {
-        type: 'UPDATE_CATEGORY_SPENDING',
+        type: 'REMOVE_CATEGORY_ALLOCATED',
+        categoryID,
+        data,
+        groupID
+
+    }
+}
+export function addCategorySpent(data, groupID,categoryID) {
+    return {
+        type: 'ADD_CATEGORY_SPENDING',
+        categoryID,
+        data,
+        groupID
+
+    }
+}
+export function removeCategorySpent(data, groupID,categoryID) {
+    return {
+        type: 'REMOVE_CATEGORY_SPENDING',
         categoryID,
         data,
         groupID
