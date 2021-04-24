@@ -9,6 +9,7 @@ import { addCategory } from '../action/groupActions'
 import { initializeCategory } from '../action/fundActions'
 import { useHeaderHeight } from '@react-navigation/stack';
 import { FlatList } from 'react-native-gesture-handler';
+import {addCategoryStatistics} from '../action/statisticsActions.jsx'
 function FundOverviewGroup(props) {
     const { groupID } = props
 
@@ -45,10 +46,19 @@ function FundOverviewGroup(props) {
 
 
     function addingAction() {
-
+       
         props.addCategory({ itemStatus: 'new' }, groupID)
-
         props.initializeCategory(groupID, props.currentGroup.currentCategoryID + 1)
+        props.addCategoryStatistics(groupID, props.currentGroup.currentCategoryID + 1, {allocated: {
+            average: 0,
+            lastMonth: 0,
+            thisMonth: 0,
+        },
+        spent: {
+            average: 0,
+            lastMonth: 0,
+            thisMonth: 0,
+        }})
 
     }
 
@@ -119,6 +129,7 @@ const mapDispatchToProps = (dispatch) => {
 
         addCategory: (data, groupID) => dispatch(addCategory(data, groupID)),
         initializeCategory: (groupID, categoryID) => dispatch(initializeCategory(groupID, categoryID)),
+        addCategoryStatistics: (groupID, categoryID, data) => dispatch(addCategoryStatistics(groupID, categoryID, data))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FundOverviewGroup)

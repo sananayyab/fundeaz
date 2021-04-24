@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { addGroup, addCategory } from '../action/groupActions'
 import { initializeGroup, initializeCategory } from '../action/fundActions'
 import { useNavigation } from '@react-navigation/core';
+import {addCategoryStatistics, addGroupStatistics} from '../action/statisticsActions.jsx'
 function BottomBar(props) {
 
     const navigation = useNavigation()
@@ -36,13 +37,36 @@ function BottomBar(props) {
         if (type === 'category') {
             switch (source) {
                 case 'home':
+                   
                     props.addGroup({ itemStatus: 'new' })
-                    props.initializeGroup(props.currentID + 1)
+                    props.initializeGroup( props.currentID + 1)
+                    props.addGroupStatistics( props.currentID + 1, {allocated: {
+                        average: 0,
+                        lastMonth: 0,
+                        thisMonth: 0,
+                    },
+                    spent: {
+                        average: 0,
+                        lastMonth: 0,
+                        thisMonth: 0,
+                    }})
 
                     break
                 case 'group':
-                    props.addCategory({ itemStatus: 'new' }, props.data.groupID)
-                    props.initializeCategory(props.data.groupID, props.groups[props.data.groupID].currentCategoryID + 1)
+                    var groupID = props.data.groupID;
+                   
+                    props.addCategory({ itemStatus: 'new' }, groupID)
+                    props.initializeCategory(groupID,  props.groups[props.data.groupID].currentCategoryID + 1)
+                    props.addCategoryStatistics(groupID, props.groups[props.data.groupID].currentCategoryID + 1, {allocated: {
+                        average: 0,
+                        lastMonth: 0,
+                        thisMonth: 0,
+                    },
+                    spent: {
+                        average: 0,
+                        lastMonth: 0,
+                        thisMonth: 0,
+                    }})
                     break
             }
         }
@@ -114,6 +138,8 @@ const mapDispatchToProps = (dispatch) => {
         initializeGroup: (groupID) => dispatch(initializeGroup(groupID)),
         addCategory: (data, groupID) => dispatch(addCategory(data, groupID)),
         initializeCategory: (groupID, categoryID) => dispatch(initializeCategory(groupID, categoryID)),
+        addCategoryStatistics: (groupID, categoryID, data) => dispatch(addCategoryStatistics(groupID, categoryID, data)),
+        addGroupStatistics: (groupID, data) => dispatch(addGroupStatistics(groupID, data))
     }
 }
 const mapStateToProps = (state, ownProps) => {
