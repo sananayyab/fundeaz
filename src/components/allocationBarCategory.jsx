@@ -3,6 +3,7 @@ import {Animated, StyleSheet, Text, TextInput, View} from 'react-native';
 import {connect} from 'react-redux';
 import {allocateToCategory, deallocateCategory} from '../action/fundActions.jsx';
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
+import {setCategoryAllocated} from '../action/statisticsActions';
 
 var mode;
 var oldAmount;
@@ -179,7 +180,9 @@ function AllocationBarCategory(props)
                                     if (!isNaN(parseInt(event.nativeEvent.text)))
                                     {
 
+
                                         props.allocate((parseInt(event.nativeEvent.text)));
+                                        props.updateStatistics({thisMonth: ( props.groupStatistics + (parseInt(event.nativeEvent.text)))}, {thisMonth: ( props.categoryStatistics + (parseInt(event.nativeEvent.text)))});
                                         setAmount(parseInt(event.nativeEvent.text) + parseInt(oldAmount));
                                         setStyle(styles.innerContainerTextPositive);
                                     } else
@@ -193,6 +196,7 @@ function AllocationBarCategory(props)
                                     {
                                         if (oldAmount > 0)
                                         {
+                                            props.updateStatistics({thisMonth: ( props.groupStatistics - (parseInt(event.nativeEvent.text)))}, {thisMonth: ( props.categoryStatistics - (parseInt(event.nativeEvent.text)))});
                                             props.deallocate(parseInt(event.nativeEvent.text));
                                             setAmount(oldAmount - parseInt(event.nativeEvent.text));
                                             setStyle(styles.innerContainerTextPositive);
@@ -228,11 +232,13 @@ function AllocationBarCategory(props)
 
 const mapStateToProps = (state, ownProps) =>
 {
-    const {groupData, fund} = state;
+    const {groupData, fund, statistics} = state;
     const {groupID, categoryID} = ownProps;
     return {
         name: groupData.groups[groupID].categories[categoryID].name,
         fundAllocated: fund.groups[groupID].categories[categoryID].allocated,
+        groupStatistics: statistics[groupID].allocated.thisMonth,
+        categoryStatistics:  statistics[groupID].categories[categoryID].allocated.thisMonth,
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) =>
@@ -241,7 +247,7 @@ const mapDispatchToProps = (dispatch, ownProps) =>
     return {
         allocate: (amount) => dispatch(allocateToCategory(amount, groupID, categoryID)),
         deallocate: (amount) => dispatch(deallocateCategory(amount, groupID, categoryID)),
-        updateStatistics: (amount) => dispatch(updateStatistics(amount, groupID, categoryID)),
+        updateStatistics: (group, category) => dispatch(setCategoryAllocated(group, category, groupID, categoryID)),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AllocationBarCategory);
