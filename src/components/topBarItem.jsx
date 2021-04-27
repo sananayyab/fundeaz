@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { connect } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {connect} from 'react-redux';
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -61,67 +62,82 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 17,
         color: 'white',
+    },
+});
+
+function TopBarItem(props)
+{
+
+
+    const navigation = useNavigation();
+
+    const [toUse, setTouse] = useState();
+    const [text, setText] = useState();
+    const [amount, setAmount] = useState();
+    useEffect(() =>
+    {
+        if (props.type === 'unallocated')
+        {
+            setTouse(styles.innerContainerTextAllocation);
+            setText('Unallocated');
+            setAmount(props.unallocated);
+        } else if (props.type === 'allocated')
+        {
+
+            if (props.data.categoryID === null)
+            {
+                var allocatedValue = props.groups[props.data.groupID].allocated;
+            } else
+            {
+                var allocatedValue = props.groups[props.data.groupID].categories[props.data.categoryID].allocated;
+            }
+            setTouse(styles.innerContainerTextAllocation);
+            setText('Allocated');
+            setAmount(allocatedValue);
+        } else if (props.type === 'amount')
+        {
+            if (props.data.groupID === null)
+            {
+                var value = props.available;
+            } else if (props.data.categoryID === null)
+            {
+                var value = props.groups[props.data.groupID].available;
+            } else
+            {
+                var value = props.groups[props.data.groupID].categories[props.data.categoryID].available;
+            }
+            if (value >= 0)
+            {
+                var toUse = styles.innerContainerTextPositive;
+            } else if (value < 0)
+            {
+                var toUse = styles.innerContainerTextNegative;
+            }
+            setTouse(toUse);
+            setText('Available');
+            setAmount(value);
+        }
+    }, [props.fund]);
+
+    function handleTouch()
+    {
+        if (props.section == 'home')
+        {
+            if (props.type === 'unallocated')
+            {
+                navigation.navigate('AllocationPage');
+            } else if (props.type === 'amount')
+            {
+                navigation.navigate('FundOverviewPage');
+            }
+
+        }
     }
-})
 
-function TopBarItem(props) {
-
-
-    const navigation = useNavigation()
-
-    const [toUse, setTouse] = useState()
-    const [text, setText] = useState()
-    const [amount, setAmount] = useState()
-    useEffect(() => {
-        if (props.type === 'unallocated') {
-            setTouse(styles.innerContainerTextAllocation)
-            setText('Unallocated')
-            setAmount(props.unallocated)
-        }
-        else if (props.type === 'allocated') {
-
-             if(props.data.categoryID === null){
-                var allocatedValue = props.groups[props.data.groupID].allocated
-            } else {
-                var allocatedValue = props.groups[props.data.groupID].categories[props.data.categoryID].allocated
-            }
-            setTouse(styles.innerContainerTextAllocation)
-            setText('Allocated')
-            setAmount(allocatedValue)
-        }
-        else if (props.type === 'amount') {
-            if (props.data.groupID === null) {
-                var value = props.available
-            } else if(props.data.categoryID === null){
-                var value = props.groups[props.data.groupID].available
-            } else {
-                var value = props.groups[props.data.groupID].categories[props.data.categoryID].available
-            }
-            if (value >= 0) {
-                var toUse = styles.innerContainerTextPositive
-            }
-            else if (value < 0) {
-                var toUse = styles.innerContainerTextNegative
-            }
-            setTouse(toUse)
-            setText('Available')
-            setAmount(value)
-        }
-    }, [props.fund])
-    function handleTouch() {
-        if (props.section == 'home') {
-            if (props.type === 'unallocated') {
-                navigation.navigate('AllocationPage')
-            } else if (props.type === 'amount') {
-                navigation.navigate('FundOverviewPage')
-            }
-
-        }
-    }
     return (
         <TouchableOpacity activeOpacity={1} onPress={handleTouch} style={styles.container}>
             <View style={styles.innerContainerAmount}>
-                <Text style={styles.textAmount} >{amount}</Text>
+                <Text style={styles.textAmount}>{amount}</Text>
             </View>
             <View style={toUse}>
                 <Text style={styles.textText}>{text}</Text>
@@ -129,14 +145,16 @@ function TopBarItem(props) {
         </TouchableOpacity>
     );
 }
-const mapStateToProps = (state) => {
-    const { fund } = state
+
+const mapStateToProps = (state) =>
+{
+    const {fund} = state;
     return {
         available: fund.available,
         allocated: fund.allocated,
         unallocated: fund.unallocated,
         groups: fund.groups,
-        fund: fund
-    }
+        fund: fund,
+    };
 };
-export default connect(mapStateToProps)(TopBarItem)
+export default connect(mapStateToProps)(TopBarItem);

@@ -1,8 +1,9 @@
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {connect} from 'react-redux';
 
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, ToastAndroid, View, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
-function SpentItem (props) {
+function SpentItem(props)
+{
 
     const styles = StyleSheet.create({
         container: {
@@ -13,7 +14,7 @@ function SpentItem (props) {
             borderRadius: 10,
             backgroundColor: '#385782',
             justifyContent: 'center',
-         
+
         },
         nameContainer: {
             marginLeft: '8%',
@@ -22,7 +23,7 @@ function SpentItem (props) {
             borderRadius: 5,
             justifyContent: 'center',
             marginBottom: '15%',
-            backgroundColor: '#1D2D44'
+            backgroundColor: '#1D2D44',
         },
 
         amountContainerPositive: {
@@ -54,7 +55,7 @@ function SpentItem (props) {
 
 
             justifyContent: 'center',
-            backgroundColor: '#C1D0E4'
+            backgroundColor: '#C1D0E4',
         },
         textView: {
             color: 'black',
@@ -68,30 +69,30 @@ function SpentItem (props) {
             textAlign: 'center',
 
 
-        }
-    })
-    const  getData =  () => {
-        if(props.type === 'spentLast')
+        },
+    });
+    const getData = () =>
+    {
+        if (props.type === 'spentLast')
         {
-            return(
+            return (
                 <View style={styles.container}>
-                <View style={styles.nameContainer}>
-                    <Text style={styles.Nametext}>
-                        {'Spent Last Month'}
-                    </Text>
-
-                </View>
-                <View style={styles.amountContainer}>
-
-                    <Text style={styles.textView} >
-                    {props.statistics.spent.lastMonth}
+                    <View style={styles.nameContainer}>
+                        <Text style={styles.Nametext}>
+                            {'Spent Last Month'}
                         </Text>
-                </View>
-            </View>)
-        }
-        else  if(props.type === 'allocLast')
+
+                    </View>
+                    <View style={styles.amountContainer}>
+
+                        <Text style={styles.textView}>
+                            {props.statistics.spent.lastMonth}
+                        </Text>
+                    </View>
+                </View>);
+        } else if (props.type === 'allocLast')
         {
-            return(<View style={styles.container}>
+            return (<View style={styles.container}>
                 <View style={styles.nameContainer}>
                     <Text style={styles.Nametext}>
                         {'Allocated Last Month'}
@@ -100,67 +101,69 @@ function SpentItem (props) {
                 </View>
                 <View style={styles.amountContainer}>
 
-                    <Text style={styles.textView} >
-                    {props.statistics.allocated.lastMonth}
-                        </Text>
+                    <Text style={styles.textView}>
+                        {props.statistics.allocated.lastMonth}
+                    </Text>
                 </View>
-            </View>)
-        }
-        else  if(props.type === 'spentAvg')
+            </View>);
+        } else if (props.type === 'spentAvg')
         {
-            return(<View style={styles.container}>
+            return (<View style={styles.container}>
                 <View style={styles.nameContainer}>
                     <Text style={styles.Nametext}>
-                    {'Average Spent'}
+                        {'Average Spent'}
                     </Text>
 
                 </View>
                 <View style={styles.amountContainer}>
 
-                    <Text style={styles.textView} >
-                    {props.statistics.spent.average}
-                        </Text>
+                    <Text style={styles.textView}>
+                        {props.statistics.spent.average}
+                    </Text>
                 </View>
-            </View>)
-        }
-        else  if(props.type === 'allocAvg')
+            </View>);
+        } else if (props.type === 'allocAvg')
         {
-            return(<View style={styles.container}>
+            return (<View style={styles.container}>
                 <View style={styles.nameContainer}>
                     <Text style={styles.Nametext}>
-                    {'Average Allocated'}
+                        {'Average Allocated'}
                     </Text>
 
                 </View>
                 <View style={styles.amountContainer}>
 
-                    <Text style={styles.textView} >
-                    {props.statistics.allocated.average}
-                        </Text>
+                    <Text style={styles.textView}>
+                        {props.statistics.allocated.average}
+                    </Text>
                 </View>
-            </View>)
-        }
-    }
-    useEffect(() => {setElement(getData())}, [props.categoryFund])
-    
-        const [element, setElement] = useState(getData())
-       
-        return (
-            <View style={{flex: 1}}>
-          {element}
-          </View>
-        );
-    }
-
-   
-    const mapStateToProps = (state, ownProps) => {
-        const {  fund, statistics } = state
-        const {groupID, categoryID} = ownProps
-      
-        return {
-        
-            categoryFund: fund.groups[groupID].categories[categoryID],
-            statistics: statistics[groupID].categories[categoryID]
+            </View>);
         }
     };
-    export default connect(mapStateToProps)(SpentItem);
+    useEffect(() =>
+    {
+        setElement(getData());
+    }, [props.categoryFund]);
+
+    const [element, setElement] = useState(getData());
+
+    return (
+        <View style={{flex: 1}}>
+            {element}
+        </View>
+    );
+}
+
+
+const mapStateToProps = (state, ownProps) =>
+{
+    const {fund, statistics} = state;
+    const {groupID, categoryID} = ownProps;
+
+    return {
+
+        categoryFund: fund.groups[groupID].categories[categoryID],
+        statistics: statistics[groupID].categories[categoryID],
+    };
+};
+export default connect(mapStateToProps)(SpentItem);

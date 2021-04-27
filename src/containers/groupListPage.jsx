@@ -1,64 +1,56 @@
 import React from 'react';
-import { StyleSheet, Text, View, ToastAndroid, TouchableOpacity, StatusBar } from 'react-native';
-import CategoryList from '../components/categoryList.jsx'
+import {StatusBar, StyleSheet, View} from 'react-native';
+import CategoryList from '../components/categoryList.jsx';
 import BottomBar from '../components/bottomBar.jsx';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
 
-import { useNavigation , useRoute} from '@react-navigation/native';
+function GroupListPage(props)
+{
 
-function GroupListPage (props) {
-  
-   
+
     const navigation = useNavigation();
-            var data ={
-                page: 'home',
-                type: 'category'
-            }
-        
-            
-    
+    var data = {
+        page: 'home',
+        type: 'category',
+    };
 
 
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            flexDirection: 'column',
+            backgroundColor: 'white',
 
- 
-
-        const styles = StyleSheet.create({
-            container: {
-                flex: 1,
-                flexDirection: 'column',
-                backgroundColor: 'white',
-               
-            },
-            bottomBar:
+        },
+        bottomBar:
             {
                 paddingTop: '4%',
                 paddingBottom: '3%',
                 height: 100,
             },
-            list: {
-                margin: '2%',
-                borderRadius: 15,
-                backgroundColor: '#98B0D3',
-                flex: 20,
-                elevation: 5,
-            }
-        });
+        list: {
+            margin: '2%',
+            borderRadius: 15,
+            backgroundColor: '#98B0D3',
+            flex: 20,
+            elevation: 5,
+        },
+    });
 
-    
-        return (
-            <View style={styles.container}>
-                <StatusBar style="default" />
-                <View style={styles.list}>
-                    <CategoryList data={data} />
-                </View>
-                <View style={styles.bottomBar}>
-                    <BottomBar data={data} />
-                </View>
+
+    return (
+        <View style={styles.container}>
+            <StatusBar style="default"/>
+            <View style={styles.list}>
+                <CategoryList data={data}/>
             </View>
-        );
-    }
+            <View style={styles.bottomBar}>
+                <BottomBar data={data}/>
+            </View>
+        </View>
+    );
+}
 
-export default GroupListPage 
-  
+export default GroupListPage;
+
 

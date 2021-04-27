@@ -1,53 +1,56 @@
-
-import React from 'react';
-import { StyleSheet, ScrollView, View, Dimensions, TouchableOpacity, Text } from 'react-native';
-import { connect } from 'react-redux';
+import React, {useState} from 'react';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import SpentItem from './spentItem';
 import Carousel from 'react-native-snap-carousel';
-import { useState, useEffect } from 'react';
 
 
-function SpentSection(props) {
+function SpentSection(props)
+{
     const sliderWidth = Dimensions.get('window').width - 20;
 
- 
-    const getData = () => {
-       
-        var items = [<SpentItem  type={'spentAvg'}  groupID={props.groupID} categoryID={props.categoryID} /> , <SpentItem  type={'allocAvg'} groupID={props.groupID} categoryID={props.categoryID} />, <SpentItem  type={'spentLast'}  groupID={props.groupID} categoryID={props.categoryID}  />, <SpentItem type={'allocLast'} groupID={props.groupID} categoryID={props.categoryID} /> ]
-            return (items)
+
+    const getData = () =>
+    {
+
+        var items = [<SpentItem type={'spentAvg'} groupID={props.groupID} categoryID={props.categoryID}/>,
+            <SpentItem type={'allocAvg'} groupID={props.groupID} categoryID={props.categoryID}/>,
+            <SpentItem type={'spentLast'} groupID={props.groupID} categoryID={props.categoryID}/>,
+            <SpentItem type={'allocLast'} groupID={props.groupID} categoryID={props.categoryID}/>];
+        return (items);
 
 
-        
-    }
-    const [itemList, setItems] = useState(getData())
-    
-    const items = ({ item, index }) => {
+    };
+    const [itemList, setItems] = useState(getData());
+
+    const items = ({item, index}) =>
+    {
         return (
             <View style={{
                 flex: 1,
-                marginTop: "5%",
+                marginTop: '5%',
             }}>
                 {item}
             </View>
         );
-    }
+    };
 
 
-    function loadCategoryList() {
-        if(props.page === 'home')
-        {
-        props.navigation.navigate('GroupList', {
-            page: 'home'
-        }) 
-    }
-    else if(props.page === 'group')
+    function loadCategoryList()
     {
-        props.navigation.navigate('CategoryList', {
-            page: 'group', 
-            groupID: props.groupID
-        }) 
+        if (props.page === 'home')
+        {
+            props.navigation.navigate('GroupList', {
+                page: 'home',
+            });
+        } else if (props.page === 'group')
+        {
+            props.navigation.navigate('CategoryList', {
+                page: 'group',
+                groupID: props.groupID,
+            });
+        }
     }
-    }
+
     const styles = StyleSheet.create({
         container: {
 
@@ -70,7 +73,7 @@ function SpentSection(props) {
 
 
         lines: {
-          
+
             alignSelf: 'center',
             marginTop: '1.5%',
             height: '50%',
@@ -82,7 +85,7 @@ function SpentSection(props) {
         categoryButton: {
             flex: 1.2,
             alignItems: 'center',
-           justifyContent: 'center',
+            justifyContent: 'center',
             borderTopRightRadius: 15,
             borderTopLeftRadius: 15,
             flexDirection: 'row',
@@ -96,22 +99,22 @@ function SpentSection(props) {
             borderBottomRightRadius: 15,
         },
         tag: {
-           
-            justifyContent: 'flex-start',
-            marginLeft: '5%'
-            
-        }
 
-    })
+            justifyContent: 'flex-start',
+            marginLeft: '5%',
+
+        },
+
+    });
     return (
         <View style={styles.container}>
 
-            <View  style={styles.categoryButton}
-                onPress={loadCategoryList}>
-                    <View style={styles.tag}>
-           
+            <View style={styles.categoryButton}
+                  onPress={loadCategoryList}>
+                <View style={styles.tag}>
+
                 </View>
-                <View style={styles.lines} />
+                <View style={styles.lines}/>
             </View>
             <View style={styles.caresoul}>
                 <Carousel

@@ -1,16 +1,17 @@
 import React from 'react';
-import { Button, StyleSheet, ToastAndroid, View } from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { bindActionCreators } from 'redux'
-import { addTransaction } from '../action/transactionActions'
-import { connect } from 'react-redux';
-import { addGroup, addCategory } from '../action/groupActions'
-import { initializeGroup, initializeCategory } from '../action/fundActions'
-import { useNavigation } from '@react-navigation/core';
-import {addCategoryStatistics, addGroupStatistics} from '../action/statisticsActions.jsx'
-function BottomBar(props) {
+import {addTransaction} from '../action/transactionActions';
+import {connect} from 'react-redux';
+import {addCategory, addGroup} from '../action/groupActions';
+import {initializeCategory, initializeGroup} from '../action/fundActions';
+import {useNavigation} from '@react-navigation/core';
+import {addCategoryStatistics, addGroupStatistics} from '../action/statisticsActions.jsx';
 
-    const navigation = useNavigation()
+function BottomBar(props)
+{
+
+    const navigation = useNavigation();
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -19,80 +20,92 @@ function BottomBar(props) {
             marginLeft: '15%',
             marginRight: '15%',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
         },
-    })
-    function loadSettings() {
-        const source = props.data.page
-        switch (source) {
+    });
+
+    function loadSettings()
+    {
+        const source = props.data.page;
+        switch (source)
+        {
             case 'home':
-                navigation.navigate('SettingPage')
-                break
+                navigation.navigate('SettingPage');
+                break;
         }
 
     }
-    function processAction() {
-        const type = props.data.type
-        const source = props.data.page
-        if (type === 'category') {
-            switch (source) {
-                case 'home':
-                   
-                    props.addGroup({ itemStatus: 'new' })
-                    props.initializeGroup( props.currentID + 1)
-                    props.addGroupStatistics( props.currentID + 1, {allocated: {
-                        average: 0,
-                        lastMonth: 0,
-                        thisMonth: 0,
-                    },
-                    spent: {
-                        average: 0,
-                        lastMonth: 0,
-                        thisMonth: 0,
-                    }})
 
-                    break
+    function processAction()
+    {
+        const type = props.data.type;
+        const source = props.data.page;
+        if (type === 'category')
+        {
+            switch (source)
+            {
+                case 'home':
+
+                    props.addGroup({itemStatus: 'new'});
+                    props.initializeGroup(props.currentID + 1);
+                    props.addGroupStatistics(props.currentID + 1, {
+                        allocated: {
+                            average: 0,
+                            lastMonth: 0,
+                            thisMonth: 0,
+                        },
+                        spent: {
+                            average: 0,
+                            lastMonth: 0,
+                            thisMonth: 0,
+                        },
+                    });
+
+                    break;
                 case 'group':
                     var groupID = props.data.groupID;
-                   
-                    props.addCategory({ itemStatus: 'new' }, groupID)
-                    props.initializeCategory(groupID,  props.groups[props.data.groupID].currentCategoryID + 1)
-                    props.addCategoryStatistics(groupID, props.groups[props.data.groupID].currentCategoryID + 1, {allocated: {
-                        average: 0,
-                        lastMonth: 0,
-                        thisMonth: 0,
-                    },
-                    spent: {
-                        average: 0,
-                        lastMonth: 0,
-                        thisMonth: 0,
-                    }})
-                    break
+
+                    props.addCategory({itemStatus: 'new'}, groupID);
+                    props.initializeCategory(groupID, props.groups[props.data.groupID].currentCategoryID + 1);
+                    props.addCategoryStatistics(groupID, props.groups[props.data.groupID].currentCategoryID + 1, {
+                        allocated: {
+                            average: 0,
+                            lastMonth: 0,
+                            thisMonth: 0,
+                        },
+                        spent: {
+                            average: 0,
+                            lastMonth: 0,
+                            thisMonth: 0,
+                        },
+                    });
+                    break;
             }
-        }
-        else if (type === 'landing') {
-            switch (source) {
+        } else if (type === 'landing')
+        {
+            switch (source)
+            {
                 case 'home':
                     navigation.navigate('TransactionInput', {
                         page: 'home',
-                        groupID: null, 
+                        groupID: null,
                         categoryID: '',
-                    })
-                    break
+                    });
+                    break;
                 case 'group':
                     navigation.navigate('TransactionInput', {
                         page: 'group',
                         groupID: props.data.groupID,
                         categoryID: '',
-                    })
-                    break
+                    });
+                    break;
                 case 'category':
                     navigation.navigate('TransactionInput', {
                         page: 'category',
                         groupID: props.data.groupID,
-                        categoryID: props.data.categoryID
-                    })
-                    break
+                        categoryID: props.data.categoryID,
+                    });
+                    break;
             }
         }
     }
@@ -101,9 +114,9 @@ function BottomBar(props) {
     return (
         <View style={styles.container}>
             <Icon.Button
-                backgroundColor='#98B0D3'
+                backgroundColor="#98B0D3"
                 name="settings"
-                color='black'
+                color="black"
                 size={35}
                 onPress={loadSettings}
                 iconStyle={{
@@ -114,9 +127,9 @@ function BottomBar(props) {
                 }}
             />
             <Icon.Button
-                backgroundColor='#98B0D3'
+                backgroundColor="#98B0D3"
                 name="add"
-                color='black'
+                color="black"
                 size={35}
                 onPress={processAction}
                 iconStyle={{
@@ -130,7 +143,8 @@ function BottomBar(props) {
     );
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) =>
+{
     return {
 
         addGroup: (data) => dispatch(addGroup(data)),
@@ -139,14 +153,15 @@ const mapDispatchToProps = (dispatch) => {
         addCategory: (data, groupID) => dispatch(addCategory(data, groupID)),
         initializeCategory: (groupID, categoryID) => dispatch(initializeCategory(groupID, categoryID)),
         addCategoryStatistics: (groupID, categoryID, data) => dispatch(addCategoryStatistics(groupID, categoryID, data)),
-        addGroupStatistics: (groupID, data) => dispatch(addGroupStatistics(groupID, data))
-    }
-}
-const mapStateToProps = (state, ownProps) => {
-    const { groupData } = state
+        addGroupStatistics: (groupID, data) => dispatch(addGroupStatistics(groupID, data)),
+    };
+};
+const mapStateToProps = (state, ownProps) =>
+{
+    const {groupData} = state;
     return {
         currentID: groupData.currentID,
-        groups: groupData.groups
-    }
+        groups: groupData.groups,
+    };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(BottomBar)
+export default connect(mapStateToProps, mapDispatchToProps)(BottomBar);

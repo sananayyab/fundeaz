@@ -1,11 +1,11 @@
-//add initial state 
+//add initial state
 /*Transaction data model
 [id]: {
-    name: 
+    name:
     currentID:
     categories: {
        [id]:{
-        name: 
+        name:
         id:
        }
     }
@@ -14,14 +14,15 @@
 */
 const initialState = {
     currentID: 0,
-    groups: {
-       
-    }
-}
-export function groupReducer(state = initialState, action) {
-    switch (action.type) {
+    groups: {},
+};
+
+export function groupReducer(state = initialState, action)
+{
+    switch (action.type)
+    {
         case 'RESET':
-            return initialState
+            return initialState;
         case 'ADD_GROUP':
             return {
                 ...state,
@@ -31,16 +32,16 @@ export function groupReducer(state = initialState, action) {
                     [state.currentID + 1]: {
                         ...action.data,
                         currentCategoryID: 0,
-                        categories: {}
-                    }
-                }
-            }
+                        categories: {},
+                    },
+                },
+            };
         case 'REMOVE_GROUP':
             return {
                 ...state,
-                groups: Object.fromEntries(Object.entries( state.groups).filter(([key,value]) => key !== action.groupID)) 
-          
-            }
+                groups: Object.fromEntries(Object.entries(state.groups).filter(([key, value]) => key !== action.groupID)),
+
+            };
         case 'UPDATE_GROUP':
             return {
                 ...state,
@@ -48,11 +49,11 @@ export function groupReducer(state = initialState, action) {
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
-                        ...action.data
+                        ...action.data,
 
-                    }
-                }
-            }
+                    },
+                },
+            };
         case 'ADD_CATEGORY':
             return {
                 ...state,
@@ -63,13 +64,13 @@ export function groupReducer(state = initialState, action) {
                         currentCategoryID: ++state.groups[action.groupID].currentCategoryID,
                         categories: {
                             ...state.groups[action.groupID].categories,
-                            [state.groups[action.groupID].currentCategoryID + 1]: { ...action.data }
+                            [state.groups[action.groupID].currentCategoryID + 1]: {...action.data},
                         },
 
 
-                    }
-                }
-            }
+                    },
+                },
+            };
         case 'REMOVE_CATEGORY':
             return {
                 ...state,
@@ -77,13 +78,13 @@ export function groupReducer(state = initialState, action) {
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
-                        categories: Object.fromEntries(Object.entries( state.groups[action.groupID].categories).filter(([key,value]) => key !== action.categoryID)) 
-                      
-                    }
+                        categories: Object.fromEntries(Object.entries(state.groups[action.groupID].categories).filter(([key, value]) => key !== action.categoryID)),
+
+                    },
 
 
-                }
-            }
+                },
+            };
         case 'UPDATE_CATEGORY':
             return {
                 ...state,
@@ -96,15 +97,15 @@ export function groupReducer(state = initialState, action) {
                             [action.categoryID]: {
                                 ...state.groups[action.groupID].categories[action.categoryID],
                                 ...action.data,
-                            }
+                            },
                         },
 
 
-                    }
-                }
-            }
+                    },
+                },
+            };
         default:
-            return state
+            return state;
 
     }
 }

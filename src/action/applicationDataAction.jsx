@@ -1,15 +1,16 @@
-
-export function setStartDate(date) {
+export function setStartDate(date)
+{
     return {
         type: 'SET_START_DATE',
-        date
-    }
+        date,
+    };
 }
 
 
-export function setLastCheckedDate(date) {
+export function setLastCheckedDate(date)
+{
     return {
         type: 'SET_LAST_CHECKED',
-        date
-    }
+        date,
+    };
 }

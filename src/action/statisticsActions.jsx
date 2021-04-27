@@ -1,75 +1,89 @@
-export function addCategoryStatistics(groupID,categoryID, data) {
+export function addCategoryStatistics(groupID, categoryID, data)
+{
     return {
         type: 'ADD_CATEGORY_STATISTICS',
         data,
         categoryID,
-        groupID
-    }
+        groupID,
+    };
 }
 
-export function resetCategoryStatistics(categoryID,groupID) {
+export function resetCategoryStatistics(categoryID, groupID)
+{
     return {
         type: 'RESET_CATEGORY_STATISTICS',
         categoryID,
-        groupID
-    }
+        groupID,
+    };
 }
-export function addCategoryAllocated(data, groupID,categoryID) {
+
+export function addCategoryAllocated(data, groupID, categoryID)
+{
     return {
         type: 'ADD_CATEGORY_ALLOCATED',
         categoryID,
         data,
-        groupID
+        groupID,
 
-    }
+    };
 }
-export function removeCategoryAllocated(data, groupID,categoryID) {
+
+export function removeCategoryAllocated(data, groupID, categoryID)
+{
     return {
         type: 'REMOVE_CATEGORY_ALLOCATED',
         categoryID,
         data,
-        groupID
+        groupID,
 
-    }
+    };
 }
-export function addCategorySpent(data, groupID,categoryID) {
+
+export function addCategorySpent(data, groupID, categoryID)
+{
     return {
         type: 'ADD_CATEGORY_SPENDING',
         categoryID,
         data,
-        groupID
+        groupID,
 
-    }
+    };
 }
-export function removeCategorySpent(data, groupID,categoryID) {
+
+export function removeCategorySpent(data, groupID, categoryID)
+{
     return {
         type: 'REMOVE_CATEGORY_SPENDING',
         categoryID,
         data,
-        groupID
+        groupID,
 
-    }
+    };
 }
-export function addGroupStatistics(groupID, data) {
+
+export function addGroupStatistics(groupID, data)
+{
     return {
         type: 'ADD_GROUP_STATISTICS',
         data,
         groupID,
-    }
+    };
 }
 
-export function resetGroupStatistics(groupID) {
+export function resetGroupStatistics(groupID)
+{
     return {
         type: 'RESET_GROUP_STATISTICS',
         groupID,
-    }
+    };
 }
 
-export function updateGroupStatistics(data, groupID) {
+export function updateGroupStatistics(data, groupID)
+{
     return {
         type: 'UPDATE_GROUP_STATISTICS',
         groupID,
         data,
 
-    }
+    };
 }

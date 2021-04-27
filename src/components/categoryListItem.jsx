@@ -1,10 +1,10 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { connect, useDispatch } from 'react-redux';
-import { updateGroup, updateCategory, removeCategory, removeGroup } from '../action/groupActions'
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {removeCategory, removeGroup, updateCategory, updateGroup} from '../action/groupActions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
+
 const styles = StyleSheet.create({
     container: {
         height: 48,
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#385782',
         fontSize: 22,
         color: 'white',
-        textAlign: 'center'
+        textAlign: 'center',
     },
     innerContainerText: {
         flex: 3.3,
@@ -52,8 +52,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#85041C',
     },
-    innerContainerAmount: {
-    },
+    innerContainerAmount: {},
     textText: {
         paddingLeft: 0,
         padding: '3%',
@@ -66,7 +65,7 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     textInputBar: {
-        width: "100%",
+        width: '100%',
         height: '100%',
         borderRadius: 5,
         flexDirection: 'column',
@@ -75,130 +74,153 @@ const styles = StyleSheet.create({
         backgroundColor: '#385782',
     },
     textInputText: {
-     
+
         height: '100%',
-        width: "100%",
-       
+        width: '100%',
+
         fontSize: 22,
         color: 'white',
-        textAlign: 'center'
-    }
-})
-function CategoryListItem(props) {
-    const navigation = useNavigation()
+        textAlign: 'center',
+    },
+});
+
+function CategoryListItem(props)
+{
+    const navigation = useNavigation();
     const dispatch = useDispatch();
-    const [element, setElement] = useState()
-    const clickEvent = () => {
-        if (props.item === 'group') {
+    const [element, setElement] = useState();
+    const clickEvent = () =>
+    {
+        if (props.item === 'group')
+        {
             /*var tags;
             var list = props.groupList
             for (var key in list)
             {
                 tags.push( <CategoryItem key={key} name={item.name}/>)
             }*/
-            // passing , navigation: navigation was causing the issue, find another way to pass navigation 
+            // passing , navigation: navigation was causing the issue, find another way to pass navigation
             navigation.navigate('GroupPage', {
                 name: props.name,
-                id: props.id
-            })
+                id: props.id,
+            });
         }
-    }
-    const deleteSelected = () => {
-        if (props.item === 'group') {
+    };
+    const deleteSelected = () =>
+    {
+        if (props.item === 'group')
+        {
             dispatch(removeGroup(props.id));
-            setElement()
+            setElement();
+        } else if (props.item === 'category')
+        {
+            dispatch(removeCategory(props.id, props.groupID));
+            setElement();
         }
-        else if (props.item === 'category') {
-            dispatch(removeCategory( props.id, props.groupID));
-            setElement()
-        }
-    }
-    const activateEditMode = (name) => {
+    };
+    const activateEditMode = (name) =>
+    {
         setElement(<View style={styles.container}>
-              <TextInput onEndEditing={(event) => {
-                        var nameToUse = ""
-                        if(name !== null)
-                        {
-                            nameToUse = event.nativeEvent.text
-                        }
-                        if (props.item === 'group') {
-                            dispatch(updateGroup({
-                                name: nameToUse,
-                                itemStatus: 'created',
-                            }, props.id));
-                        }
-                        else if (props.item === 'category') {
-                            dispatch(updateCategory({
-                                name: nameToUse,
-                                itemStatus: 'created',
-                            }, props.id, props.groupID));
-                        }
-                        setCreatedType(event.nativeEvent.text, 0)
-                    }}
-                        style={styles.editTextField} >{name}</TextInput>
-            <View style={{ width: '5%' }} />
+            <TextInput onEndEditing={(event) =>
+            {
+                var nameToUse = '';
+                if (name !== null)
+                {
+                    nameToUse = event.nativeEvent.text;
+                }
+                if (props.item === 'group')
+                {
+                    dispatch(updateGroup({
+                        name: nameToUse,
+                        itemStatus: 'created',
+                    }, props.id));
+                } else if (props.item === 'category')
+                {
+                    dispatch(updateCategory({
+                        name: nameToUse,
+                        itemStatus: 'created',
+                    }, props.id, props.groupID));
+                }
+                setCreatedType(event.nativeEvent.text, 0);
+            }}
+                       style={styles.editTextField}>{name}</TextInput>
+            <View style={{width: '5%'}}/>
             <Icon.Button
                 backgroundColor={'white'}
-                color='black'
+                color="black"
                 name="delete"
                 size={30}
                 onPress={deleteSelected}
                 iconStyle={{
-                    marginRight: 0
+                    marginRight: 0,
                 }}
             />
-        </View>)
-    }
-    const setCreatedType = (name, amount) => {
+        </View>);
+    };
+    const setCreatedType = (name, amount) =>
+    {
         setElement(
-            <TouchableOpacity activeOpacity={1} onPress={clickEvent} onLongPress={() => {activateEditMode(name)}} key={props.id} style={styles.container}>
+            <TouchableOpacity activeOpacity={1} onPress={clickEvent} onLongPress={() =>
+            {
+                activateEditMode(name);
+            }} key={props.id} style={styles.container}>
                 <View style={styles.innerContainerText}>
-                    <Text style={styles.textText} >{name}</Text>
+                    <Text style={styles.textText}>{name}</Text>
                 </View>
-                <View style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                <View
+                    style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
                     <Text style={styles.textAmount}>{props.amount}</Text>
                 </View>
-            </TouchableOpacity>
-        )
-    }
-    useEffect(() => {
-        if (props.type === 'new') {
+            </TouchableOpacity>,
+        );
+    };
+    useEffect(() =>
+    {
+        if (props.type === 'new')
+        {
             setElement(<View key={props.id} style={styles.container}>
                 <View style={styles.textInputBar}>
-                    <TextInput autoFocus={true} onEndEditing={(event) => {
-                        if (props.item === 'group') {
+                    <TextInput autoFocus={true} onEndEditing={(event) =>
+                    {
+                        if (props.item === 'group')
+                        {
                             dispatch(updateGroup({
                                 name: event.nativeEvent.text,
                                 itemStatus: 'created',
                             }, props.id));
-                        }
-                        else if (props.item === 'category') {
+                        } else if (props.item === 'category')
+                        {
                             dispatch(updateCategory({
                                 name: event.nativeEvent.text,
                                 itemStatus: 'created',
                             }, props.id, props.groupID));
                         }
-                        setCreatedType(event.nativeEvent.text, 0)
+                        setCreatedType(event.nativeEvent.text, 0);
                     }}
-                        style={styles.textInputText} > </TextInput>
+                               style={styles.textInputText}> </TextInput>
                 </View>
-            </View>)
-        }
-        else if (props.type === 'created') {
-            setElement(<TouchableOpacity  activeOpacity={1} onPress={clickEvent} onLongPress={() => {activateEditMode(props.name)}} key={props.id} style={styles.container}>
+            </View>);
+        } else if (props.type === 'created')
+        {
+            setElement(<TouchableOpacity activeOpacity={1} onPress={clickEvent} onLongPress={() =>
+            {
+                activateEditMode(props.name);
+            }} key={props.id} style={styles.container}>
                 <View style={styles.innerContainerText}>
-                    <Text style={styles.textText} >{props.name}</Text>
+                    <Text style={styles.textText}>{props.name}</Text>
                 </View>
-                <View style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                <View
+                    style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
                     <Text style={styles.textAmount}>{props.amount}</Text>
                 </View>
-            </TouchableOpacity>)
+            </TouchableOpacity>);
         }
-    }, [])
+    }, []);
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
             {element}
         </View>
     );
 }
-export default CategoryListItem
+
+export default CategoryListItem;

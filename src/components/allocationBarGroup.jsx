@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { connect } from 'react-redux';
+import {StyleSheet, Text, View} from 'react-native';
+import {connect} from 'react-redux';
 
 
-function AllocationBarGroup(props) {
+function AllocationBarGroup(props)
+{
     const styles = StyleSheet.create({
         container: {
             height: 45,
@@ -44,45 +44,45 @@ function AllocationBarGroup(props) {
             alignItems: 'center',
             backgroundColor: '#85041C',
         },
-        innerContainerAmount: {
-            
-        },
+        innerContainerAmount: {},
         textText: {
             paddingLeft: 0,
-           
+
             fontSize: 22,
             color: 'white',
             marginLeft: '5%',
         },
         textAmount: {
-          
+
             fontSize: 20,
             color: 'white',
-        }
-    })
- 
-        return (
-            <View style={styles.container}>
-                <View style={styles.innerContainerText}>
-                    <Text style={styles.textText} >{props.name}</Text>
-                </View>
-                <View style={((parseInt( props.fundAllocated) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                    <Text style={styles.textAmount}>{props.fundAllocated}</Text>
-                </View>
+        },
+    });
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.innerContainerText}>
+                <Text style={styles.textText}>{props.name}</Text>
             </View>
-        );
-    
+            <View
+                style={((parseInt(props.fundAllocated) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                <Text style={styles.textAmount}>{props.fundAllocated}</Text>
+            </View>
+        </View>
+    );
+
 }
-const mapStateToProps = (state, ownProps) => {
-    const {groupData, fund} = state
-    const {groupID} =  ownProps 
-    return{
+
+const mapStateToProps = (state, ownProps) =>
+{
+    const {groupData, fund} = state;
+    const {groupID} = ownProps;
+    return {
         name: groupData.groups[groupID].name,
-        fundAllocated: fund.groups[groupID].allocated
-       
+        fundAllocated: fund.groups[groupID].allocated,
 
 
-    }
+    };
 };
-export default connect(mapStateToProps)(AllocationBarGroup)
+export default connect(mapStateToProps)(AllocationBarGroup);
 

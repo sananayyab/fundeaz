@@ -1,72 +1,83 @@
-
-import React from 'react';
-import { StyleSheet, ScrollView, View, Dimensions, TouchableOpacity, Text } from 'react-native';
-import { connect } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {Dimensions, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {connect} from 'react-redux';
 import CategoryItem from './categoryItem.jsx';
 import Carousel from 'react-native-snap-carousel';
-import { useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 
 
-function CategorySection(props) {
+function CategorySection(props)
+{
     const sliderWidth = Dimensions.get('window').width - 20;
-    const navigation = useNavigation()
-   
-    const getData = () => {
-        if (props.section === "group") {
+    const navigation = useNavigation();
+
+    const getData = () =>
+    {
+        if (props.section === 'group')
+        {
             /*var tags;
             var list = props.groupList
             for (var key in list)
             {
                 tags.push( <CategoryItem key={key} name={item.name} />)
             }*/
-         
-            return(Object.entries(props.groupList).map(([key, value]) => <CategoryItem key={key} id={key} name={value.name} item={'group'} amount={props.groupFunds[key].available}  />))
+
+            return (Object.entries(props.groupList).map(([key, value]) => <CategoryItem key={key} id={key}
+                                                                                        name={value.name} item={'group'}
+                                                                                        amount={props.groupFunds[key].available}/>));
 
 
         }
-        if (props.section === "category") {
+        if (props.section === 'category')
+        {
             /*var tags;
             var list = props.groupList
             for (var key in list)
             {
                 tags.push( <CategoryItem key={key} name={item.name}/>)
             }*/
-          
-            return(Object.entries(props.groupList[props.groupID].categories).map(([key, value]) => <CategoryItem key={key} id={key} groupID={props.groupID} groupName={props.groupName} name={value.name} item={'category'} amount={props.groupFunds[props.groupID].categories[key].available}  />))
+
+            return (Object.entries(props.groupList[props.groupID].categories).map(([key, value]) => <CategoryItem
+                key={key} id={key} groupID={props.groupID} groupName={props.groupName} name={value.name}
+                item={'category'} amount={props.groupFunds[props.groupID].categories[key].available}/>));
 
 
         }
-    }
-    const [itemList, setItems] = useState(getData() )
-    useEffect(() => { setItems(getData()) }, [props.groupList, props.groupList.categories, props.groupFunds])
-    const items = ({ item, index }) => {
+    };
+    const [itemList, setItems] = useState(getData());
+    useEffect(() =>
+    {
+        setItems(getData());
+    }, [props.groupList, props.groupList.categories, props.groupFunds]);
+    const items = ({item, index}) =>
+    {
         return (
             <View style={{
                 flex: 1,
-                marginTop: "5%",
+                marginTop: '5%',
             }}>
                 {item}
             </View>
         );
-    }
+    };
 
 
-    function loadCategoryList() {
-        if(props.page === 'home')
-        {
-        navigation.navigate('GroupList', {
-            page: 'home'
-        }) 
-    }
-    else if(props.page === 'group')
+    function loadCategoryList()
     {
-        navigation.navigate('CategoryList', {
-            page: 'group', 
-            groupID: props.groupID
-        }) 
+        if (props.page === 'home')
+        {
+            navigation.navigate('GroupList', {
+                page: 'home',
+            });
+        } else if (props.page === 'group')
+        {
+            navigation.navigate('CategoryList', {
+                page: 'group',
+                groupID: props.groupID,
+            });
+        }
     }
-    }
+
     const styles = StyleSheet.create({
         container: {
 
@@ -89,7 +100,7 @@ function CategorySection(props) {
 
 
         lines: {
-          
+
             alignSelf: 'center',
             marginTop: '1.5%',
             height: '50%',
@@ -101,7 +112,7 @@ function CategorySection(props) {
         categoryButton: {
             flex: 1.2,
             alignItems: 'center',
-           justifyContent: 'center',
+            justifyContent: 'center',
             borderTopRightRadius: 15,
             borderTopLeftRadius: 15,
             flexDirection: 'row',
@@ -115,22 +126,22 @@ function CategorySection(props) {
             borderBottomRightRadius: 15,
         },
         tag: {
-           
-            justifyContent: 'flex-start',
-            marginLeft: '5%'
-            
-        }
 
-    })
+            justifyContent: 'flex-start',
+            marginLeft: '5%',
+
+        },
+
+    });
     return (
         <View style={styles.container}>
 
             <TouchableOpacity activeOpacity={1} style={styles.categoryButton}
-                onPress={loadCategoryList}>
-                    <View style={styles.tag}>
-           
+                              onPress={loadCategoryList}>
+                <View style={styles.tag}>
+
                 </View>
-                <View style={styles.lines} />
+                <View style={styles.lines}/>
             </TouchableOpacity>
             <View style={styles.caresoul}>
                 <Carousel
@@ -148,11 +159,12 @@ function CategorySection(props) {
     );
 }
 
-const mapStateToProps = (state) => {
-    const { groupData, fund } = state
+const mapStateToProps = (state) =>
+{
+    const {groupData, fund} = state;
     return {
         groupList: groupData.groups,
-        groupFunds: fund.groups
-    }
+        groupFunds: fund.groups,
+    };
 };
 export default connect(mapStateToProps)(CategorySection);
