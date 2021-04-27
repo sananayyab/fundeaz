@@ -79,8 +79,8 @@ export function fundReducer(state = initialState, action)
                 },
             };
         case 'DEALLOCATE_CATEGORY':
-            allocatedToGroup = state.groups[action.groupID].allocated - action.amount;
-            allocatedToCategory = state.groups[action.groupID].categories[action.categoryID].allocated - action.amount;
+            let allocatedToGroup = state.groups[action.groupID].allocated - action.amount;
+            let allocatedToCategory = state.groups[action.groupID].categories[action.categoryID].allocated - action.amount;
             if (allocatedToGroup < 0)
             {
                 allocatedToGroup = 0;
