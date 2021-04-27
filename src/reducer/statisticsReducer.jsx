@@ -118,8 +118,9 @@ export function statisticsReducer(state = initialState, action)
                     categories: {
                         ...state[action.groupID].categories,
                         [action.categoryID]: {
+                            ...state[action.groupID].categories[action.categoryID],
                             allocated: {
-                                ...state[action.groupID][action.categoryID].allocated,
+                                ...state[action.groupID].categories[action.categoryID].allocated,
                                 ...action.category,
                             },
                         },
