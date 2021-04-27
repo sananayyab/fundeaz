@@ -10,6 +10,8 @@ import TransactionInputFieldNumber from '../components/transactionInputFieldNumb
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx';
 import TransactionInputFieldCategory from '../components/transactionInputFieldCategory.jsx';
 import {useNavigation, useRoute} from '@react-navigation/core';
+import {setCategorySpent} from '../action/statisticsActions';
+import {parse} from '@babel/core';
 
 function TransactionInput(props)
 {
@@ -52,9 +54,12 @@ function TransactionInput(props)
             if (data.type === 'category')
             {
 
+                const updatedGroupSpent =  parseInt(props.statistics[data.groupID].spent.thisMonth) + parseInt(data.amount);
+                const updatedCategorySpent = parseInt(props.statistics[data.groupID].categories[data.categoryID].spent.thisMonth) + parseInt(data.amount);
+
                 props.addTransaction(data);
                 props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
-                props.addCategorySpent(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
+                props.setCategorySpent({thisMonth: updatedGroupSpent}, {thisMonth: updatedCategorySpent}, data.groupID, data.categoryID);
                 navigation.goBack();
 
 
@@ -174,14 +179,14 @@ const mapDispatchToProps = (dispatch) =>
         addTransaction: (data) => dispatch(addTransaction(data)),
         updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount, groupID, categoryID)),
         addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount)),
-        addCategorySpent: (data, groupID, categoryID) => dispatch(updateCategorySpent(data, groupID, categoryID)),
+        setCategorySpent: (group, category, groupID, categoryID) => dispatch(setCategorySpent(group,category,groupID, categoryID)),
 
 
     };
 };
 
 
-const mapStateToProps = (state, ownProps) =>
+const mapStateToProps = (state) =>
 {
     const {statistics} = state;
 

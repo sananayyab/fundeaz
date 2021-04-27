@@ -106,49 +106,27 @@ export function statisticsReducer(state = initialState, action)
                     },
                 },
             };
-        case 'ADD_CATEGORY_ALLOCATED':
+        case 'SET_CATEGORY_ALLOCATED':
             return {
                 ...state,
                 [action.groupID]: {
                     ...state[action.groupID],
                     allocated: {
                         ...state[action.groupID].allocated,
-                        ...action.data.allocated,
+                        ...action.group,
                     },
                     categories: {
                         ...state[action.groupID].categories,
                         [action.categoryID]: {
                             allocated: {
                                 ...state[action.groupID][action.categoryID].allocated,
-                                ...action.data.allocated,
+                                ...action.category,
                             },
                         },
                     },
                 },
             };
-        case 'REMOVE_CATEGORY_ALLOCATED':
-            return {
-                ...state,
-                [action.groupID]: {
-                    ...state[action.groupID],
-                    allocated: {
-                        ...state[action.groupID].allocated,
-                        ...action.data.allocated,
-                    },
-                    categories: {
-                        ...state[action.groupID].categories,
-                        [action.categoryID]: {
-                            allocated: {
-                                ...state[action.groupID][action.categoryID].allocated,
-                                ...action.data.allocated,
-                            },
-                        },
-                    },
-                },
-            };
-        case 'ADD_CATEGORY_SPENDING':
-            var catThisMonth = state[action.groupID].categories[action.categoryID].spent.thisMonth + action.data;
-            var groupThisMonth = state[action.groupID].spent.thisMonth + action.data;
+        case 'SET_CATEGORY_SPENDING':
             return {
                 ...state,
                 [action.groupID]: {
@@ -156,34 +134,7 @@ export function statisticsReducer(state = initialState, action)
                     spent: {
                         ...state[action.groupID].spent,
 
-                        thisMonth: groupThisMonth,
-
-                    },
-                    categories: {
-                        ...state[action.groupID].categories,
-                        [action.categoryID]: {
-                            ...state[action.groupID].categories[action.categoryID],
-                            spent: {
-                                ...state[action.groupID].categories[action.categoryID].spent,
-
-                                thisMonth: catThisMonth,
-                            },
-                        },
-                    },
-                },
-            };
-        case 'REMOVE_CATEGORY_SPENDING':
-
-            var catThisMonth = state[action.groupID].categories[action.categoryID].spent.thisMonth - action.data;
-            var groupThisMonth = state[action.groupID].spent.thisMonth - action.data;
-            return {
-                ...state,
-                [action.groupID]: {
-                    ...state[action.groupID],
-                    spent: {
-                        ...state[action.groupID].spent,
-
-                        thisMonth: groupThisMonth,
+                        ...action.group,
 
                     },
                     categories: {
@@ -194,7 +145,7 @@ export function statisticsReducer(state = initialState, action)
                             spent: {
                                 ...state[action.groupID].categories[action.categoryID].spent,
 
-                                thisMonth: catThisMonth,
+                                ...action.category,
                             },
                         },
                     },
