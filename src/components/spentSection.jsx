@@ -12,8 +12,7 @@ function SpentSection(props)
     const getData = () =>
     {
 
-        var items = [<SpentItem type={'spentAvg'} groupID={props.groupID} categoryID={props.categoryID}/>,
-            <SpentItem type={'allocAvg'} groupID={props.groupID} categoryID={props.categoryID}/>,
+        var items = [
             <SpentItem type={'spentLast'} groupID={props.groupID} categoryID={props.categoryID}/>,
             <SpentItem type={'allocLast'} groupID={props.groupID} categoryID={props.categoryID}/>];
         return (items);
@@ -94,6 +93,7 @@ function SpentSection(props)
         },
         caresoul: {
             flex: 9,
+            flexDirection: 'row',
             backgroundColor: '#98B0D3',
             borderBottomLeftRadius: 15,
             borderBottomRightRadius: 15,
@@ -114,19 +114,10 @@ function SpentSection(props)
                 <View style={styles.tag}>
 
                 </View>
-                <View style={styles.lines}/>
+
             </View>
             <View style={styles.caresoul}>
-                <Carousel
-                    enableSnap={false}
-                    inactiveSlideOpacity={1}
-                    inactiveSlideScale={1}
-                    activeSlideAlignment={'start'}
-                    data={itemList}
-                    renderItem={items}
-                    sliderWidth={sliderWidth}
-                    itemWidth={197}
-                />
+                {itemList}
             </View>
         </View>
     );
