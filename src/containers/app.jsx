@@ -10,6 +10,7 @@ import fundOverviewPage from './fundOverviewPage.jsx';
 import TransactionListPage from './transactionListPage.jsx';
 import AllocationPage from './allocationPage.jsx';
 import CategoryPage from './categoryPage.jsx';
+import StatisticsPageGroup from './statisticsPageGroup';
 import {NavigationContainer} from '@react-navigation/native';
 import {CardStyleInterpolators, createStackNavigator} from '@react-navigation/stack';
 import {Provider} from 'react-redux';
@@ -30,7 +31,7 @@ function App(props)
             <PersistGate loading={null} persistor={persistor}>
                 <NavigationContainer>
 
-                    <Stack.Navigator initialRouteName="HomePage"
+                    <Stack.Navigator initialRouteName="GroupStatisticsPage"
                                      screenOptions={{
                                          headerShown: false,
                                          gestureEnabled: true,
@@ -50,6 +51,7 @@ function App(props)
                         <Stack.Screen name="SettingPage" component={settingPage}/>
                         <Stack.Screen name="FundOverviewPage" component={fundOverviewPage}/>
                         <Stack.Screen name="CategoryPage" component={CategoryPage}/>
+                        <Stack.Screen name="GroupStatisticsPage" component={StatisticsPageGroup}/>
                     </Stack.Navigator>
                 </NavigationContainer>
             </PersistGate>
