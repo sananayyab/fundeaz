@@ -58,12 +58,22 @@ function StatisticsPageGroup(props)
             borderRadius: 5,
         },
         pieChart: {
-            backgroundColor: 'white',
+
             width: '55%',
+
         }, pieChartLabels: {
-            backgroundColor: 'black',
+
             width: '45%',
-            flexDirection: 'row',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+
+
+        }, pieChartLabelItem: {
+
+            width: '100%',
+                flexDirection: 'row',
+            justifyContent: 'space-evenly',
         },
 
 
@@ -75,6 +85,7 @@ function StatisticsPageGroup(props)
             <ScrollView style={styles.container} contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.barChartContainer}>
                     <View style={styles.barChartLabels}>
+
                         <Text>
                             1000
                         </Text>
@@ -137,7 +148,82 @@ function StatisticsPageGroup(props)
                         </Text>
                     </View>
                 </View>
-     
+                <View style={styles.pieChartContainer}>
+                    <View style={styles.pieChart}>
+                        <Svg  height={"100%"} width={"100%"}>
+
+
+
+
+
+                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={50} strokeWidth={100}  strokeDasharray={ (25 * 314.16) / 100 + ", 314.16"} strokeDashoffset={'157.08'} stroke="black" />
+                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={50} strokeWidth={100}  strokeDasharray={ (10 * 314.16) / 100 + ", 314.16"} strokeDashoffset={'0'} stroke="blue" />
+                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={50} strokeWidth={100}  strokeDasharray={ (5 * 314.16) / 100 + ", 314.16"} strokeDashoffset={-(10 * 314.16) / 100} stroke="red" />
+                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={50} strokeWidth={100}  strokeDasharray={ (50 * 314.16) / 100 + ", 314.16"} strokeDashoffset={-(15 * 314.16) / 100} stroke="purple" />
+                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={50} strokeWidth={100}  strokeDasharray={ (10 * 314.16) / 100 + ", 314.16"} strokeDashoffset={-(65 * 314.16) / 100} stroke="green" />
+
+
+
+                        </Svg>
+                    </View>
+                    <View style={styles.pieChartLabels}>
+                        <View style={styles.pieChartLabelItem}>
+                            <View style={{
+                                height: 20,
+                                width: 20,
+                                backgroundColor: 'black',
+
+                            }} />
+                            <Text>
+                                1000
+                            </Text>
+                        </View>
+                        <View style={styles.pieChartLabelItem}>
+                            <View style={{
+                                height: 20,
+                                width: 20,
+                                backgroundColor: 'blue',
+
+                            }} />
+                            <Text>
+                                1000
+                            </Text>
+                        </View>
+                        <View style={styles.pieChartLabelItem}>
+                            <View style={{
+                                height: 20,
+                                width: 20,
+                                backgroundColor: 'red',
+
+                            }} />
+                            <Text>
+                                1000
+                            </Text>
+                        </View>
+                        <View style={styles.pieChartLabelItem}>
+                            <View style={{
+                                height: 20,
+                                width: 20,
+                                backgroundColor: 'purple',
+
+                            }} />
+                            <Text>
+                                1000
+                            </Text>
+                        </View>
+                        <View style={styles.pieChartLabelItem}>
+                            <View style={{
+                                height: 20,
+                                width: 20,
+                                backgroundColor: 'green',
+
+                            }} />
+                            <Text>
+                                1000
+                            </Text>
+                        </View>
+                    </View>
+                </View>
 
             </ScrollView>
         </View>
