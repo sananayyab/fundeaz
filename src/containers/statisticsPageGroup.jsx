@@ -7,7 +7,9 @@ function StatisticsPageGroup(props)
 {
     const screenWidth = Dimensions.get('window').width;
     const screenHeight = Dimensions.get('screen').height;
-
+    const radius = 50;
+    const strokeW = radius * 2;
+    const circumf = 2 * Math.PI * radius;
 
     const styles = StyleSheet.create({
         container: {
@@ -156,11 +158,11 @@ function StatisticsPageGroup(props)
 
 
 
-                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={50} strokeWidth={100}  strokeDasharray={ (25 * 314.16) / 100 + ", 314.16"} strokeDashoffset={'157.08'} stroke="black" />
-                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={50} strokeWidth={100}  strokeDasharray={ (10 * 314.16) / 100 + ", 314.16"} strokeDashoffset={'0'} stroke="blue" />
-                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={50} strokeWidth={100}  strokeDasharray={ (5 * 314.16) / 100 + ", 314.16"} strokeDashoffset={-(10 * 314.16) / 100} stroke="red" />
-                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={50} strokeWidth={100}  strokeDasharray={ (50 * 314.16) / 100 + ", 314.16"} strokeDashoffset={-(15 * 314.16) / 100} stroke="purple" />
-                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={50} strokeWidth={100}  strokeDasharray={ (10 * 314.16) / 100 + ", 314.16"} strokeDashoffset={-(65 * 314.16) / 100} stroke="green" />
+                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={radius} strokeWidth={strokeW}  strokeDasharray={ (25 * circumf) / 100 + "," + circumf} strokeDashoffset={circumf /2 } stroke="black" />
+                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={radius} strokeWidth={strokeW}  strokeDasharray={ (10 * circumf) / 100 + "," + circumf} strokeDashoffset={'0'} stroke="blue" />
+                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={radius} strokeWidth={strokeW}  strokeDasharray={ (5 * circumf) / 100 + "," + circumf} strokeDashoffset={- (10 * circumf) / 100} stroke="red" />
+                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={radius} strokeWidth={strokeW}  strokeDasharray={ (50 * circumf) / 100+ "," + circumf} strokeDashoffset={- (15 * circumf) / 100} stroke="purple" />
+                            <Circle cx={"50%"} cy={"50%"} fill={'none'} r={radius} strokeWidth={strokeW}  strokeDasharray={ (10 * circumf) / 100 + "," + circumf} strokeDashoffset={- (65 * circumf) / 100} stroke="green" />
 
 
 
