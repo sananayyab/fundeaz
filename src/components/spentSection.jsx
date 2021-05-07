@@ -13,8 +13,8 @@ function SpentSection(props)
     {
 
         var items = [
-            <SpentItem type={'spentLast'} groupID={props.groupID} categoryID={props.categoryID}/>,
-            <SpentItem type={'allocLast'} groupID={props.groupID} categoryID={props.categoryID}/>];
+            <SpentItem key ={'spentLast'} type={'spentLast'} groupID={props.groupID} categoryID={props.categoryID}/>,
+            <SpentItem key={'allocLast'} type={'allocLast'} groupID={props.groupID} categoryID={props.categoryID}/>];
         return (items);
 
 
