@@ -3,6 +3,7 @@ import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Circle, Svg} from 'react-native-svg';
 import BarGraph from '../components/barGraph';
+import PieChart from '../components/pieChart';
 function StatisticsPageGroup(props)
 {
     const screenWidth = Dimensions.get('window').width;
@@ -16,64 +17,15 @@ function StatisticsPageGroup(props)
             flex: 1,
 
         },
-        barChartContainer: {
-            height: Dimensions.get('screen').height * 0.25,
-            borderRadius: 10,
-            backgroundColor: '#98B0D3',
-            margin: '3%',
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-        },
-        pieChartContainer: {
-            height: Dimensions.get('screen').height * 0.35,
-            borderRadius: 10,
-            backgroundColor: '#98B0D3',
-            margin: '3%',
-            flexDirection: 'row',
 
-        },
+
         rankingContainer: {
             height: Dimensions.get('screen').height * 0.40,
             borderRadius: 10,
             backgroundColor: '#98B0D3',
             margin: '3%',
-        }, barChartLabels: {
-            top: '1%',
-            width: '15%',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexDirection: 'column',
-            marginBottom: '6%',
-        },
-        barChartData: {
-
-
-            width: '15%',
-            flexDirection: 'column',
-            justifyContent: 'flex-end',
-        },
-        chartBar: {
-            width: '60%',
-            height: '50%',
-            backgroundColor: '#385782',
-            alignSelf: 'center',
-            borderRadius: 5,
-        },
-        pieChart: {
-            width: '55%',
-
-        }, pieChartLabels: {
-            width: '45%',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-
-
-        }, pieChartLabelItem: {
-            width: '100%',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-        }, rankingItemContainer: {
+   },
+        rankingItemContainer: {
             flexDirection: 'row',
             width: 'auto',
             height: '14%',
@@ -115,88 +67,7 @@ function StatisticsPageGroup(props)
         <View style={{flex: 1}}>
             <ScrollView style={styles.container} contentContainerStyle={{flexGrow: 1}}>
                <BarGraph/>
-                <View style={styles.pieChartContainer}>
-                    <View style={styles.pieChart}>
-                        <Svg height={'100%'} width={'100%'}>
-
-
-                            <Circle cx={'50%'} cy={'50%'} fill={'none'} r={radius} strokeWidth={strokeW}
-                                    strokeDasharray={(25 * circumf) / 100 + ',' + circumf}
-                                    strokeDashoffset={circumf / 2} stroke="black"/>
-                            <Circle cx={'50%'} cy={'50%'} fill={'none'} r={radius} strokeWidth={strokeW}
-                                    strokeDasharray={(10 * circumf) / 100 + ',' + circumf} strokeDashoffset={'0'}
-                                    stroke="blue"/>
-                            <Circle cx={'50%'} cy={'50%'} fill={'none'} r={radius} strokeWidth={strokeW}
-                                    strokeDasharray={(5 * circumf) / 100 + ',' + circumf}
-                                    strokeDashoffset={-(10 * circumf) / 100} stroke="red"/>
-                            <Circle cx={'50%'} cy={'50%'} fill={'none'} r={radius} strokeWidth={strokeW}
-                                    strokeDasharray={(50 * circumf) / 100 + ',' + circumf}
-                                    strokeDashoffset={-(15 * circumf) / 100} stroke="purple"/>
-                            <Circle cx={'50%'} cy={'50%'} fill={'none'} r={radius} strokeWidth={strokeW}
-                                    strokeDasharray={(10 * circumf) / 100 + ',' + circumf}
-                                    strokeDashoffset={-(65 * circumf) / 100} stroke="green"/>
-
-
-                        </Svg>
-                    </View>
-                    <View style={styles.pieChartLabels}>
-                        <View style={styles.pieChartLabelItem}>
-                            <View style={{
-                                height: 20,
-                                width: 20,
-                                backgroundColor: 'black',
-
-                            }}/>
-                            <Text>
-                                1000
-                            </Text>
-                        </View>
-                        <View style={styles.pieChartLabelItem}>
-                            <View style={{
-                                height: 20,
-                                width: 20,
-                                backgroundColor: 'blue',
-
-                            }}/>
-                            <Text>
-                                1000
-                            </Text>
-                        </View>
-                        <View style={styles.pieChartLabelItem}>
-                            <View style={{
-                                height: 20,
-                                width: 20,
-                                backgroundColor: 'red',
-
-                            }}/>
-                            <Text>
-                                1000
-                            </Text>
-                        </View>
-                        <View style={styles.pieChartLabelItem}>
-                            <View style={{
-                                height: 20,
-                                width: 20,
-                                backgroundColor: 'purple',
-
-                            }}/>
-                            <Text>
-                                1000
-                            </Text>
-                        </View>
-                        <View style={styles.pieChartLabelItem}>
-                            <View style={{
-                                height: 20,
-                                width: 20,
-                                backgroundColor: 'green',
-
-                            }}/>
-                            <Text>
-                                1000
-                            </Text>
-                        </View>
-                    </View>
-                </View>
+                <PieChart/>
                 <View style={styles.rankingContainer}>
                     <View style={styles.rankingItemContainer}>
                         <View style={styles.rankingItemNumberContainer}>
