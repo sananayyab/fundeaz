@@ -19,7 +19,7 @@ function PieChart(props){
         },
 
         pieChartContainer: {
-            height: Dimensions.get('screen').height * 0.35,
+            height: screenHeight * 0.35,
             borderRadius: 10,
             backgroundColor: '#98B0D3',
             margin: '3%',

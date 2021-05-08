@@ -5,9 +5,6 @@ import {Dimensions, StyleSheet, Text, View} from 'react-native';
 function StatisticsRanking(props){
     const screenWidth = Dimensions.get('window').width;
     const screenHeight = Dimensions.get('screen').height;
-    const radius = 50;
-    const strokeW = radius * 2;
-    const circumf = 2 * Math.PI * radius;
 
     const styles = StyleSheet.create({
         container: {
@@ -17,7 +14,7 @@ function StatisticsRanking(props){
 
 
         rankingContainer: {
-            height: Dimensions.get('screen').height * 0.40,
+            height: screenHeight * 0.40,
             borderRadius: 10,
             backgroundColor: '#98B0D3',
             margin: '3%',

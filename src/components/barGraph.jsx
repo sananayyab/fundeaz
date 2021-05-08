@@ -7,16 +7,14 @@ function BarGraph(props){
 
     const screenWidth = Dimensions.get('window').width;
     const screenHeight = Dimensions.get('screen').height;
-    const radius = 50;
-    const strokeW = radius * 2;
-    const circumf = 2 * Math.PI * radius;
+
 
     const styles = StyleSheet.create({
         container: {
             flex: 1,
         },
         barChartContainer: {
-            height: Dimensions.get('screen').height * 0.25,
+            height: screenHeight * 0.25,
             borderRadius: 10,
             backgroundColor: '#98B0D3',
             margin: '3%',
