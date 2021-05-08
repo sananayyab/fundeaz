@@ -4,6 +4,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {Circle, Svg} from 'react-native-svg';
 import BarGraph from '../components/barGraph';
 import PieChart from '../components/pieChart';
+import StatisticsRanking from '../components/statisticsRanking';
 function StatisticsPageGroup(props)
 {
     const screenWidth = Dimensions.get('window').width;
@@ -68,70 +69,7 @@ function StatisticsPageGroup(props)
             <ScrollView style={styles.container} contentContainerStyle={{flexGrow: 1}}>
                <BarGraph/>
                 <PieChart/>
-                <View style={styles.rankingContainer}>
-                    <View style={styles.rankingItemContainer}>
-                        <View style={styles.rankingItemNumberContainer}>
-                            <Text style={styles.rankingItemNumberText}>
-                                500000
-                            </Text>
-                        </View>
-                        <View style={styles.rankingItemTextContainer}>
-                            <Text style={styles.rankingItemText}>
-                                test
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.rankingItemContainer}>
-                        <View style={styles.rankingItemNumberContainer}>
-                            <Text style={styles.rankingItemNumberText}>
-                                259
-                            </Text>
-
-                        </View>
-                        <View style={styles.rankingItemTextContainer}>
-                            <Text style={styles.rankingItemText}>
-                                test
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.rankingItemContainer}>
-                        <View style={styles.rankingItemNumberContainer}>
-                            <Text style={styles.rankingItemNumberText}>
-                                100
-                            </Text>
-                        </View>
-                        <View style={styles.rankingItemTextContainer}>
-                            <Text style={styles.rankingItemText}>
-                                test
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.rankingItemContainer}>
-                        <View style={styles.rankingItemNumberContainer}>
-                            <Text style={styles.rankingItemNumberText}>
-                                50
-                            </Text>
-                        </View>
-                        <View style={styles.rankingItemTextContainer}>
-                            <Text style={styles.rankingItemText}>
-                                test
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.rankingItemContainer}>
-                        <View style={styles.rankingItemNumberContainer}>
-                            <Text style={styles.rankingItemNumberText}>
-                                5
-                            </Text>
-                        </View>
-                        <View style={styles.rankingItemTextContainer}>
-                            <Text style={styles.rankingItemText}>
-                                test
-                            </Text>
-                        </View>
-                    </View>
-
-                </View>
+              <StatisticsRanking/>
 
             </ScrollView>
         </View>
