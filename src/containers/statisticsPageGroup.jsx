@@ -2,7 +2,7 @@ import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Circle, Svg} from 'react-native-svg';
-
+import BarGraph from '../components/barGraph';
 function StatisticsPageGroup(props)
 {
     const screenWidth = Dimensions.get('window').width;
@@ -33,7 +33,7 @@ function StatisticsPageGroup(props)
 
         },
         rankingContainer: {
-            height: Dimensions.get('screen').height * 0.50,
+            height: Dimensions.get('screen').height * 0.40,
             borderRadius: 10,
             backgroundColor: '#98B0D3',
             margin: '3%',
@@ -76,7 +76,7 @@ function StatisticsPageGroup(props)
         }, rankingItemContainer: {
             flexDirection: 'row',
             width: 'auto',
-            height: '15%',
+            height: '14%',
             backgroundColor: '#385782',
             margin: 10,
             borderRadius: 15,
@@ -88,18 +88,18 @@ function StatisticsPageGroup(props)
             left: 10,
             width: '33%',
             backgroundColor: '#1D2D44',
-            height: '70%',
-            borderRadius: 15,
+            height: '60%',
+            borderRadius: 10,
         }, rankingItemNumberText: {
             top: '5%',
             color: 'white',
-            fontSize: 25,
+            fontSize: 18,
             textAlignVertical: 'center',
             textAlign: 'center',
         }, rankingItemText: {
 
             color: 'white',
-            fontSize: 25,
+            fontSize: 20,
             textAlignVertical: 'center',
             textAlign: 'left',
         }, rankingItemTextContainer: {
@@ -114,71 +114,7 @@ function StatisticsPageGroup(props)
     return (
         <View style={{flex: 1}}>
             <ScrollView style={styles.container} contentContainerStyle={{flexGrow: 1}}>
-                <View style={styles.barChartContainer}>
-                    <View style={styles.barChartLabels}>
-
-                        <Text>
-                            1000
-                        </Text>
-                        <Text>
-                            1000
-                        </Text>
-                        <Text>
-                            1000
-                        </Text>
-                        <Text>
-                            1000
-                        </Text>
-                        <Text>
-                            1000
-                        </Text>
-                        <Text>
-                            1000
-                        </Text>
-
-
-                    </View>
-                    <View style={styles.barChartData}>
-                        <View style={styles.chartBar}>
-
-                        </View>
-
-
-                        <Text style={{textAlign: 'center'}}>
-                            25 - 1
-                        </Text>
-                    </View>
-                    <View style={styles.barChartData}>
-                        <View style={styles.chartBar}>
-
-                        </View>
-
-
-                        <Text style={{textAlign: 'center'}}>
-                            2 - 8
-                        </Text>
-                    </View>
-                    <View style={styles.barChartData}>
-                        <View style={styles.chartBar}>
-
-                        </View>
-
-
-                        <Text style={{textAlign: 'center'}}>
-                            9 - 15
-                        </Text>
-                    </View>
-                    <View style={styles.barChartData}>
-                        <View style={styles.chartBar}>
-
-                        </View>
-
-
-                        <Text style={{textAlign: 'center'}}>
-                            16 - 22
-                        </Text>
-                    </View>
-                </View>
+               <BarGraph/>
                 <View style={styles.pieChartContainer}>
                     <View style={styles.pieChart}>
                         <Svg height={'100%'} width={'100%'}>
