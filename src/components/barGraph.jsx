@@ -89,9 +89,9 @@ function BarGraph(props)
 
     function calculateGraphRange(item, index)
     {
-        if (item.y > graphHighestValue)
+        if (item.y >= graphHighestValue)
         {
-            graphHighestValue = Math.ceil(item.y/1000)*1000
+            graphHighestValue = Math.ceil(item.y/500)*500
         }
     }
 
