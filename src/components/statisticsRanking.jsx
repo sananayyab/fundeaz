@@ -14,7 +14,7 @@ function StatisticsRanking(props){
 
 
         rankingContainer: {
-            height: screenHeight * 0.40,
+            height: screenHeight * 0.42,
             borderRadius: 10,
             backgroundColor: '#98B0D3',
             margin: '3%',
@@ -31,13 +31,14 @@ function StatisticsRanking(props){
 
         }, rankingItemNumberContainer: {
 
+
             left: 10,
-            width: '33%',
+            width: '26%',
             backgroundColor: '#1D2D44',
-            height: '60%',
+            height: '70%',
             borderRadius: 10,
         }, rankingItemNumberText: {
-            top: '5%',
+            top: '10%',
             color: 'white',
             fontSize: 18,
             textAlignVertical: 'center',
