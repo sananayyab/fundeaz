@@ -22,9 +22,8 @@ function StatisticsPageGroup(props)
     return (
         <View style={{flex: 1}}>
             <ScrollView style={styles.container} contentContainerStyle={{flexGrow: 1}}>
-
-                <PieChart/>
                 <BarGraph data={[{x: "25 - 1", y: 500}, {x: "2 - 8", y: 10}, {x: "9 - 15", y: 234} ,{x: "16 - 22", y: 500}]}/>
+                <PieChart/>
                 <StatisticsRanking/>
 
             </ScrollView>
