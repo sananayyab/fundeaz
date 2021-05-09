@@ -3,20 +3,22 @@ import {Dimensions, StyleSheet, Text, View} from 'react-native';
 
 
 
-function BarGraph(props){
+function BarGraph(props)
+{
 
     const screenWidth = Dimensions.get('window').width;
     const screenHeight = Dimensions.get('screen').height;
-
 
     const styles = StyleSheet.create({
         container: {
             flex: 1,
         },
         barChartContainer: {
+            paddingTop: '2%',
             height: screenHeight * 0.25,
             borderRadius: 10,
             backgroundColor: '#98B0D3',
+
             margin: '3%',
             flexDirection: 'row',
             justifyContent: 'space-around',
@@ -24,6 +26,7 @@ function BarGraph(props){
         }, barChartLabels: {
             top: '1%',
             width: '15%',
+
             justifyContent: 'space-between',
             alignItems: 'center',
             flexDirection: 'column',
@@ -31,92 +34,81 @@ function BarGraph(props){
         },
         barChartData: {
 
-
+            height: '97%',
             width: '15%',
             flexDirection: 'column',
             justifyContent: 'flex-end',
         },
         chartBar: {
+        flexWrap: 'wrap',
             width: '60%',
-            height: '50%',
+
             backgroundColor: '#385782',
             alignSelf: 'center',
             borderRadius: 5,
         },
 
 
-
     });
+    let graphYAxis = [];
+    let graphXitems = [];
+    let graphHighestValue = 1000;
+    props.data.forEach(calculateGraphRange);
+    props.data.forEach(setGraphElements)
+    setGraphAxis();
+    graphYAxis.reverse();
 
-    return(
+    function setGraphAxis()
+    {
+        let currentValue = 0;
+        let range = Math.ceil(graphHighestValue / 5);
+
+        for (let i = 0; i <= 5; i++)
+        {
+            graphYAxis.push(
+                <Text>
+                    {range * i}
+                </Text>)
+        }
+    }
+
+    function setGraphElements(item, index){
+        graphXitems.push(<View style={styles.barChartData}>
+            <View style={{height: '85%',        justifyContent: 'flex-end',}}>
+                <View style={[styles.chartBar, {height: Math.ceil(( item.y/ graphHighestValue) * 100 ) + '%'}]}/>
+            </View>
+
+
+
+
+            <Text style={{textAlign: 'center'}}>
+                {item.x}
+            </Text>
+        </View>)
+    }
+
+    function calculateGraphRange(item, index)
+    {
+        if (item.y > graphHighestValue)
+        {
+            graphHighestValue = Math.ceil(item.y/1000)*1000
+        }
+    }
+
+
+    return (
         <View style={styles.container}>
-        <View style={styles.barChartContainer}>
-            <View style={styles.barChartLabels}>
+            <View style={styles.barChartContainer}>
+                <View style={styles.barChartLabels}>
 
-                <Text>
-                    1000
-                </Text>
-                <Text>
-                    1000
-                </Text>
-                <Text>
-                    1000
-                </Text>
-                <Text>
-                    1000
-                </Text>
-                <Text>
-                    1000
-                </Text>
-                <Text>
-                    1000
-                </Text>
+                    {graphYAxis}
 
-
-            </View>
-            <View style={styles.barChartData}>
-                <View style={styles.chartBar}>
 
                 </View>
-
-
-                <Text style={{textAlign: 'center'}}>
-                    25 - 1
-                </Text>
-            </View>
-            <View style={styles.barChartData}>
-                <View style={styles.chartBar}>
-
-                </View>
-
-
-                <Text style={{textAlign: 'center'}}>
-                    2 - 8
-                </Text>
-            </View>
-            <View style={styles.barChartData}>
-                <View style={styles.chartBar}>
-
-                </View>
-
-
-                <Text style={{textAlign: 'center'}}>
-                    9 - 15
-                </Text>
-            </View>
-            <View style={styles.barChartData}>
-                <View style={styles.chartBar}>
-
-                </View>
-
-
-                <Text style={{textAlign: 'center'}}>
-                    16 - 22
-                </Text>
+                {graphXitems}
             </View>
         </View>
-        </View>
-    )
+    );
 }
 
-export default BarGraph
+export default BarGraph;
