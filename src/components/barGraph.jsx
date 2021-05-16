@@ -66,14 +66,14 @@ function BarGraph(props)
         for (let i = 0; i <= 5; i++)
         {
             graphYAxis.push(
-                <Text>
+                <Text key={range + i}>
                     {range * i}
                 </Text>)
         }
     }
 
     function setGraphElements(item, index){
-        graphXitems.push(<View style={styles.barChartData}>
+        graphXitems.push(<View key={item + index} style={styles.barChartData}>
             <View style={{height: '85%',        justifyContent: 'flex-end',}}>
                 <View style={[styles.chartBar, {height: Math.ceil(( item.y/ graphHighestValue) * 100 ) + '%'}]}/>
             </View>
