@@ -31,7 +31,7 @@ function App(props)
             <PersistGate loading={null} persistor={persistor}>
                 <NavigationContainer>
 
-                    <Stack.Navigator initialRouteName="GroupStatisticsPage"
+                    <Stack.Navigator initialRouteName="HomePage"
                                      screenOptions={{
                                          headerShown: false,
                                          gestureEnabled: true,
