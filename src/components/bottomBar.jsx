@@ -17,8 +17,8 @@ function BottomBar(props)
             flex: 1,
             borderRadius: 10,
             flexDirection: 'row',
-            marginLeft: '15%',
-            marginRight: '15%',
+            marginLeft: '5%',
+            marginRight: '5%',
             justifyContent: 'space-between',
             alignItems: 'center',
         },
@@ -34,6 +34,17 @@ function BottomBar(props)
                 break;
         }
 
+    }
+
+    function loadStatistics()
+    {
+        const source = props.data.page;
+        switch (source)
+        {
+            case 'home':
+                navigation.navigate('GroupStatisticsPage');
+                break;
+        }
     }
 
     function processAction()
@@ -132,6 +143,20 @@ function BottomBar(props)
                 color="black"
                 size={35}
                 onPress={processAction}
+                iconStyle={{
+                    marginRight: 0,
+                    paddingLeft: 20,
+                    paddingRight: 20,
+
+                }}
+            />
+
+            <Icon.Button
+                backgroundColor="#98B0D3"
+                name="pie-chart"
+                color="black"
+                size={35}
+                onPress={loadStatistics}
                 iconStyle={{
                     marginRight: 0,
                     paddingLeft: 20,
