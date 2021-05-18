@@ -31,6 +31,8 @@ function PieChart(props)
             backgroundColor: '#98B0D3',
             margin: '3%',
             flexDirection: 'row',
+            marginTop: 0,
+            borderTopLeftRadius: 0,
 
         },
 
@@ -48,7 +50,23 @@ function PieChart(props)
             width: '100%',
             flexDirection: 'row',
             justifyContent: 'space-evenly',
+        }, containerTag: {
+            marginTop: '5%',
+            backgroundColor: '#1D2D44',
+            height: '10%',
+            width: '50%',
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+
+            marginLeft: '3%',
+        }, tagText: {
+            color: 'white',
+            top: '15%',
+            fontSize: 19,
+            textAlign: 'center',
+            textAlignVertical: 'center',
         },
+
 
 
     });
@@ -112,6 +130,11 @@ function PieChart(props)
 
     return (
         <View style={styles.container}>
+            <View style={styles.containerTag}>
+                <Text style={styles.tagText}>
+                    Category Spending
+                </Text>
+            </View>
             <View style={styles.pieChartContainer}>
                 <View style={styles.pieChart}>
                     <Svg height={'100%'} width={'100%'}>

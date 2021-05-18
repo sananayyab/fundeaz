@@ -20,6 +20,8 @@ function BarGraph(props)
             backgroundColor: '#98B0D3',
 
             margin: '3%',
+            marginTop: 0,
+            borderTopLeftRadius: 0,
             flexDirection: 'row',
             justifyContent: 'space-around',
 
@@ -46,7 +48,23 @@ function BarGraph(props)
             backgroundColor: '#385782',
             alignSelf: 'center',
             borderRadius: 5,
+        }, containerTag: {
+            marginTop: '5%',
+            backgroundColor: '#1D2D44',
+            height: '15%',
+            width: '50%',
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+
+            marginLeft: '3%',
+        }, tagText: {
+            color: 'white',
+            top: '15%',
+            fontSize: 19,
+            textAlign: 'center',
+            textAlignVertical: 'center',
         },
+
 
 
     });
@@ -98,6 +116,11 @@ function BarGraph(props)
 
     return (
         <View style={styles.container}>
+            <View style={styles.containerTag}>
+                <Text style={styles.tagText}>
+                    Weekly Spending
+                </Text>
+            </View>
             <View style={styles.barChartContainer}>
                 <View style={styles.barChartLabels}>
 
