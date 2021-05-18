@@ -2,10 +2,11 @@ import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 
 
-function StatisticsRanking(props){
+function StatisticsRanking(props)
+{
+    props.data.sort((a, b) => parseFloat(b.value) - parseFloat(a.value));
     const screenWidth = Dimensions.get('window').width;
     const screenHeight = Dimensions.get('screen').height;
-
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -16,8 +17,11 @@ function StatisticsRanking(props){
         rankingContainer: {
             height: screenHeight * 0.42,
             borderRadius: 10,
+            borderTopLeftRadius: 0,
             backgroundColor: '#98B0D3',
             margin: '3%',
+            marginTop: 0,
+            marginBottom: '10%'
         },
         rankingItemContainer: {
             flexDirection: 'row',
@@ -52,80 +56,63 @@ function StatisticsRanking(props){
         }, rankingItemTextContainer: {
             width: '80%',
             left: '50%',
+        }, containerTag: {
+            marginTop: '5%',
+            backgroundColor: '#1D2D44',
+            height: '10%',
+            width: '50%',
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+
+            marginLeft: '3%',
+        }, tagText: {
+            color: 'white',
+            top: '15%',
+            fontSize: 19,
+            textAlign: 'center',
+            textAlignVertical: 'center',
         },
 
 
     });
+    let rankingItems = [];
+    props.data.forEach(generateElements)
 
-    return(
+
+    function generateElements(item, index)
+    {
+
+
+        rankingItems.push(<View key={item + index} style={styles.rankingItemContainer}>
+            <View style={styles.rankingItemNumberContainer}>
+                <Text style={styles.rankingItemNumberText}>
+                    {item.name}
+                </Text>
+            </View>
+            <View style={styles.rankingItemTextContainer}>
+                <Text style={styles.rankingItemText}>
+                    {item.value}
+                </Text>
+            </View>
+        </View>);
+
+    }
+
+
+    return (
         <View style={styles.container}>
-        <View style={styles.rankingContainer}>
-            <View style={styles.rankingItemContainer}>
-                <View style={styles.rankingItemNumberContainer}>
-                    <Text style={styles.rankingItemNumberText}>
-                        500000
-                    </Text>
-                </View>
-                <View style={styles.rankingItemTextContainer}>
-                    <Text style={styles.rankingItemText}>
-                        test
-                    </Text>
-                </View>
+            <View style={styles.containerTag}>
+                <Text style={styles.tagText}>
+                    Transaction Ranking
+                </Text>
             </View>
-            <View style={styles.rankingItemContainer}>
-                <View style={styles.rankingItemNumberContainer}>
-                    <Text style={styles.rankingItemNumberText}>
-                        259
-                    </Text>
+            <View style={styles.rankingContainer}>
+                {rankingItems}
 
-                </View>
-                <View style={styles.rankingItemTextContainer}>
-                    <Text style={styles.rankingItemText}>
-                        test
-                    </Text>
-                </View>
             </View>
-            <View style={styles.rankingItemContainer}>
-                <View style={styles.rankingItemNumberContainer}>
-                    <Text style={styles.rankingItemNumberText}>
-                        100
-                    </Text>
-                </View>
-                <View style={styles.rankingItemTextContainer}>
-                    <Text style={styles.rankingItemText}>
-                        test
-                    </Text>
-                </View>
-            </View>
-            <View style={styles.rankingItemContainer}>
-                <View style={styles.rankingItemNumberContainer}>
-                    <Text style={styles.rankingItemNumberText}>
-                        50
-                    </Text>
-                </View>
-                <View style={styles.rankingItemTextContainer}>
-                    <Text style={styles.rankingItemText}>
-                        test
-                    </Text>
-                </View>
-            </View>
-            <View style={styles.rankingItemContainer}>
-                <View style={styles.rankingItemNumberContainer}>
-                    <Text style={styles.rankingItemNumberText}>
-                        5
-                    </Text>
-                </View>
-                <View style={styles.rankingItemTextContainer}>
-                    <Text style={styles.rankingItemText}>
-                        test
-                    </Text>
-                </View>
-            </View>
-
-        </View>
         </View>
     );
 
 }
 
-export default StatisticsRanking
+export default StatisticsRanking;
