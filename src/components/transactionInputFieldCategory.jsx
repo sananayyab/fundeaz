@@ -129,8 +129,7 @@ function TransactionInputFieldCategory(props)
         var normalCategory = true;
         if (props.categoryID !== '' && props.fieldName !== 'income')
         {
-            console.log(props.groupID);
-            console.log(props.categoryID);
+
 
             categoryName = props.groupList[props.groupID].categories[props.categoryID].name;
             categoryAvailable = props.groupFunds[props.groupID].categories[props.categoryID].available;

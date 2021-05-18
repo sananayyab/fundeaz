@@ -11,7 +11,7 @@ function TransactionList(props)
 
     function getData()
     {
-        console.log('called');
+
         if (props.page === 'home')
         {
             /*var tags;
