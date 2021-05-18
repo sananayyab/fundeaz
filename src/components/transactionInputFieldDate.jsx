@@ -63,18 +63,20 @@ function TransactionInputFieldDate(props)
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [date, setDate] = useState(() =>
     {
-        var initialDate;
+        let initialDate;
+
         if (props.value !== '')
         {
-            initialDate = new Date(props.value);
+            initialDate = props.value;
         } else
         {
-            initialDate = new Date();
+            initialDate = new Date().getTime();
         }
         props.data({
 
             date: initialDate,
         });
+
         return initialDate;
 
     });
@@ -88,7 +90,7 @@ function TransactionInputFieldDate(props)
         setShowDatePicker(Platform.OS === 'ios');
         props.data({
 
-            date: date,
+            date: currentDate,
         });
     };
 
@@ -106,7 +108,7 @@ function TransactionInputFieldDate(props)
             }}>
 
                 <Text style={styles.textInput}>
-                    {date.toDateString()}
+                    {new Date(date).toDateString()}
                 </Text>
             </TouchableOpacity>
             {showDatePicker && (
