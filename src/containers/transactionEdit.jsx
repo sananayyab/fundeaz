@@ -17,16 +17,18 @@ import TransactionInputFieldNumber from '../components/transactionInputFieldNumb
 import TransactionInputFieldDate from '../components/transactionInputFieldDate.jsx';
 import TransactionInputFieldCategory from '../components/transactionInputFieldCategory.jsx';
 import {useNavigation} from '@react-navigation/core';
-import {setCategorySpent} from '../action/statisticsActions';
+
 
 function TransactionEdit(props)
 {
 
     const navigation = useNavigation();
-    var data = {
+
+    let data = {
         ...props.transactions[props.route.params.key],
 
     };
+
     const orignalAmount = data.amount;
     const originalGroup = data.groupID;
     const originalCategory = data.categoryID;
@@ -74,18 +76,18 @@ function TransactionEdit(props)
                 if (originalGroup === data.groupID && originalCategory === data.categoryID)
                 {
 
-                     const categorySpent = parseInt(props.statistics[data.groupID].categories[data.categoryID].spent.thisMonth)
+
                     if (parseInt(orignalAmount) < parseInt(data.amount))
                     {
-                        const updatedCategorySpent = parseInt(categorySpent) - (parseInt(data.amount) - parseInt(orignalAmount))
-                        props.setCategorySpent({},{thisMonth: updatedCategorySpent},data.groupID, parseInt(data.categoryID))
+
+
                         props.updateSpending(parseInt(data.amount) - parseInt(orignalAmount), data.groupID, parseInt(data.categoryID));
 
                     }
                     else if (parseInt(orignalAmount) > parseInt(data.amount))
                     {
-                        const updatedCategorySpent = parseInt(categorySpent) - (parseInt(orignalAmount) - parseInt(data.amount))
-                        props.setCategorySpent({},{thisMonth: updatedCategorySpent},data.groupID, parseInt(data.categoryID))
+
+
                         props.removeSpending(parseInt(orignalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
 
                     }
@@ -95,77 +97,51 @@ function TransactionEdit(props)
                 {
                     if (originalGroup === data.groupID && originalCategory !== data.categoryID)
                     {
-                        const oldCategorySpent = parseInt(props.statistics[originalGroup].categories[originalCategory].spent.thisMonth);
-                        const newCategorySpent = parseInt(props.statistics[data.groupID].categories[data.categoryID].spent.thisMonth);
+
                         if (parseInt(orignalAmount) < parseInt(data.amount))
                         {
 
-                            const updatedCategorySpent = parseInt(newCategorySpent) - (parseInt(data.amount) - parseInt(orignalAmount))
-                            const updateOldCategorySpent = parseInt(oldCategorySpent) + parseInt(orignalAmount)
-                            props.setCategorySpent({},{thisMonth: updatedCategorySpent},data.groupID, parseInt(data.categoryID))
-                            props.setCategorySpent({},{thisMonth: updateOldCategorySpent}, originalGroup, parseInt(originalCategory))
+
                             props.spendOnlyCategory(parseInt(data.amount) - parseInt(orignalAmount), data.groupID, parseInt(data.categoryID));
                             props.removeSpendOnlyCategory(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
 
                         }
                         else if (parseInt(orignalAmount) > parseInt(data.amount))
                         {
-                            const updatedCategorySpent = parseInt(newCategorySpent) - (parseInt(orignalAmount) - parseInt(data.amount))
-                            const updateOldCategorySpent = parseInt(oldCategorySpent) + parseInt(orignalAmount)
-                            props.setCategorySpent({},{thisMonth: updateOldCategorySpent}, originalGroup, parseInt(originalCategory))
-                            props.setCategorySpent({},{thisMonth: updatedCategorySpent},data.groupID, parseInt(data.categoryID))
+
+
                             props.spendOnlyCategory(parseInt(orignalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
                             props.removeSpendOnlyCategory(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
                         }
                         else
                         {
-                            const updatedCategorySpent = parseInt(newCategorySpent) - parseInt(orignalAmount)
-                            const updateOldCategorySpent = parseInt(oldCategorySpent) + parseInt(orignalAmount)
-                            props.setCategorySpent({},{thisMonth: updateOldCategorySpent}, originalGroup, parseInt(originalCategory))
-                            props.setCategorySpent({},{thisMonth: updatedCategorySpent},data.groupID, parseInt(data.categoryID))
+
+
                             props.spendOnlyCategory(parseInt(orignalAmount), data.groupID, parseInt(data.categoryID));
                             props.removeSpendOnlyCategory(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
                         }
                     }
                     else
-                    {        const oldGroupSpent = parseInt(props.statistics[originalGroup].spent.thisMonth);
-                        const oldCategorySpent = parseInt(props.statistics[originalGroup].categories[originalCategory].spent.thisMonth);
-                        const newCategorySpent = parseInt(props.statistics[data.groupID].categories[data.categoryID].spent.thisMonth);
+                    {
 
-                        const newGroupSpent = parseInt(props.statistics[data.groupID].spent.thisMonth);
                         if (parseInt(orignalAmount) < parseInt(data.amount))
                         {
 
-                            const updatedCategorySpent = parseInt(newCategorySpent) - (parseInt(data.amount) - parseInt(orignalAmount))
-                            const updateOldCategorySpent = parseInt(oldCategorySpent) + parseInt(orignalAmount)
-                            const updatedGroupSpent = parseInt(newGroupSpent) - (parseInt(data.amount) - parseInt(orignalAmount))
-                            const updateOldGroupSpent = parseInt(oldGroupSpent) + parseInt(orignalAmount)
-                            props.setCategorySpent({thisMonth: updateOldGroupSpent},{thisMonth: updateOldCategorySpent}, originalGroup, parseInt(originalCategory))
-                            props.setCategorySpent({thisMonth: updatedGroupSpent},{thisMonth: updatedCategorySpent},data.groupID, parseInt(data.categoryID))
+
                             props.updateSpending(parseInt(data.amount) - parseInt(orignalAmount), data.groupID, parseInt(data.categoryID));
                             props.removeSpending(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
 
                         }
                         else if (parseInt(orignalAmount) > parseInt(data.amount))
                         {
-                            const updatedGroupSpent = parseInt(newGroupSpent) - (parseInt(orignalAmount) - parseInt(data.amount))
-                            const updatedCategorySpent = parseInt(newCategorySpent) - (parseInt(orignalAmount) - parseInt(data.amount))
-                            const updateOldCategorySpent = parseInt(oldCategorySpent) + parseInt(orignalAmount)
 
-                            const updateOldGroupSpent = parseInt(oldGroupSpent) + parseInt(orignalAmount)
-                            props.setCategorySpent({thisMonth: updateOldGroupSpent},{thisMonth: updateOldCategorySpent}, originalGroup, parseInt(originalCategory))
-                            props.setCategorySpent({thisMonth: updatedGroupSpent},{thisMonth: updatedCategorySpent},data.groupID, parseInt(data.categoryID))
+
                             props.updateSpending(parseInt(orignalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
                             props.removeSpending(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
                         }
                         else
-                        {     const updatedGroupSpent = parseInt(newGroupSpent) - parseInt(orignalAmount)
-                            const updatedCategorySpent = parseInt(newCategorySpent) - parseInt(orignalAmount)
-                            const updateOldCategorySpent = parseInt(oldCategorySpent) + parseInt(orignalAmount)
+                        {
 
-                            const updateOldGroupSpent = parseInt(oldGroupSpent) + parseInt(orignalAmount)
-                            props.setCategorySpent({thisMonth: updateOldGroupSpent},{thisMonth: updateOldCategorySpent}, originalGroup, parseInt(originalCategory))
-                            props.setCategorySpent({thisMonth: updatedGroupSpent},{thisMonth: updatedCategorySpent},data.groupID, parseInt(data.categoryID))
                             props.updateSpending(parseInt(orignalAmount), data.groupID, parseInt(data.categoryID));
                             props.removeSpending(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
                         }
@@ -197,12 +173,7 @@ function TransactionEdit(props)
             }
             else if (oldType === 'category' && data.type === 'Income')
             {
-                const oldGroupSpent = parseInt(props.statistics[originalGroup].spent.thisMonth);
-                const oldCategorySpent = parseInt(props.statistics[originalGroup].categories[originalCategory].spent.thisMonth);
-                const updateOldCategorySpent = parseInt(oldCategorySpent) + parseInt(orignalAmount)
 
-                const updateOldGroupSpent = parseInt(oldGroupSpent) + parseInt(orignalAmount)
-                props.setCategorySpent({thisMonth: updateOldGroupSpent},{thisMonth: updateOldCategorySpent}, originalGroup, parseInt(originalCategory))
                 props.addTotalAvailable(parseInt(data.amount));
                 props.removeSpending(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
                 data = {
@@ -214,12 +185,8 @@ function TransactionEdit(props)
             }
             else if (oldType === 'Income' && data.type === 'category')
             {
-                const newCategorySpent = parseInt(props.statistics[data.groupID].categories[data.categoryID].spent.thisMonth);
 
-                const newGroupSpent = parseInt(props.statistics[data.groupID].spent.thisMonth);
-                const updatedGroupSpent = parseInt(newGroupSpent)  - parseInt(data.amount)
-                const updatedCategorySpent = parseInt(newCategorySpent)  - parseInt(data.amount)
-                props.setCategorySpent({thisMonth: updatedGroupSpent},{thisMonth: updatedCategorySpent},data.groupID, parseInt(data.categoryID))
+
                 props.removeTotalAvailable(parseInt(orignalAmount));
                 props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
                 props.updateTransaction(data, props.route.params.key);
@@ -360,7 +327,6 @@ const mapDispatchToProps = (dispatch) =>
         removeTotalAvailable: (amount) => dispatch(removeTotalAvailable(amount)),
         updateTransaction: (data, id) => dispatch(updateTransaction(data, id)),
 
-        setCategorySpent: (group, category, groupID, categoryID) => dispatch(setCategorySpent(group, category, groupID, categoryID)),
 
     };
 };
