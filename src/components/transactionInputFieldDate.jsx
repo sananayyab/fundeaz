@@ -84,13 +84,13 @@ function TransactionInputFieldDate(props)
 
     const onChange = (event, selectedDate) =>
     {
-        const currentDate = selectedDate || date;
+        const currentDate = selectedDate
 
         setDate(currentDate);
         setShowDatePicker(Platform.OS === 'ios');
         props.data({
 
-            date: currentDate,
+            date: currentDate.getTime(),
         });
     };
 
