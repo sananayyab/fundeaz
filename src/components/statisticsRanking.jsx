@@ -86,12 +86,12 @@ function StatisticsRanking(props)
         rankingItems.push(<View key={item + index} style={styles.rankingItemContainer}>
             <View style={styles.rankingItemNumberContainer}>
                 <Text style={styles.rankingItemNumberText}>
-                    {item.name}
+                    {item.value}
                 </Text>
             </View>
             <View style={styles.rankingItemTextContainer}>
                 <Text style={styles.rankingItemText}>
-                    {item.value}
+                    {item.name}
                 </Text>
             </View>
         </View>);
