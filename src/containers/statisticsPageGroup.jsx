@@ -14,6 +14,7 @@ function StatisticsPageGroup(props)
 
     let barGraphData = [];
     let rankingData = [];
+    let pieChartDate = [];
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -39,6 +40,7 @@ function StatisticsPageGroup(props)
         if (index === 3)
         {
             dates.end = today;
+            dates.end.setHours(23,59,59,999);
         }
         else
         {
@@ -109,6 +111,40 @@ function StatisticsPageGroup(props)
         return ranking;
     }
 
+    function addToPieChartData(transactions, grouping)
+    {
+        let date = new Date();
+        let firstDay = new Date(date.getFullYear(), date.getMonth() - 1, 25);
+        firstDay.setHours(0,0,0,0);
+        if (transactions.date >= firstDay.getTime())
+        {
+            if (grouping === 'group')
+            {
+                let index = pieChartDate.map(function (item)
+                {
+                    return item.groupID;
+                }).indexOf(transactions.groupID)
+                if (index !== -1)
+                {
+                    pieChartDate[index].value += parseInt(transactions.amount)
+                }
+                else if (index === -1)
+                {
+                    pieChartDate.push({
+                        groupID: transactions.groupID,
+                        value: parseInt(transactions.amount),
+                        name: transactions.groupName,
+
+
+                    })
+                }
+            }
+            else if (grouping === 'category')
+            {
+
+            }
+        }
+    }
     function calculateGraphData()
     {
 
@@ -128,6 +164,8 @@ function StatisticsPageGroup(props)
 
                 }
             }
+
+            addToPieChartData(transactions[i], 'group')
         }
 
         barGraphData.reverse();
@@ -140,7 +178,7 @@ function StatisticsPageGroup(props)
             <ScrollView style={styles.container} contentContainerStyle={{flexGrow: 1}}>
                 <BarGraph
                     data={barGraphData}/>
-                <PieChart data={[{name: 'last', value: 10}, {name: 'last', value: 1}, {name: 'beforelast', value: 2}]}/>
+                <PieChart data={pieChartDate}/>
                 <StatisticsRanking data={rankingData}/>
 
             </ScrollView>
