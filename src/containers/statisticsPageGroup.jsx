@@ -50,7 +50,7 @@ function StatisticsPageGroup(props)
     {
 
         let currentTransactionIndex = props.lastId
-
+      
 
         for (let i = 3; i >= 0; i--)
         {
@@ -64,17 +64,28 @@ function StatisticsPageGroup(props)
 
 
 
-                while ( transactions[currentTransactionIndex].date > dates.start.getTime())
+                while ( transactions[currentTransactionIndex].date >= dates.start.getTime())
                 {
 
 
 
 
-                    amount += parseInt(transactions[currentTransactionIndex].amount);
-                    currentTransactionIndex--;
-                    if(currentTransactionIndex === 1)
+
+                    if(transactions[currentTransactionIndex].type === "Income")
                     {
-                        break;
+                        currentTransactionIndex--;
+
+                    }
+                    else
+                    {
+
+                        amount += parseInt(transactions[currentTransactionIndex].amount);
+
+                        currentTransactionIndex--;
+                        if (currentTransactionIndex === 1)
+                        {
+                            break;
+                        }
                     }
 
 
