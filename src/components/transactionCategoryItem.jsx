@@ -61,7 +61,7 @@ function TransactionCategoryListItem(props)
     return (
         <TouchableOpacity activeOpacity={1} onPress={() =>
         {
-            props.press(props.name, props.amount, props.groupID, props.categoryID);
+            props.press(props.name, props.groupName, props.amount, props.groupID, props.categoryID);
         }} style={styles.container}>
 
             <View style={styles.innerContainerText}>

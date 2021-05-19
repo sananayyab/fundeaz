@@ -180,7 +180,7 @@ function TransactionInputFieldCategory(props)
         setDropDown(false);
     }
 
-    function Categoryselected(name, amount, group, category)
+    function Categoryselected(categoryName,groupName, amount, group, category)
     {
 
         setData({
@@ -189,7 +189,7 @@ function TransactionInputFieldCategory(props)
             </View>,
             category: true,
             chosen: {
-                name: name,
+                name: categoryName,
                 amount: amount,
             },
         });
@@ -197,40 +197,43 @@ function TransactionInputFieldCategory(props)
             type: 'category',
             groupID: group,
             categoryID: category,
-            categoryName: name,
+            categoryName: categoryName,
+            groupName: groupName,
         });
         setDropDown(false);
     }
 
     function getInfo()
     {
-        var categoryLists = [];
+        let categoryLists = [];
         if (props.page.pageName === 'home')
         {
-            for (group in props.groupList)
+            for (let group in props.groupList)
             {
-                for (category in props.groupList[group].categories)
+                for (let category in props.groupList[group].categories)
                 {
-                    var categoryName = props.groupList[group].categories[category].name;
-                    var categoryAvailable = props.groupFunds[group].categories[category].available;
+                    let groupName = props.groupList[group].name
+                    let categoryName = props.groupList[group].categories[category].name;
+                    let categoryAvailable = props.groupFunds[group].categories[category].available;
                     categoryLists.push(<TransactionCategoryListItem press={Categoryselected} key={category + group}
                                                                     groupID={group} categoryID={category}
                                                                     amount={categoryAvailable} name={categoryName}
-                                                                    item={'category'}/>);
+                                                                    item={'category'} groupName={groupName}/>);
                 }
             }
         } else if (props.page.pageName === 'group')
         {
 
 
-            for (category in props.groupList[props.page.groupID].categories)
+            for (let category in props.groupList[props.page.groupID].categories)
             {
-                var categoryName = props.groupList[props.page.groupID].categories[category].name;
-                var categoryAvailable = props.groupFunds[props.page.groupID].categories[category].available;
+                let groupName = props.groupList[props.page.groupID].name
+                let categoryName = props.groupList[props.page.groupID].categories[category].name;
+                let categoryAvailable = props.groupFunds[props.page.groupID].categories[category].available;
                 categoryLists.push(<TransactionCategoryListItem press={Categoryselected} key={category}
                                                                 groupID={props.page.groupID} categoryID={category}
                                                                 amount={categoryAvailable} name={categoryName}
-                                                                item={'category'}/>);
+                                                                item={'category'} groupName={groupName}/>);
             }
         }
         return categoryLists;

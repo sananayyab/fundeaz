@@ -24,6 +24,7 @@ function TransactionInput(props)
         date: '',
         note: '',
         groupID: '',
+        groupName: '',
         categoryID: '',
         categoryName: '',
 
