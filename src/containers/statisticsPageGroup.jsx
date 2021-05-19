@@ -11,8 +11,9 @@ function StatisticsPageGroup(props)
 
 
     let today = new Date();
+
     let barGraphData = [];
-    let rankingData =[]
+    let rankingData = [];
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -49,7 +50,7 @@ function StatisticsPageGroup(props)
 
     function makeTransactionArray()
     {
-        let temp = []
+        let temp = [];
         for (let key in props.transactions)
         {
             if (props.transactions[key].type !== 'Income')
@@ -59,7 +60,7 @@ function StatisticsPageGroup(props)
         }
         temp.sort((a, b) => parseInt(b.time) - parseInt(a.time));
 
-        return temp
+        return temp;
     }
 
     function generateStartAndEndDates()
@@ -80,6 +81,8 @@ function StatisticsPageGroup(props)
         }
     }
 
+
+    //add using data from the last month
     function makeTransactionRankingData(transactions)
     {
         let temp = transactions;
@@ -87,12 +90,16 @@ function StatisticsPageGroup(props)
         temp.sort((a, b) => parseInt(b.amount) - parseInt(a.amount));
 
         let ranking = [];
-
-        for(let i = 0; i < 5; i++)
+        let date = new Date();
+        let firstDay = new Date(date.getFullYear(), date.getMonth() - 1, 25);
+        for (let i = 0; i < 5; i++)
         {
-            if(i < temp.length)
+            if (i < temp.length)
             {
-                ranking.push({name: temp[i].payee , value: temp[i].amount})
+                if (temp[i].date >= firstDay.getTime())
+                {
+                    ranking.push({name: temp[i].payee, value: temp[i].amount});
+                }
             }
         }
 
@@ -100,18 +107,18 @@ function StatisticsPageGroup(props)
 
         return ranking;
     }
+
     function calculateGraphData()
     {
 
         const transactions = makeTransactionArray();
         generateStartAndEndDates();
-
-        rankingData =  makeTransactionRankingData(transactions);
+        rankingData = makeTransactionRankingData(transactions);
         for (let i = 0; i < transactions.length; i++)
         {
             for (let j = 0; j < barGraphData.length; j++)
             {
-                if(parseInt(transactions[i].date) >= parseInt(barGraphData[j].start) && parseInt(transactions[i].date) <= parseInt(barGraphData[j].end))
+                if (parseInt(transactions[i].date) >= parseInt(barGraphData[j].start) && parseInt(transactions[i].date) <= parseInt(barGraphData[j].end))
                 {
 
 
@@ -123,7 +130,6 @@ function StatisticsPageGroup(props)
         }
 
         barGraphData.reverse();
-
 
 
     }
