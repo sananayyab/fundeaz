@@ -28,6 +28,7 @@ function StatisticsPageGroup(props)
 
     function getStartAndEndDate(index)
     {
+        today.setHours(0,0,0,0);
         let dates = {
             start: null,
             end: null,
