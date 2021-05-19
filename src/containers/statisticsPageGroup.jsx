@@ -12,7 +12,7 @@ function StatisticsPageGroup(props)
 
     let today = new Date();
     let barGraphData = [];
-    const transactions = props.transactions;
+
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -49,9 +49,14 @@ function StatisticsPageGroup(props)
     function calculateBarGraphData()
     {
 
-        let currentTransactionIndex = props.lastId
-      
+        const transactions = [];
+        for (let key in props.transactions) {
+            transactions.push(props.transactions[key])
+        }
+        transactions.sort((a, b) => parseInt(b.time) - parseInt(a.time));
+        let currentTransactionIndex = 0
 
+        console.log(transactions);
         for (let i = 3; i >= 0; i--)
         {
             let dates = getStartAndEndDate(i);
@@ -59,12 +64,12 @@ function StatisticsPageGroup(props)
             let amount = 0
 
 
-            if(currentTransactionIndex !== 1)
+            if(currentTransactionIndex < transactions.length)
             {
 
 
 
-                while ( transactions[currentTransactionIndex].date >= dates.start.getTime())
+                while ( parseInt(transactions[currentTransactionIndex].date) >= dates.start.getTime())
                 {
 
 
@@ -73,7 +78,7 @@ function StatisticsPageGroup(props)
 
                     if(transactions[currentTransactionIndex].type === "Income")
                     {
-                        currentTransactionIndex--;
+                        currentTransactionIndex++;
 
                     }
                     else
@@ -81,8 +86,9 @@ function StatisticsPageGroup(props)
 
                         amount += parseInt(transactions[currentTransactionIndex].amount);
 
-                        currentTransactionIndex--;
-                        if (currentTransactionIndex === 1)
+                        currentTransactionIndex++;
+
+                        if (currentTransactionIndex >= transactions.length)
                         {
                             break;
                         }
@@ -97,7 +103,7 @@ function StatisticsPageGroup(props)
         }
 
         barGraphData.reverse();
-
+        console.log(barGraphData)
 
     }
 
