@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import BarGraph from '../components/barGraph';
@@ -12,7 +12,7 @@ function StatisticsPageGroup(props)
 
     let today = new Date();
     let barGraphData = [];
-
+    let rankingData =[]
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -23,7 +23,7 @@ function StatisticsPageGroup(props)
     });
 
 
-       calculateBarGraphData();
+    calculateGraphData();
 
     function getStartAndEndDate(index)
     {
@@ -36,72 +36,95 @@ function StatisticsPageGroup(props)
 
         if (index === 3)
         {
-                dates.end = today
+            dates.end = today;
         }
         else
         {
-            dates.end = new Date(((today.getTime() - today.getDay() * 24 * 3600 * 1000) - (3 - index) * (7 * 24 * 3600 * 1000)) + (6* 24 * 3600 * 1000)  );
+            dates.end = new Date(((today.getTime() - today.getDay() * 24 * 3600 * 1000) - (3 - index) * (7 * 24 * 3600 * 1000)) + (6 * 24 * 3600 * 1000));
         }
 
         return dates;
     }
 
-    function calculateBarGraphData()
-    {
 
-        const transactions = [];
-        for (let key in props.transactions) {
-            if(props.transactions[key].type !== "Income")
+    function makeTransactionArray()
+    {
+        let temp = []
+        for (let key in props.transactions)
+        {
+            if (props.transactions[key].type !== 'Income')
             {
-                transactions.push(props.transactions[key])
+                temp.push(props.transactions[key]);
             }
         }
-        transactions.sort((a, b) => parseInt(b.time) - parseInt(a.time));
-        let currentTransactionIndex = 0
+        temp.sort((a, b) => parseInt(b.time) - parseInt(a.time));
 
-        console.log(transactions);
+        return temp
+    }
+
+    function generateStartAndEndDates()
+    {
         for (let i = 3; i >= 0; i--)
         {
+
+
             let dates = getStartAndEndDate(i);
+            barGraphData.push({
+                x: dates.start.getDate() + '-' + dates.end.getDate(),
+                y: 0,
+                start: dates.start.getTime(),
+                end: dates.end.getTime(),
+            });
 
-            let amount = 0
 
+        }
+    }
 
-            if(currentTransactionIndex < transactions.length)
+    function makeTransactionRankingData(transactions)
+    {
+        let temp = transactions;
+
+        temp.sort((a, b) => parseInt(b.amount) - parseInt(a.amount));
+
+        let ranking = [];
+
+        for(let i = 0; i < 5; i++)
+        {
+            if(i < temp.length)
             {
+                ranking.push({name: temp[i].payee , value: temp[i].amount})
+            }
+        }
 
+        ranking.reverse();
 
+        return ranking;
+    }
+    function calculateGraphData()
+    {
 
-                while ( parseInt(transactions[currentTransactionIndex].date) >= dates.start.getTime())
+        const transactions = makeTransactionArray();
+        generateStartAndEndDates();
+
+        rankingData =  makeTransactionRankingData(transactions);
+        for (let i = 0; i < transactions.length; i++)
+        {
+            for (let j = 0; j < barGraphData.length; j++)
+            {
+                if(parseInt(transactions[i].date) >= parseInt(barGraphData[j].start) && parseInt(transactions[i].date) <= parseInt(barGraphData[j].end))
                 {
 
 
-
-
-
-
-
-
-                        amount += parseInt(transactions[currentTransactionIndex].amount);
-
-                        currentTransactionIndex++;
-
-                        if (currentTransactionIndex >= transactions.length)
-                        {
-                            break;
-                        }
-                    
-
+                    barGraphData[j].y += parseInt(transactions[i].amount);
 
 
                 }
             }
-
-            barGraphData.push({x: dates.start.getDate() + "-" + dates.end.getDate(), y: amount})
         }
 
         barGraphData.reverse();
-        console.log(barGraphData)
+
+
 
     }
 
@@ -111,10 +134,7 @@ function StatisticsPageGroup(props)
                 <BarGraph
                     data={barGraphData}/>
                 <PieChart data={[{name: 'last', value: 10}, {name: 'last', value: 1}, {name: 'beforelast', value: 2}]}/>
-                <StatisticsRanking data={[{name: 'stuff1', value: 100}, {name: 'last', value: 1}, {
-                    name: 'bjlnaslf',
-                    value: 20,
-                }, {name: 'akldfjl', value: 25}, {name: 'stuff2', value: 12}]}/>
+                <StatisticsRanking data={rankingData}/>
 
             </ScrollView>
         </View>
@@ -125,8 +145,10 @@ function StatisticsPageGroup(props)
 const mapStateToProps = (state, ownProps) =>
 {
     const {transactions} = state;
-    return {transactions: transactions.transactions,
-    lastId: transactions.currentID};
+    return {
+        transactions: transactions.transactions,
+        lastId: transactions.currentID,
+    };
 };
 
 
