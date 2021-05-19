@@ -51,7 +51,10 @@ function StatisticsPageGroup(props)
 
         const transactions = [];
         for (let key in props.transactions) {
-            transactions.push(props.transactions[key])
+            if(props.transactions[key].type !== "Income")
+            {
+                transactions.push(props.transactions[key])
+            }
         }
         transactions.sort((a, b) => parseInt(b.time) - parseInt(a.time));
         let currentTransactionIndex = 0
@@ -76,13 +79,8 @@ function StatisticsPageGroup(props)
 
 
 
-                    if(transactions[currentTransactionIndex].type === "Income")
-                    {
-                        currentTransactionIndex++;
 
-                    }
-                    else
-                    {
+
 
                         amount += parseInt(transactions[currentTransactionIndex].amount);
 
@@ -92,7 +90,7 @@ function StatisticsPageGroup(props)
                         {
                             break;
                         }
-                    }
+                    
 
 
 
