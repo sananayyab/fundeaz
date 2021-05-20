@@ -11,6 +11,7 @@ import TransactionListPage from './transactionListPage.jsx';
 import AllocationPage from './allocationPage.jsx';
 import CategoryPage from './categoryPage.jsx';
 import StatisticsPageGroup from './statisticsPageGroup';
+import StatisticsPageCategory from './statisticsPageCategory';
 import {NavigationContainer} from '@react-navigation/native';
 import {CardStyleInterpolators, createStackNavigator} from '@react-navigation/stack';
 import {Provider} from 'react-redux';
@@ -52,6 +53,7 @@ function App(props)
                         <Stack.Screen name="FundOverviewPage" component={fundOverviewPage}/>
                         <Stack.Screen name="CategoryPage" component={CategoryPage}/>
                         <Stack.Screen name="GroupStatisticsPage" component={StatisticsPageGroup}/>
+                        <Stack.Screen name="CategoryStatisticsPage" component={StatisticsPageCategory}/>
                     </Stack.Navigator>
                 </NavigationContainer>
             </PersistGate>
