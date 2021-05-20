@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {addTransaction} from '../action/transactionActions';
@@ -11,18 +11,137 @@ import {addCategoryStatistics, addGroupStatistics} from '../action/statisticsAct
 function BottomBar(props)
 {
 
+
     const navigation = useNavigation();
+    const [elements, setElements] = useState( () => {
+
+        if(props.data.page === 'home')
+        {
+
+         return(           <View style={{
+                        flex: 1,
+                        borderRadius: 10,
+                        flexDirection: 'row',
+                        marginLeft: '5%',
+                        marginRight: '5%',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                    }}>
+                        <Icon.Button
+                            backgroundColor="#98B0D3"
+                            name="settings"
+                            color="black"
+                            size={35}
+                            onPress={loadSettings}
+                            iconStyle={{
+                                marginRight: 0,
+                                paddingLeft: 20,
+                                paddingRight: 20,
+
+                            }}
+                        />
+                        <Icon.Button
+                            backgroundColor="#98B0D3"
+                            name="add"
+                            color="black"
+                            size={35}
+                            onPress={processAction}
+                            iconStyle={{
+                                marginRight: 0,
+                                paddingLeft: 20,
+                                paddingRight: 20,
+
+                            }}
+                        />
+
+                        <Icon.Button
+                            backgroundColor="#98B0D3"
+                            name="pie-chart"
+                            color="black"
+                            size={35}
+                            onPress={loadStatistics}
+                            iconStyle={{
+                                marginRight: 0,
+                                paddingLeft: 20,
+                                paddingRight: 20,
+
+                            }}
+                        />
+                    </View>)}
+    else if(props.data.page === 'group') {
+            return(           <View style={{
+                flex: 1,
+                borderRadius: 10,
+                flexDirection: 'row',
+                marginLeft: '5%',
+                marginRight: '5%',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+            }}>
+                <Icon.Button
+                    backgroundColor="#98B0D3"
+                    name="add"
+                    color="black"
+                    size={35}
+                    onPress={processAction}
+                    iconStyle={{
+                        marginRight: 0,
+                        paddingLeft: 20,
+                        paddingRight: 20,
+
+                    }}
+                />
+
+                <Icon.Button
+                    backgroundColor="#98B0D3"
+                    name="pie-chart"
+                    color="black"
+                    size={35}
+                    onPress={loadStatistics}
+                    iconStyle={{
+                        marginRight: 0,
+                        paddingLeft: 20,
+                        paddingRight: 20,
+
+                    }}
+                />
+            </View>)
+        } else if (props.data.page === 'category'){
+            return(           <View style={{
+                flex: 1,
+                borderRadius: 10,
+                flexDirection: 'row',
+                marginLeft: '5%',
+                marginRight: '5%',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+            }}>
+                <Icon.Button
+                    backgroundColor="#98B0D3"
+                    name="add"
+                    color="black"
+                    size={35}
+                    onPress={processAction}
+                    iconStyle={{
+                        marginRight: 0,
+                        paddingLeft: 20,
+                        paddingRight: 20,
+
+                    }}
+                />
+
+           
+            </View>)
+        }}
+
+        );
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            borderRadius: 10,
-            flexDirection: 'row',
-            marginLeft: '5%',
-            marginRight: '5%',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+
         },
     });
+
 
     function loadSettings()
     {
@@ -44,11 +163,18 @@ function BottomBar(props)
             case 'home':
                 navigation.navigate('GroupStatisticsPage');
                 break;
+            case 'group':
+                navigation.navigate('CategoryStatisticsPage',{
+                    groupID: props.data.groupID,
+
+                })
         }
     }
 
     function processAction()
     {
+
+
         const type = props.data.type;
         const source = props.data.page;
         if (type === 'category')
@@ -92,7 +218,8 @@ function BottomBar(props)
                     });
                     break;
             }
-        } else if (type === 'landing')
+        }
+        else if (type === 'landing')
         {
             switch (source)
             {
@@ -124,46 +251,7 @@ function BottomBar(props)
 
     return (
         <View style={styles.container}>
-            <Icon.Button
-                backgroundColor="#98B0D3"
-                name="settings"
-                color="black"
-                size={35}
-                onPress={loadSettings}
-                iconStyle={{
-                    marginRight: 0,
-                    paddingLeft: 20,
-                    paddingRight: 20,
-
-                }}
-            />
-            <Icon.Button
-                backgroundColor="#98B0D3"
-                name="add"
-                color="black"
-                size={35}
-                onPress={processAction}
-                iconStyle={{
-                    marginRight: 0,
-                    paddingLeft: 20,
-                    paddingRight: 20,
-
-                }}
-            />
-
-            <Icon.Button
-                backgroundColor="#98B0D3"
-                name="pie-chart"
-                color="black"
-                size={35}
-                onPress={loadStatistics}
-                iconStyle={{
-                    marginRight: 0,
-                    paddingLeft: 20,
-                    paddingRight: 20,
-
-                }}
-            />
+            {elements}
         </View>
     );
 }
