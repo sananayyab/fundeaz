@@ -14,6 +14,15 @@ export function resetGroup()
     };
 }
 
+export function addLastTransactionTimeInGroup(groupID, categoryID, time)
+{
+    return{
+        type: 'SET_TRANSACTION_TIME_GROUP',
+        groupID,
+        categoryID,
+        time
+    }
+}
 export function removeGroup(groupID)
 {
     return {

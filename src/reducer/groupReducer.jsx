@@ -33,6 +33,7 @@ export function groupReducer(state = initialState, action)
                         ...action.data,
                         currentCategoryID: 0,
                         categories: {},
+                        lastTransaction: 0,
                     },
                 },
             };
@@ -64,7 +65,10 @@ export function groupReducer(state = initialState, action)
                         currentCategoryID: ++state.groups[action.groupID].currentCategoryID,
                         categories: {
                             ...state.groups[action.groupID].categories,
-                            [state.groups[action.groupID].currentCategoryID + 1]: {...action.data},
+                            [state.groups[action.groupID].currentCategoryID + 1]: {
+                                ...action.data,
+                                lastTransaction: 0,
+                            },
                         },
 
 
@@ -103,6 +107,26 @@ export function groupReducer(state = initialState, action)
 
                     },
                 },
+            };
+        case 'SET_TRANSACTION_TIME_GROUP':
+            return {
+                ...state,
+                groups: {
+                    ...state.groups,
+                    [action.groupID]: {
+                        ...state.groups[action.groupID],
+                        lastTransaction: action.time,
+                        categories: {
+                            ...state.groups[action.groupID].categories,
+                            [action.categoryID]: {
+                                ...state.groups[action.groupID].categories[action.categoryID],
+                                lastTransaction: action.time,
+                            },
+                        },
+                    },
+                },
+
+
             };
         default:
             return state;
