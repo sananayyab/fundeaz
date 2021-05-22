@@ -37,8 +37,8 @@ function TransactionInputFieldCategory(props)
             marginLeft: '19%',
         },
         fieldNameText: {
-            paddingLeft: '8%',
-            alignSelf: 'flex-start',
+
+            alignSelf: 'center',
             bottom: '5%',
             fontSize: 17,
             color: 'white',
