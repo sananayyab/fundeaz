@@ -152,6 +152,34 @@ export function statisticsReducer(state = initialState, action)
                     },
                 },
             };
+        case 'START_OF_MONTH_ACTION':
+        {
+            return {
+                ...state,
+                [action.groupID]: {
+                    ...state[action.groupID],
+                    categories: {
+                        ...state[action.groupID].categories,
+                        [action.categoryID]: {
+                            ...state[action.groupID].categories[action.categoryID],
+
+                            spent: {
+                                ...state[action.groupID].categories[action.categoryID].spent,
+
+                                lastMonth: state[action.groupID].categories[action.categoryID].spent.thisMonth,
+                                thisMonth: 0,
+                            },
+                            allocated: {
+                                ...state[action.groupID].categories[action.categoryID].allocated,
+                                lastMonth: state[action.groupID].categories[action.categoryID].allocated.thisMonth,
+                                thisMonth: 0,
+                            },
+                        },
+                    },
+                },
+            }
+
+        }
         default:
             return state;
 

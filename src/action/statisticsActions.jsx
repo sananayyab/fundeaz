@@ -68,3 +68,10 @@ export function updateGroupStatistics(data, groupID)
 
     };
 }
+
+export function startOfMonthAction(groupID, categoryID)
+{
+    return {type: 'START_OF_MONTH_ACTION',
+    groupID,
+    categoryID}
+}
