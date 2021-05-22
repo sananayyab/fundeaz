@@ -40,6 +40,7 @@ export function fundReducer(state = initialState, action)
                             [action.categoryID]: {
                                 available: 0,
                                 allocated: 0,
+                                lastTransaction: 0,
                             },
                         },
                     },
@@ -52,6 +53,7 @@ export function fundReducer(state = initialState, action)
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
+                        lastTransaction: 0,
                         available: 0,
                         allocated: 0,
                     },
@@ -209,6 +211,26 @@ export function fundReducer(state = initialState, action)
                     },
                 },
             };
+        case 'SET_TRANSACTION_TIME':
+            return {
+                ...state,
+                groups: {
+                    ...state.groups,
+                    [action.groupID]: {
+                        ...state.groups[action.groupID],
+                        lastTransaction: action.time,
+                        categories: {
+                            ...state.groups[action.groupID].categories,
+                            [action.categoryID]: {
+                                ...state.groups[action.groupID].categories[action.categoryID],
+                                lastTransaction: action.time
+                            }
+                        }
+                    }
+                }
+
+
+            }
         default:
             return state;
     }

@@ -3,7 +3,7 @@ import {KeyboardAvoidingView, StatusBar, StyleSheet, ToastAndroid, View} from 'r
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {connect} from 'react-redux';
 import {useHeaderHeight} from '@react-navigation/stack';
-import {addTotalAvailable, spendCategory} from '../action/fundActions.jsx';
+import {addTotalAvailable, spendCategory, addLastTransactionTime} from '../action/fundActions.jsx';
 import {addTransaction} from '../action/transactionActions.jsx';
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx';
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx';
@@ -12,6 +12,7 @@ import TransactionInputFieldCategory from '../components/transactionInputFieldCa
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {setCategorySpent} from '../action/statisticsActions';
 import {parse} from '@babel/core';
+import {Clock} from 'react-native-reanimated';
 
 function TransactionInput(props)
 {
@@ -58,7 +59,9 @@ function TransactionInput(props)
                 const updatedGroupSpent =  parseInt(props.statistics[data.groupID].spent.thisMonth) + parseInt(data.amount);
                 const updatedCategorySpent = parseInt(props.statistics[data.groupID].categories[data.categoryID].spent.thisMonth) + parseInt(data.amount);
 
+
                 props.addTransaction(data);
+                props.addLastTransactionTime(data.groupID, data.categoryID,parseInt(data.date))
                 props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
                 props.setCategorySpent({thisMonth: updatedGroupSpent}, {thisMonth: updatedCategorySpent}, data.groupID, data.categoryID);
                 navigation.goBack();
@@ -181,7 +184,7 @@ const mapDispatchToProps = (dispatch) =>
         updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount, groupID, categoryID)),
         addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount)),
         setCategorySpent: (group, category, groupID, categoryID) => dispatch(setCategorySpent(group,category,groupID, categoryID)),
-
+        addLastTransactionTime: (groupID, categoryID, time) => dispatch(addLastTransactionTime(groupID, categoryID, time))
 
     };
 };
