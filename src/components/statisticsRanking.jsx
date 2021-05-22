@@ -54,7 +54,7 @@ function StatisticsRanking(props)
             textAlignVertical: 'center',
             textAlign: 'left',
         }, rankingItemTextContainer: {
-            width: '80%',
+            width: '68%',
             left: '50%',
         }, containerTag: {
             marginTop: '5%',
@@ -84,14 +84,15 @@ function StatisticsRanking(props)
 
 
         rankingItems.push(<View key={item + index} style={styles.rankingItemContainer}>
-            <View style={styles.rankingItemNumberContainer}>
-                <Text style={styles.rankingItemNumberText}>
-                    {item.value}
-                </Text>
-            </View>
+
             <View style={styles.rankingItemTextContainer}>
                 <Text style={styles.rankingItemText}>
                     {item.name}
+                </Text>
+            </View>
+            <View style={styles.rankingItemNumberContainer}>
+                <Text style={styles.rankingItemNumberText}>
+                    {item.value}
                 </Text>
             </View>
         </View>);
