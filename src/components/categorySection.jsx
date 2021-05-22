@@ -25,17 +25,11 @@ function CategorySection(props)
         }
         if (props.section === 'category')
         {
-            /*var tags;
-            var list = props.groupList
-            for (var key in list)
-            {
-                tags.push( <CategoryItem key={key} name={item.name}/>)
-            }*/
+            let categoryArray = makeCategoryArray()
 
-            return (Object.entries(props.groupList[props.groupID].categories).map(([key, value]) => <CategoryItem
-                key={key} id={key} groupID={props.groupID} groupName={props.groupName} name={value.name}
-                item={'category'} amount={props.groupFunds[props.groupID].categories[key].available}/>));
-
+            return categoryArray.map((value, key) => <CategoryItem
+                key={key} id={value.categoryID} groupID={props.groupID} groupName={props.groupName} name={value.name}
+                item={'category'} amount={props.groupFunds[props.groupID].categories[value.categoryID].available}/>);
 
         }
     };
@@ -55,6 +49,25 @@ function CategorySection(props)
             tempItem = {
                 ...tempItem,
                 groupID: key,
+            }
+            temp.push(tempItem);
+
+        }
+        temp.sort((a, b) => parseInt(b.lastTransaction) - parseInt(a.lastTransaction));
+
+        return temp;
+    }
+
+    function makeCategoryArray()
+    {
+        let temp = [];
+        for (let key in props.groupList[props.groupID].categories)
+        {
+
+            let tempItem = props.groupList[props.groupID].categories[key]
+            tempItem = {
+                ...tempItem,
+                categoryID: key,
             }
             temp.push(tempItem);
 
