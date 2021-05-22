@@ -6,6 +6,7 @@ import BottomBar from '../components/bottomBar.jsx';
 import TransactionSection from '../components/transactionSection';
 import {setLastCheckedDate, setStartDate} from '../action/applicationDataAction';
 import {startOfMonthDataResetCategory, startOfMonthDataResetGroup} from '../action/fundActions';
+import {startOfMonthAction} from '../action/statisticsActions';
 import {connect} from 'react-redux';
 
 function HomePage(props)
@@ -24,6 +25,7 @@ function HomePage(props)
             for (const [catKey, catValue] of Object.entries(props.groups[groupKey].categories))
             {
                 props.startOfMonthDataResetCategory(groupKey, catKey);
+                props.startOfMonthAction(groupKey, catKey);
 
             }
 
@@ -124,7 +126,7 @@ const mapDispatchToProps = (dispatch, ownProps) =>
         setStartDate: (date) => dispatch(setStartDate(date)),
         startOfMonthDataResetGroup: (groupID) => dispatch(startOfMonthDataResetGroup(groupID)),
         startOfMonthDataResetCategory: (groupID, categoryID) => dispatch(startOfMonthDataResetCategory(groupID, categoryID)),
-
+        startOfMonthAction: (groupID, categoryID) => dispatch(startOfMonthAction(groupID, categoryID)),
     };
 };
 
