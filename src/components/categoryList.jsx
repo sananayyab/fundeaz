@@ -21,19 +21,61 @@ function CategoryList(props)
     {
         if (props.data.page === 'home')
         {
-            return (Object.entries(props.groupList).map(([key, value]) => <CategoryListItem key={key} id={key}
+            let groupArray = makeGroupArray()
+
+            return groupArray.map((value, key) => <CategoryListItem key={key} id={value.groupID}
                                                                                             name={value.name}
-                                                                                            amount={props.groupFunds[key].available}
+                                                                                            amount={props.groupFunds[value.groupID].available}
                                                                                             item={'group'}
-                                                                                            type={value.itemStatus}/>));
-        } else if (props.data.page === 'group')
+                                                                                            type={value.itemStatus}/>);
+        }
+        else if (props.data.page === 'group')
         {
 
-            return (Object.entries(props.groupList[props.data.groupID].categories).map(([key, value]) =>
-                <CategoryListItem key={key} id={key} type={value.itemStatus} groupID={props.data.groupID}
-                                  amount={props.groupFunds[props.data.groupID].categories[key].available}
-                                  name={value.name} item={'category'}/>));
+            let categoryArray = makeCategoryArray()
+            return categoryArray.map((value, key) =>
+                <CategoryListItem key={key} id={value.categoryID} type={value.itemStatus} groupID={props.data.groupID}
+                                  amount={props.groupFunds[props.data.groupID].categories[value.categoryID].available}
+                                  name={value.name} item={'category'}/>);
         }
+    }
+
+    function makeGroupArray()
+    {
+        let temp = [];
+        for (let key in props.groupList)
+        {
+
+            let tempItem = props.groupList[key];
+            tempItem = {
+                ...tempItem,
+                groupID: key,
+            };
+            temp.push(tempItem);
+
+        }
+        temp.sort((a, b) => parseInt(b.lastTransaction) - parseInt(a.lastTransaction));
+
+        return temp;
+    }
+
+    function makeCategoryArray()
+    {
+        let temp = [];
+        for (let key in props.groupList[props.data.groupID].categories)
+        {
+
+            let tempItem = props.groupList[props.data.groupID].categories[key];
+            tempItem = {
+                ...tempItem,
+                categoryID: key,
+            };
+            temp.push(tempItem);
+
+        }
+        temp.sort((a, b) => parseInt(b.lastTransaction) - parseInt(a.lastTransaction));
+
+        return temp;
     }
 
     const styles = StyleSheet.create({
