@@ -58,10 +58,10 @@ function TransactionInput(props)
 
                 const updatedGroupSpent =  parseInt(props.statistics[data.groupID].spent.thisMonth) + parseInt(data.amount);
                 const updatedCategorySpent = parseInt(props.statistics[data.groupID].categories[data.categoryID].spent.thisMonth) + parseInt(data.amount);
-
+                const clock = new Date();
 
                 props.addTransaction(data);
-                props.addLastTransactionTime(data.groupID, data.categoryID,parseInt(data.date))
+                props.addLastTransactionTime(data.groupID, data.categoryID, clock.getTime())
                 props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
                 props.setCategorySpent({thisMonth: updatedGroupSpent}, {thisMonth: updatedCategorySpent}, data.groupID, data.categoryID);
                 navigation.goBack();
