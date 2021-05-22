@@ -68,7 +68,7 @@ function TransactionInputFieldText(props)
                 <TextInput onChangeText={(text) =>
                 {
                     props.data({
-                        [props.fieldName]: text,
+                        [props.fieldName]: text.trim(),
                     });
                 }} style={styles.textInput}>
                     {props.value}
