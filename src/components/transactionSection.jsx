@@ -13,32 +13,34 @@ function TransactionSection(props)
     {
 
 
-        let tempTransactions = makeTransactionArray()
+        let tempTransactions = makeTransactionArray();
 
 
         if (props.page === 'home')
         {
 
 
-
             return tempTransactions.map((element, index) =>
             {
 
 
-
                 if (element.categoryName === 'Income')
                 {
-                    return (<TransactionItem key={index} id={element.transactionID} payee={element.payee} amount={element.amount}
+                    return (<TransactionItem key={index} id={element.transactionID} payee={element.payee}
+                                             amount={element.amount}
                                              category={element.categoryName}/>);
-                } else
+                }
+                else
                 {
-                    return (<TransactionItem key={index} id={element.transactionID} payee={element.payee} amount={element.amount}
+                    return (<TransactionItem key={index} id={element.transactionID} payee={element.payee}
+                                             amount={element.amount}
                                              category={props.groupList[element.groupID].categories[element.categoryID].name}/>);
                 }
             });
 
 
-        } else if (props.page === 'group')
+        }
+        else if (props.page === 'group')
         {
 
 
@@ -47,11 +49,11 @@ function TransactionSection(props)
                                  category={props.groupList[element.groupID].categories[element.categoryID].name}/>);
 
 
-        } else if (props.page === 'category')
+        }
+        else if (props.page === 'category')
         {
-           
 
-            return   tempTransactions.map((value, index) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) &&
+            return tempTransactions.map((value, index) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) &&
                 <TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
                                  category={props.groupList[value.groupID].categories[value.categoryID].name}/>));
 
@@ -81,7 +83,8 @@ function TransactionSection(props)
                     type: 'landing',
                 },
             });
-        } else if (props.page === 'home')
+        }
+        else if (props.page === 'home')
         {
             navigation.navigate('TransactionList', {
                 data: {
@@ -91,7 +94,8 @@ function TransactionSection(props)
                     type: 'landing',
                 },
             });
-        } else if (props.page === 'category')
+        }
+        else if (props.page === 'category')
         {
             navigation.navigate('TransactionList', {
                 data: {
@@ -112,11 +116,11 @@ function TransactionSection(props)
         for (let key in props.transactions)
         {
 
-            let tempItem = props.transactions[key]
+            let tempItem = props.transactions[key];
             tempItem = {
                 ...tempItem,
                 transactionID: key,
-            }
+            };
             temp.push(tempItem);
 
         }
@@ -124,6 +128,7 @@ function TransactionSection(props)
 
         return temp;
     }
+
     const styles = StyleSheet.create({
         container: {
             flex: 1,
