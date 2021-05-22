@@ -127,6 +127,7 @@ function CategoryListItem(props)
                 if (name !== null)
                 {
                     nameToUse = event.nativeEvent.text;
+                    nameToUse.trim()
                 }
                 if (props.item === 'group')
                 {
@@ -185,17 +186,17 @@ function CategoryListItem(props)
                         if (props.item === 'group')
                         {
                             dispatch(updateGroup({
-                                name: event.nativeEvent.text,
+                                name: event.nativeEvent.text.trim(),
                                 itemStatus: 'created',
                             }, props.id));
                         } else if (props.item === 'category')
                         {
                             dispatch(updateCategory({
-                                name: event.nativeEvent.text,
+                                name: event.nativeEvent.text.trim(),
                                 itemStatus: 'created',
                             }, props.id, props.groupID));
                         }
-                        setCreatedType(event.nativeEvent.text, 0);
+                        setCreatedType(event.nativeEvent.text.trim(), 0);
                     }}
                                style={styles.textInputText}> </TextInput>
                 </View>

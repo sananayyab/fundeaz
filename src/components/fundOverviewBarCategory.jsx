@@ -116,11 +116,11 @@ function FundOverviewBarCategory(props)
 
 
                         dispatch(updateCategory({
-                            name: event.nativeEvent.text,
+                            name: event.nativeEvent.text.trim(),
                             itemStatus: 'created',
                         }, props.id, props.groupID));
 
-                        setCreatedType(event.nativeEvent.text, 0);
+                        setCreatedType(event.nativeEvent.text.trim(), 0);
                     }}
                                style={styles.textInputText}> </TextInput>
                 </View>
@@ -162,7 +162,7 @@ function FundOverviewBarCategory(props)
 
 
                 dispatch(updateCategory({
-                    name: nameToUse,
+                    name: nameToUse.trim(),
                     itemStatus: 'created',
                 }, props.id, props.groupID));
 
