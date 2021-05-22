@@ -13,6 +13,9 @@ function TransactionSection(props)
     {
 
 
+        let tempTransactions = makeTransactionArray()
+
+
         if (props.page === 'home')
         {
             /*var tags;
@@ -22,18 +25,22 @@ function TransactionSection(props)
                 tags.push( <CategoryItem key={key} name={item.name} />)
             }*/
 
-            return (Object.entries(props.transactionList).map(([key, value]) =>
+
+            return tempTransactions.map((element, index) =>
             {
-                if (value.categoryName === 'Income')
+
+
+
+                if (element.categoryName === 'Income')
                 {
-                    return (<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount}
-                                             category={value.categoryName}/>);
+                    return (<TransactionItem key={index} id={element.transactionID} payee={element.payee} amount={element.amount}
+                                             category={element.categoryName}/>);
                 } else
                 {
-                    return (<TransactionItem key={key} id={key} payee={value.payee} amount={value.amount}
-                                             category={props.groupList[value.groupID].categories[value.categoryID].name}/>);
+                    return (<TransactionItem key={index} id={element.transactionID} payee={element.payee} amount={element.amount}
+                                             category={props.groupList[element.groupID].categories[element.categoryID].name}/>);
                 }
-            }));
+            });
 
 
         } else if (props.page === 'group')
@@ -45,9 +52,9 @@ function TransactionSection(props)
                 tags.push( <CategoryItem key={key} name={item.name} />)
             }*/
 
-            return (Object.entries(props.transactionList).map(([key, value]) => (parseInt(value.groupID) === parseInt(props.groupID)) &&
-                <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount}
-                                 category={props.groupList[value.groupID].categories[value.categoryID].name}/>));
+            return tempTransactions.map((element, index) => (parseInt(element.groupID) === parseInt(props.groupID)) &&
+                <TransactionItem key={index} id={element.transactionID} payee={element.payee} amount={element.amount}
+                                 category={props.groupList[element.groupID].categories[element.categoryID].name}/>);
 
 
         } else if (props.page === 'category')
@@ -59,12 +66,13 @@ function TransactionSection(props)
                 tags.push( <CategoryItem key={key} name={item.name}>)
             }*/
 
-            return (Object.entries(props.transactionList).map(([key, value]) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) &&
-                <TransactionItem key={key} id={key} payee={value.payee} amount={value.amount}
-                                 category={props.groupList[value.groupID].categories[value.categoryID].name}/>)));
+            return   tempTransactions.map((value, index) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) &&
+                <TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
+                                 category={props.groupList[value.groupID].categories[value.categoryID].name}/>));
 
 
         }
+
 
     }
 
@@ -73,7 +81,7 @@ function TransactionSection(props)
     useEffect(() =>
     {
         setData(getData());
-    }, [props.transactionList]);
+    }, [props.transactions]);
 
     function loadTransactionList()
     {
@@ -113,7 +121,24 @@ function TransactionSection(props)
 
     }
 
+    function makeTransactionArray()
+    {
+        let temp = [];
+        for (let key in props.transactions)
+        {
 
+            let tempItem = props.transactions[key]
+            tempItem = {
+                ...tempItem,
+                transactionID: key,
+            }
+            temp.push(tempItem);
+
+        }
+        temp.sort((a, b) => parseInt(b.date) - parseInt(a.date));
+
+        return temp;
+    }
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -146,6 +171,7 @@ function TransactionSection(props)
             width: '30%',
         },
     });
+
     return (
         <View style={styles.container}>
             <TouchableOpacity activeOpacity={1} style={styles.TransactionButton}
@@ -168,7 +194,7 @@ const mapStateToProps = (state) =>
 {
     const {transactions, groupData} = state;
     return {
-        transactionList: transactions.transactions,
+        transactions: transactions.transactions,
         groupList: groupData.groups,
     };
 };
