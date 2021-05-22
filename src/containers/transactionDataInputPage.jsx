@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {connect} from 'react-redux';
 import {useHeaderHeight} from '@react-navigation/stack';
 import {addTotalAvailable, spendCategory, addLastTransactionTime} from '../action/fundActions.jsx';
+import {addLastTransactionTimeInGroup} from '../action/groupActions';
 import {addTransaction} from '../action/transactionActions.jsx';
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx';
 import TransactionInputFieldNumber from '../components/transactionInputFieldNumber.jsx';
@@ -62,6 +63,7 @@ function TransactionInput(props)
 
                 props.addTransaction(data);
                 props.addLastTransactionTime(data.groupID, data.categoryID, clock.getTime())
+                props.addLastTransactionTimeInGroup(data.groupID, data.categoryID, clock.getTime())
                 props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
                 props.setCategorySpent({thisMonth: updatedGroupSpent}, {thisMonth: updatedCategorySpent}, data.groupID, data.categoryID);
                 navigation.goBack();
@@ -184,8 +186,8 @@ const mapDispatchToProps = (dispatch) =>
         updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount, groupID, categoryID)),
         addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount)),
         setCategorySpent: (group, category, groupID, categoryID) => dispatch(setCategorySpent(group,category,groupID, categoryID)),
-        addLastTransactionTime: (groupID, categoryID, time) => dispatch(addLastTransactionTime(groupID, categoryID, time))
-
+        addLastTransactionTime: (groupID, categoryID, time) => dispatch(addLastTransactionTime(groupID, categoryID, time)),
+        addLastTransactionTimeInGroup:  (groupID, categoryID, time) => dispatch(addLastTransactionTimeInGroup(groupID, categoryID, time))
     };
 };
 

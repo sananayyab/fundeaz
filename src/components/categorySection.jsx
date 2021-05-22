@@ -15,16 +15,11 @@ function CategorySection(props)
     {
         if (props.section === 'group')
         {
-            /*var tags;
-            var list = props.groupList
-            for (var key in list)
-            {
-                tags.push( <CategoryItem key={key} name={item.name} />)
-            }*/
+            let groupArray = makeGroupArray();
 
-            return (Object.entries(props.groupList).map(([key, value]) => <CategoryItem key={key} id={key}
+            return groupArray.map((value,key) => <CategoryItem key={key} id={value.groupID}
                                                                                         name={value.name} item={'group'}
-                                                                                        amount={props.groupFunds[key].available}/>));
+                                                                                        amount={props.groupFunds[value.groupID].available}/>);
 
 
         }
@@ -49,6 +44,25 @@ function CategorySection(props)
     {
         setItems(getData());
     }, [props.groupList, props.groupList.categories, props.groupFunds]);
+
+    function makeGroupArray()
+    {
+        let temp = [];
+        for (let key in props.groupList)
+        {
+
+            let tempItem = props.groupList[key]
+            tempItem = {
+                ...tempItem,
+                groupID: key,
+            }
+            temp.push(tempItem);
+
+        }
+        temp.sort((a, b) => parseInt(b.lastTransaction) - parseInt(a.lastTransaction));
+
+        return temp;
+    }
     const items = ({item, index}) =>
     {
         return (
