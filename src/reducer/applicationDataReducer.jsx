@@ -1,5 +1,5 @@
 const initialState = {
-    monthStart: 14,
+    monthStart: 25,
     lastDateChecked: 1,
 };
 
