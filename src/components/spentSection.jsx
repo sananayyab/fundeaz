@@ -1,25 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
-import SpentItem from './spentItem';
+
 import Carousel from 'react-native-snap-carousel';
-
-
+import CategoryGoalBar from './categoryGoalBar';
+import StatItemGroup from './statItemGroup';
 function SpentSection(props)
 {
     const sliderWidth = Dimensions.get('window').width - 20;
 
 
-    const getData = () =>
-    {
+    let itemList = [<StatItemGroup groupID={props.groupID} categoryID={props.categoryID}/> , <CategoryGoalBar/> ];
 
-        var items = [
-            <SpentItem key ={'spentLast'} type={'spentLast'} groupID={props.groupID} categoryID={props.categoryID}/>,
-            <SpentItem key={'allocLast'} type={'allocLast'} groupID={props.groupID} categoryID={props.categoryID}/>];
-        return (items);
-
-
-    };
-    const [itemList, setItems] = useState(getData());
 
     const items = ({item, index}) =>
     {
@@ -41,7 +32,8 @@ function SpentSection(props)
             props.navigation.navigate('GroupList', {
                 page: 'home',
             });
-        } else if (props.page === 'group')
+        }
+        else if (props.page === 'group')
         {
             props.navigation.navigate('CategoryList', {
                 page: 'group',
@@ -117,7 +109,16 @@ function SpentSection(props)
 
             </View>
             <View style={styles.caresoul}>
-                {itemList}
+                <Carousel
+                    enableSnap={true}
+                    inactiveSlideOpacity={1}
+                    inactiveSlideScale={1}
+                    activeSlideAlignment={'start'}
+                    data={itemList}
+                    renderItem={items}
+                    sliderWidth={sliderWidth}
+                    itemWidth={sliderWidth}
+                />
             </View>
         </View>
     );

@@ -5,6 +5,7 @@ import SpentSection from '../components/spentSection';
 import BottomBar from '../components/bottomBar.jsx';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import TransactionSection from '../components/transactionSection';
+import CategoryGoalBar from '../components/categoryGoalBar';
 
 
 function CategoryPage(props)
