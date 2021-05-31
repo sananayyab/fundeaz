@@ -9,7 +9,7 @@ function SpentSection(props)
     const sliderWidth = Dimensions.get('window').width - 20;
 
 
-    let itemList = [<StatItemGroup groupID={props.groupID} categoryID={props.categoryID}/> , <CategoryGoalBar/> ];
+    let itemList = [<StatItemGroup groupID={props.groupID} categoryID={props.categoryID}/> , <CategoryGoalBar groupID={props.groupID} categoryID={props.categoryID}/> ];
 
 
     const items = ({item, index}) =>

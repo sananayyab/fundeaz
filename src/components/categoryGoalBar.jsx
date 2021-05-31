@@ -1,9 +1,30 @@
-import React from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Animated, StyleSheet, TextInput, View} from 'react-native';
+import {setGoalAmount} from '../action/fundActions';
+import {connect} from 'react-redux';
 
 
 function CategoryGoalBar(props)
 {
+
+
+
+
+
+    let initialPercent = 0;
+    let border  = 0;
+    if(props.available > props.goalAmount)
+    {
+        initialPercent = 100
+        border = 20
+    }
+    else {
+        initialPercent = (props.available/props.goalAmount) * 100
+    }
+
+    const percentage = useRef(new Animated.Value(initialPercent)).current;
+
+    const borderRadius = useRef(new Animated.Value(border)).current;
 
     const styles = StyleSheet.create({
         container: {
@@ -22,10 +43,10 @@ function CategoryGoalBar(props)
             backgroundColor: '#98B0D3',
 
         }, goalNumberContainer: {
-            height: '50%',
-            width: '40%',
+            height: 50,
+            width: 150,
 
-            marginTop: '5%',
+            marginTop: 20,
             marginLeft: '5%',
             alignSelf: 'flex-start',
             borderRadius: 15,
@@ -42,12 +63,14 @@ function CategoryGoalBar(props)
             height: '70%',
             width: '100%',
         }, progressBar: {
-            borderRadius: 20,
+            borderBottomLeftRadius: 20,
+            borderTopLeftRadius: 20,
 
+            left: 0,
             height: '70%',
             position: 'absolute',
-            width: '50%',
-            backgroundColor: 'black',
+
+            backgroundColor: '#98D4B0',
             alignSelf: 'flex-start',
         },
         innerContainer: {
@@ -60,32 +83,76 @@ function CategoryGoalBar(props)
         goalNumberText: {
             fontSize: 20,
             textAlign: 'center',
-        }
+        },
 
     });
 
 
     return (
 
-            <View style={styles.innerContainer}>
-                <View style={styles.goalNumberContainer}>
-                    <TextInput style={styles.goalNumberText}>
-                        0
-                    </TextInput>
-                </View>
-                <View style={styles.progressBarContainer}>
-                    <View style={styles.backgroundProgressBar}>
+        <View style={styles.innerContainer}>
+            <View style={styles.goalNumberContainer}>
+                <TextInput style={styles.goalNumberText}
+                           selectTextOnFocus={true}
+                           keyboardType={'numeric'}
+                           onChangeText={(text) =>
+                           {
+                               props.setGoalAmount(text.trim())
 
-                    </View>
-                    <View style={styles.progressBar}>
 
-                    </View>
-
-                </View>
+                           }}
+                            onEndEditing={(event)  => {
+                              Animated.parallel( [ Animated.timing(percentage, {
+                                    toValue:   ((props.available/parseInt(event.nativeEvent.text.trim())) * 100 > 100 ? 100: (props.available/parseInt(event.nativeEvent.text.trim())) * 100),
+                                    duration: 150,
+                                    useNativeDriver: false,
+                                }), Animated.timing(borderRadius, {
+                                  toValue:   ((props.available/parseInt(event.nativeEvent.text.trim())) * 100 >= 100 ?  20 : 0),
+                                  duration: 150,
+                                  useNativeDriver: false})]).start();
+                            }}>
+                    {props.goalAmount}
+                </TextInput>
             </View>
+            <View style={styles.progressBarContainer}>
+                <View style={styles.backgroundProgressBar}>
+
+                </View>
+                <Animated.View style={[styles.progressBar, {
+                    width: percentage.interpolate({
+                        inputRange: [0, 100],
+                        outputRange: ['0%', '100%'],
+                    }),
+                    borderBottomRightRadius: borderRadius,
+                    borderTopRightRadius: borderRadius
+
+                }]}/>
+
+
+
+            </View>
+        </View>
+
 
     );
 
 }
 
-export default CategoryGoalBar;
+const mapStateToProps = (state, ownProps) =>
+{
+    const {fund} = state;
+    const {groupID, categoryID} = ownProps;
+    return {
+        goalAmount: fund.groups[groupID].categories[categoryID].goal,
+        available: fund.groups[groupID].categories[categoryID].available,
+    };
+};
+const mapDispatchToProps = (dispatch, ownProps) =>
+{
+    const {groupID, categoryID} = ownProps;
+    return {
+        setGoalAmount: (amount) => dispatch(setGoalAmount(groupID, categoryID, amount)),
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryGoalBar);
+
