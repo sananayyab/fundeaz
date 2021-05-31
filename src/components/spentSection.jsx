@@ -110,7 +110,7 @@ function SpentSection(props)
             </View>
             <View style={styles.caresoul}>
                 <Carousel
-                    enableSnap={true}
+                    enableSnap={false}
                     inactiveSlideOpacity={1}
                     inactiveSlideScale={1}
                     activeSlideAlignment={'start'}
