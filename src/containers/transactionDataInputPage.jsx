@@ -30,7 +30,6 @@ function TransactionInput(props)
     const route = useRoute();
 
     const [dropDownActive, setDropDown] = useState(false);
-    const [categoryFunctionCalledParent, setParent] = useState(false);
     const [categoryFunctionCalledChild, setChild] = useState(false);
     let data = {
         amount: '',
