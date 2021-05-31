@@ -84,7 +84,10 @@ function TransactionInputFieldDate(props)
 
     const onChange = (event, selectedDate) =>
     {
+        console.log(event)
+        if(event.type === 'set'){
         const currentDate = selectedDate
+
 
         setDate(currentDate);
         setShowDatePicker(Platform.OS === 'ios');
@@ -92,6 +95,10 @@ function TransactionInputFieldDate(props)
 
             date: currentDate.getTime(),
         });
+        }
+        else {
+            setShowDatePicker(false);
+        }
     };
 
 
@@ -105,6 +112,7 @@ function TransactionInputFieldDate(props)
             <TouchableOpacity activeOpacity={1} style={styles.textFieldContainer} onPress={() =>
             {
                 setShowDatePicker(true);
+                props.dismissDropDown();
             }}>
 
                 <Text style={styles.textInput}>
@@ -118,9 +126,11 @@ function TransactionInputFieldDate(props)
                     style={{flex: 1, backgroundColor: 'white'}}
                     value={date}
                     mode={'date'}
+
                     is24Hour={true}
                     display="default"
                     onChange={onChange}
+
                 />
             )}
 
