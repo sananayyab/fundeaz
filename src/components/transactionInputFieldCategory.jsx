@@ -8,7 +8,7 @@ function TransactionInputFieldCategory(props)
 {
     const dropDownHeight = useRef(new Animated.Value(0)).current;
     const dropDownBorder = useRef(new Animated.Value(0)).current;
-    const [dropDownActive, setDropDown] = useState(false);
+
     const styles = StyleSheet.create({
         container: {
             marginBottom: '5%',
@@ -105,7 +105,7 @@ function TransactionInputFieldCategory(props)
     });
     useEffect(() =>
     {
-        if (dropDownActive)
+        if (props.dropDown)
         {
 
             Animated.parallel([Animated.timing(dropDownHeight, {
@@ -121,7 +121,7 @@ function TransactionInputFieldCategory(props)
                 useNativeDriver: false,
             }), Animated.timing(dropDownBorder, {toValue: 0, duration: 150, useNativeDriver: false})]).start();
         }
-    }, [dropDownActive]);
+    }, [props.dropDown]);
     const [data, setData] = useState(() =>
     {
         var categoryAvailable;
@@ -177,7 +177,7 @@ function TransactionInputFieldCategory(props)
             type: 'Income',
             categoryName: 'Income',
         });
-        setDropDown(false);
+        props.setDropDown();
     }
 
     function Categoryselected(categoryName,groupName, amount, group, category)
@@ -200,7 +200,7 @@ function TransactionInputFieldCategory(props)
             categoryName: categoryName,
             groupName: groupName,
         });
-        setDropDown(false);
+       props.setDropDown();
     }
 
     function getInfo()
@@ -239,19 +239,9 @@ function TransactionInputFieldCategory(props)
         return categoryLists;
     }
 
-    const handleDropDown = () =>
-    {
-        if (props.page.pageName !== 'category')
-        {
-            if (!dropDownActive)
-            {
-                setDropDown(true);
-            } else
-            {
-                setDropDown(false);
-            }
-        }
-    };
+
+
+
     const listOfCategories = getInfo();
     return (<View style={styles.container}>
             <View style={styles.fieldNameContainer}>
@@ -259,7 +249,7 @@ function TransactionInputFieldCategory(props)
                     {'Category'}
                 </Text>
             </View>
-            <TouchableOpacity activeOpacity={1} style={styles.textFieldContainerCategory} onPress={handleDropDown}>
+            <TouchableOpacity activeOpacity={1} style={styles.textFieldContainerCategory} onPress={props.handlDropDown}>
                 <Text style={styles.textInput}>
                     {data.chosen.name}
                 </Text>

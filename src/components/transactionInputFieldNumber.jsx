@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 
 function TransactionInputFieldNumber(props)
@@ -61,6 +61,7 @@ function TransactionInputFieldNumber(props)
 
     });
     return (
+
         <View style={styles.container}>
             <View style={styles.fieldNameContainer}>
                 <Text style={styles.fieldNameText}>
@@ -68,18 +69,23 @@ function TransactionInputFieldNumber(props)
                 </Text>
             </View>
             <View style={styles.textFieldContainer}>
+
                 <TextInput
 
+                    onPressIn={props.dismissDropDown}
                     onChangeText={(text) =>
                     {
                         props.data({amount: text});
                     }}
+
                     keyboardType={'numeric'}
                     style={styles.textInput}>
                     {props.value}
                 </TextInput>
+
             </View>
         </View>
+
     );
 }
 

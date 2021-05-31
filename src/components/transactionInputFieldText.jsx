@@ -40,7 +40,6 @@ function TransactionInputFieldText(props)
         fieldNameText: {
 
 
-
             alignSelf: 'center',
             bottom: '5%',
             fontSize: 19,
@@ -65,7 +64,8 @@ function TransactionInputFieldText(props)
                 </Text>
             </View>
             <View style={styles.textFieldContainer}>
-                <TextInput onChangeText={(text) =>
+                <TextInput
+                    onPressIn={props.dismissDropDown} onChangeText={(text) =>
                 {
                     props.data({
                         [props.fieldName]: text.trim(),

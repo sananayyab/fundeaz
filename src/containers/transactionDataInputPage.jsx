@@ -1,9 +1,18 @@
-import React from 'react';
-import {KeyboardAvoidingView, StatusBar, StyleSheet, ToastAndroid, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform,
+    StatusBar,
+    StyleSheet,
+    ToastAndroid,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {connect} from 'react-redux';
 import {useHeaderHeight} from '@react-navigation/stack';
-import {addTotalAvailable, spendCategory, addLastTransactionTime} from '../action/fundActions.jsx';
+import {addLastTransactionTime, addTotalAvailable, spendCategory} from '../action/fundActions.jsx';
 import {addLastTransactionTimeInGroup} from '../action/groupActions';
 import {addTransaction} from '../action/transactionActions.jsx';
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx';
@@ -12,14 +21,17 @@ import TransactionInputFieldDate from '../components/transactionInputFieldDate.j
 import TransactionInputFieldCategory from '../components/transactionInputFieldCategory.jsx';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {setCategorySpent} from '../action/statisticsActions';
-import {parse} from '@babel/core';
-import {Clock} from 'react-native-reanimated';
 
 function TransactionInput(props)
 {
+
+
     const navigation = useNavigation();
     const route = useRoute();
 
+    const [dropDownActive, setDropDown] = useState(false);
+    const [categoryFunctionCalledParent, setParent] = useState(false);
+    const [categoryFunctionCalledChild, setChild] = useState(false);
     let data = {
         amount: '',
         payee: '',
@@ -38,6 +50,43 @@ function TransactionInput(props)
 
 
     };
+    const handleDropDown = () =>
+    {
+        setChild(true);
+        if (pageDetails.pageName !== 'category')
+        {
+            if (!dropDownActive)
+            {
+                setDropDown(true);
+            }
+            else
+            {
+                setDropDown(false);
+            }
+        }
+
+
+    };
+
+
+    function setDropDownFalse()
+    {
+        setChild(true);
+        setDropDown(false);
+
+    }
+
+    function dropDownKeyboardDismiss()
+    {
+        if (!categoryFunctionCalledChild)
+        {
+            setDropDown(false);
+        }
+        else
+        {
+            setChild(false);
+        }
+    }
 
 
     function getData(value)
@@ -57,31 +106,35 @@ function TransactionInput(props)
             if (data.type === 'category')
             {
 
-                const updatedGroupSpent =  parseInt(props.statistics[data.groupID].spent.thisMonth) + parseInt(data.amount);
+                const updatedGroupSpent = parseInt(props.statistics[data.groupID].spent.thisMonth) + parseInt(data.amount);
                 const updatedCategorySpent = parseInt(props.statistics[data.groupID].categories[data.categoryID].spent.thisMonth) + parseInt(data.amount);
                 const clock = new Date();
 
                 props.addTransaction(data);
-                props.addLastTransactionTime(data.groupID, data.categoryID, clock.getTime())
-                props.addLastTransactionTimeInGroup(data.groupID, data.categoryID, clock.getTime())
+                props.addLastTransactionTime(data.groupID, data.categoryID, clock.getTime());
+                props.addLastTransactionTimeInGroup(data.groupID, data.categoryID, clock.getTime());
                 props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
                 props.setCategorySpent({thisMonth: updatedGroupSpent}, {thisMonth: updatedCategorySpent}, data.groupID, data.categoryID);
                 navigation.goBack();
 
 
-            } else if (data.type === 'Income')
+            }
+            else if (data.type === 'Income')
             {
                 props.addTransaction(data);
                 props.addTotalAvailable(parseInt(data.amount));
                 navigation.goBack();
             }
-        } else if (data.amount.trim() === '')
+        }
+        else if (data.amount.trim() === '')
         {
             ToastAndroid.show('please enter an amount', ToastAndroid.SHORT);
-        } else if (data.categoryName.trim() !== '')
+        }
+        else if (data.categoryName.trim() !== '')
         {
             ToastAndroid.show('please select a category', ToastAndroid.SHORT);
-        } else
+        }
+        else
         {
             ToastAndroid.show('please fill all fields', ToastAndroid.SHORT);
         }
@@ -129,50 +182,59 @@ function TransactionInput(props)
 
     return (
 
+
         <KeyboardAvoidingView
             style={{flex: 1}}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             keyboardVerticalOffset={useHeaderHeight() + 27}>
+            <TouchableOpacity style={{flex: 1}} onPress={() =>
+            {
+                Keyboard.dismiss();
+                dropDownKeyboardDismiss()
+            }
+            } activeOpacity={1}>
+                <View style={styles.container}>
 
-            <View style={styles.container}>
+                    <StatusBar style="default"/>
+                    <View style={styles.inputFields}>
 
-                <StatusBar style="default"/>
-                <View style={styles.inputFields}>
-
-                    <TransactionInputFieldNumber data={getData} fieldName={'amount'} value={''}/>
-                    <TransactionInputFieldText data={getData} value={''} fieldName={'payee'}/>
-                    <TransactionInputFieldDate data={getData} value={''} fieldName={'date'}/>
-                    <TransactionInputFieldText data={getData} value={''} fieldName={'note'}/>
-                    <TransactionInputFieldCategory data={getData} categoryID={pageDetails.categoryID}
-                                                   groupID={pageDetails.groupID} page={pageDetails}
-                                                   fieldName={'category'}/>
-
-                </View>
-                <View style={styles.buttonField}>
-
-
-                    <View styles={styles.buttonStyle}>
-
-                        <Icon.Button
-                            backgroundColor="#98B0D3"
-                            color="black"
-                            name="check"
-                            size={40}
-                            onPress={addTransaction}
-                            iconStyle={{
-
-                                marginRight: 0,
-                                paddingRight: '10%',
-                                paddingLeft: '10%',
-
-                            }}
-                        />
+                        <TransactionInputFieldNumber dismissDropDown={() => {setDropDown(false)}} data={getData} fieldName={'amount'} value={''}/>
+                        <TransactionInputFieldText   dismissDropDown={() => {setDropDown(false)}} data={getData} value={''} fieldName={'payee'}/>
+                        <TransactionInputFieldDate dismissDropDown={() => {setDropDown(false)}}  data={getData} value={''} fieldName={'date'}/>
+                        <TransactionInputFieldText dismissDropDown={() => {setDropDown(false)}}  data={getData} value={''} fieldName={'note'}/>
+                        <TransactionInputFieldCategory data={getData} categoryID={pageDetails.categoryID}
+                                                       groupID={pageDetails.groupID} page={pageDetails}
+                                                       dropDown={dropDownActive}
+                                                       handlDropDown={handleDropDown}
+                                                       setDropDown={setDropDownFalse}
+                                                       fieldName={'category'}/>
 
                     </View>
+                    <View style={styles.buttonField}>
+
+
+                        <View styles={styles.buttonStyle}>
+
+                            <Icon.Button
+                                backgroundColor="#98B0D3"
+                                color="black"
+                                name="check"
+                                size={40}
+                                onPress={addTransaction}
+                                iconStyle={{
+
+                                    marginRight: 0,
+                                    paddingRight: '10%',
+                                    paddingLeft: '10%',
+
+                                }}
+                            />
+
+                        </View>
+                    </View>
+
                 </View>
-
-            </View>
-
+            </TouchableOpacity>
         </KeyboardAvoidingView>
 
     );
@@ -185,9 +247,9 @@ const mapDispatchToProps = (dispatch) =>
         addTransaction: (data) => dispatch(addTransaction(data)),
         updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount, groupID, categoryID)),
         addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount)),
-        setCategorySpent: (group, category, groupID, categoryID) => dispatch(setCategorySpent(group,category,groupID, categoryID)),
+        setCategorySpent: (group, category, groupID, categoryID) => dispatch(setCategorySpent(group, category, groupID, categoryID)),
         addLastTransactionTime: (groupID, categoryID, time) => dispatch(addLastTransactionTime(groupID, categoryID, time)),
-        addLastTransactionTimeInGroup:  (groupID, categoryID, time) => dispatch(addLastTransactionTimeInGroup(groupID, categoryID, time))
+        addLastTransactionTimeInGroup: (groupID, categoryID, time) => dispatch(addLastTransactionTimeInGroup(groupID, categoryID, time)),
     };
 };
 
