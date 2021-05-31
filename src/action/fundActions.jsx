@@ -115,12 +115,12 @@ export function initializeGroup(groupID)
 
 export function addLastTransactionTime(groupID, categoryID, time)
 {
-    return{
+    return {
         type: 'SET_TRANSACTION_TIME',
         groupID,
         categoryID,
-        time
-    }
+        time,
+    };
 }
 
 export function startOfMonthDataResetGroup(groupID)
@@ -141,6 +141,17 @@ export function startOfMonthDataResetCategory(groupID, categoryID)
 
     };
 }
+
+export function setGoalAmount(groupID, categoryID, amount)
+{
+    return{
+        type: 'SET_CATEGORY_GOAL',
+        groupID,
+        categoryID,
+        amount,
+    }
+}
+
 
 
 

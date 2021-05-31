@@ -40,6 +40,7 @@ export function fundReducer(state = initialState, action)
                             [action.categoryID]: {
                                 available: 0,
                                 allocated: 0,
+                                goal: 0,
                                 lastTransaction: 0,
                             },
                         },
@@ -224,6 +225,25 @@ export function fundReducer(state = initialState, action)
                             [action.categoryID]: {
                                 ...state.groups[action.groupID].categories[action.categoryID],
                                 lastTransaction: action.time
+                            }
+                        }
+                    }
+                }
+
+
+            };
+        case 'SET_CATEGORY_GOAL':
+            return {
+                ...state,
+                groups: {
+                    ...state.groups,
+                    [action.groupID]: {
+                        ...state.groups[action.groupID],
+                        categories: {
+                            ...state.groups[action.groupID].categories,
+                            [action.categoryID]: {
+                                ...state.groups[action.groupID].categories[action.categoryID],
+                                goal: action.amount
                             }
                         }
                     }
