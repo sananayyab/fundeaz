@@ -55,7 +55,7 @@ function SpentItem(props)
 
 
             justifyContent: 'center',
-            backgroundColor: '#C1D0E4',
+            backgroundColor: '#98D4B0',
         },
         textView: {
             color: 'black',
