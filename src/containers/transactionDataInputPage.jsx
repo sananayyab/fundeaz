@@ -29,9 +29,17 @@ function TransactionInput(props)
     const navigation = useNavigation();
     const route = useRoute();
 
+    let tempData = { amount: '',
+        payee: '',
+        date: '',
+        note: '',
+        groupID: '',
+        groupName: '',
+        categoryID: '',
+        categoryName: '',}
     const [dropDownActive, setDropDown] = useState(false);
     const [categoryFunctionCalledChild, setChild] = useState(false);
-    let data = {
+    const [ data, setData] = useState( {
         amount: '',
         payee: '',
         date: '',
@@ -41,7 +49,7 @@ function TransactionInput(props)
         categoryID: '',
         categoryName: '',
 
-    };
+    });
     const pageDetails = {
         pageName: route.params.page,
         groupID: route.params.groupID,
@@ -51,6 +59,8 @@ function TransactionInput(props)
     };
     const handleDropDown = () =>
     {
+
+
         setChild(true);
         if (pageDetails.pageName !== 'category')
         {
@@ -70,13 +80,16 @@ function TransactionInput(props)
 
     function setDropDownFalse()
     {
-        setChild(true);
+
+
         setDropDown(false);
+        setChild(true);
 
     }
 
     function dropDownKeyboardDismiss()
     {
+
         if (!categoryFunctionCalledChild)
         {
             setDropDown(false);
@@ -90,15 +103,20 @@ function TransactionInput(props)
 
     function getData(value)
     {
-        data = {
+
+
+
+        setData({
             ...data,
             ...value,
-        };
+        })
+
     }
 
 
     function addTransaction()
     {
+
 
         if (data.amount.trim() !== '' && data.categoryName.trim() !== '')
         {
@@ -127,6 +145,7 @@ function TransactionInput(props)
         }
         else if (data.amount.trim() === '')
         {
+
             ToastAndroid.show('please enter an amount', ToastAndroid.SHORT);
         }
         else if (data.categoryName.trim() !== '')

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -72,15 +72,17 @@ function TransactionInputFieldDate(props)
         {
             initialDate = new Date().getTime();
         }
-        props.data({
 
-            date: initialDate,
-        });
 
         return initialDate;
 
     });
 
+
+    useEffect(() => {   props.data({
+
+        date: date,
+    });}, [])
 
     const onChange = (event, selectedDate) =>
     {

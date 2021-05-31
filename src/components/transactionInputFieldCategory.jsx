@@ -124,9 +124,9 @@ function TransactionInputFieldCategory(props)
     }, [props.dropDown]);
     const [data, setData] = useState(() =>
     {
-        var categoryAvailable;
-        var categoryName;
-        var normalCategory = true;
+        let categoryAvailable;
+        let categoryName;
+        let normalCategory = true;
         if (props.categoryID !== '' && props.fieldName !== 'income')
         {
 
@@ -144,7 +144,7 @@ function TransactionInputFieldCategory(props)
             categoryName = '';
             categoryAvailable = '';
         }
-        var bar = <View style={styles.amountContainer}>
+        let bar = <View style={styles.amountContainer}>
             <Text style={styles.amountText}> {categoryAvailable}</Text>
         </View>;
         if (props.fieldName === 'Income')
@@ -166,6 +166,7 @@ function TransactionInputFieldCategory(props)
     function incomeselected()
     {
 
+
         setData({
             amountBar: <View></View>,
             category: false,
@@ -173,10 +174,12 @@ function TransactionInputFieldCategory(props)
                 name: 'Income',
             },
         });
+
         props.data({
             type: 'Income',
             categoryName: 'Income',
         });
+
         props.setDropDown();
     }
 

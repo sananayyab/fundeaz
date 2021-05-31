@@ -75,6 +75,7 @@ function TransactionInputFieldNumber(props)
                     onPressIn={props.dismissDropDown}
                     onChangeText={(text) =>
                     {
+
                         props.data({amount: text});
                     }}
 
