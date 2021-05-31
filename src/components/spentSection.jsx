@@ -17,7 +17,7 @@ function SpentSection(props)
         return (
             <View style={{
                 flex: 1,
-                marginTop: '5%',
+
             }}>
                 {item}
             </View>
