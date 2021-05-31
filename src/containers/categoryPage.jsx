@@ -1,11 +1,12 @@
 import React from 'react';
-import {StatusBar, StyleSheet, View} from 'react-native';
+import {KeyboardAvoidingView, StatusBar, StyleSheet, View} from 'react-native';
 import TopBar from '../components/topBarHome.jsx';
 import SpentSection from '../components/spentSection';
 import BottomBar from '../components/bottomBar.jsx';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import TransactionSection from '../components/transactionSection';
 import CategoryGoalBar from '../components/categoryGoalBar';
+import {useHeaderHeight} from '@react-navigation/stack';
 
 
 function CategoryPage(props)
@@ -27,21 +28,24 @@ function CategoryPage(props)
             backgroundColor: 'white',
         },
         topContainer: {
-            flex: 5,
+            top: 5,
+            height: 140,
+            marginLeft: 5,
+            marginRight: 4,
         },
         categoryContainer: {
-            flex: 8,
+            height: 200,
             flexDirection: 'column',
         },
         spendingContainer: {
-            flex: 12,
+            height: 325,
             flexDirection: 'column',
         },
         bottomBar:
             {
                 paddingTop: '5%',
                 paddingBottom: '5%',
-                flex: 2,
+                height: 100,
             },
         categoryButton: {
             marginLeft: '2%',
@@ -65,6 +69,10 @@ function CategoryPage(props)
 
     return (
 
+        <KeyboardAvoidingView
+            style={{flex: 1}}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={useHeaderHeight() + 27}>
         <View style={styles.container}>
             <StatusBar style="default"/>
             <View style={styles.topContainer}>
@@ -88,6 +96,7 @@ function CategoryPage(props)
                 }}/>
             </View>
         </View>
+        </KeyboardAvoidingView>
     );
 }
 
