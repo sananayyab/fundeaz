@@ -1,5 +1,13 @@
-import React from 'react';
-import {KeyboardAvoidingView, StatusBar, StyleSheet, ToastAndroid, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+    Keyboard,
+    KeyboardAvoidingView,
+    StatusBar,
+    StyleSheet,
+    ToastAndroid,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {connect} from 'react-redux';
 import {useHeaderHeight} from '@react-navigation/stack';
@@ -23,7 +31,8 @@ function TransactionEdit(props)
 {
 
     const navigation = useNavigation();
-
+    const [dropDownActive, setDropDown] = useState(false);
+    const [categoryFunctionCalledChild, setChild] = useState(false);
     let data = {
         ...props.transactions[props.route.params.key],
 
@@ -41,6 +50,42 @@ function TransactionEdit(props)
             ...data,
             ...value,
         };
+    }
+
+    const handleDropDown = () =>
+    {
+        setChild(true);
+
+        if (!dropDownActive)
+        {
+            setDropDown(true);
+        }
+        else
+        {
+            setDropDown(false);
+        }
+
+
+    };
+
+
+    function setDropDownFalse()
+    {
+        setChild(true);
+        setDropDown(false);
+
+    }
+
+    function dropDownKeyboardDismiss()
+    {
+        if (!categoryFunctionCalledChild)
+        {
+            setDropDown(false);
+        }
+        else
+        {
+            setChild(false);
+        }
     }
 
     function deleteTransaction()
@@ -248,21 +293,29 @@ function TransactionEdit(props)
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             keyboardVerticalOffset={useHeaderHeight() + 27}>
 
-
+            <TouchableOpacity style={{flex: 1}} onPress={() =>
+            {
+                Keyboard.dismiss();
+                dropDownKeyboardDismiss()
+            }
+            } activeOpacity={1}>
             <View style={{flex: 1}}>
 
                 <StatusBar style="default"/>
                 <View style={styles.inputFields}>
 
-                    <TransactionInputFieldNumber data={getData} fieldName={'amount'} value={data.amount}/>
-                    <TransactionInputFieldText data={getData} value={data.payee} fieldName={'payee'}/>
-                    <TransactionInputFieldDate data={getData} value={data.date} fieldName={'date'}/>
-                    <TransactionInputFieldText data={getData} value={data.note} fieldName={'note'}/>
+                    <TransactionInputFieldNumber dismissDropDown={() => {setDropDown(false)}} data={getData} fieldName={'amount'} value={data.amount}/>
+                    <TransactionInputFieldText dismissDropDown={() => {setDropDown(false)}} data={getData} value={data.payee} fieldName={'payee'}/>
+                    <TransactionInputFieldDate dismissDropDown={() => {setDropDown(false)}} data={getData} value={data.date} fieldName={'date'}/>
+                    <TransactionInputFieldText dismissDropDown={() => {setDropDown(false)}} data={getData} value={data.note} fieldName={'note'}/>
                     <TransactionInputFieldCategory data={getData} page={{
                         pageName: 'home',
                     }} fieldName={data.type}
                                                    groupID={data.groupID}
-                                                   categoryID={data.categoryID}/>
+                                                   categoryID={data.categoryID}
+                                                   dropDown={dropDownActive}
+                                                   handlDropDown={handleDropDown}
+                                                   setDropDown={setDropDownFalse}/>
 
                 </View>
                 <View style={styles.buttonField}>
@@ -306,7 +359,7 @@ function TransactionEdit(props)
                 </View>
 
             </View>
-
+            </TouchableOpacity>
         </KeyboardAvoidingView>
 
     );
