@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View} from 'react-native';
 import {connect, useDispatch} from 'react-redux';
 import {removeCategory, removeGroup, updateCategory, updateGroup} from '../action/groupActions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -126,19 +126,33 @@ function CategoryListItem(props)
     {
         if (props.item === 'group')
         {
-            dispatch(removeGroup(props.id));
+
+
+
             for(let category in props.groupList[props.id].categories)
             {
                 let categoryAmount = props.groupFunds[props.id].categories[category].available;
                 dispatch(deallocateCategory(categoryAmount, props.id, category))
+                dispatch(removeCategory(category, props.id));
             }
+            dispatch(removeGroup(props.id));
             setElement();
         } else if (props.item === 'category')
         {
             let categoryAmount = props.groupFunds[props.groupID].categories[props.id].available;
-            dispatch(removeCategory(props.id, props.groupID));
+            if(categoryAmount >= 0)
+            {
             dispatch(deallocateCategory(categoryAmount, props.groupID, props.id))
+            dispatch(removeCategory(props.id, props.groupID));
             setElement();
+            }else {
+                ToastAndroid.showWithGravity(
+                    "Cant Remove Category With Negative Balance",
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                );
+            }
+
         }
     };
     const activateEditMode = (name) =>
