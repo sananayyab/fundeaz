@@ -5,8 +5,8 @@ import {allocateToCategory, deallocateCategory} from '../action/fundActions.jsx'
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
 import {setCategoryAllocated} from '../action/statisticsActions';
 
-var mode;
-var oldAmount;
+let mode;
+let oldAmount;
 
 function AllocationBarCategory(props)
 {
@@ -177,14 +177,15 @@ function AllocationBarCategory(props)
                             {
                                 if (mode === 'add')
                                 {
-                                    if (!isNaN(parseInt(event.nativeEvent.text)))
+                                    if (!isNaN(parseInt(event.nativeEvent.text)) &&parseInt(event.nativeEvent.text) > 0 )
                                     {
 
 
-                                        props.allocate((parseInt(event.nativeEvent.text)));
-                                        props.updateStatistics({thisMonth: ( props.groupStatistics + (parseInt(event.nativeEvent.text)))}, {thisMonth: ( props.categoryStatistics + (parseInt(event.nativeEvent.text)))});
-                                        setAmount(parseInt(event.nativeEvent.text) + parseInt(oldAmount));
-                                        setStyle(styles.innerContainerTextPositive);
+                                            props.allocate((parseInt(event.nativeEvent.text)));
+                                            props.updateStatistics({thisMonth: (props.groupStatistics + (parseInt(event.nativeEvent.text)))}, {thisMonth: (props.categoryStatistics + (parseInt(event.nativeEvent.text)))});
+                                            setAmount(parseInt(event.nativeEvent.text) + parseInt(oldAmount));
+                                            setStyle(styles.innerContainerTextPositive);
+
                                     } else
                                     {
                                         setAmount(parseInt(oldAmount));
@@ -192,7 +193,7 @@ function AllocationBarCategory(props)
                                     }
                                 } else if (mode === 'deduct')
                                 {
-                                    if (!isNaN(parseInt(event.nativeEvent.text)))
+                                    if (!isNaN(parseInt(event.nativeEvent.text)) && parseInt(event.nativeEvent.text) > 0)
                                     {
                                         if (oldAmount > 0)
                                         {
