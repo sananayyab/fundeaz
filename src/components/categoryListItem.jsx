@@ -105,6 +105,21 @@ function CategoryListItem(props)
                 id: props.id,
             });
         }
+        else   if (props.item === 'category')
+        {
+            /*var tags;
+            var list = props.groupList
+            for (var key in list)
+            {
+                tags.push( <CategoryItem key={key} name={item.name}/>)
+            }*/
+            // passing , navigation: navigation was causing the issue, find another way to pass navigation
+            navigation.navigate('CategoryPage', {
+                name: props.name,
+                categoryID: props.id,
+                groupID: props.groupID
+            });
+        }
     };
     const deleteSelected = () =>
     {
