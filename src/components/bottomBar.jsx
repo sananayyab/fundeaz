@@ -13,13 +13,13 @@ function BottomBar(props)
 
 
     const navigation = useNavigation();
-    const [elements, setElements] = useState(() =>
-        {
+    let elements = null;
+
 
             if (props.data.page === 'home')
             {
 
-                return (<View style={{
+                elements = (<View style={{
                     flex: 1,
                     borderRadius: 10,
                     flexDirection: 'row',
@@ -72,7 +72,7 @@ function BottomBar(props)
             }
             else if (props.data.page === 'group')
             {
-                return (<View style={{
+                elements =(<View style={{
                     flex: 1,
                     borderRadius: 10,
                     flexDirection: 'row',
@@ -112,7 +112,7 @@ function BottomBar(props)
             }
             else if (props.data.page === 'category')
             {
-                return (<View style={{
+                elements =(<View style={{
                     flex: 1,
                     borderRadius: 10,
                     flexDirection: 'row',
@@ -138,8 +138,8 @@ function BottomBar(props)
 
                 </View>);
             }
-        },
-    );
+
+
     const styles = StyleSheet.create({
         container: {
             flex: 1,
