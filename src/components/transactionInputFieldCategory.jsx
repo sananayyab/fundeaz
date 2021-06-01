@@ -113,7 +113,8 @@ function TransactionInputFieldCategory(props)
                 duration: 150,
                 useNativeDriver: false,
             }), Animated.timing(dropDownBorder, {toValue: 6, duration: 5, useNativeDriver: false})]).start();
-        } else
+        }
+        else
         {
             Animated.parallel([Animated.timing(dropDownHeight, {
                 toValue: 0,
@@ -124,41 +125,35 @@ function TransactionInputFieldCategory(props)
     }, [props.dropDown]);
     const [data, setData] = useState(() =>
     {
-        let categoryAvailable;
+
         let categoryName;
-        let normalCategory = true;
+
         if (props.categoryID !== '' && props.fieldName !== 'income')
         {
 
 
-            categoryName = props.groupList[props.groupID].categories[props.categoryID].name;
-            categoryAvailable = props.groupFunds[props.groupID].categories[props.categoryID].available;
-            props.data({
-                type: 'category',
-                groupID: props.groupID,
-                categoryID: props.categoryID,
-                categoryName,
-            });
-        } else
+            categoryName = props.categoryName;
+
+
+        }
+        else
         {
             categoryName = '';
-            categoryAvailable = '';
+
         }
-        let bar = <View style={styles.amountContainer}>
-            <Text style={styles.amountText}> {categoryAvailable}</Text>
-        </View>;
+
         if (props.fieldName === 'Income')
         {
-            normalCategory = false;
-            bar = <View></View>;
+
+
             categoryName = 'Income';
         }
         return ({
-            amountBar: bar,
-            category: normalCategory,
+
+
             chosen: {
                 name: categoryName,
-                amount: categoryAvailable,
+
             },
         });
     });
@@ -168,8 +163,8 @@ function TransactionInputFieldCategory(props)
 
 
         setData({
-            amountBar: <View></View>,
-            category: false,
+
+
             chosen: {
                 name: 'Income',
             },
@@ -183,17 +178,13 @@ function TransactionInputFieldCategory(props)
         props.setDropDown();
     }
 
-    function Categoryselected(categoryName,groupName, amount, group, category)
+    function Categoryselected(categoryName, groupName, amount, group, category)
     {
 
         setData({
-            amountBar: <View style={styles.amountContainer}>
-                <Text style={styles.amountText}>{amount}</Text>
-            </View>,
-            category: true,
             chosen: {
                 name: categoryName,
-                amount: amount,
+
             },
         });
         props.data({
@@ -203,7 +194,7 @@ function TransactionInputFieldCategory(props)
             categoryName: categoryName,
             groupName: groupName,
         });
-       props.setDropDown();
+        props.setDropDown();
     }
 
     function getInfo()
@@ -215,7 +206,7 @@ function TransactionInputFieldCategory(props)
             {
                 for (let category in props.groupList[group].categories)
                 {
-                    let groupName = props.groupList[group].name
+                    let groupName = props.groupList[group].name;
                     let categoryName = props.groupList[group].categories[category].name;
                     let categoryAvailable = props.groupFunds[group].categories[category].available;
                     categoryLists.push(<TransactionCategoryListItem press={Categoryselected} key={category + group}
@@ -224,13 +215,14 @@ function TransactionInputFieldCategory(props)
                                                                     item={'category'} groupName={groupName}/>);
                 }
             }
-        } else if (props.page.pageName === 'group')
+        }
+        else if (props.page.pageName === 'group')
         {
 
 
             for (let category in props.groupList[props.page.groupID].categories)
             {
-                let groupName = props.groupList[props.page.groupID].name
+                let groupName = props.groupList[props.page.groupID].name;
                 let categoryName = props.groupList[props.page.groupID].categories[category].name;
                 let categoryAvailable = props.groupFunds[props.page.groupID].categories[category].available;
                 categoryLists.push(<TransactionCategoryListItem press={Categoryselected} key={category}
@@ -241,8 +233,6 @@ function TransactionInputFieldCategory(props)
         }
         return categoryLists;
     }
-
-
 
 
     const listOfCategories = getInfo();
