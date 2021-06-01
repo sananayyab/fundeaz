@@ -29,14 +29,7 @@ function TransactionInput(props)
     const navigation = useNavigation();
     const route = useRoute();
 
-    let tempData = { amount: '',
-        payee: '',
-        date: '',
-        note: '',
-        groupID: '',
-        groupName: '',
-        categoryID: '',
-        categoryName: '',}
+  
     const [dropDownActive, setDropDown] = useState(false);
     const [categoryFunctionCalledChild, setChild] = useState(false);
     const [ data, setData] = useState( {
