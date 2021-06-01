@@ -34,7 +34,7 @@ function TransactionSection(props)
                 {
                     return (<TransactionItem key={index} id={element.transactionID} payee={element.payee}
                                              amount={element.amount}
-                                             category={props.groupList[element.groupID].categories[element.categoryID].name}/>);
+                                             category={element.categoryName}/>);
                 }
             });
 
@@ -46,7 +46,7 @@ function TransactionSection(props)
 
             return tempTransactions.map((element, index) => (parseInt(element.groupID) === parseInt(props.groupID)) &&
                 <TransactionItem key={index} id={element.transactionID} payee={element.payee} amount={element.amount}
-                                 category={props.groupList[element.groupID].categories[element.categoryID].name}/>);
+                                 category={element.categoryName}/>);
 
 
         }
@@ -55,7 +55,7 @@ function TransactionSection(props)
 
             return tempTransactions.map((value, index) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) &&
                 <TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
-                                 category={props.groupList[value.groupID].categories[value.categoryID].name}/>));
+                                 category={value.categoryName}/>));
 
 
         }

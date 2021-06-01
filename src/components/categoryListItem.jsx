@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import {removeCategory, removeGroup, updateCategory, updateGroup} from '../action/groupActions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/core';
+import {deallocateCategory} from '../action/fundActions';
 
 const styles = StyleSheet.create({
     container: {
@@ -126,10 +127,17 @@ function CategoryListItem(props)
         if (props.item === 'group')
         {
             dispatch(removeGroup(props.id));
+            for(let category in props.groupList[props.id].categories)
+            {
+                let categoryAmount = props.groupFunds[props.id].categories[category].available;
+                dispatch(deallocateCategory(categoryAmount, props.id, category))
+            }
             setElement();
         } else if (props.item === 'category')
         {
+            let categoryAmount = props.groupFunds[props.groupID].categories[props.id].available;
             dispatch(removeCategory(props.id, props.groupID));
+            dispatch(deallocateCategory(categoryAmount, props.groupID, props.id))
             setElement();
         }
     };
@@ -239,4 +247,12 @@ function CategoryListItem(props)
     );
 }
 
-export default CategoryListItem;
+const mapStateToProps = (state) =>
+{
+    const {groupData, fund} = state;
+    return {
+        groupList: groupData.groups,
+        groupFunds: fund.groups,
+    };
+};
+export default connect(mapStateToProps)(CategoryListItem);
