@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {
     Keyboard,
-    KeyboardAvoidingView,
+    KeyboardAvoidingView, Platform,
     StatusBar,
     StyleSheet,
     ToastAndroid,
@@ -33,23 +33,29 @@ function TransactionEdit(props)
     const navigation = useNavigation();
     const [dropDownActive, setDropDown] = useState(false);
     const [categoryFunctionCalledChild, setChild] = useState(false);
-    let data = {
+    const [data, setData] = useState({
         ...props.transactions[props.route.params.key],
 
-    };
+    });
 
-    const orignalAmount = data.amount;
-    const originalGroup = data.groupID;
-    const originalCategory = data.categoryID;
-    const oldType = data.type;
+
+
+
+    const [originalAmount, setOriginalAmount] = useState(data.amount);
+    const [originalGroup, setOriginalGroup] = useState(data.groupID);
+    const [originalCategory, setOriginalCategory] = useState(data.categoryID);
+    const [oldType, setOriginalType] = useState(data.type);
 
 
     function getData(value)
     {
-        data = {
+
+
+        setData({
             ...data,
             ...value,
-        };
+        });
+
     }
 
     const handleDropDown = () =>
@@ -113,6 +119,7 @@ function TransactionEdit(props)
     function addTransaction()
     {
 
+
         if (data.amount.trim() !== '')
         {
             if (data.type === 'category' && oldType === 'category')
@@ -122,18 +129,18 @@ function TransactionEdit(props)
                 {
 
 
-                    if (parseInt(orignalAmount) < parseInt(data.amount))
+                    if (parseInt(originalAmount) < parseInt(data.amount))
                     {
 
 
-                        props.updateSpending(parseInt(data.amount) - parseInt(orignalAmount), data.groupID, parseInt(data.categoryID));
+                        props.updateSpending(parseInt(data.amount) - parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
 
                     }
-                    else if (parseInt(orignalAmount) > parseInt(data.amount))
+                    else if (parseInt(originalAmount) > parseInt(data.amount))
                     {
 
 
-                        props.removeSpending(parseInt(orignalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
+                        props.removeSpending(parseInt(originalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
 
                     }
 
@@ -143,52 +150,52 @@ function TransactionEdit(props)
                     if (originalGroup === data.groupID && originalCategory !== data.categoryID)
                     {
 
-                        if (parseInt(orignalAmount) < parseInt(data.amount))
+                        if (parseInt(originalAmount) < parseInt(data.amount))
                         {
 
 
-                            props.spendOnlyCategory(parseInt(data.amount) - parseInt(orignalAmount), data.groupID, parseInt(data.categoryID));
-                            props.removeSpendOnlyCategory(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
+                            props.spendOnlyCategory(parseInt(data.amount) - parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+                            props.removeSpendOnlyCategory(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
 
                         }
-                        else if (parseInt(orignalAmount) > parseInt(data.amount))
+                        else if (parseInt(originalAmount) > parseInt(data.amount))
                         {
 
 
-                            props.spendOnlyCategory(parseInt(orignalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
-                            props.removeSpendOnlyCategory(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
+                            props.spendOnlyCategory(parseInt(originalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
+                            props.removeSpendOnlyCategory(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
                         }
                         else
                         {
 
 
-                            props.spendOnlyCategory(parseInt(orignalAmount), data.groupID, parseInt(data.categoryID));
-                            props.removeSpendOnlyCategory(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
+                            props.spendOnlyCategory(parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+                            props.removeSpendOnlyCategory(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
                         }
                     }
                     else
                     {
 
-                        if (parseInt(orignalAmount) < parseInt(data.amount))
+                        if (parseInt(originalAmount) < parseInt(data.amount))
                         {
 
 
-                            props.updateSpending(parseInt(data.amount) - parseInt(orignalAmount), data.groupID, parseInt(data.categoryID));
-                            props.removeSpending(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
+                            props.updateSpending(parseInt(data.amount) - parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+                            props.removeSpending(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
 
                         }
-                        else if (parseInt(orignalAmount) > parseInt(data.amount))
+                        else if (parseInt(originalAmount) > parseInt(data.amount))
                         {
 
 
-                            props.updateSpending(parseInt(orignalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
-                            props.removeSpending(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
+                            props.updateSpending(parseInt(originalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
+                            props.removeSpending(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
                         }
                         else
                         {
 
-                            props.updateSpending(parseInt(orignalAmount), data.groupID, parseInt(data.categoryID));
-                            props.removeSpending(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
+                            props.updateSpending(parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+                            props.removeSpending(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
                         }
                     }
 
@@ -201,15 +208,15 @@ function TransactionEdit(props)
             {
 
 
-                if (parseInt(orignalAmount) < parseInt(data.amount))
+                if (parseInt(originalAmount) < parseInt(data.amount))
                 {
 
-                    props.addTotalAvailable(parseInt(data.amount) - parseInt(orignalAmount));
+                    props.addTotalAvailable(parseInt(data.amount) - parseInt(originalAmount));
 
                 }
-                else if (parseInt(orignalAmount) > parseInt(data.amount))
+                else if (parseInt(originalAmount) > parseInt(data.amount))
                 {
-                    props.removeTotalAvailable(parseInt(orignalAmount) - parseInt(data.amount));
+                    props.removeTotalAvailable(parseInt(originalAmount) - parseInt(data.amount));
 
                 }
                 props.updateTransaction(data, props.route.params.key);
@@ -219,20 +226,21 @@ function TransactionEdit(props)
             else if (oldType === 'category' && data.type === 'Income')
             {
 
+
                 props.addTotalAvailable(parseInt(data.amount));
-                props.removeSpending(parseInt(orignalAmount), originalGroup, parseInt(originalCategory));
-                data = {
+                props.removeSpending(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
+                setData({
                     ...data,
                     groupID: '',
                     categoryID: '',
-                };
+                });
                 props.updateTransaction(data, props.route.params.key);
             }
             else if (oldType === 'Income' && data.type === 'category')
             {
 
 
-                props.removeTotalAvailable(parseInt(orignalAmount));
+                props.removeTotalAvailable(parseInt(originalAmount));
                 props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
                 props.updateTransaction(data, props.route.params.key);
             }
@@ -296,69 +304,82 @@ function TransactionEdit(props)
             <TouchableOpacity style={{flex: 1}} onPress={() =>
             {
                 Keyboard.dismiss();
-                dropDownKeyboardDismiss()
+                dropDownKeyboardDismiss();
             }
             } activeOpacity={1}>
-            <View style={{flex: 1}}>
+                <View style={{flex: 1}}>
 
-                <StatusBar style="default"/>
-                <View style={styles.inputFields}>
+                    <StatusBar style="default"/>
+                    <View style={styles.inputFields}>
 
-                    <TransactionInputFieldNumber dismissDropDown={() => {setDropDown(false)}} data={getData} fieldName={'amount'} value={data.amount}/>
-                    <TransactionInputFieldText dismissDropDown={() => {setDropDown(false)}} data={getData} value={data.payee} fieldName={'payee'}/>
-                    <TransactionInputFieldDate dismissDropDown={() => {setDropDown(false)}} data={getData} value={data.date} fieldName={'date'}/>
-                    <TransactionInputFieldText dismissDropDown={() => {setDropDown(false)}} data={getData} value={data.note} fieldName={'note'}/>
-                    <TransactionInputFieldCategory data={getData} page={{
-                        pageName: 'home',
-                    }} fieldName={data.type}
-                                                   groupID={data.groupID}
-                                                   categoryID={data.categoryID}
-                                                   dropDown={dropDownActive}
-                                                   handlDropDown={handleDropDown}
-                                                   setDropDown={setDropDownFalse}/>
-
-                </View>
-                <View style={styles.buttonField}>
-
-                    <View styles={styles.buttonStyle}>
-
-                        <Icon.Button
-                            backgroundColor="#98B0D3"
-                            color="black"
-                            name="delete"
-                            size={40}
-                            onPress={deleteTransaction}
-                            iconStyle={{
-
-                                marginRight: 0,
-                                paddingRight: '10%',
-                                paddingLeft: '10%',
-
-                            }}
-                        />
+                        <TransactionInputFieldNumber dismissDropDown={() =>
+                        {
+                            setDropDown(false);
+                        }} data={getData} fieldName={'amount'} value={data.amount}/>
+                        <TransactionInputFieldText dismissDropDown={() =>
+                        {
+                            setDropDown(false);
+                        }} data={getData} value={data.payee} fieldName={'payee'}/>
+                        <TransactionInputFieldDate dismissDropDown={() =>
+                        {
+                            setDropDown(false);
+                        }} data={getData} value={data.date} fieldName={'date'}/>
+                        <TransactionInputFieldText dismissDropDown={() =>
+                        {
+                            setDropDown(false);
+                        }} data={getData} value={data.note} fieldName={'note'}/>
+                        <TransactionInputFieldCategory data={getData} page={{
+                            pageName: 'home',
+                        }} fieldName={data.type}
+                                                       categoryName={data.categoryName}
+                                                       groupID={data.groupID}
+                                                       categoryID={data.categoryID}
+                                                       dropDown={dropDownActive}
+                                                       handlDropDown={handleDropDown}
+                                                       setDropDown={setDropDownFalse}/>
 
                     </View>
+                    <View style={styles.buttonField}>
 
-                    <View styles={styles.buttonStyle}>
+                        <View styles={styles.buttonStyle}>
 
-                        <Icon.Button
-                            backgroundColor="#98B0D3"
-                            color="black"
-                            name="check"
-                            size={40}
-                            onPress={addTransaction}
-                            iconStyle={{
-                                marginRight: 0,
-                                paddingRight: '10%',
-                                paddingLeft: '10%',
+                            <Icon.Button
+                                backgroundColor="#98B0D3"
+                                color="black"
+                                name="delete"
+                                size={40}
+                                onPress={deleteTransaction}
+                                iconStyle={{
 
-                            }}
-                        />
+                                    marginRight: 0,
+                                    paddingRight: '10%',
+                                    paddingLeft: '10%',
 
+                                }}
+                            />
+
+                        </View>
+
+                        <View styles={styles.buttonStyle}>
+
+                            <Icon.Button
+                                backgroundColor="#98B0D3"
+                                color="black"
+                                name="check"
+                                size={40}
+                                onPress={addTransaction}
+                                iconStyle={{
+                                    marginRight: 0,
+                                    paddingRight: '10%',
+                                    paddingLeft: '10%',
+
+                                }}
+                            />
+
+                        </View>
                     </View>
-                </View>
 
-            </View>
+                </View>
             </TouchableOpacity>
         </KeyboardAvoidingView>
 
