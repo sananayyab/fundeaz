@@ -224,11 +224,11 @@ export function fundReducer(state = initialState, action)
                             ...state.groups[action.groupID].categories,
                             [action.categoryID]: {
                                 ...state.groups[action.groupID].categories[action.categoryID],
-                                lastTransaction: action.time
-                            }
-                        }
-                    }
-                }
+                                lastTransaction: action.time,
+                            },
+                        },
+                    },
+                },
 
 
             };
@@ -243,14 +243,33 @@ export function fundReducer(state = initialState, action)
                             ...state.groups[action.groupID].categories,
                             [action.categoryID]: {
                                 ...state.groups[action.groupID].categories[action.categoryID],
-                                goal: action.amount
-                            }
-                        }
-                    }
-                }
+                                goal: action.amount,
+                            },
+                        },
+                    },
+                },
 
 
-            }
+            };
+        case 'ADD_UNALLOCATED':
+            return {
+                ...state,
+                unallocated: state.unallocated + action.amount,
+
+
+            };
+        case 'REMOVE_ALLOCATED_GROUP':
+            return {
+                ...state,
+                groups: {
+                    ...state.groups,
+                    [action.groupID]: {
+                        ...state.groups[action.groupID],
+                        allocated:  state.groups[action.groupID].allocated - action.amount,
+                        available:  state.groups[action.groupID].available - action.amount,
+                    },
+                },
+            };
         default:
             return state;
     }

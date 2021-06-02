@@ -38,6 +38,26 @@ export function deallocateCategory(amount, groupID, categoryID)
     };
 }
 
+export function addToUnallocated(amount)
+{
+    return {
+        type: 'ADD_UNALLOCATED',
+        amount,
+
+    };
+}
+
+
+export function unallocatedFromGroup(amount, groupID)
+{
+    return {
+        type: 'REMOVE_ALLOCATED_GROUP',
+        amount,
+        groupID,
+
+    };
+}
+
 
 export function spendCategory(amount, groupID, categoryID)
 {
@@ -144,12 +164,12 @@ export function startOfMonthDataResetCategory(groupID, categoryID)
 
 export function setGoalAmount(groupID, categoryID, amount)
 {
-    return{
+    return {
         type: 'SET_CATEGORY_GOAL',
         groupID,
         categoryID,
         amount,
-    }
+    };
 }
 
 
