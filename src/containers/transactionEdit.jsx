@@ -218,8 +218,10 @@ function TransactionEdit(props)
                         }
                         else
                         {
-                            props.addTotalAvailable(parseInt(originalAmount));
-                            props.unallocatedFromGroup(parseInt(originalAmount), data.groupID);
+
+                                props.addTotalAvailable(parseInt(originalAmount));
+                                props.unallocatedFromGroup(parseInt(originalAmount), data.groupID);
+
                         }
                     }
 

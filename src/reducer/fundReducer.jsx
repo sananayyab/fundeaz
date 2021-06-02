@@ -97,8 +97,8 @@ export function fundReducer(state = initialState, action)
             {
                 allocatedToGroup = state.groups[action.groupID].allocated + action.amount;
                 allocatedToCategory = state.groups[action.groupID].categories[action.categoryID].allocated + action.amount;
-                groupAmount = state.groups[action.groupID].available + action.amount;
-                categoryAmount = state.groups[action.groupID].categories[action.categoryID].available + action.amount;
+                groupAmount = state.groups[action.groupID].available;
+                categoryAmount = state.groups[action.groupID].categories[action.categoryID].available;
 
             }
 
@@ -269,15 +269,16 @@ export function fundReducer(state = initialState, action)
 
             };
         case 'REMOVE_ALLOCATED_GROUP':
-            let allocatedAmount =0;
+            let allocatedAmount = 0;
             let availableAmount = 0;
-            if(action.amount >= 0)
+            if (action.amount >= 0)
             {
-               allocatedAmount = state.groups[action.groupID].allocated - action.amount
+                allocatedAmount = state.groups[action.groupID].allocated - action.amount;
 
             }
-            else {
-                allocatedAmount = state.groups[action.groupID].allocated + action.amount
+            else
+            {
+                allocatedAmount = state.groups[action.groupID].allocated + action.amount;
             }
             return {
                 ...state,
@@ -285,7 +286,44 @@ export function fundReducer(state = initialState, action)
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
-                        allocated: allocatedAmount
+                        allocated: allocatedAmount,
+
+                    },
+                },
+            };
+
+        case 'CATEGORY_REMOVED':
+            let groupAllocated = 0;
+            let groupAvailable = 0;
+            let unallocated =  state.groups[action.groupID].categories[action.categoryID].available;
+
+
+            if (state.groups[action.groupID].categories[action.categoryID].available >= 0)
+            {
+                groupAvailable = state.groups[action.groupID].available - state.groups[action.groupID].categories[action.categoryID].available;
+            }
+            else
+            {
+
+                groupAvailable = state.groups[action.groupID].available + Math.abs(state.groups[action.groupID].categories[action.categoryID].available);
+            }
+            if (state.groups[action.groupID].categories[action.categoryID].allocated >= 0)
+            {
+                groupAllocated = state.groups[action.groupID].allocated - state.groups[action.groupID].categories[action.categoryID].allocated;
+            }
+            else
+            {
+                groupAllocated = state.groups[action.groupID].allocated + Math.abs(state.groups[action.groupID].categories[action.categoryID].allocated);
+            }
+            return {
+                ...state,
+                unallocated: state.unallocated + unallocated,
+                groups: {
+                    ...state.groups,
+                    [action.groupID]: {
+                        ...state.groups[action.groupID],
+                        available: groupAvailable,
+                        allocated: groupAllocated,
 
                     },
                 },

@@ -4,7 +4,13 @@ import {connect, useDispatch} from 'react-redux';
 import {removeCategory, removeGroup, updateCategory, updateGroup} from '../action/groupActions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/core';
-import {addTotalAvailable, addToUnallocated, deallocateCategory, unallocatedFromGroup} from '../action/fundActions';
+import {
+    addTotalAvailable,
+    addToUnallocated,
+    categoryRemove,
+    deallocateCategory,
+    unallocatedFromGroup,
+} from '../action/fundActions';
 
 const styles = StyleSheet.create({
     container: {
@@ -139,7 +145,7 @@ function CategoryListItem(props)
         {
             let categoryAmount = props.groupFunds[props.groupID].categories[props.id].available;
 
-            dispatch(deallocateCategory(categoryAmount, props.groupID, props.id));
+            dispatch(categoryRemove(props.groupID, props.id));
 
             dispatch(removeCategory(props.id, props.groupID));
             setElement();

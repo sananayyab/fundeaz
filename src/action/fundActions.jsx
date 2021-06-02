@@ -38,6 +38,16 @@ export function deallocateCategory(amount, groupID, categoryID)
     };
 }
 
+export function categoryRemove(groupID, categoryID)
+{
+    return {
+        type: 'CATEGORY_REMOVED',
+        groupID,
+        categoryID,
+
+
+    };
+}
 export function addToUnallocated(amount)
 {
     return {
