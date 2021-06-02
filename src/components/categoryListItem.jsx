@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, useDispatch} from 'react-redux';
 import {removeCategory, removeGroup, updateCategory, updateGroup} from '../action/groupActions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/core';
-import {deallocateCategory} from '../action/fundActions';
+import {addTotalAvailable, addToUnallocated, deallocateCategory, unallocatedFromGroup} from '../action/fundActions';
 
 const styles = StyleSheet.create({
     container: {
@@ -106,7 +106,7 @@ function CategoryListItem(props)
                 id: props.id,
             });
         }
-        else   if (props.item === 'category')
+        else if (props.item === 'category')
         {
             /*var tags;
             var list = props.groupList
@@ -118,7 +118,7 @@ function CategoryListItem(props)
             navigation.navigate('CategoryPage', {
                 name: props.name,
                 categoryID: props.id,
-                groupID: props.groupID
+                groupID: props.groupID,
             });
         }
     };
@@ -128,30 +128,22 @@ function CategoryListItem(props)
         {
 
 
+            let categoryAmount = props.groupFunds[props.id].available;
+            dispatch(addToUnallocated(categoryAmount));
 
-            for(let category in props.groupList[props.id].categories)
-            {
-                let categoryAmount = props.groupFunds[props.id].categories[category].available;
-                dispatch(deallocateCategory(categoryAmount, props.id, category))
-                dispatch(removeCategory(category, props.id));
-            }
+
             dispatch(removeGroup(props.id));
             setElement();
-        } else if (props.item === 'category')
+        }
+        else if (props.item === 'category')
         {
             let categoryAmount = props.groupFunds[props.groupID].categories[props.id].available;
-            if(categoryAmount >= 0)
-            {
-            dispatch(deallocateCategory(categoryAmount, props.groupID, props.id))
+
+            dispatch(deallocateCategory(categoryAmount, props.groupID, props.id));
+
             dispatch(removeCategory(props.id, props.groupID));
             setElement();
-            }else {
-                ToastAndroid.showWithGravity(
-                    "Cant Remove Category With Negative Balance",
-                    ToastAndroid.SHORT,
-                    ToastAndroid.CENTER
-                );
-            }
+
 
         }
     };
@@ -164,7 +156,7 @@ function CategoryListItem(props)
                 if (name !== null)
                 {
                     nameToUse = event.nativeEvent.text;
-                    nameToUse.trim()
+                    nameToUse.trim();
                 }
                 if (props.item === 'group')
                 {
@@ -172,7 +164,8 @@ function CategoryListItem(props)
                         name: nameToUse,
                         itemStatus: 'created',
                     }, props.id));
-                } else if (props.item === 'category')
+                }
+                else if (props.item === 'category')
                 {
                     dispatch(updateCategory({
                         name: nameToUse,
@@ -226,7 +219,8 @@ function CategoryListItem(props)
                                 name: event.nativeEvent.text.trim(),
                                 itemStatus: 'created',
                             }, props.id));
-                        } else if (props.item === 'category')
+                        }
+                        else if (props.item === 'category')
                         {
                             dispatch(updateCategory({
                                 name: event.nativeEvent.text.trim(),
@@ -238,7 +232,8 @@ function CategoryListItem(props)
                                style={styles.textInputText}> </TextInput>
                 </View>
             </View>);
-        } else if (props.type === 'created')
+        }
+        else if (props.type === 'created')
         {
             setElement(<TouchableOpacity activeOpacity={1} onPress={clickEvent} onLongPress={() =>
             {

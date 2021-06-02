@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {
     Keyboard,
-    KeyboardAvoidingView, Platform,
+    KeyboardAvoidingView,
+    Platform,
     StatusBar,
     StyleSheet,
     ToastAndroid,
@@ -13,11 +14,13 @@ import {connect} from 'react-redux';
 import {useHeaderHeight} from '@react-navigation/stack';
 import {
     addTotalAvailable,
+    addToUnallocated,
     removeSpendCategory,
     removeSpendOnlyCategory,
     removeTotalAvailable,
     spendCategory,
     spendOnlyCategory,
+    unallocatedFromGroup,
 } from '../action/fundActions.jsx';
 import {addTransaction, removeTransaction, updateTransaction} from '../action/transactionActions.jsx';
 import TransactionInputFieldText from '../components/transactionInputFieldText.jsx';
@@ -39,13 +42,31 @@ function TransactionEdit(props)
     });
 
 
-
-
     const [originalAmount, setOriginalAmount] = useState(data.amount);
     const [originalGroup, setOriginalGroup] = useState(data.groupID);
     const [originalCategory, setOriginalCategory] = useState(data.categoryID);
     const [oldType, setOriginalType] = useState(data.type);
+    const [categoryAlive, setCategoryStatus] = useState(() =>
+    {
 
+        if (data.type === 'category')
+        {
+            if (props.groupData[data.groupID] == null)
+            {
+
+
+                return false;
+            }
+            else
+            {
+                return props.groupData[data.groupID].categories[data.categoryID] != null;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    });
 
     function getData(value)
     {
@@ -150,29 +171,58 @@ function TransactionEdit(props)
                     if (originalGroup === data.groupID && originalCategory !== data.categoryID)
                     {
 
+
                         if (parseInt(originalAmount) < parseInt(data.amount))
                         {
 
+                            if (categoryAlive)
+                            {
+                                props.spendOnlyCategory(parseInt(data.amount) - parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+                            }
+                            else
+                            {
+                                props.updateSpending(parseInt(data.amount) - parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+                            }
 
-                            props.spendOnlyCategory(parseInt(data.amount) - parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
-                            props.removeSpendOnlyCategory(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
 
                         }
                         else if (parseInt(originalAmount) > parseInt(data.amount))
                         {
 
+                            if (categoryAlive)
+                            {
+                                props.spendOnlyCategory(parseInt(originalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
+                            }
+                            else
+                            {
+                                props.updateSpending(parseInt(originalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
+                            }
 
-                            props.spendOnlyCategory(parseInt(originalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
-                            props.removeSpendOnlyCategory(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
                         }
                         else
                         {
 
+                            if (categoryAlive)
+                            {
+                                props.spendOnlyCategory(parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+                            }
+                            else
+                            {
+                                props.updateSpending(parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+                            }
 
-                            props.spendOnlyCategory(parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+                        }
+                        if (categoryAlive)
+                        {
                             props.removeSpendOnlyCategory(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
                         }
+                        else
+                        {
+                            props.addTotalAvailable(parseInt(originalAmount));
+                            props.unallocatedFromGroup(parseInt(originalAmount), data.groupID);
+                        }
                     }
+
                     else
                     {
 
@@ -181,7 +231,6 @@ function TransactionEdit(props)
 
 
                             props.updateSpending(parseInt(data.amount) - parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
-                            props.removeSpending(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
 
                         }
                         else if (parseInt(originalAmount) > parseInt(data.amount))
@@ -189,13 +238,23 @@ function TransactionEdit(props)
 
 
                             props.updateSpending(parseInt(originalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
-                            props.removeSpending(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
+
                         }
                         else
                         {
 
                             props.updateSpending(parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+
+
+                        }
+                        if (categoryAlive)
+                        {
                             props.removeSpending(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
+                        }
+                        else
+                        {
+                            props.addTotalAvailable(parseInt(originalAmount));
+                            props.unallocatedFromGroup(parseInt(originalAmount), parseInt(originalGroup));
                         }
                     }
 
@@ -228,7 +287,14 @@ function TransactionEdit(props)
 
 
                 props.addTotalAvailable(parseInt(data.amount));
-                props.removeSpending(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
+                if (categoryAlive)
+                {
+                    props.removeSpending(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
+                }
+                else
+                {
+                    props.addTotalAvailable(parseInt(originalAmount));
+                }
                 setData({
                     ...data,
                     groupID: '',
@@ -396,19 +462,20 @@ const mapDispatchToProps = (dispatch) =>
         spendOnlyCategory: (amount, groupID, categoryID) => dispatch(spendOnlyCategory(amount, groupID, categoryID)),
         removeSpending: (amount, groupID, categoryID) => dispatch(removeSpendCategory(amount, groupID, categoryID)),
         removeSpendOnlyCategory: (amount, groupID, categoryID) => dispatch(removeSpendOnlyCategory(amount, groupID, categoryID)),
-
+        addToUnallocated: (amount) => dispatch(addToUnallocated(amount)),
         addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount)),
         removeTotalAvailable: (amount) => dispatch(removeTotalAvailable(amount)),
         updateTransaction: (data, id) => dispatch(updateTransaction(data, id)),
-
+        unallocatedFromGroup: (amount, groupID) => dispatch(unallocatedFromGroup(amount, groupID)),
 
     };
 };
 
 const mapStateToProps = (state) =>
 {
-    const {transactions} = state;
+    const {transactions, groupData} = state;
     return {
+        groupData: groupData.groups,
         transactions: transactions.transactions,
     };
 };

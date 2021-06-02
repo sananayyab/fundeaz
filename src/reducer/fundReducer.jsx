@@ -82,16 +82,26 @@ export function fundReducer(state = initialState, action)
                 },
             };
         case 'DEALLOCATE_CATEGORY':
-            let allocatedToGroup = state.groups[action.groupID].allocated - action.amount;
-            let allocatedToCategory = state.groups[action.groupID].categories[action.categoryID].allocated - action.amount;
-            if (allocatedToGroup < 0)
+            let allocatedToGroup = 0;
+            let allocatedToCategory = 0;
+            let groupAmount = 0;
+            let categoryAmount = 0;
+            if (action.amount >= 0)
             {
-                allocatedToGroup = 0;
+                allocatedToGroup = state.groups[action.groupID].allocated - action.amount;
+                allocatedToCategory = state.groups[action.groupID].categories[action.categoryID].allocated - action.amount;
+                groupAmount = state.groups[action.groupID].available - action.amount;
+                categoryAmount = state.groups[action.groupID].categories[action.categoryID].available - action.amount;
             }
-            if (allocatedToCategory < 0)
+            else
             {
-                allocatedToCategory = 0;
+                allocatedToGroup = state.groups[action.groupID].allocated + action.amount;
+                allocatedToCategory = state.groups[action.groupID].categories[action.categoryID].allocated + action.amount;
+                groupAmount = state.groups[action.groupID].available + action.amount;
+                categoryAmount = state.groups[action.groupID].categories[action.categoryID].available + action.amount;
+
             }
+
             return {
                 ...state,
                 unallocated: state.unallocated + action.amount,
@@ -99,13 +109,13 @@ export function fundReducer(state = initialState, action)
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
-                        available: state.groups[action.groupID].available - action.amount,
+                        available: groupAmount,
                         allocated: allocatedToGroup,
                         categories: {
                             ...state.groups[action.groupID].categories,
                             [action.categoryID]: {
                                 ...state.groups[action.groupID].categories[action.categoryID],
-                                available: state.groups[action.groupID].categories[action.categoryID].available - action.amount,
+                                available: categoryAmount,
                                 allocated: allocatedToCategory,
                             },
                         },
@@ -259,14 +269,24 @@ export function fundReducer(state = initialState, action)
 
             };
         case 'REMOVE_ALLOCATED_GROUP':
+            let allocatedAmount =0;
+            let availableAmount = 0;
+            if(action.amount >= 0)
+            {
+               allocatedAmount = state.groups[action.groupID].allocated - action.amount
+
+            }
+            else {
+                allocatedAmount = state.groups[action.groupID].allocated + action.amount
+            }
             return {
                 ...state,
                 groups: {
                     ...state.groups,
                     [action.groupID]: {
                         ...state.groups[action.groupID],
-                        allocated:  state.groups[action.groupID].allocated - action.amount,
-                        available:  state.groups[action.groupID].available - action.amount,
+                        allocated: allocatedAmount
+
                     },
                 },
             };
