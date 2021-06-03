@@ -254,7 +254,7 @@ function CategoryListItem(props)
                 </View>
             </TouchableOpacity>);
         }
-    }, []);
+    }, [props.groupList]);
     return (
         <View style={{flex: 1}}>
             {element}
