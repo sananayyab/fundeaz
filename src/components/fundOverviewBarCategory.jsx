@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {removeCategory, updateCategory} from '../action/groupActions';
 import {useNavigation} from '@react-navigation/core';
-import { categoryRemovedFundAction} from '../action/fundActions';
+import {categoryRemovedFundAction} from '../action/fundActions';
 
-let  mode;
+let mode;
 let oldAmount;
 
 function FundOverviewBarCategory(props)
@@ -104,12 +104,16 @@ function FundOverviewBarCategory(props)
 
     };
 
+
+
     const dispatch = useDispatch();
-    const [element, setElement] = useState(() =>
+    const [element, setElement] = useState();
+
+    function createElement()
     {
         if (props.type === 'new')
         {
-            return (<View key={props.id} style={styles.container}>
+            setElement(<View key={props.id} style={styles.container}>
                 <View style={styles.textInputBar}>
 
                     <TextInput autoFocus={true} onEndEditing={(event) =>
@@ -126,9 +130,10 @@ function FundOverviewBarCategory(props)
                                style={styles.textInputText}> </TextInput>
                 </View>
             </View>);
-        } else if (props.type === 'created')
+        }
+        else if (props.type === 'created')
         {
-            return (<TouchableOpacity activeOpacity={1} onPress={goToCategoryPage} onLongPress={() =>
+            setElement(<TouchableOpacity activeOpacity={1} onPress={goToCategoryPage} onLongPress={() =>
             {
                 activateEditMode(props.name);
             }} key={props.id} style={styles.container}>
@@ -141,12 +146,14 @@ function FundOverviewBarCategory(props)
                 </View>
             </TouchableOpacity>);
         }
-    });
-
+    }
+    useEffect(() =>
+    {
+      createElement();
+    }, [props.groupList]);
     const deleteSelected = () =>
     {
 
-      
 
         dispatch(categoryRemovedFundAction(props.groupID, props.id));
 

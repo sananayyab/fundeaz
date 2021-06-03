@@ -205,7 +205,7 @@ function BottomBar(props)
 
                     break;
                 case 'group':
-                    var groupID = props.data.groupID;
+                    let groupID = props.data.groupID;
 
                     props.addCategory({itemStatus: 'new'}, groupID);
                     props.initializeCategory(groupID, props.groups[props.data.groupID].currentCategoryID + 1);
