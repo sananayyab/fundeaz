@@ -143,7 +143,7 @@ function CategoryListItem(props)
         }
         else if (props.item === 'category')
         {
-            let categoryAmount = props.groupFunds[props.groupID].categories[props.id].available;
+
 
             dispatch(categoryRemovedFundAction(props.groupID, props.id));
 

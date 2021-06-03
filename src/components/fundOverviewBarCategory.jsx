@@ -146,7 +146,7 @@ function FundOverviewBarCategory(props)
     const deleteSelected = () =>
     {
 
-        let categoryAmount = props.groupFunds[props.groupID].categories[props.id].available;
+      
 
         dispatch(categoryRemovedFundAction(props.groupID, props.id));
 
