@@ -7,8 +7,31 @@ import {useNavigation} from '@react-navigation/core';
 function TransactionSection(props)
 {
 
+
     const navigation = useNavigation();
 
+    function getCategoryName(groupID, categoryID, categoryName)
+    {
+        let categoryAlive = null;
+        if (props.groupList[groupID] == null)
+        {
+
+
+            categoryAlive = false;
+        }
+        else
+        {
+            categoryAlive = props.groupList[groupID].categories[categoryID] != null;
+        }
+        if (categoryAlive)
+        {
+            return props.groupList[groupID].categories[categoryID].name;
+        }
+        else
+        {
+            return categoryName;
+        }
+    }
     function getData()
     {
 
@@ -20,21 +43,22 @@ function TransactionSection(props)
         {
 
 
-            return tempTransactions.map((element, index) =>
+            return tempTransactions.map((value, index) =>
             {
 
 
-                if (element.categoryName === 'Income')
+                if (value.categoryName === 'Income')
                 {
-                    return (<TransactionItem key={index} id={element.transactionID} payee={element.payee}
-                                             amount={element.amount}
-                                             category={element.categoryName}/>);
+                    return (<TransactionItem key={index} id={value.transactionID} payee={value.payee}
+                                             amount={value.amount}
+                                             category={value.categoryName}/>);
                 }
                 else
                 {
-                    return (<TransactionItem key={index} id={element.transactionID} payee={element.payee}
-                                             amount={element.amount}
-                                             category={element.categoryName}/>);
+
+                    return (<TransactionItem key={index} id={value.transactionID} payee={value.payee}
+                                             amount={value.amount}
+                                             category={getCategoryName(value.groupID, value.categoryID, value.categoryName)}/>);
                 }
             });
 
@@ -44,9 +68,10 @@ function TransactionSection(props)
         {
 
 
-            return tempTransactions.map((element, index) => (parseInt(element.groupID) === parseInt(props.groupID)) &&
-                <TransactionItem key={index} id={element.transactionID} payee={element.payee} amount={element.amount}
-                                 category={element.categoryName}/>);
+            return tempTransactions.map((value, index) => (
+                parseInt(value.groupID) === parseInt(props.groupID)) &&
+                <TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
+                                 category={getCategoryName(value.groupID, value.categoryID, value.categoryName)}/>);
 
 
         }
@@ -55,7 +80,7 @@ function TransactionSection(props)
 
             return tempTransactions.map((value, index) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) &&
                 <TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
-                                 category={value.categoryName}/>));
+                                 category={getCategoryName(value.groupID, value.categoryID, value.categoryName)}/>));
 
 
         }
@@ -68,7 +93,7 @@ function TransactionSection(props)
     useEffect(() =>
     {
         setData(getData());
-    }, [props.transactions]);
+    }, [props.transactions, props.groupList]);
 
     function loadTransactionList()
     {
