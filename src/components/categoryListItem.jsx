@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/core';
 import {
     addTotalAvailable,
     addToUnallocated,
-    categoryRemove,
+    categoryRemovedFundAction,
     deallocateCategory,
     unallocatedFromGroup,
 } from '../action/fundActions';
@@ -145,7 +145,7 @@ function CategoryListItem(props)
         {
             let categoryAmount = props.groupFunds[props.groupID].categories[props.id].available;
 
-            dispatch(categoryRemove(props.groupID, props.id));
+            dispatch(categoryRemovedFundAction(props.groupID, props.id));
 
             dispatch(removeCategory(props.id, props.groupID));
             setElement();
