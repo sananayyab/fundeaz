@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import TransactionItem from './transactionItem';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/core';
+import {updateTransaction} from '../action/transactionActions';
 
 function TransactionSection(props)
 {
 
 
     const navigation = useNavigation();
-
-    function getCategoryName(groupID, categoryID, categoryName)
+    const dispatch = useDispatch();
+    function getCategoryName(groupID, categoryID, categoryName, transactionID)
     {
         let categoryAlive = null;
         if (props.groupList[groupID] == null)
@@ -25,6 +26,10 @@ function TransactionSection(props)
         }
         if (categoryAlive)
         {
+            if(categoryName !== props.groupList[groupID].categories[categoryID].name)
+            {
+                dispatch(updateTransaction({categoryName: props.groupList[groupID].categories[categoryID].name}, transactionID))
+            }
             return props.groupList[groupID].categories[categoryID].name;
         }
         else
@@ -58,7 +63,7 @@ function TransactionSection(props)
 
                     return (<TransactionItem key={index} id={value.transactionID} payee={value.payee}
                                              amount={value.amount}
-                                             category={getCategoryName(value.groupID, value.categoryID, value.categoryName)}/>);
+                                             category={getCategoryName(value.groupID, value.categoryID, value.categoryName, value.transactionID)}/>);
                 }
             });
 
@@ -71,7 +76,7 @@ function TransactionSection(props)
             return tempTransactions.map((value, index) => (
                 parseInt(value.groupID) === parseInt(props.groupID)) &&
                 <TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
-                                 category={getCategoryName(value.groupID, value.categoryID, value.categoryName)}/>);
+                                 category={getCategoryName(value.groupID, value.categoryID, value.categoryName, value.transactionID)}/>);
 
 
         }
@@ -80,7 +85,7 @@ function TransactionSection(props)
 
             return tempTransactions.map((value, index) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) &&
                 <TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
-                                 category={getCategoryName(value.groupID, value.categoryID, value.categoryName)}/>));
+                                 category={getCategoryName(value.groupID, value.categoryID, value.categoryName, value.transactionID)}/>));
 
 
         }
@@ -93,7 +98,7 @@ function TransactionSection(props)
     useEffect(() =>
     {
         setData(getData());
-    }, [props.transactions, props.groupList]);
+    }, [props.transactions]);
 
     function loadTransactionList()
     {

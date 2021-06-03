@@ -2,14 +2,15 @@ import React, {useEffect, useState} from 'react';
 import TransactionItem from './transactionItem.jsx';
 import {connect, useDispatch} from 'react-redux';
 import {ScrollView, StyleSheet} from 'react-native';
+import {updateTransaction} from '../action/transactionActions';
 
 
 function TransactionList(props)
 {
 
 
-  
-    function getCategoryName(groupID, categoryID, categoryName)
+    const dispatch = useDispatch();
+    function getCategoryName(groupID, categoryID, categoryName, transactionID)
     {
         let categoryAlive = null;
         if (props.groupList[groupID] == null)
@@ -24,7 +25,10 @@ function TransactionList(props)
         }
         if (categoryAlive)
         {
-
+            if(categoryName !== props.groupList[groupID].categories[categoryID].name)
+            {
+                dispatch(updateTransaction({categoryName: props.groupList[groupID].categories[categoryID].name}, transactionID))
+            }
             return props.groupList[groupID].categories[categoryID].name;
         }
         else
@@ -41,16 +45,16 @@ function TransactionList(props)
         {
 
 
-           return  tempTransactions.map((value, key) =>
+           return  tempTransactions.map((value, index) =>
             {
                 if (value.categoryName === 'Income')
                 {
-                    return (<TransactionItem key={key} id={value.transactionID} payee={value.payee} amount={value.amount}
+                    return (<TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
                                              category={value.categoryName}/>);
                 } else
                 {
-                    return (<TransactionItem key={key} id={value.transactionID} payee={value.payee} amount={value.amount}
-                                             category={getCategoryName(value.groupID, value.categoryID, value.categoryName)}/>);
+                    return (<TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
+                                             category={getCategoryName(value.groupID, value.categoryID, value.categoryName, value.transactionID)}/>);
                 }
             });
 
@@ -58,18 +62,18 @@ function TransactionList(props)
         } else if (props.page === 'group')
         {
 
-            return tempTransactions.map((value, key) => (parseInt(value.groupID) === parseInt(props.groupID)) &&
-                <TransactionItem key={key} id={value.transactionID} payee={value.payee} amount={value.amount}
-                                 category={getCategoryName(value.groupID, value.categoryID, value.categoryName)}/>);
+            return tempTransactions.map((value, index) => (parseInt(value.groupID) === parseInt(props.groupID)) &&
+                <TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
+                                 category={getCategoryName(value.groupID, value.categoryID, value.categoryName, value.transactionID)}/>);
 
 
         } else if (props.page === 'category')
         {
 
 
-            return tempTransactions.map((value, key) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) &&
-                <TransactionItem key={key} id={value.transactionID} payee={value.payee} amount={value.amount}
-                                 category={getCategoryName(value.groupID, value.categoryID, value.categoryName) }/>));
+            return tempTransactions.map((value, index) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) &&
+                <TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
+                                 category={getCategoryName(value.groupID, value.categoryID, value.categoryName, value.transactionID)}/>));
 
 
         }
@@ -109,7 +113,7 @@ function TransactionList(props)
     useEffect(() =>
     {
         setData(getData());
-    }, [props.transactions, props.groupList]);
+    }, [props.transactions]);
 
     const styles = StyleSheet.create({
         container: {
