@@ -38,7 +38,7 @@ export function deallocateCategory(amount, groupID, categoryID)
     };
 }
 
-export function categoryRemove(groupID, categoryID)
+export function categoryRemovedFundAction(groupID, categoryID)
 {
     return {
         type: 'CATEGORY_REMOVED',
