@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {removeCategory, updateCategory} from '../action/groupActions';
 import {useNavigation} from '@react-navigation/core';
+import { categoryRemovedFundAction} from '../action/fundActions';
 
-var mode;
-var oldAmount;
+let  mode;
+let oldAmount;
 
 function FundOverviewBarCategory(props)
 {
@@ -145,6 +146,10 @@ function FundOverviewBarCategory(props)
     const deleteSelected = () =>
     {
 
+        let categoryAmount = props.groupFunds[props.groupID].categories[props.id].available;
+
+        dispatch(categoryRemovedFundAction(props.groupID, props.id));
+
         dispatch(removeCategory(props.id, props.groupID));
         setElement();
 
@@ -212,4 +217,13 @@ function FundOverviewBarCategory(props)
 }
 
 
-export default FundOverviewBarCategory;
+const mapStateToProps = (state) =>
+{
+    const {groupData, fund} = state;
+    return {
+        groupList: groupData.groups,
+        groupFunds: fund.groups,
+    };
+};
+export default connect(mapStateToProps)(FundOverviewBarCategory);
+
