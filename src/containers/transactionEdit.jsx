@@ -121,7 +121,24 @@ function TransactionEdit(props)
         if (data.type === 'category')
         {
 
-            props.removeSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
+            let categoryAlive = null;
+            if (props.groupData[data.groupID] == null)
+            {
+
+
+                categoryAlive = false;
+            }
+            else
+            {
+                categoryAlive = props.groupData[data.groupID].categories[data.categoryID] != null;
+            }
+            if(categoryAlive)
+            {
+                props.removeSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
+            }
+            else {
+                props.addTotalAvailable(parseInt(data.amount))
+            }
             navigation.goBack();
 
 
@@ -255,7 +272,7 @@ function TransactionEdit(props)
                         else
                         {
                             props.addTotalAvailable(parseInt(originalAmount));
-                         
+
                         }
                     }
 
