@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {connect, useDispatch} from 'react-redux';
+import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {removeCategory, updateCategory} from '../action/groupActions';
 import {useNavigation} from '@react-navigation/core';
@@ -105,59 +105,59 @@ function FundOverviewBarCategory(props)
     };
 
 
-
-    const dispatch = useDispatch();
     const [element, setElement] = useState();
+
 
     function createElement()
     {
-        if (props.type === 'new')
+
+        try
         {
-            setElement(<View key={props.id} style={styles.container}>
-                <View style={styles.textInputBar}>
-
-                    <TextInput autoFocus={true} onEndEditing={(event) =>
-                    {
-
-
-                        dispatch(updateCategory({
-                            name: event.nativeEvent.text.trim(),
-                            itemStatus: 'created',
-                        }, props.id, props.groupID));
-
-                        setCreatedType(event.nativeEvent.text.trim(), 0);
-                    }}
-                               style={styles.textInputText}> </TextInput>
-                </View>
-            </View>);
-        }
-        else if (props.type === 'created')
-        {
-            setElement(<TouchableOpacity activeOpacity={1} onPress={goToCategoryPage} onLongPress={() =>
+            if (props.type === 'new')
             {
-                activateEditMode(props.name);
-            }} key={props.id} style={styles.container}>
-                <View style={styles.innerContainerText}>
-                    <Text style={styles.textText}>{props.name}</Text>
-                </View>
-                <View
-                    style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                    <Text style={styles.textAmount}>{props.amount}</Text>
-                </View>
-            </TouchableOpacity>);
+                setElement(<View key={props.id} style={styles.container}>
+                    <View style={styles.textInputBar}>
+                        <TextInput autoFocus={true} onEndEditing={(event) =>
+                        {
+                            props.updateCategory({
+                                name: 'test',
+                                itemStatus: 'created',
+                            }, props.categoryID, props.groupID);
+
+
+                        }}
+                                   style={styles.textInputText}> </TextInput>
+                    </View>
+                </View>);
+
+            }
+            else if (props.type === 'created')
+            {
+                setElement(<TouchableOpacity activeOpacity={1} onPress={goToCategoryPage} onLongPress={() =>
+                {
+                    activateEditMode(props.name);
+                }} key={props.id} style={styles.container}>
+                    <View style={styles.innerContainerText}>
+                        <Text style={styles.textText}>{props.name}</Text>
+                    </View>
+                    <View
+                        style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                        <Text style={styles.textAmount}>{props.amount}</Text>
+                    </View>
+                </TouchableOpacity>);
+            }
+
+        }catch (error){
+        console.log(error)
         }
     }
-    useEffect(() =>
-    {
-      createElement();
-    }, [props.groupList]);
+
     const deleteSelected = () =>
     {
 
 
-        dispatch(categoryRemovedFundAction(props.groupID, props.id));
-
-        dispatch(removeCategory(props.id, props.groupID));
+        props.categoryRemovedFundAction(props.groupID, props.id);
+        props.removeCategory(props.id, props.groupID);
         setElement();
 
     };
@@ -173,10 +173,10 @@ function FundOverviewBarCategory(props)
                 }
 
 
-                dispatch(updateCategory({
+                props.updateCategory({
                     name: nameToUse.trim(),
                     itemStatus: 'created',
-                }, props.id, props.groupID));
+                }, props.id, props.groupID);
 
                 setCreatedType(event.nativeEvent.text, 0);
             }}
@@ -210,8 +210,14 @@ function FundOverviewBarCategory(props)
                 </View>
             </TouchableOpacity>,
         );
-    };
 
+    };
+    useEffect(() =>
+    {
+
+        createElement();
+
+    }, [props.groupList[props.groupID].categories[props.id].itemStatus]);
     return (<View style={{
             height: 50,
             width: '100%',
@@ -232,5 +238,17 @@ const mapStateToProps = (state) =>
         groupFunds: fund.groups,
     };
 };
-export default connect(mapStateToProps)(FundOverviewBarCategory);
+const mapDispatchToProps = (dispatch, ownProps) =>
+{
+
+    let {groupID, id} = ownProps;
+    return {
+
+        updateCategory: (data) => dispatch(updateCategory(data, id, groupID)),
+        categoryRemovedFundAction: () => dispatch(categoryRemovedFundAction(groupID, id)),
+        removeCategory: () => dispatch(removeCategory(id, groupID)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FundOverviewBarCategory);
 

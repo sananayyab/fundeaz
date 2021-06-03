@@ -71,7 +71,7 @@ function FundOverviewGroup(props)
 
         <FundOverviewBarCategory key={itemData.item.key} groupID={groupID} type={itemData.item.value.itemStatus}
                                  id={itemData.item.key} amount={props.groupFund[itemData.item.key].available}
-                                 categoryID={itemData.item.key} name={itemData.item.value.name} groupID={groupID}/>
+                                 categoryID={itemData.item.key} name={itemData.item.value.name} />
     );
 
     useEffect(() =>

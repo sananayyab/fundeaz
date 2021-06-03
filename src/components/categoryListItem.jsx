@@ -171,7 +171,7 @@ function CategoryListItem(props)
                                 itemStatus: 'created',
                             }, props.id, props.groupID));
                         }
-                        setCreatedType(event.nativeEvent.text.trim(), 0);
+
                     }}
                                style={styles.textInputText}> </TextInput>
                 </View>
@@ -249,7 +249,7 @@ function CategoryListItem(props)
                     style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
                     <Text style={styles.textAmount}>{props.amount}</Text>
                 </View>
-            </TouchableOpacity>,
+            </TouchableOpacity>
         );
     };
     useEffect(() =>
