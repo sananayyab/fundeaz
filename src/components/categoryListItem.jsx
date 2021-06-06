@@ -90,7 +90,7 @@ function CategoryListItem(props)
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const [element, setElement] = useState();
-    console.log('created component ' + props.id)
+
     const clickEvent = () =>
     {
         if (props.item === 'group')
@@ -154,14 +154,14 @@ function CategoryListItem(props)
         if (props.type === 'new')
         {
 
-            console.log('setting new component ' + props.id)
+
             setElement(<View key={props.id} style={styles.container}>
                 <View style={styles.textInputBar}>
                     <TextInput autoFocus={true} onSubmitEditing={(event) =>
                     {
                         if (props.item === 'group')
                         {
-                            console.log('submitted component ' + props.id)
+
                             dispatch(updateGroup({
                                 name: event.nativeEvent.text.trim(),
                                 itemStatus: 'created',
@@ -169,7 +169,7 @@ function CategoryListItem(props)
                         }
                         else if (props.item === 'category')
                         {
-                            console.log('setting new component ' + props.id)
+
                             dispatch(updateCategory({
                                 name: event.nativeEvent.text.trim(),
                                 itemStatus: 'created',
@@ -185,7 +185,7 @@ function CategoryListItem(props)
         }
         else if (props.type === 'created')
         {
-            console.log('setting created component ' + props.id)
+
             setElement(<TouchableOpacity activeOpacity={1} onPress={clickEvent} onLongPress={() =>
             {
                 activateEditMode(props.name);
@@ -248,7 +248,7 @@ function CategoryListItem(props)
     const setCreatedType = (name, amount) =>
     {
 
-        console.log('setting created type component ' + props.id)
+
         setElement(
             <TouchableOpacity activeOpacity={1} onPress={clickEvent} onLongPress={() =>
             {

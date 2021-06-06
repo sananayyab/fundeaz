@@ -38,7 +38,7 @@ function CategoryListPage(props)
         },
     });
 
-    console.log('category page created')
+
 
     return (
         <View style={styles.container}>

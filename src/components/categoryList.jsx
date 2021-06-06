@@ -18,10 +18,10 @@ function CategoryList(props)
 
 */
 
-    console.log('category list created')
+
     function loadData()
     {
-        console.log('loading data')
+
         if (props.data.page === 'home')
         {
             let groupArray = makeGroupArray()

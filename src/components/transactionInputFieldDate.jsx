@@ -86,7 +86,7 @@ function TransactionInputFieldDate(props)
 
     const onChange = (event, selectedDate) =>
     {
-        console.log(event)
+
         if(event.type === 'set'){
         const currentDate = selectedDate
 
