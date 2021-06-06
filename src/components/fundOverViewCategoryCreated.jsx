@@ -133,6 +133,7 @@ function FundOverviewBarCategoryCreated(props)
 
         props.categoryRemovedFundAction(props.groupID, props.id);
         props.removeCategory(props.id, props.groupID);
+        props.setEditing(true)
         setElement();
 
     };
@@ -153,9 +154,9 @@ function FundOverviewBarCategoryCreated(props)
                     name: nameToUse.trim(),
                     itemStatus: 'created',
                 }, props.id, props.groupID);
-
-                setCreatedType(event.nativeEvent.text, 0);
                 props.setEditing(true)
+                setCreatedType(event.nativeEvent.text, 0);
+
             }}
                        style={styles.editTextField}>{name}</TextInput>
             <View style={{width: '5%'}}/>
