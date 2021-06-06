@@ -172,6 +172,8 @@ function TransactionInputFieldCategory(props)
 
         props.data({
             type: 'Income',
+            categoryID: '',
+            groupID: '',
             categoryName: 'Income',
         });
 
