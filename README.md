@@ -73,22 +73,22 @@ that category. you can also add transactions for that category
 # Images
 
 - Home page
-  <img src="Images/HomePage.jpg" width = 150>
+<img src="Images/HomePage.jpg" width = 150>
 
 - Group Page
-  <img src="Images/GroupPage.jpg" width = 150>
+<img src="Images/GroupPage.jpg" width = 150>
 
 - Category Page
-  <img src="Images/CategoryPage.jpg" width = 150>
+<img src="Images/CategoryPage.jpg" width = 150>
 
 - Fund Overview Page
-  <img src="Images/FundOverview.jpg" width = 150>
+<img src="Images/FundOverview.jpg" width = 150>
 
 - Allocation Page
-  <img src="Images/AllocationPage.jpg" width = 150>
+<img src="Images/AllocationPage.jpg" width = 150>
 
 - Graph Page
-  <img src="Images/FundOverview.jpg" width = 150>
+<img src="Images/FundOverview.jpg" width = 150>
   
 
 
