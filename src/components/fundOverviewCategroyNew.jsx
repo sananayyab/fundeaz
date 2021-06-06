@@ -90,85 +90,12 @@ function FundOverviewBarCategoryNew(props)
     });
 
 
-    const navigation = useNavigation();
-    const goToCategoryPage = () =>
-    {
-
-        navigation.navigate('CategoryPage', {
-            name: props.name,
-            groupID: props.groupID,
-            categoryID: props.id,
-
-        });
 
 
-    };
 
-
-    const [text, setText] = useState();
     let ref = createRef();
 
 
-    const deleteSelected = () =>
-    {
-
-
-        props.categoryRemovedFundAction(props.groupID, props.id);
-        props.removeCategory(props.id, props.groupID);
-        setElement();
-
-    };
-    const activateEditMode = (name) =>
-    {
-        setElement(<View style={styles.container}>
-            <TextInput onEndEditing={(event) =>
-            {
-                var nameToUse = '';
-                if (name !== null)
-                {
-                    nameToUse = event.nativeEvent.text;
-                }
-
-
-                props.updateCategory({
-                    name: nameToUse.trim(),
-                    itemStatus: 'created',
-                }, props.id, props.groupID);
-
-                setCreatedType(event.nativeEvent.text, 0);
-            }}
-                       style={styles.editTextField}>{name}</TextInput>
-            <View style={{width: '5%'}}/>
-            <Icon.Button
-                backgroundColor={'white'}
-                color="black"
-                name="delete"
-                size={30}
-                onPress={deleteSelected}
-                iconStyle={{
-                    marginRight: 0,
-                }}
-            />
-        </View>);
-    };
-    const setCreatedType = (name, amount) =>
-    {
-        setElement(
-            <TouchableOpacity activeOpacity={1} onPress={goToCategoryPage} onLongPress={() =>
-            {
-                activateEditMode(name);
-            }} key={props.id} style={styles.container}>
-                <View style={styles.innerContainerText}>
-                    <Text style={styles.textText}>{name}</Text>
-                </View>
-                <View
-                    style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                    <Text style={styles.textAmount}>{props.amount}</Text>
-                </View>
-            </TouchableOpacity>,
-        );
-
-    };
 
     return (<View style={{
             height: 50,
