@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, ToastAndroid, View} from 'react-native';
 import {connect} from 'react-redux';
 import FundOverviewBarGroup from './fundOverviewBarGroup.jsx';
-import FundOverviewBarCategory from './fundOverviewBarCategory.jsx';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {addCategory} from '../action/groupActions';
 import {initializeCategory} from '../action/fundActions';
 import {FlatList} from 'react-native-gesture-handler';
 import {addCategoryStatistics} from '../action/statisticsActions.jsx';
+import FundOverviewBarCategoryCreated from './fundOverViewCategoryCreated';
+import FundOverviewBarCategoryNew from './fundOverviewCategroyNew';
 
 function FundOverviewGroup(props)
 {
@@ -45,34 +46,72 @@ function FundOverviewGroup(props)
     });
 
 
+    const [finishedEditing, setEditing] = useState(true);
+    let lastId = props.currentGroup.currentCategoryID;
+
+
+
+
     function addingAction()
     {
 
-        props.addCategory({itemStatus: 'new'}, groupID);
-        props.initializeCategory(groupID, props.currentGroup.currentCategoryID + 1);
-        props.addCategoryStatistics(groupID, props.currentGroup.currentCategoryID + 1, {
-            allocated: {
-                average: 0,
-                lastMonth: 0,
-                thisMonth: 0,
-            },
-            spent: {
-                average: 0,
-                lastMonth: 0,
-                thisMonth: 0,
-            },
-        });
+        if (finishedEditing)
+        {
+            props.addCategory({itemStatus: 'new'}, groupID);
+            props.initializeCategory(groupID, props.currentGroup.currentCategoryID + 1);
+            props.addCategoryStatistics(groupID, props.currentGroup.currentCategoryID + 1, {
+                allocated: {
+                    average: 0,
+                    lastMonth: 0,
+                    thisMonth: 0,
+                },
+                spent: {
+                    average: 0,
+                    lastMonth: 0,
+                    thisMonth: 0,
+                },
+            });
+
+            setEditing(false);
+        }
+        else {
+            ToastAndroid.showWithGravity(
+                "Please Finish Naming the Previous Category",
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER
+            );
+        }
 
     }
 
     const [data, setData] = useState(Object.entries(props.groups).map(([key, value]) => ({key: key, value: value})));
 
-    const renderItem = (itemData) => (
+    const renderItem = (itemData) =>
+    {
 
-        <FundOverviewBarCategory key={itemData.item.key} groupID={groupID} type={itemData.item.value.itemStatus}
-                                 id={itemData.item.key} amount={props.groupFund[itemData.item.key].available}
-                                 categoryID={itemData.item.key} name={itemData.item.value.name} />
-    );
+        let status = itemData.item.value.itemStatus;
+
+
+        if (status === 'created')
+        {
+
+            return <FundOverviewBarCategoryCreated
+                setEditing={setEditing} key={itemData.item.key} groupID={groupID}
+                id={itemData.item.key}
+                amount={props.groupFund[itemData.item.key].available}
+                categoryID={itemData.item.key} name={itemData.item.value.name}/>;
+        }
+        else
+        {
+
+            return <FundOverviewBarCategoryNew key={itemData.item.key} groupID={groupID}
+                                               id={itemData.item.key}
+                                               setEditing={setEditing}
+                                               amount={props.groupFund[itemData.item.key].available}
+                                               categoryID={itemData.item.key} name={itemData.item.value.name}/>;
+        }
+    };
+
 
     useEffect(() =>
     {

@@ -10,7 +10,7 @@ import {useTheme} from '@react-navigation/native';
 let mode;
 let oldAmount;
 
-function FundOverviewBarCategory(props)
+function FundOverviewBarCategoryCreated(props)
 {
 
 
@@ -106,58 +106,26 @@ function FundOverviewBarCategory(props)
     };
 
 
-    const [element, setElement] = useState();
-    const [status, setStatus] = useState(false)
 
 
-    function createElement()
-    {
-
-        try
-        {
-            if (props.type === 'new' && !status)
+    const [element, setElement] = useState(
+        <View style={{flex: 1}}>
+            <TouchableOpacity activeOpacity={1} onPress={goToCategoryPage} onLongPress={() =>
             {
-
-                setElement(<View style={styles.container}>
-                    <View style={styles.textInputBar}>
-                        <TextInput  autoFocus={true}  onEndEditing={ (event) =>
-                        {
-
-
-
-
-                              props.updateCategory({
-                                name: 'test',
-                                itemStatus: 'created',
-                            }, props.categoryID, props.groupID);
+                activateEditMode(props.name);
+            }}  style={styles.container}>
+                <View style={styles.innerContainerText}>
+                    <Text style={styles.textText}>{props.name}</Text>
+                </View>
+                <View
+                    style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                    <Text style={styles.textAmount}>{props.amount}</Text>
+                </View>
+            </TouchableOpacity>
+        </View>);
 
 
-                        }}
-                                   style={styles.textInputText}> </TextInput>
-                    </View>
-                </View>);
 
-            }
-            else if (props.type === 'created')
-            {
-                setElement(<TouchableOpacity activeOpacity={1} onPress={goToCategoryPage} onLongPress={() =>
-                {
-                    activateEditMode(props.name);
-                }}  style={styles.container}>
-                    <View style={styles.innerContainerText}>
-                        <Text style={styles.textText}>{props.name}</Text>
-                    </View>
-                    <View
-                        style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                        <Text style={styles.textAmount}>{props.amount}</Text>
-                    </View>
-                </TouchableOpacity>);
-            }
-
-        }catch (error){
-        console.log(error)
-        }
-    }
 
     const deleteSelected = () =>
     {
@@ -170,10 +138,11 @@ function FundOverviewBarCategory(props)
     };
     const activateEditMode = (name) =>
     {
+        props.setEditing(false)
         setElement(<View style={styles.container}>
-            <TextInput onEndEditing={(event) =>
+            <TextInput onSubmitEditing={(event) =>
             {
-                var nameToUse = '';
+                let nameToUse = '';
                 if (name !== null)
                 {
                     nameToUse = event.nativeEvent.text;
@@ -186,6 +155,7 @@ function FundOverviewBarCategory(props)
                 }, props.id, props.groupID);
 
                 setCreatedType(event.nativeEvent.text, 0);
+                props.setEditing(true)
             }}
                        style={styles.editTextField}>{name}</TextInput>
             <View style={{width: '5%'}}/>
@@ -219,19 +189,13 @@ function FundOverviewBarCategory(props)
         );
 
     };
-    useEffect(() =>
-    {
 
-        createElement();
-
-    }, [props.groupList]);
-    return (<View style={{
+    return (
+        <View style={{
             height: 50,
             width: '100%',
         }}>
-            <View style={{flex: 1}}>
-                {element}
-            </View>
+            {element}
         </View>
     );
 }
@@ -257,5 +221,5 @@ const mapDispatchToProps = (dispatch, ownProps) =>
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FundOverviewBarCategory);
+export default connect(mapStateToProps, mapDispatchToProps)(FundOverviewBarCategoryCreated);
 

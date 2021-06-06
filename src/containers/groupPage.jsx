@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 import TopBar from '../components/topBarHome.jsx';
 import CategorySection from '../components/categorySection.jsx';

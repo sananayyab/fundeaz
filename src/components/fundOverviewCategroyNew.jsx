@@ -1,16 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {createRef, useEffect, useState} from 'react';
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {removeCategory, updateCategory} from '../action/groupActions';
 import {useNavigation} from '@react-navigation/core';
 import {categoryRemovedFundAction} from '../action/fundActions';
-import {useTheme} from '@react-navigation/native';
 
 let mode;
 let oldAmount;
 
-function FundOverviewBarCategory(props)
+function FundOverviewBarCategoryNew(props)
 {
 
 
@@ -106,58 +105,9 @@ function FundOverviewBarCategory(props)
     };
 
 
-    const [element, setElement] = useState();
-    const [status, setStatus] = useState(false)
+    const [text, setText] = useState();
+    let ref = createRef();
 
-
-    function createElement()
-    {
-
-        try
-        {
-            if (props.type === 'new' && !status)
-            {
-
-                setElement(<View style={styles.container}>
-                    <View style={styles.textInputBar}>
-                        <TextInput  autoFocus={true}  onEndEditing={ (event) =>
-                        {
-
-
-
-
-                              props.updateCategory({
-                                name: 'test',
-                                itemStatus: 'created',
-                            }, props.categoryID, props.groupID);
-
-
-                        }}
-                                   style={styles.textInputText}> </TextInput>
-                    </View>
-                </View>);
-
-            }
-            else if (props.type === 'created')
-            {
-                setElement(<TouchableOpacity activeOpacity={1} onPress={goToCategoryPage} onLongPress={() =>
-                {
-                    activateEditMode(props.name);
-                }}  style={styles.container}>
-                    <View style={styles.innerContainerText}>
-                        <Text style={styles.textText}>{props.name}</Text>
-                    </View>
-                    <View
-                        style={((parseInt(props.amount) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
-                        <Text style={styles.textAmount}>{props.amount}</Text>
-                    </View>
-                </TouchableOpacity>);
-            }
-
-        }catch (error){
-        console.log(error)
-        }
-    }
 
     const deleteSelected = () =>
     {
@@ -219,21 +169,36 @@ function FundOverviewBarCategory(props)
         );
 
     };
-    useEffect(() =>
-    {
 
-        createElement();
-
-    }, [props.groupList]);
     return (<View style={{
             height: 50,
             width: '100%',
-        }}>
-            <View style={{flex: 1}}>
-                {element}
+        }} >
+            <View style={{flex: 1}} >
+                <View style={styles.container}>
+                    <View style={styles.textInputBar}>
+                        <TextInput ref={ref} autoFocus={true}  onSubmitEditing={(event) =>
+                        {
+
+
+                            props.updateCategory({
+                                name: event.nativeEvent.text.trim(),
+                                itemStatus: 'created',
+                            }, props.categoryID, props.groupID);
+                            props.setEditing(true)
+
+
+
+
+
+                        }}
+                                   style={styles.textInputText}> </TextInput>
+                    </View>
+                </View>
             </View>
         </View>
     );
+
 }
 
 
@@ -257,5 +222,5 @@ const mapDispatchToProps = (dispatch, ownProps) =>
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FundOverviewBarCategory);
+export default connect(mapStateToProps, mapDispatchToProps)(FundOverviewBarCategoryNew);
 

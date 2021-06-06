@@ -17,13 +17,16 @@ function CategoryList(props)
     const [data, setData] = useState(loadData())
 
 */
+
+    console.log('category list created')
     function loadData()
     {
+        console.log('loading data')
         if (props.data.page === 'home')
         {
             let groupArray = makeGroupArray()
 
-            return groupArray.map((value, key) => <CategoryListItem key={key} id={value.groupID}
+            return groupArray.map((value, key) => <CategoryListItem  setEditing={props.setEditing} key={key} id={value.groupID}
                                                                                             name={value.name}
                                                                                             amount={props.groupFunds[value.groupID].available}
                                                                                             item={'group'}
@@ -34,7 +37,7 @@ function CategoryList(props)
 
             let categoryArray = makeCategoryArray()
             return categoryArray.map((value, key) =>
-                <CategoryListItem key={key} id={value.categoryID} type={value.itemStatus} groupID={props.data.groupID}
+                <CategoryListItem setEditing={props.setEditing} key={key} id={value.categoryID} type={value.itemStatus} groupID={props.data.groupID}
                                   amount={props.groupFunds[props.data.groupID].categories[value.categoryID].available}
                                   name={value.name} item={'category'}/>);
         }

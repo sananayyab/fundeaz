@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 import CategoryList from '../components/categoryList.jsx';
 import BottomBar from '../components/bottomBar.jsx';
@@ -9,6 +9,7 @@ function GroupListPage(props)
 
 
     const navigation = useNavigation();
+    const [finishedEditing, setEditing] = useState(true);
     var data = {
         page: 'home',
         type: 'category',
@@ -42,10 +43,10 @@ function GroupListPage(props)
         <View style={styles.container}>
             <StatusBar style="default"/>
             <View style={styles.list}>
-                <CategoryList data={data}/>
+                <CategoryList setEditing={setEditing} data={data}/>
             </View>
             <View style={styles.bottomBar}>
-                <BottomBar data={data}/>
+                <BottomBar setEditing={setEditing} finsihedEditing={finishedEditing} data={data}/>
             </View>
         </View>
     );

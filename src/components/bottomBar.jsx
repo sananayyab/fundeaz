@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, ToastAndroid, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {addTransaction} from '../action/transactionActions';
 import {connect} from 'react-redux';
@@ -182,7 +182,7 @@ function BottomBar(props)
 
         const type = props.data.type;
         const source = props.data.page;
-        if (type === 'category')
+        if (type === 'category' && props.finsihedEditing)
         {
             switch (source)
             {
@@ -202,7 +202,7 @@ function BottomBar(props)
                             thisMonth: 0,
                         },
                     });
-
+                    props.setEditing(false);
                     break;
                 case 'group':
                     let groupID = props.data.groupID;
@@ -221,8 +221,19 @@ function BottomBar(props)
                             thisMonth: 0,
                         },
                     });
+                    props.setEditing(false);
                     break;
             }
+        }
+        else if(type === 'category' && !props.finsihedEditing)
+        {
+
+            ToastAndroid.showWithGravity(
+                "Please Finish Naming the Previous Category",
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER
+            );
+
         }
         else if (type === 'landing')
         {
