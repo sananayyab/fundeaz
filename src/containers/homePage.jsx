@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 import TopBar from '../components/topBarHome.jsx';
 import CategorySection from '../components/categorySection.jsx';
@@ -14,8 +14,9 @@ function HomePage(props)
     const day = new Date();
 
 
-    if (props.monthStart === day.getDate() && props.lastChecked !== day.getDate())
+    useEffect(() => { if (props.monthStart === day.getDate() && props.lastChecked !== day.getDate())
     {
+
 
 
         for (const [groupKey, groupValue] of Object.entries(props.groups))
@@ -36,11 +37,12 @@ function HomePage(props)
     }
 
 
-    if (props.lastDateChecked < day.getDate())
-    {
+        if (props.lastChecked < day.getDate())
+        {
 
-        props.setLastCheckedDate(day.getDate());
-    }
+            props.setLastCheckedDate(day.getDate());
+        }}, [])
+
 
     const styles = StyleSheet.create({
         container: {
