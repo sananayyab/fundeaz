@@ -118,12 +118,14 @@ function StatisticsPageGroup(props)
         firstDay.setHours(0,0,0,0);
         if (transactions.date >= firstDay.getTime())
         {
+
             if (grouping === 'group')
             {
+              
                 let index = pieChartDate.map(function (item)
                 {
-                    return item.groupID;
-                }).indexOf(transactions.groupID)
+                    return item.id;
+                }).indexOf( transactions.groupID + transactions.categoryID)
                 if (index !== -1)
                 {
                     pieChartDate[index].value += parseInt(transactions.amount)
@@ -131,9 +133,9 @@ function StatisticsPageGroup(props)
                 else if (index === -1)
                 {
                     pieChartDate.push({
-                        groupID: transactions.groupID,
+                        id: transactions.groupID + transactions.categoryID,
                         value: parseInt(transactions.amount),
-                        name: transactions.groupName,
+                        name: transactions.categoryName,
 
 
                     })
