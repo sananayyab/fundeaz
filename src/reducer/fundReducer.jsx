@@ -328,6 +328,25 @@ export function fundReducer(state = initialState, action)
                     },
                 },
             };
+        case 'START_OF_MONTH_CATEGORY_NEGATIVE':
+            return {
+                ...state,
+                unallocated: state.unallocated - Math.abs(action.amount),
+                groups: {
+                    ...state.groups,
+                    [action.groupID]: {
+                        ...state.groups[action.groupID],
+                        available: state.groups[action.groupID].available + Math.abs(action.amount),
+                        categories: {
+                            ...state.groups[action.groupID].categories,
+                            [action.categoryID]: {
+                                ...state.groups[action.groupID].categories[action.categoryID],
+                                available: 0,
+                            },
+                        },
+                    },
+                },
+            };
         default:
             return state;
     }

@@ -5,7 +5,12 @@ import CategorySection from '../components/categorySection.jsx';
 import BottomBar from '../components/bottomBar.jsx';
 import TransactionSection from '../components/transactionSection';
 import {setLastCheckedDate, setStartDate} from '../action/applicationDataAction';
-import {startOfMonthDataResetCategory, startOfMonthDataResetGroup} from '../action/fundActions';
+import {
+    addToUnallocated,
+    startOfMonthCategoryNegative,
+    startOfMonthDataResetCategory,
+    startOfMonthDataResetGroup,
+} from '../action/fundActions';
 import {startOfMonthAction} from '../action/statisticsActions';
 import {connect} from 'react-redux';
 
@@ -14,7 +19,10 @@ function HomePage(props)
     const day = new Date();
 
 
-    useEffect(() => { if (props.monthStart === day.getDate() && props.lastChecked !== day.getDate())
+
+    useEffect(() => {
+      
+        if (props.monthStart === day.getDate() && props.lastChecked !== day.getDate())
     {
 
 
@@ -22,9 +30,15 @@ function HomePage(props)
         for (const [groupKey, groupValue] of Object.entries(props.groups))
         {
 
+
             props.startOfMonthDataResetGroup(groupKey);
             for (const [catKey, catValue] of Object.entries(props.groups[groupKey].categories))
             {
+                if(props.fund[groupKey].categories[catKey].available < 0)
+                {
+                    props.startOfMonthCategoryNegative(groupKey,catKey,props.fund[groupKey].categories[catKey].available);
+                }
+
                 props.startOfMonthDataResetCategory(groupKey, catKey);
                 props.startOfMonthAction(groupKey, catKey);
 
@@ -34,6 +48,7 @@ function HomePage(props)
         }
 
         props.setLastCheckedDate(day.getDate());
+
     }
 
 
@@ -110,9 +125,10 @@ function HomePage(props)
 
 const mapStateToProps = (state, ownProps) =>
 {
-    const {appData, groupData} = state;
+    const {appData, groupData, fund} = state;
 
     return {
+        fund: fund.groups,
         lastChecked: appData.lastDateChecked,
         monthStart: appData.monthStart,
         groups: groupData.groups,
@@ -124,6 +140,8 @@ const mapDispatchToProps = (dispatch, ownProps) =>
 
 
     return {
+        startOfMonthCategoryNegative: (groupID, categoryID, amount) => dispatch(startOfMonthCategoryNegative(groupID,categoryID,amount)),
+        addToUnallocated: (amount) => dispatch(addToUnallocated(amount)),
         setLastCheckedDate: (date) => dispatch(setLastCheckedDate(date)),
         setStartDate: (date) => dispatch(setStartDate(date)),
         startOfMonthDataResetGroup: (groupID) => dispatch(startOfMonthDataResetGroup(groupID)),

@@ -121,7 +121,7 @@ function StatisticsPageGroup(props)
 
             if (grouping === 'group')
             {
-              
+
                 let index = pieChartDate.map(function (item)
                 {
                     return item.id;

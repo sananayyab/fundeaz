@@ -182,6 +182,16 @@ export function setGoalAmount(groupID, categoryID, amount)
     };
 }
 
+export function startOfMonthCategoryNegative(groupID, categoryID, amount)
+{
+    return {
+        type: 'START_OF_MONTH_CATEGORY_NEGATIVE',
+        groupID,
+        categoryID,
+        amount,
+    };
+}
+
 
 
 
