@@ -85,7 +85,7 @@ function AllocationBarCategory(props)
         }
         if (nativeEvent.state === State.END)
         {
-            if (nativeEvent.absoluteX > beginX)
+            if ( nativeEvent.absoluteX - beginX > 55)
             {
                 Animated.sequence([Animated.timing(position, {
                     toValue: 50,
@@ -101,7 +101,7 @@ function AllocationBarCategory(props)
                 setAmount(0);
                 mode = 'add';
                 textFieldRef.current.focus();
-            } else
+            }else if ( nativeEvent.absoluteX - beginX < -35)
             {
                 Animated.sequence([Animated.timing(position, {
                     toValue: -50,
@@ -121,7 +121,7 @@ function AllocationBarCategory(props)
         }
         if (nativeEvent.state === State.CANCELLED)
         {
-            if (nativeEvent.absoluteX > beginX)
+            if ( nativeEvent.absoluteX - beginX > 55)
             {
                 Animated.sequence([Animated.timing(position, {
                     toValue: 50,
@@ -137,7 +137,7 @@ function AllocationBarCategory(props)
                 setAmount(0);
                 mode = 'add';
                 textFieldRef.current.focus();
-            } else
+            } else if ( nativeEvent.absoluteX - beginX < -35)
             {
                 Animated.sequence([Animated.timing(position, {
                     toValue: -50,
@@ -155,6 +155,8 @@ function AllocationBarCategory(props)
                 textFieldRef.current.focus();
             }
         }
+
+    
     }
 
     return (
