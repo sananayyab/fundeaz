@@ -110,10 +110,7 @@ function FundOverviewBarCategoryCreated(props)
 
     const [element, setElement] = useState(
         <View style={{flex: 1}}>
-            <TouchableOpacity activeOpacity={1} onPress={goToCategoryPage} onLongPress={() =>
-            {
-                activateEditMode(props.name);
-            }}  style={styles.container}>
+            <TouchableOpacity activeOpacity={1} onPress={goToCategoryPage}   style={styles.container}>
                 <View style={styles.innerContainerText}>
                     <Text style={styles.textText}>{props.name}</Text>
                 </View>
@@ -175,10 +172,7 @@ function FundOverviewBarCategoryCreated(props)
     const setCreatedType = (name, amount) =>
     {
         setElement(
-            <TouchableOpacity activeOpacity={1} onPress={goToCategoryPage} onLongPress={() =>
-            {
-                activateEditMode(name);
-            }} key={props.id} style={styles.container}>
+            <TouchableOpacity activeOpacity={1} onPress={goToCategoryPage} key={props.id} style={styles.container}>
                 <View style={styles.innerContainerText}>
                     <Text style={styles.textText}>{name}</Text>
                 </View>

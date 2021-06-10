@@ -122,21 +122,7 @@ function FundOverviewGroup(props)
         <View style={styles.container}>
 
 
-            <View style={styles.addButton}>
-                <Icon.Button
-                    backgroundColor="#98B0D3"
-                    name="add"
-                    onPress={addingAction}
-                    color="black"
-                    size={30}
-                    iconStyle={{
-                        marginRight: 0,
 
-
-                    }}
-
-                />
-            </View>
 
             <View style={styles.groupContainer}>
                 <View style={styles.groupTag}>
