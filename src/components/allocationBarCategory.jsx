@@ -97,7 +97,10 @@ function AllocationBarCategory(props)
                     useNativeDriver: true,
                 })]).start();
                 setStyle(styles.innerContainerTextPositive);
-                oldAmount = amount;
+                if(mode !== 'deduct')
+                {
+                    oldAmount = amount;
+                }
                 setAmount(0);
                 mode = 'add';
                 textFieldRef.current.focus();
@@ -113,7 +116,10 @@ function AllocationBarCategory(props)
                     useNativeDriver: true,
                 })]).start();
                 setStyle(styles.innerContainerTextNegative);
-                oldAmount = amount;
+                if(mode !== 'add')
+                {
+                    oldAmount = amount;
+                }
                 setAmount(0);
                 mode = 'deduct';
                 textFieldRef.current.focus();
@@ -133,7 +139,10 @@ function AllocationBarCategory(props)
                     useNativeDriver: true,
                 })]).start();
                 setStyle(styles.innerContainerTextPositive);
-                oldAmount = amount;
+                if(mode !== 'deduct')
+                {
+                    oldAmount = amount;
+                }
                 setAmount(0);
                 mode = 'add';
                 textFieldRef.current.focus();
@@ -149,14 +158,17 @@ function AllocationBarCategory(props)
                     useNativeDriver: true,
                 })]).start();
                 setStyle(styles.innerContainerTextNegative);
-                oldAmount = amount;
+                if(mode !== 'add')
+                {
+                    oldAmount = amount;
+                }
                 setAmount(0);
                 mode = 'deduct';
                 textFieldRef.current.focus();
             }
         }
 
-    
+
     }
 
     return (
@@ -183,15 +195,18 @@ function AllocationBarCategory(props)
                                     {
 
 
+
                                             props.allocate((parseInt(event.nativeEvent.text)));
                                             props.updateStatistics({thisMonth: (props.groupStatistics + (parseInt(event.nativeEvent.text)))}, {thisMonth: (props.categoryStatistics + (parseInt(event.nativeEvent.text)))});
                                             setAmount(parseInt(event.nativeEvent.text) + parseInt(oldAmount));
                                             setStyle(styles.innerContainerTextPositive);
+                                            mode= ''
 
                                     } else
                                     {
                                         setAmount(parseInt(oldAmount));
                                         setStyle(styles.innerContainerTextPositive);
+                                        mode= ''
                                     }
                                 } else if (mode === 'deduct')
                                 {
@@ -199,19 +214,25 @@ function AllocationBarCategory(props)
                                     {
                                         if (oldAmount > 0)
                                         {
+
                                             props.updateStatistics({thisMonth: ( props.groupStatistics - (parseInt(event.nativeEvent.text)))}, {thisMonth: ( props.categoryStatistics - (parseInt(event.nativeEvent.text)))});
                                             props.deallocate(parseInt(event.nativeEvent.text));
                                             setAmount(oldAmount - parseInt(event.nativeEvent.text));
                                             setStyle(styles.innerContainerTextPositive);
+                                            mode= ''
                                         } else
                                         {
+
                                             setAmount(oldAmount);
                                             setStyle(styles.innerContainerTextPositive);
+                                            mode= ''
                                         }
                                     } else
                                     {
+
                                         setAmount(parseInt(oldAmount));
                                         setStyle(styles.innerContainerTextPositive);
+                                        mode= ''
                                     }
                                 }
                             }}
@@ -219,6 +240,7 @@ function AllocationBarCategory(props)
                             {
                                 if (!isNaN(parseInt(text)))
                                 {
+
                                     setAmount(parseInt(text));
                                 }
                             }}
