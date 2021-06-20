@@ -8,6 +8,8 @@ function AllocationPage(props)
 {
 
 
+
+
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -27,7 +29,7 @@ function AllocationPage(props)
             </View>
             <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}>
-             < AllocationGroup />
+                {Object.keys(props.groups).length === 0 ? <View/> : <AllocationGroup/>}
             </ScrollView>
         </View>);
 }
@@ -36,7 +38,7 @@ const mapStateToProps = (state) =>
 {
     const {groupData, fund} = state;
     return {
-        groups: groupData.groups,
+        groups: groupData.categories,
         unallocated: fund.unallocated,
     };
 };
