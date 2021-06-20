@@ -9,7 +9,7 @@ import {
     addToUnallocated,
     startOfMonthCategoryNegative,
     startOfMonthDataResetCategory,
-    startOfMonthDataResetGroup,
+
 } from '../action/fundActions';
 import {startOfMonthAction} from '../action/statisticsActions';
 import {connect} from 'react-redux';
@@ -27,25 +27,23 @@ function HomePage(props)
 
 
 
-        for (const [groupKey, groupValue] of Object.entries(props.groups))
-        {
 
 
-            props.startOfMonthDataResetGroup(groupKey);
-            for (const [catKey, catValue] of Object.entries(props.groups[groupKey].categories))
+
+            for (const [catKey, catValue] of Object.entries(props.categories))
             {
-                if(props.fund[groupKey].categories[catKey].available < 0)
+                if(props.fund[catKey].available < 0)
                 {
-                    props.startOfMonthCategoryNegative(groupKey,catKey,props.fund[groupKey].categories[catKey].available);
+                    props.startOfMonthCategoryNegative(catKey,props.fund[catKey].available);
                 }
 
-                props.startOfMonthDataResetCategory(groupKey, catKey);
-                props.startOfMonthAction(groupKey, catKey);
+                props.startOfMonthDataResetCategory( catKey);
+                props.startOfMonthAction( catKey);
 
             }
 
 
-        }
+
 
         props.setLastCheckedDate(day.getDate());
 
@@ -128,10 +126,10 @@ const mapStateToProps = (state, ownProps) =>
     const {appData, groupData, fund} = state;
 
     return {
-        fund: fund.groups,
+        fund: fund.categories,
         lastChecked: appData.lastDateChecked,
         monthStart: appData.monthStart,
-        groups: groupData.groups,
+        categories: groupData.categories,
     };
 };
 
@@ -140,13 +138,12 @@ const mapDispatchToProps = (dispatch, ownProps) =>
 
 
     return {
-        startOfMonthCategoryNegative: (groupID, categoryID, amount) => dispatch(startOfMonthCategoryNegative(groupID,categoryID,amount)),
+        startOfMonthCategoryNegative: ( categoryID, amount) => dispatch(startOfMonthCategoryNegative(categoryID,amount)),
         addToUnallocated: (amount) => dispatch(addToUnallocated(amount)),
         setLastCheckedDate: (date) => dispatch(setLastCheckedDate(date)),
         setStartDate: (date) => dispatch(setStartDate(date)),
-        startOfMonthDataResetGroup: (groupID) => dispatch(startOfMonthDataResetGroup(groupID)),
-        startOfMonthDataResetCategory: (groupID, categoryID) => dispatch(startOfMonthDataResetCategory(groupID, categoryID)),
-        startOfMonthAction: (groupID, categoryID) => dispatch(startOfMonthAction(groupID, categoryID)),
+        startOfMonthDataResetCategory: ( categoryID) => dispatch(startOfMonthDataResetCategory(categoryID)),
+        startOfMonthAction: (categoryID) => dispatch(startOfMonthAction(categoryID)),
     };
 };
 
