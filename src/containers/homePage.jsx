@@ -21,7 +21,7 @@ function HomePage(props)
 
 
     useEffect(() => {
-      
+
         if (props.monthStart === day.getDate() && props.lastChecked !== day.getDate())
     {
 
@@ -106,7 +106,7 @@ function HomePage(props)
                 <TopBar section={'home'}/>
             </View>
             <View style={styles.categoryContainer}>
-                <CategorySection section={'group'} page={'home'} style={{flex: 1}}/>
+                <CategorySection style={{flex: 1}}/>
             </View>
             <View style={styles.spendingContainer}>
                 <TransactionSection page={'home'}/>
