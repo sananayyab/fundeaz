@@ -57,7 +57,7 @@ that category. you can also add transactions for that category
 <img src="Images/AllocationPage.jpg" width = 150>
 
 - Graph Page
-<img src="Images/FundOverview.jpg" width = 150>
+<img src="Images/GraphPage.jpg" width = 150>
   
 
 
