@@ -13,20 +13,7 @@ function TopBar(props)
 
         data = {
             type: 'unallocated',
-            groupID: null,
             categoryID: null,
-        };
-
-    }
-    if (props.section == 'group')
-    {
-
-
-        data = {
-            type: 'allocated',
-            groupID: props.groupID,
-            categoryID: null,
-
         };
 
     }
@@ -36,7 +23,6 @@ function TopBar(props)
 
         data = {
             type: 'allocated',
-            groupID: props.groupID,
             categoryID: props.categoryID,
 
         };
