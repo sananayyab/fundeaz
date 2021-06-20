@@ -1,31 +1,30 @@
-export function addCategoryStatistics(groupID, categoryID, data)
+export function addCategoryStatistics( categoryID, data)
 {
     return {
         type: 'ADD_CATEGORY_STATISTICS',
         data,
         categoryID,
-        groupID,
     };
 }
 
-export function resetCategoryStatistics(categoryID, groupID)
+export function resetCategoryStatistics(categoryID)
 {
     return {
         type: 'RESET_CATEGORY_STATISTICS',
         categoryID,
-        groupID,
+
     };
 }
 
 
-export function setCategoryAllocated(group, category, groupID, categoryID)
+export function setCategoryAllocated( category, categoryID)
 {
     return {
         type: 'SET_CATEGORY_ALLOCATED',
         categoryID,
-        group,
+
         category,
-        groupID,
+
 
     };
 }
@@ -42,6 +41,16 @@ export function setCategorySpent(group, category, groupID, categoryID)
 }
 
 
+
+export function startOfMonthAction(categoryID)
+{
+    return {type: 'START_OF_MONTH_ACTION',
+
+    categoryID}
+}
+
+
+/*
 export function addGroupStatistics(groupID, data)
 {
     return {
@@ -69,9 +78,4 @@ export function updateGroupStatistics(data, groupID)
     };
 }
 
-export function startOfMonthAction(groupID, categoryID)
-{
-    return {type: 'START_OF_MONTH_ACTION',
-    groupID,
-    categoryID}
-}
+ */
