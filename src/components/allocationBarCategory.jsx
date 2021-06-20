@@ -99,7 +99,7 @@ function AllocationBarCategory(props)
             color: 'white',
         },
     });
-    const [styleToUse, setStyle] = useState(((parseInt(props.fundAllocated) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative));
+    const [styleToUse, setStyle] = useState(((money_round(props.fundAllocated) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative));
     const textFieldRef = createRef();
     var beginX;
 
@@ -198,6 +198,11 @@ function AllocationBarCategory(props)
 
     }
 
+
+    function money_round(num)
+    {
+        return Math.floor(num * 100) / 100;
+    }
     return (
         <FlingGestureHandler direction={Directions.RIGHT | Directions.LEFT | Directions.UP | Directions.DOWN}
                              onHandlerStateChange={handleState}>
@@ -209,7 +214,7 @@ function AllocationBarCategory(props)
                     <View style={styles.innerContainerText}>
                         <Text style={styles.textText}>{props.name}</Text>
                     </View>
-                    <View style={((parseInt(props.fundAvailable) >= 0) ? styles.innerContainerTextPositiveAvailable : styles.innerContainerTextNegativeAvailable)}>
+                    <View style={((money_round(props.fundAvailable) >= 0) ? styles.innerContainerTextPositiveAvailable : styles.innerContainerTextNegativeAvailable)}>
                             <Text style={styles.textAvailable}>
                                 {props.fundAvailable}
                             </Text>
@@ -227,33 +232,33 @@ function AllocationBarCategory(props)
                                 {
 
 
-                                    if (!isNaN(parseInt(event.nativeEvent.text)) &&parseInt(event.nativeEvent.text) > 0 )
+                                    if (!isNaN(parseInt(event.nativeEvent.text)) &&money_round(event.nativeEvent.text) > 0 )
                                     {
 
 
 
-                                        props.allocate((parseInt(event.nativeEvent.text)));
-                                        props.updateStatistics( {thisMonth: (props.categoryStatistics + (parseInt(event.nativeEvent.text)))});
-                                        setAmount(parseInt(event.nativeEvent.text) + parseInt(oldAmount));
+                                        props.allocate(event.nativeEvent.text);
+                                        props.updateStatistics( {thisMonth: money_round(props.categoryStatistics + (parseFloat(event.nativeEvent.text)))});
+                                        setAmount(money_round(parseFloat(event.nativeEvent.text) + parseFloat(oldAmount)));
                                         setStyle(styles.innerContainerTextPositive);
                                         setMode('')
 
                                     } else
                                     {
-                                        setAmount(parseInt(oldAmount));
+                                        setAmount(oldAmount);
                                         setStyle(styles.innerContainerTextPositive);
                                         setMode('')
                                     }
                                 } else if (mode === 'deduct')
                                 {
-                                    if (!isNaN(parseInt(event.nativeEvent.text)) && parseInt(event.nativeEvent.text) > 0)
+                                    if (!isNaN(parseInt(event.nativeEvent.text)) && money_round(event.nativeEvent.text) > 0)
                                     {
                                         if (oldAmount > 0)
                                         {
                                             let amountToUse = ((oldAmount - event.nativeEvent.text > 0) ? event.nativeEvent.text : oldAmount)
 
-                                            props.updateStatistics({thisMonth: ( props.categoryStatistics - (parseInt(amountToUse)))});
-                                            props.deallocate(parseInt(amountToUse));
+                                            props.updateStatistics({thisMonth: money_round( props.categoryStatistics - parseFloat(amountToUse))});
+                                            props.deallocate(amountToUse);
                                             setAmount(oldAmount - amountToUse);
                                             setStyle(styles.innerContainerTextPositive);
                                             setMode('')
@@ -267,7 +272,7 @@ function AllocationBarCategory(props)
                                     } else
                                     {
 
-                                        setAmount(parseInt(oldAmount));
+                                        setAmount(money_round(oldAmount));
                                         setStyle(styles.innerContainerTextPositive);
                                         setMode('')
                                     }
@@ -278,34 +283,34 @@ function AllocationBarCategory(props)
                                 if (mode === 'add')
                                 {
                                     console.log(event.nativeEvent.text)
-                                    if (!isNaN(parseInt(event.nativeEvent.text)) &&parseInt(event.nativeEvent.text) > 0 )
+                                    if (!isNaN(parseInt(event.nativeEvent.text)) &&money_round(event.nativeEvent.text) > 0 )
                                     {
 
 
 
-                                            props.allocate((parseInt(event.nativeEvent.text)));
-                                            props.updateStatistics( {thisMonth: (props.categoryStatistics + (parseInt(event.nativeEvent.text)))});
-                                            setAmount(parseInt(event.nativeEvent.text) + parseInt(oldAmount));
+                                            props.allocate(parseFloat(event.nativeEvent.text));
+                                        props.updateStatistics({thisMonth: money_round( props.categoryStatistics - parseFloat(event.nativeEvent.text.trim()))});
+                                            setAmount(money_round(event.nativeEvent.text + oldAmount));
                                             setStyle(styles.innerContainerTextPositive);
                                         setMode('')
 
                                     } else
                                     {
-                                        setAmount(parseInt(oldAmount));
+                                        setAmount(money_round(oldAmount));
                                         setStyle(styles.innerContainerTextPositive);
                                         setMode('')
                                     }
                                 } else if (mode === 'deduct')
                                 {
-                                    if (!isNaN(parseInt(event.nativeEvent.text)) && parseInt(event.nativeEvent.text) > 0)
+                                    if (!isNaN(parseInt(event.nativeEvent.text)) && money_round(event.nativeEvent.text) > 0)
                                     {
                                         if (oldAmount > 0)
                                         {
                                             let amountToUse = ((oldAmount - event.nativeEvent.text > 0) ? oldAmount - event.nativeEvent.text : oldAmount)
 
-                                            props.updateStatistics({thisMonth: ( props.categoryStatistics - (parseInt(amountToUse)))});
-                                            props.deallocate(parseInt(amountToUse));
-                                            setAmount(oldAmount - amountToUse);
+                                            props.updateStatistics({thisMonth: money_round( props.categoryStatistics - parseFloat(amountToUse))});
+                                            props.deallocate(amountToUse)
+                                            setAmount(money_round(oldAmount - amountToUse));
                                             setStyle(styles.innerContainerTextPositive);
                                             setMode('')
                                         } else
@@ -318,7 +323,7 @@ function AllocationBarCategory(props)
                                     } else
                                     {
 
-                                        setAmount(parseInt(oldAmount));
+                                        setAmount(money_round(oldAmount));
                                         setStyle(styles.innerContainerTextPositive);
                                         setMode('')
                                     }
@@ -329,7 +334,7 @@ function AllocationBarCategory(props)
                                 if (!isNaN(parseInt(text)))
                                 {
 
-                                    setAmount(parseInt(text));
+                                    setAmount(money_round(text));
                                 }
                             }}
                             keyboardType={'numeric'}

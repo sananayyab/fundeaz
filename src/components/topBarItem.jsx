@@ -109,6 +109,7 @@ function TopBarItem(props)
             setTouse(toUse);
             setText('Available');
             setAmount(value);
+
         }
     }, [props.fund]);
 

@@ -76,7 +76,7 @@ function TransactionInputFieldNumber(props)
                     onChangeText={(text) =>
                     {
 
-                        props.data({amount: text});
+                        props.data({amount: text });
                     }}
 
                     keyboardType={'numeric'}

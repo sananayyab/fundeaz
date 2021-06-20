@@ -125,17 +125,19 @@ function TransactionInput(props)
 
         if (data.amount.trim() !== '' && data.categoryName.trim() !== '')
         {
+
             if (data.type === 'category')
             {
 
 
-                const updatedCategorySpent = parseInt(props.statistics[data.categoryID].spent.thisMonth) + parseInt(data.amount);
+
+                const updatedCategorySpent = Math.floor((parseFloat(props.statistics[data.categoryID].spent.thisMonth) + parseFloat(data.amount)) * 100) / 100;
                 const clock = new Date();
 
                 props.addTransaction(data);
                 props.addLastTransactionTime(data.categoryID, clock.getTime());
                 props.addLastTransactionTimeInGroup(data.categoryID, clock.getTime());
-                props.updateSpending(parseInt(data.amount), parseInt(data.categoryID));
+                props.updateSpending(parseFloat(data.amount), parseInt(data.categoryID));
                 props.setCategorySpent( {thisMonth: updatedCategorySpent}, data.categoryID);
                 navigation.goBack();
 
@@ -144,7 +146,7 @@ function TransactionInput(props)
             else if (data.type === 'Income')
             {
                 props.addTransaction(data);
-                props.addTotalAvailable(parseInt(data.amount));
+                props.addTotalAvailable(parseFloat(data.amount));
                 navigation.goBack();
             }
         }

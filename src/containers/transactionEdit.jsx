@@ -119,10 +119,10 @@ function TransactionEdit(props)
 
             if(categoryAlive)
             {
-                props.removeSpending(parseInt(data.amount), parseInt(data.categoryID));
+                props.removeSpending(parseFloat(data.amount), parseInt(data.categoryID));
             }
             else {
-                props.addTotalAvailable(parseInt(data.amount))
+                props.addTotalAvailable(data.amount)
             }
             navigation.goBack();
 
@@ -132,7 +132,7 @@ function TransactionEdit(props)
         {
 
 
-            props.removeTotalAvailable(parseInt(data.amount));
+            props.removeTotalAvailable(data.amount);
             navigation.goBack();
         }
 
@@ -152,18 +152,18 @@ function TransactionEdit(props)
                 {
 
 
-                    if (parseInt(originalAmount) < parseInt(data.amount))
+                    if (parseFloat(originalAmount) < parseFloat(data.amount))
                     {
 
 
-                        props.updateSpending(parseInt(data.amount) - parseInt(originalAmount),  parseInt(data.categoryID));
+                        props.updateSpending(parseFloat(data.amount) - parseFloat(originalAmount),  parseInt(data.categoryID));
 
                     }
-                    else if (parseInt(originalAmount) > parseInt(data.amount))
+                    else if (parseFloat(originalAmount) > parseFloat(data.amount))
                     {
 
 
-                        props.removeSpending(parseInt(originalAmount) - parseInt(data.amount), parseInt(data.categoryID));
+                        props.removeSpending(parseFloat(originalAmount) - parseFloat(data.amount), parseInt(data.categoryID));
 
                     }
 
@@ -172,34 +172,34 @@ function TransactionEdit(props)
                 {
 
 
-                        if (parseInt(originalAmount) < parseInt(data.amount))
+                        if (parseFloat(originalAmount) < parseFloat(data.amount))
                         {
 
 
-                            props.updateSpending(parseInt(data.amount) - parseInt(originalAmount), parseInt(data.categoryID));
+                            props.updateSpending(parseFloat(data.amount) - parseFloat(originalAmount), parseInt(data.categoryID));
 
                         }
-                        else if (parseInt(originalAmount) > parseInt(data.amount))
+                        else if (parseFloat(originalAmount) > parseFloat(data.amount))
                         {
 
 
-                            props.updateSpending(parseInt(originalAmount) - parseInt(data.amount), parseInt(data.categoryID));
+                            props.updateSpending(parseFloat(originalAmount) - parseFloat(data.amount), parseInt(data.categoryID));
 
                         }
                         else
                         {
 
-                            props.updateSpending(parseInt(originalAmount),  parseInt(data.categoryID));
+                            props.updateSpending(parseFloat(originalAmount),  parseFloat(data.categoryID));
 
 
                         }
                         if (categoryAlive)
                         {
-                            props.removeSpending(parseInt(originalAmount), parseInt(originalCategory));
+                            props.removeSpending(parseFloat(originalAmount), parseFloat(originalCategory));
                         }
                         else
                         {
-                            props.addTotalAvailable(parseInt(originalAmount));
+                            props.addTotalAvailable(parseFloat(originalAmount));
 
                         }
 
@@ -213,15 +213,15 @@ function TransactionEdit(props)
             {
 
 
-                if (parseInt(originalAmount) < parseInt(data.amount))
+                if (parseFloat(originalAmount) < parseFloat(data.amount))
                 {
 
-                    props.addTotalAvailable(parseInt(data.amount) - parseInt(originalAmount));
+                    props.addTotalAvailable(parseFloat(data.amount) - parseFloat(originalAmount));
 
                 }
-                else if (parseInt(originalAmount) > parseInt(data.amount))
+                else if (parseFloat(originalAmount) > parseFloat(data.amount))
                 {
-                    props.removeTotalAvailable(parseInt(originalAmount) - parseInt(data.amount));
+                    props.removeTotalAvailable(parseFloat(originalAmount) - parseFloat(data.amount));
 
                 }
                 props.updateTransaction(data, props.route.params.key);
@@ -232,14 +232,14 @@ function TransactionEdit(props)
             {
 
 
-                props.addTotalAvailable(parseInt(data.amount));
+                props.addTotalAvailable(parseFloat(data.amount));
                 if (categoryAlive)
                 {
-                    props.removeSpending(parseInt(originalAmount), parseInt(originalCategory));
+                    props.removeSpending(parseFloat(originalAmount), parseFloat(originalCategory));
                 }
                 else
                 {
-                    props.addTotalAvailable(parseInt(originalAmount));
+                    props.addTotalAvailable(parseFloat(originalAmount));
                 }
                 setData({
                     ...data,
@@ -252,8 +252,8 @@ function TransactionEdit(props)
             {
 
 
-                props.removeTotalAvailable(parseInt(originalAmount));
-                props.updateSpending(parseInt(data.amount), parseInt(data.categoryID));
+                props.removeTotalAvailable(parseFloat(originalAmount));
+                props.updateSpending(parseFloat(data.amount), parseInt(data.categoryID));
                 props.updateTransaction(data, props.route.params.key);
             }
 

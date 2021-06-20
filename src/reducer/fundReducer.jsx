@@ -15,105 +15,20 @@ export function fundReducer(state = initialState, action)
     switch (action.type)
     {
 
-        /*
-        case 'REMOVE_ALLOCATED_GROUP':
-            let allocatedAmount = 0;
-            let availableAmount = 0;
-            if (action.amount >= 0)
-            {
-                allocatedAmount = state.groups[action.groupID].allocated - action.amount;
 
-            }
-            else
-            {
-                allocatedAmount = state.groups[action.groupID].allocated + action.amount;
-            }
-            return {
-                ...state,
-                groups: {
-                    ...state.groups,
-                    [action.groupID]: {
-                        ...state.groups[action.groupID],
-                        allocated: allocatedAmount,
-
-                    },
-                },
-            };
-        case 'REMOVE_SPEND_ONLY_CATEGORY':
-            return {
-                ...state,
-                groups: {
-                    ...state.groups,
-                    [action.groupID]: {
-                        ...state.groups[action.groupID],
-                        categories: {
-                            ...state.groups[action.groupID].categories,
-                            [action.categoryID]: {
-                                ...state.groups[action.groupID].categories[action.categoryID],
-                                available: state.groups[action.groupID].categories[action.categoryID].available + action.amount,
-                            },
-                        },
-                    },
-                },
-            };
-        case 'SPEND_ONLY_CATEGORY':
-            return {
-                ...state,
-                groups: {
-                    ...state.groups,
-                    [action.groupID]: {
-                        ...state.groups[action.groupID],
-                        categories: {
-                            ...state.groups[action.groupID].categories,
-                            [action.categoryID]: {
-                                ...state.groups[action.groupID].categories[action.categoryID],
-                                available: state.groups[action.groupID].categories[action.categoryID].available - action.amount,
-                            },
-                        },
-                    },
-                },
-            };
-        case 'INITIALIZE_GROUP':
-            return {
-                ...state,
-                groups: {
-                    ...state.groups,
-                    [action.groupID]: {
-                        ...state.groups[action.groupID],
-                        lastTransaction: 0,
-                        available: 0,
-                        allocated: 0,
-                    },
-                },
-            };
-
-        case 'START_OF_MONTH_RESET_GROUP':
-            return {
-                ...state,
-                groups: {
-                    ...state.groups,
-                    [action.groupID]: {
-                        ...state.groups[action.groupID],
-                        allocated: 0,
-                    },
-                },
-            };
-
-
-         */
         case 'RESET':
             return initialState;
         case 'ADD_TOTAL_AVAILABLE':
             return {
                 ...state,
-                available: state.available + action.amount,
-                unallocated: state.unallocated + action.amount,
+                available: money_round(state.available + parseFloat(action.amount)),
+                unallocated: money_round(state.unallocated + parseFloat(action.amount)),
             };
         case 'REMOVE_TOTAL_AVAILABLE':
             return {
                 ...state,
-                available: state.available - action.amount,
-                unallocated: state.unallocated - action.amount,
+                available: money_round(state.available - parseFloat(action.amount)),
+                unallocated: money_round(state.unallocated - parseFloat(action.amount)),
             };
         case 'INITIALIZE_CATEGORY':
             return {
@@ -134,13 +49,13 @@ export function fundReducer(state = initialState, action)
         case 'ALLOCATE_TO_CATEGORY':
             return {
                 ...state,
-                unallocated: state.unallocated - parseInt(action.amount),
+                unallocated: money_round(state.unallocated - parseFloat(action.amount)),
                 categories: {
                     ...state.categories,
                     [action.categoryID]: {
                         ...state.categories[action.categoryID],
-                        available: parseInt(state.categories[action.categoryID].available) + parseInt(action.amount),
-                        allocated: parseInt(state.categories[action.categoryID].allocated) + parseInt(action.amount),
+                        available: money_round(state.categories[action.categoryID].available + parseFloat(action.amount)),
+                        allocated: money_round(state.categories[action.categoryID].allocated +  parseFloat(action.amount)),
                     },
                 },
 
@@ -151,25 +66,25 @@ export function fundReducer(state = initialState, action)
             let allocatedToCategory = 0;
             let groupAmount = 0;
             let categoryAmount = 0;
-            if (action.amount >= 0)
+            if (parseFloat(action.amount) >= 0)
             {
 
-                allocatedToCategory = state.categories[action.categoryID].allocated - action.amount;
+                allocatedToCategory = money_round(state.categories[action.categoryID].allocated - parseFloat(action.amount));
 
-                categoryAmount = state.categories[action.categoryID].available - action.amount;
+                categoryAmount = money_round(state.categories[action.categoryID].available - parseFloat(action.amount));
             }
             else
             {
 
-                allocatedToCategory = state.categories[action.categoryID].allocated + action.amount;
+                allocatedToCategory = money_round(state.categories[action.categoryID].allocated + parseFloat(action.amount));
 
-                categoryAmount = state.categories[action.categoryID].available;
+                categoryAmount = money_round(state.categories[action.categoryID].available);
 
             }
 
             return {
                 ...state,
-                unallocated: state.unallocated + action.amount,
+                unallocated: money_round(state.unallocated + parseFloat(action.amount)),
 
                 categories: {
                     ...state.categories,
@@ -184,12 +99,12 @@ export function fundReducer(state = initialState, action)
         case 'SPEND_CATEGORY':
             return {
                 ...state,
-                available: state.available - action.amount,
+                available: money_round(state.available - parseFloat(action.amount)),
                 categories: {
                     ...state.categories,
                     [action.categoryID]: {
                         ...state.categories[action.categoryID],
-                        available: state.categories[action.categoryID].available - action.amount,
+                        available: money_round(state.categories[action.categoryID].available - parseFloat(action.amount)),
                     },
                 },
 
@@ -198,13 +113,13 @@ export function fundReducer(state = initialState, action)
         case 'REMOVE_SPEND_CATEGORY':
             return {
                 ...state,
-                available: state.available + action.amount,
+                available: money_round(state.available + parseFloat(action.amount)),
 
                 categories: {
                     ...state.categories,
                     [action.categoryID]: {
                         ...state.categories[action.categoryID],
-                        available: state.categories[action.categoryID].available + action.amount,
+                        available: money_round(state.categories[action.categoryID].available + parseFloat(action.amount)),
                     },
                 },
 
@@ -255,7 +170,7 @@ export function fundReducer(state = initialState, action)
         case 'ADD_UNALLOCATED':
             return {
                 ...state,
-                unallocated: state.unallocated + action.amount,
+                unallocated: money_round(state.unallocated + parseFloat(action.amount)),
 
 
             };
@@ -264,7 +179,7 @@ export function fundReducer(state = initialState, action)
         case 'START_OF_MONTH_CATEGORY_NEGATIVE':
             return {
                 ...state,
-                unallocated: state.unallocated - Math.abs(action.amount),
+                unallocated: money_round(state.unallocated - Math.abs(parseFloat(action.amount))),
 
                 categories: {
                     ...state.categories,
@@ -275,7 +190,100 @@ export function fundReducer(state = initialState, action)
                 },
 
             };
+        /*
+case 'REMOVE_ALLOCATED_GROUP':
+   let allocatedAmount = 0;
+   let availableAmount = 0;
+   if (action.amount >= 0)
+   {
+       allocatedAmount = state.groups[action.groupID].allocated - action.amount;
+
+   }
+   else
+   {
+       allocatedAmount = state.groups[action.groupID].allocated + action.amount;
+   }
+   return {
+       ...state,
+       groups: {
+           ...state.groups,
+           [action.groupID]: {
+               ...state.groups[action.groupID],
+               allocated: allocatedAmount,
+
+           },
+       },
+   };
+case 'REMOVE_SPEND_ONLY_CATEGORY':
+   return {
+       ...state,
+       groups: {
+           ...state.groups,
+           [action.groupID]: {
+               ...state.groups[action.groupID],
+               categories: {
+                   ...state.groups[action.groupID].categories,
+                   [action.categoryID]: {
+                       ...state.groups[action.groupID].categories[action.categoryID],
+                       available: state.groups[action.groupID].categories[action.categoryID].available + action.amount,
+                   },
+               },
+           },
+       },
+   };
+case 'SPEND_ONLY_CATEGORY':
+   return {
+       ...state,
+       groups: {
+           ...state.groups,
+           [action.groupID]: {
+               ...state.groups[action.groupID],
+               categories: {
+                   ...state.groups[action.groupID].categories,
+                   [action.categoryID]: {
+                       ...state.groups[action.groupID].categories[action.categoryID],
+                       available: state.groups[action.groupID].categories[action.categoryID].available - action.amount,
+                   },
+               },
+           },
+       },
+   };
+case 'INITIALIZE_GROUP':
+   return {
+       ...state,
+       groups: {
+           ...state.groups,
+           [action.groupID]: {
+               ...state.groups[action.groupID],
+               lastTransaction: 0,
+               available: 0,
+               allocated: 0,
+           },
+       },
+   };
+
+case 'START_OF_MONTH_RESET_GROUP':
+   return {
+       ...state,
+       groups: {
+           ...state.groups,
+           [action.groupID]: {
+               ...state.groups[action.groupID],
+               allocated: 0,
+           },
+       },
+   };
+
+
+*/
         default:
             return state;
     }
+
+
+}
+
+function money_round(num)
+{
+    return Math.floor(num * 100) / 100;
 }
