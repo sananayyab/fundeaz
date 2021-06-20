@@ -29,7 +29,7 @@ function TransactionInput(props)
     const navigation = useNavigation();
     const route = useRoute();
 
-  
+
     const [dropDownActive, setDropDown] = useState(false);
     const [categoryFunctionCalledChild, setChild] = useState(false);
     const [ data, setData] = useState( {
@@ -37,15 +37,12 @@ function TransactionInput(props)
         payee: '',
         date: '',
         note: '',
-        groupID: '',
-        groupName: '',
         categoryID: '',
         categoryName: '',
 
     });
     const pageDetails = {
         pageName: route.params.page,
-        groupID: route.params.groupID,
         categoryID: route.params.categoryID,
 
 
@@ -116,15 +113,15 @@ function TransactionInput(props)
             if (data.type === 'category')
             {
 
-                const updatedGroupSpent = parseInt(props.statistics[data.groupID].spent.thisMonth) + parseInt(data.amount);
-                const updatedCategorySpent = parseInt(props.statistics[data.groupID].categories[data.categoryID].spent.thisMonth) + parseInt(data.amount);
+
+                const updatedCategorySpent = parseInt(props[data.categoryID].spent.thisMonth) + parseInt(data.amount);
                 const clock = new Date();
 
                 props.addTransaction(data);
-                props.addLastTransactionTime(data.groupID, data.categoryID, clock.getTime());
-                props.addLastTransactionTimeInGroup(data.groupID, data.categoryID, clock.getTime());
-                props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
-                props.setCategorySpent({thisMonth: updatedGroupSpent}, {thisMonth: updatedCategorySpent}, data.groupID, data.categoryID);
+                props.addLastTransactionTime(data.categoryID, clock.getTime());
+                props.addLastTransactionTimeInGroup(data.categoryID, clock.getTime());
+                props.updateSpending(parseInt(data.amount), parseInt(data.categoryID));
+                props.setCategorySpent( {thisMonth: updatedCategorySpent}, data.categoryID);
                 navigation.goBack();
 
 
@@ -214,7 +211,7 @@ function TransactionInput(props)
                         <TransactionInputFieldDate dismissDropDown={() => {setDropDown(false)}}  data={getData} value={''} fieldName={'date'}/>
                         <TransactionInputFieldText dismissDropDown={() => {setDropDown(false)}}  data={getData} value={''} fieldName={'note'}/>
                         <TransactionInputFieldCategory data={getData} categoryID={pageDetails.categoryID}
-                                                       groupID={pageDetails.groupID} page={pageDetails}
+                                                      page={pageDetails}
                                                        dropDown={dropDownActive}
                                                        handlDropDown={handleDropDown}
                                                        setDropDown={setDropDownFalse}
@@ -256,11 +253,11 @@ const mapDispatchToProps = (dispatch) =>
 {
     return {
         addTransaction: (data) => dispatch(addTransaction(data)),
-        updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount, groupID, categoryID)),
+        updateSpending: (amount, categoryID) => dispatch(spendCategory(amount, categoryID)),
         addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount)),
-        setCategorySpent: (group, category, groupID, categoryID) => dispatch(setCategorySpent(group, category, groupID, categoryID)),
-        addLastTransactionTime: (groupID, categoryID, time) => dispatch(addLastTransactionTime(groupID, categoryID, time)),
-        addLastTransactionTimeInGroup: (groupID, categoryID, time) => dispatch(addLastTransactionTimeInGroup(groupID, categoryID, time)),
+        setCategorySpent: (category, categoryID) => dispatch(setCategorySpent(category, categoryID)),
+        addLastTransactionTime: (categoryID, time) => dispatch(addLastTransactionTime(categoryID, time)),
+        addLastTransactionTimeInGroup: (categoryID, time) => dispatch(addLastTransactionTimeInGroup(categoryID, time)),
     };
 };
 
