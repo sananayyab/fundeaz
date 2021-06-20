@@ -185,13 +185,13 @@ export function fundReducer(state = initialState, action)
             return {
                 ...state,
                 available: state.available - action.amount,
-                        categories: {
-                            ...state.categories,
-                            [action.categoryID]: {
-                                ...state.categories[action.categoryID],
-                                available: state.categories[action.categoryID].available - action.amount,
-                            },
-                        },
+                categories: {
+                    ...state.categories,
+                    [action.categoryID]: {
+                        ...state.categories[action.categoryID],
+                        available: state.categories[action.categoryID].available - action.amount,
+                    },
+                },
 
             };
 
@@ -200,13 +200,13 @@ export function fundReducer(state = initialState, action)
                 ...state,
                 available: state.available + action.amount,
 
-                        categories: {
-                            ...state.categories,
-                            [action.categoryID]: {
-                                ...state.categories[action.categoryID],
-                                available: state.categories[action.categoryID].available + action.amount,
-                            },
-                        },
+                categories: {
+                    ...state.categories,
+                    [action.categoryID]: {
+                        ...state.categories[action.categoryID],
+                        available: state.categories[action.categoryID].available + action.amount,
+                    },
+                },
 
             };
 
@@ -215,27 +215,26 @@ export function fundReducer(state = initialState, action)
             return {
                 ...state,
 
-                        categories: {
-                            ...state.categories,
-                            [action.categoryID]: {
-                                ...state.categories[action.categoryID],
-                                allocated: 0,
-                            },
-                        },
+                categories: {
+                    ...state.categories,
+                    [action.categoryID]: {
+                        ...state.categories[action.categoryID],
+                        allocated: 0,
+                    },
+                },
 
             };
         case 'SET_TRANSACTION_TIME':
             return {
                 ...state,
 
-                        categories: {
-                            ...state.categories,
-                            [action.categoryID]: {
-                                ...state.categories[action.categoryID],
-                                lastTransaction: action.time,
-                            },
-                        },
-
+                categories: {
+                    ...state.categories,
+                    [action.categoryID]: {
+                        ...state.categories[action.categoryID],
+                        lastTransaction: action.time,
+                    },
+                },
 
 
             };
@@ -243,14 +242,13 @@ export function fundReducer(state = initialState, action)
             return {
                 ...state,
 
-                        categories: {
-                            ...state.categories,
-                            [action.categoryID]: {
-                                ...state.categories[action.categoryID],
-                                goal: action.amount,
-                            },
-                        },
-
+                categories: {
+                    ...state.categories,
+                    [action.categoryID]: {
+                        ...state.categories[action.categoryID],
+                        goal: action.amount,
+                    },
+                },
 
 
             };
@@ -268,13 +266,13 @@ export function fundReducer(state = initialState, action)
                 ...state,
                 unallocated: state.unallocated - Math.abs(action.amount),
 
-                        categories: {
-                            ...state.categories,
-                            [action.categoryID]: {
-                                ...state.categories[action.categoryID],
-                                available: 0,
-                            },
-                        },
+                categories: {
+                    ...state.categories,
+                    [action.categoryID]: {
+                        ...state.categories[action.categoryID],
+                        available: 0,
+                    },
+                },
 
             };
         default:
