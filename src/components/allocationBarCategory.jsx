@@ -250,7 +250,7 @@ function AllocationBarCategory(props)
                                     {
                                         if (oldAmount > 0)
                                         {
-                                            let amountToUse = ((oldAmount - event.nativeEvent.text > 0) ? oldAmount - event.nativeEvent.text : oldAmount)
+                                            let amountToUse = ((oldAmount - event.nativeEvent.text > 0) ? event.nativeEvent.text : oldAmount)
 
                                             props.updateStatistics({thisMonth: ( props.categoryStatistics - (parseInt(amountToUse)))});
                                             props.deallocate(parseInt(amountToUse));
