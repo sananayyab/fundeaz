@@ -245,7 +245,7 @@ function AllocationBarCategory(props)
 
                                     } else
                                     {
-                                        setAmount(oldAmount);
+                                        setAmount(money_round(parseFloat(oldAmount)));
                                         setStyle(styles.innerContainerTextPositive);
                                         setMode('')
                                     }
@@ -259,20 +259,20 @@ function AllocationBarCategory(props)
 
                                             props.updateStatistics({thisMonth: money_round( props.categoryStatistics - parseFloat(amountToUse))});
                                             props.deallocate(amountToUse);
-                                            setAmount(oldAmount - amountToUse);
+                                            setAmount(money_round(parseFloat(oldAmount) - parseFloat(amountToUse)));
                                             setStyle(styles.innerContainerTextPositive);
                                             setMode('')
                                         } else
                                         {
 
-                                            setAmount(oldAmount);
+                                            setAmount(money_round(parseFloat(oldAmount)));
                                             setStyle(styles.innerContainerTextPositive);
                                             setMode('')
                                         }
                                     } else
                                     {
 
-                                        setAmount(money_round(oldAmount));
+                                        setAmount(money_round(parseFloat(oldAmount)));
                                         setStyle(styles.innerContainerTextPositive);
                                         setMode('')
                                     }
@@ -290,13 +290,13 @@ function AllocationBarCategory(props)
 
                                             props.allocate(parseFloat(event.nativeEvent.text));
                                         props.updateStatistics({thisMonth: money_round( props.categoryStatistics - parseFloat(event.nativeEvent.text.trim()))});
-                                            setAmount(money_round(event.nativeEvent.text + oldAmount));
+                                        setAmount(money_round(parseFloat(event.nativeEvent.text) + parseFloat(oldAmount)));
                                             setStyle(styles.innerContainerTextPositive);
                                         setMode('')
 
                                     } else
                                     {
-                                        setAmount(money_round(oldAmount));
+                                        setAmount(money_round(parseFloat(oldAmount)));
                                         setStyle(styles.innerContainerTextPositive);
                                         setMode('')
                                     }
@@ -306,24 +306,24 @@ function AllocationBarCategory(props)
                                     {
                                         if (oldAmount > 0)
                                         {
-                                            let amountToUse = ((oldAmount - event.nativeEvent.text > 0) ? oldAmount - event.nativeEvent.text : oldAmount)
+                                            let amountToUse = ((parseFloat(oldAmount) -parseFloat( event.nativeEvent.text) > 0) ? event.nativeEvent.text : oldAmount)
 
                                             props.updateStatistics({thisMonth: money_round( props.categoryStatistics - parseFloat(amountToUse))});
                                             props.deallocate(amountToUse)
-                                            setAmount(money_round(oldAmount - amountToUse));
+                                            setAmount(money_round(parseFloat(oldAmount) - parseFloat(amountToUse)));
                                             setStyle(styles.innerContainerTextPositive);
                                             setMode('')
                                         } else
                                         {
 
-                                            setAmount(oldAmount);
+                                            setAmount(money_round(parseFloat(oldAmount)));
                                             setStyle(styles.innerContainerTextPositive);
                                             setMode('')
                                         }
                                     } else
                                     {
 
-                                        setAmount(money_round(oldAmount));
+                                        setAmount(money_round(parseFloat(oldAmount)));
                                         setStyle(styles.innerContainerTextPositive);
                                         setMode('')
                                     }
