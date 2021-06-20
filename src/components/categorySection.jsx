@@ -63,11 +63,9 @@ function CategorySection(props)
 
     function loadCategoryList()
     {
-
         navigation.navigate('GroupList', {
             page: 'home',
         });
-
     }
 
     const styles = StyleSheet.create({
