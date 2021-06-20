@@ -30,17 +30,10 @@ function fundOverviewPage(props)
             marginRight: 4,
         },
     });
-    const [data, setData] = useState(Object.entries(props.groups).map(([key, value]) => ({key: key, value: value})));
 
-    const renderItem = ({item}) => (
 
-        < FundOverviewGroup key={item.key} groupID={item.key}/>
-    );
 
-    useEffect(() =>
-    {
-        setData(Object.entries(props.groups).map(([key, value]) => ({key: key, value: value})));
-    }, [props.groups]);
+
     return (
         <KeyboardAvoidingView
             style={{flex: 1}}
@@ -51,11 +44,7 @@ function fundOverviewPage(props)
                     <TopBarItem type={'amount'} data={pageData} value={props.available} style={{flex: 1}}/>
                 </View>
                 <SafeAreaView style={{flex: 1}}>
-                    <FlatList
-                        data={data}
-                        renderItem={renderItem}
-                        keyExtractor={item => item.key}
-                    />
+                    <FundOverviewGroup/>
                 </SafeAreaView>
             </View>
         </KeyboardAvoidingView>
@@ -64,9 +53,9 @@ function fundOverviewPage(props)
 
 const mapStateToProps = (state) =>
 {
-    const {groupData, fund} = state;
+    const { fund} = state;
     return {
-        groups: groupData.groups,
+
         available: fund.available,
     };
 };
