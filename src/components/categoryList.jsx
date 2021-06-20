@@ -22,53 +22,25 @@ function CategoryList(props)
     function loadData()
     {
 
-        if (props.data.page === 'home')
-        {
-            let groupArray = makeGroupArray()
 
-            return groupArray.map((value, key) => <CategoryListItem  setEditing={props.setEditing} key={key} id={value.groupID}
-                                                                                            name={value.name}
-                                                                                            amount={props.groupFunds[value.groupID].available}
-                                                                                            item={'group'}
-                                                                                            type={value.itemStatus}/>);
-        }
-        else if (props.data.page === 'group')
-        {
 
             let categoryArray = makeCategoryArray()
             return categoryArray.map((value, key) =>
-                <CategoryListItem setEditing={props.setEditing} key={key} id={value.categoryID} type={value.itemStatus} groupID={props.data.groupID}
-                                  amount={props.groupFunds[props.data.groupID].categories[value.categoryID].available}
+                <CategoryListItem setEditing={props.setEditing} key={key} id={value.categoryID} type={value.itemStatus}
+                                  amount={props.groupFunds[value.categoryID].available}
                                   name={value.name} item={'category'}/>);
-        }
+
     }
 
-    function makeGroupArray()
+
+
+    function makeCategoryArray()
     {
         let temp = [];
         for (let key in props.groupList)
         {
 
             let tempItem = props.groupList[key];
-            tempItem = {
-                ...tempItem,
-                groupID: key,
-            };
-            temp.push(tempItem);
-
-        }
-        temp.sort((a, b) => parseInt(b.lastTransaction) - parseInt(a.lastTransaction));
-
-        return temp;
-    }
-
-    function makeCategoryArray()
-    {
-        let temp = [];
-        for (let key in props.groupList[props.data.groupID].categories)
-        {
-
-            let tempItem = props.groupList[props.data.groupID].categories[key];
             tempItem = {
                 ...tempItem,
                 categoryID: key,
@@ -106,8 +78,8 @@ const mapStateToProps = (state) =>
     const {groupData, fund} = state;
 
     return {
-        groupList: groupData.groups,
-        groupFunds: fund.groups,
+        groupList: groupData.categories,
+        groupFunds: fund.categories,
     };
 };
 export default connect(mapStateToProps)(CategoryList);
