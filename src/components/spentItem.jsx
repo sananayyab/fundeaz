@@ -158,12 +158,12 @@ function SpentItem(props)
 const mapStateToProps = (state, ownProps) =>
 {
     const {fund, statistics} = state;
-    const {groupID, categoryID} = ownProps;
+    const { categoryID} = ownProps;
 
     return {
 
-        categoryFund: fund.groups[groupID].categories[categoryID],
-        statistics: statistics[groupID].categories[categoryID],
+        categoryFund: fund.categories[categoryID],
+        statistics: statistics[categoryID],
     };
 };
 export default connect(mapStateToProps)(SpentItem);
