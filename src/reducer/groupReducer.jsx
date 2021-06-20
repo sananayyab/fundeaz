@@ -66,7 +66,7 @@ export function groupReducer(state = initialState, action)
                 currentID: ++state.currentID,
                 categories: {
                     ...state.categories,
-                    [state.currentID + 1]: {
+                    [state.currentID]: {
                         ...action.data,
                         lastTransaction: 0,
                     },
@@ -78,7 +78,7 @@ export function groupReducer(state = initialState, action)
         case 'REMOVE_CATEGORY':
             return {
                 ...state,
-                categories: Object.fromEntries(Object.entries(state.categories[action.categoryID]).filter(([key, value]) => key !== action.categoryID)),
+                categories: Object.fromEntries(Object.entries(state.categories).filter(([key, value]) => key !== action.categoryID)),
 
 
             };
