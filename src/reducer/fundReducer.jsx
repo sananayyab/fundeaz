@@ -154,16 +154,16 @@ export function fundReducer(state = initialState, action)
             if (action.amount >= 0)
             {
 
-                allocatedToCategory = state.groups[action.groupID].categories[action.categoryID].allocated - action.amount;
+                allocatedToCategory = state.categories[action.categoryID].allocated - action.amount;
 
-                categoryAmount = state.groups[action.groupID].categories[action.categoryID].available - action.amount;
+                categoryAmount = state.categories[action.categoryID].available - action.amount;
             }
             else
             {
 
-                allocatedToCategory = state.groups[action.groupID].categories[action.categoryID].allocated + action.amount;
+                allocatedToCategory = state.categories[action.categoryID].allocated + action.amount;
 
-                categoryAmount = state.groups[action.groupID].categories[action.categoryID].available;
+                categoryAmount = state.categories[action.categoryID].available;
 
             }
 
