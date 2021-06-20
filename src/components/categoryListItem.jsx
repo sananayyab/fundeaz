@@ -197,14 +197,13 @@ function CategoryListItem(props)
                     nameToUse = event.nativeEvent.text.trim();
                     nameToUse.trim();
                 }
-                else if (props.item === 'category')
-                {
+
                     dispatch(updateCategory({
                         name: nameToUse,
                         itemStatus: 'created',
                     }, props.id));
-                }
-                setCreatedType(event.nativeEvent.text.trim(), 0);
+
+                setCreatedType(nameToUse, 0);
                 props.setEditing(true);
             }}
                        style={styles.editTextField}>{name}</TextInput>
