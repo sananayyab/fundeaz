@@ -5,11 +5,12 @@ import {allocateToCategory, deallocateCategory} from '../action/fundActions.jsx'
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
 import {setCategoryAllocated} from '../action/statisticsActions';
 
-let mode;
-let oldAmount;
+
 
 function AllocationBarCategory(props)
 {
+    const  [mode, setMode] = useState('');
+    const [oldAmount, setOldAmount] = useState();
     const position = useRef(new Animated.Value(0)).current;
     const [amount, setAmount] = useState(props.fundAllocated);
     const styles = StyleSheet.create({
@@ -104,10 +105,10 @@ function AllocationBarCategory(props)
                 setStyle(styles.innerContainerTextPositive);
                 if(mode !== 'deduct')
                 {
-                    oldAmount = amount;
+                    setOldAmount(amount);
                 }
                 setAmount(0);
-                mode = 'add';
+                setMode('add');
                 textFieldRef.current.focus();
             }else if ( nativeEvent.absoluteX - beginX < -35)
             {
@@ -123,10 +124,10 @@ function AllocationBarCategory(props)
                 setStyle(styles.innerContainerTextNegative);
                 if(mode !== 'add')
                 {
-                    oldAmount = amount;
+                    setOldAmount(amount);
                 }
                 setAmount(0);
-                mode = 'deduct';
+                setMode('deduct');
                 textFieldRef.current.focus();
             }
         }
@@ -146,10 +147,10 @@ function AllocationBarCategory(props)
                 setStyle(styles.innerContainerTextPositive);
                 if(mode !== 'deduct')
                 {
-                    oldAmount = amount;
+                    setOldAmount(amount);
                 }
                 setAmount(0);
-                mode = 'add';
+                setMode('add');
                 textFieldRef.current.focus();
             } else if ( nativeEvent.absoluteX - beginX < -35)
             {
@@ -165,15 +166,13 @@ function AllocationBarCategory(props)
                 setStyle(styles.innerContainerTextNegative);
                 if(mode !== 'add')
                 {
-                    oldAmount = amount;
+                    setOldAmount(amount);
                 }
                 setAmount(0);
-                mode = 'deduct';
+                setMode('deduct');
                 textFieldRef.current.focus();
             }
-            else{
-                nativeEvent.co
-            }
+
         }
 
 
@@ -200,10 +199,65 @@ function AllocationBarCategory(props)
                             pointerEvents={'none'}
                             ref={textFieldRef}
                             selectTextOnFocus={true}
+                            onSubmitEditing={(event) =>
+                            {
+
+
+                                if (mode === 'add')
+                                {
+
+
+                                    if (!isNaN(parseInt(event.nativeEvent.text)) &&parseInt(event.nativeEvent.text) > 0 )
+                                    {
+
+
+
+                                        props.allocate((parseInt(event.nativeEvent.text)));
+                                        props.updateStatistics( {thisMonth: (props.categoryStatistics + (parseInt(event.nativeEvent.text)))});
+                                        setAmount(parseInt(event.nativeEvent.text) + parseInt(oldAmount));
+                                        setStyle(styles.innerContainerTextPositive);
+                                        setMode('')
+
+                                    } else
+                                    {
+                                        setAmount(parseInt(oldAmount));
+                                        setStyle(styles.innerContainerTextPositive);
+                                        setMode('')
+                                    }
+                                } else if (mode === 'deduct')
+                                {
+                                    if (!isNaN(parseInt(event.nativeEvent.text)) && parseInt(event.nativeEvent.text) > 0)
+                                    {
+                                        if (oldAmount > 0)
+                                        {
+                                            let amountToUse = ((oldAmount - event.nativeEvent.text > 0) ? oldAmount - event.nativeEvent.text : oldAmount)
+
+                                            props.updateStatistics({thisMonth: ( props.categoryStatistics - (parseInt(amountToUse)))});
+                                            props.deallocate(parseInt(amountToUse));
+                                            setAmount(oldAmount - amountToUse);
+                                            setStyle(styles.innerContainerTextPositive);
+                                            setMode('')
+                                        } else
+                                        {
+
+                                            setAmount(oldAmount);
+                                            setStyle(styles.innerContainerTextPositive);
+                                            setMode('')
+                                        }
+                                    } else
+                                    {
+
+                                        setAmount(parseInt(oldAmount));
+                                        setStyle(styles.innerContainerTextPositive);
+                                        setMode('')
+                                    }
+                                }
+                            }}
                             onEndEditing={(event) =>
                             {
                                 if (mode === 'add')
                                 {
+                                    console.log(event.nativeEvent.text)
                                     if (!isNaN(parseInt(event.nativeEvent.text)) &&parseInt(event.nativeEvent.text) > 0 )
                                     {
 
@@ -213,13 +267,13 @@ function AllocationBarCategory(props)
                                             props.updateStatistics( {thisMonth: (props.categoryStatistics + (parseInt(event.nativeEvent.text)))});
                                             setAmount(parseInt(event.nativeEvent.text) + parseInt(oldAmount));
                                             setStyle(styles.innerContainerTextPositive);
-                                            mode= ''
+                                        setMode('')
 
                                     } else
                                     {
                                         setAmount(parseInt(oldAmount));
                                         setStyle(styles.innerContainerTextPositive);
-                                        mode= ''
+                                        setMode('')
                                     }
                                 } else if (mode === 'deduct')
                                 {
@@ -227,26 +281,26 @@ function AllocationBarCategory(props)
                                     {
                                         if (oldAmount > 0)
                                         {
-                                            let amountToUse = ((oldAmount - event.nativeEvent.text >= 0) ? oldAmount - event.nativeEvent.text : oldAmount)
+                                            let amountToUse = ((oldAmount - event.nativeEvent.text > 0) ? oldAmount - event.nativeEvent.text : oldAmount)
 
                                             props.updateStatistics({thisMonth: ( props.categoryStatistics - (parseInt(amountToUse)))});
                                             props.deallocate(parseInt(amountToUse));
                                             setAmount(oldAmount - amountToUse);
                                             setStyle(styles.innerContainerTextPositive);
-                                            mode= ''
+                                            setMode('')
                                         } else
                                         {
 
                                             setAmount(oldAmount);
                                             setStyle(styles.innerContainerTextPositive);
-                                            mode= ''
+                                            setMode('')
                                         }
                                     } else
                                     {
 
                                         setAmount(parseInt(oldAmount));
                                         setStyle(styles.innerContainerTextPositive);
-                                        mode= ''
+                                        setMode('')
                                     }
                                 }
                             }}
