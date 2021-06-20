@@ -10,26 +10,19 @@ function TransactionList(props)
 
 
     const dispatch = useDispatch();
-    function getCategoryName(groupID, categoryID, categoryName, transactionID)
+    function getCategoryName(categoryID, categoryName, transactionID)
     {
         let categoryAlive = null;
-        if (props.groupList[groupID] == null)
-        {
 
+        categoryAlive = props.groupList[categoryID] != null;
 
-            categoryAlive = false;
-        }
-        else
-        {
-            categoryAlive = props.groupList[groupID].categories[categoryID] != null;
-        }
         if (categoryAlive)
         {
-            if(categoryName !== props.groupList[groupID].categories[categoryID].name)
+            if(categoryName !== props.groupList[categoryID].name)
             {
-                dispatch(updateTransaction({categoryName: props.groupList[groupID].categories[categoryID].name}, transactionID))
+                dispatch(updateTransaction({categoryName: props.groupList[categoryID].name}, transactionID))
             }
-            return props.groupList[groupID].categories[categoryID].name;
+            return props.groupList[categoryID].name;
         }
         else
         {
@@ -54,26 +47,18 @@ function TransactionList(props)
                 } else
                 {
                     return (<TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
-                                             category={getCategoryName(value.groupID, value.categoryID, value.categoryName, value.transactionID)}/>);
+                                             category={getCategoryName( value.categoryID, value.categoryName, value.transactionID)}/>);
                 }
             });
-
-
-        } else if (props.page === 'group')
-        {
-
-            return tempTransactions.map((value, index) => (parseInt(value.groupID) === parseInt(props.groupID)) &&
-                <TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
-                                 category={getCategoryName(value.groupID, value.categoryID, value.categoryName, value.transactionID)}/>);
 
 
         } else if (props.page === 'category')
         {
 
 
-            return tempTransactions.map((value, index) => ((parseInt(value.groupID) === parseInt(props.groupID)) && (parseInt(value.categoryID) === parseInt(props.categoryID)) &&
+            return tempTransactions.map((value, index) => ((parseInt(value.categoryID) === parseInt(props.categoryID)) &&
                 <TransactionItem key={index} id={value.transactionID} payee={value.payee} amount={value.amount}
-                                 category={getCategoryName(value.groupID, value.categoryID, value.categoryName, value.transactionID)}/>));
+                                 category={getCategoryName( value.categoryID, value.categoryName, value.transactionID)}/>));
 
 
         }
@@ -140,7 +125,7 @@ const mapStateToProps = (state) =>
     const {transactions, groupData} = state;
     return {
         transactions: transactions.transactions,
-        groupList: groupData.groups,
+        groupList: groupData.categories,
     };
 };
 export default connect(mapStateToProps)(TransactionList);
