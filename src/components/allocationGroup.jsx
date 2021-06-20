@@ -33,7 +33,7 @@ function AllocationGroup(props)
     });
 
 
-    const {groupID} = props;
+
     return (
         <View style={styles.container}>
             <View style={styles.groupContainer}>
@@ -48,8 +48,8 @@ function AllocationGroup(props)
 
 const mapStateToProps = (state, ownProps) =>
 {
-    const {groupData, fund} = state;
-    const {groupID} = ownProps;
+    const {groupData} = state;
+
     return {
         groups: groupData.categories,
 
