@@ -37,13 +37,9 @@ function AllocationGroup(props)
     return (
         <View style={styles.container}>
             <View style={styles.groupContainer}>
-                <View style={styles.groupTag}>
-                    <AllocationBarGroup key={groupID} groupID={groupID}/>
-                </View>
                 <View style={styles.categoryTags}>
                     {Object.entries(props.groups).map(([key, value]) => <AllocationBarCategory key={key}
-                                                                                               categoryID={key}
-                                                                                               groupID={groupID}/>)}
+                                                                                               categoryID={key}/>)}
                 </View>
             </View>
         </View>);
@@ -55,7 +51,7 @@ const mapStateToProps = (state, ownProps) =>
     const {groupData, fund} = state;
     const {groupID} = ownProps;
     return {
-        groups: groupData.groups[groupID].categories,
+        groups: groupData.categories,
 
 
     };

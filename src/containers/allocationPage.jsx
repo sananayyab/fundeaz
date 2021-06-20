@@ -27,7 +27,7 @@ function AllocationPage(props)
             </View>
             <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}>
-                {Object.entries(props.groups).map(([key, value]) => < AllocationGroup key={key} groupID={key}/>)}
+             < AllocationGroup />
             </ScrollView>
         </View>);
 }

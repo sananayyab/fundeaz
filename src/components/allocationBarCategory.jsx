@@ -166,6 +166,9 @@ function AllocationBarCategory(props)
                 mode = 'deduct';
                 textFieldRef.current.focus();
             }
+            else{
+                nativeEvent.co
+            }
         }
 
 
@@ -197,7 +200,7 @@ function AllocationBarCategory(props)
 
 
                                             props.allocate((parseInt(event.nativeEvent.text)));
-                                            props.updateStatistics({thisMonth: (props.groupStatistics + (parseInt(event.nativeEvent.text)))}, {thisMonth: (props.categoryStatistics + (parseInt(event.nativeEvent.text)))});
+                                            props.updateStatistics( {thisMonth: (props.categoryStatistics + (parseInt(event.nativeEvent.text)))});
                                             setAmount(parseInt(event.nativeEvent.text) + parseInt(oldAmount));
                                             setStyle(styles.innerContainerTextPositive);
                                             mode= ''
@@ -215,7 +218,7 @@ function AllocationBarCategory(props)
                                         if (oldAmount > 0)
                                         {
 
-                                            props.updateStatistics({thisMonth: ( props.groupStatistics - (parseInt(event.nativeEvent.text)))}, {thisMonth: ( props.categoryStatistics - (parseInt(event.nativeEvent.text)))});
+                                            props.updateStatistics({thisMonth: ( props.categoryStatistics - (parseInt(event.nativeEvent.text)))});
                                             props.deallocate(parseInt(event.nativeEvent.text));
                                             setAmount(oldAmount - parseInt(event.nativeEvent.text));
                                             setStyle(styles.innerContainerTextPositive);
@@ -258,21 +261,20 @@ function AllocationBarCategory(props)
 const mapStateToProps = (state, ownProps) =>
 {
     const {groupData, fund, statistics} = state;
-    const {groupID, categoryID} = ownProps;
+    const {categoryID} = ownProps;
     return {
-        name: groupData.groups[groupID].categories[categoryID].name,
-        fundAllocated: fund.groups[groupID].categories[categoryID].allocated,
-        groupStatistics: statistics[groupID].allocated.thisMonth,
-        categoryStatistics:  statistics[groupID].categories[categoryID].allocated.thisMonth,
+        name: groupData.categories[categoryID].name,
+        fundAllocated: fund.categories[categoryID].allocated,
+        categoryStatistics:  statistics[categoryID].allocated.thisMonth,
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) =>
 {
-    const {groupID, categoryID} = ownProps;
+    const { categoryID} = ownProps;
     return {
-        allocate: (amount) => dispatch(allocateToCategory(amount, groupID, categoryID)),
-        deallocate: (amount) => dispatch(deallocateCategory(amount, groupID, categoryID)),
-        updateStatistics: (group, category) => dispatch(setCategoryAllocated(group, category, groupID, categoryID)),
+        allocate: (amount) => dispatch(allocateToCategory(amount, categoryID)),
+        deallocate: (amount) => dispatch(deallocateCategory(amount, categoryID)),
+        updateStatistics: (category) => dispatch(setCategoryAllocated( category, categoryID)),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AllocationBarCategory);
