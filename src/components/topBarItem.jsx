@@ -84,27 +84,20 @@ function TopBarItem(props)
         } else if (props.type === 'allocated')
         {
 
-            if (props.data.categoryID === null)
-            {
-                var allocatedValue = props.groups[props.data.groupID].allocated;
-            } else
-            {
-                var allocatedValue = props.groups[props.data.groupID].categories[props.data.categoryID].allocated;
-            }
+
+                var allocatedValue = props.categories[props.data.categoryID].allocated;
+
             setTouse(styles.innerContainerTextAllocation);
             setText('Allocated');
             setAmount(allocatedValue);
         } else if (props.type === 'amount')
         {
-            if (props.data.groupID === null)
+         if (props.data.categoryID === null)
             {
                 var value = props.available;
-            } else if (props.data.categoryID === null)
-            {
-                var value = props.groups[props.data.groupID].available;
             } else
             {
-                var value = props.groups[props.data.groupID].categories[props.data.categoryID].available;
+                var value = props.categories[props.data.categoryID].available;
             }
             if (value >= 0)
             {
@@ -126,9 +119,6 @@ function TopBarItem(props)
             if (props.type === 'unallocated')
             {
                 navigation.navigate('AllocationPage');
-            } else if (props.type === 'amount')
-            {
-                navigation.navigate('FundOverviewPage');
             }
 
         }
@@ -153,7 +143,7 @@ const mapStateToProps = (state) =>
         available: fund.available,
         allocated: fund.allocated,
         unallocated: fund.unallocated,
-        groups: fund.groups,
+        categories: fund.categories,
         fund: fund,
     };
 };
