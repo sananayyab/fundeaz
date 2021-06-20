@@ -28,14 +28,14 @@ export function setCategoryAllocated( category, categoryID)
 
     };
 }
-export function setCategorySpent(group, category, groupID, categoryID)
+export function setCategorySpent( category, categoryID)
 {
     return {
         type: 'SET_CATEGORY_SPENDING',
         categoryID,
-        group,
+
         category,
-        groupID,
+
 
     };
 }
