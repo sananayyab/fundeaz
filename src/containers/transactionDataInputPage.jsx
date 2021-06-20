@@ -114,7 +114,7 @@ function TransactionInput(props)
             {
 
 
-                const updatedCategorySpent = parseInt(props[data.categoryID].spent.thisMonth) + parseInt(data.amount);
+                const updatedCategorySpent = parseInt(props.statistics[data.categoryID].spent.thisMonth) + parseInt(data.amount);
                 const clock = new Date();
 
                 props.addTransaction(data);
