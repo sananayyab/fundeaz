@@ -29,18 +29,6 @@ function TransactionInput(props)
     const navigation = useNavigation();
     const route = useRoute();
 
-
-    const [dropDownActive, setDropDown] = useState(false);
-    const [categoryFunctionCalledChild, setChild] = useState(false);
-    const [ data, setData] = useState( {
-        amount: '',
-        payee: '',
-        date: '',
-        note: '',
-        categoryID: '',
-        categoryName: '',
-
-    });
     const pageDetails = {
         pageName: route.params.page,
         categoryID: route.params.categoryID,
@@ -48,20 +36,41 @@ function TransactionInput(props)
 
 
     };
-
-
-    useEffect(() => {
-        if(pageDetails.categoryID != null)
+    const [dropDownActive, setDropDown] = useState(false);
+    const [categoryFunctionCalledChild, setChild] = useState(false);
+    const [ data, setData] = useState( () =>
+    {
+        if(pageDetails.categoryID !== '')
         {
-            setData({
-                ...data,
+
+            return {
+                amount: '',
+                payee: '',
+                date: '',
+                note: '',
                 type: 'category',
                 categoryID: pageDetails.categoryID,
                 categoryName: pageDetails.categoryName,
-
-            })
+            }
         }
-    }, [])
+        else
+        {
+            return {
+                amount: '',
+                payee: '',
+                date: '',
+                note: '',
+                categoryID: '',
+                categoryName: '',
+            }
+        }
+    }
+
+    );
+
+
+
+
     const handleDropDown = () =>
     {
 
@@ -115,6 +124,7 @@ function TransactionInput(props)
             ...data,
             ...value,
         })
+        console.log(data)
 
     }
 

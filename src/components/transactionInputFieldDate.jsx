@@ -39,7 +39,6 @@ function TransactionInputFieldDate(props)
         fieldNameText: {
 
 
-
             alignSelf: 'center',
             bottom: '5%',
             fontSize: 19,
@@ -68,7 +67,8 @@ function TransactionInputFieldDate(props)
         if (props.value !== '')
         {
             initialDate = props.value;
-        } else
+        }
+        else
         {
             initialDate = new Date().getTime();
         }
@@ -79,26 +79,31 @@ function TransactionInputFieldDate(props)
     });
 
 
-    useEffect(() => {   props.data({
+    useEffect(() =>
+    {
+        props.data({
 
-        date: date,
-    });}, [])
+            date: date,
+        });
+    }, []);
 
     const onChange = (event, selectedDate) =>
     {
 
-        if(event.type === 'set'){
-        const currentDate = selectedDate
+        if (event.type === 'set')
+        {
+            const currentDate = selectedDate;
 
 
-        setDate(currentDate);
-        setShowDatePicker(Platform.OS === 'ios');
-        props.data({
+            setDate(currentDate);
+            setShowDatePicker(Platform.OS === 'ios');
+            props.data({
 
-            date: currentDate.getTime(),
-        });
+                date: currentDate.getTime(),
+            });
         }
-        else {
+        else
+        {
             setShowDatePicker(false);
         }
     };
