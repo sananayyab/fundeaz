@@ -141,17 +141,17 @@ function CategoryGoalBar(props)
 const mapStateToProps = (state, ownProps) =>
 {
     const {fund} = state;
-    const {groupID, categoryID} = ownProps;
+    const { categoryID} = ownProps;
     return {
-        goalAmount: fund.groups[groupID].categories[categoryID].goal,
-        available: fund.groups[groupID].categories[categoryID].available,
+        goalAmount: fund.categories[categoryID].goal,
+        available: fund.categories[categoryID].available,
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) =>
 {
-    const {groupID, categoryID} = ownProps;
+    const { categoryID} = ownProps;
     return {
-        setGoalAmount: (amount) => dispatch(setGoalAmount(groupID, categoryID, amount)),
+        setGoalAmount: (amount) => dispatch(setGoalAmount(categoryID, amount)),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryGoalBar);
