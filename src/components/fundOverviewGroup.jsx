@@ -125,9 +125,6 @@ function FundOverviewGroup(props)
 
 
             <View style={styles.groupContainer}>
-                <View style={styles.groupTag}>
-                    <FundOverviewBarGroup key={groupID} groupID={groupID}/>
-                </View>
                 <View style={styles.categoryTags}>
                     <FlatList
                         initialNumToRender={15}
@@ -148,11 +145,10 @@ function FundOverviewGroup(props)
 const mapStateToProps = (state, ownProps) =>
 {
     const {groupData, fund} = state;
-    const {groupID} = ownProps;
+
     return {
-        groups: groupData.groups[groupID].categories,
-        currentGroup: groupData.groups[groupID],
-        groupFund: fund.groups[groupID].categories,
+        groups: groupData.categories,
+        groupFund: fund.categories,
 
 
     };
