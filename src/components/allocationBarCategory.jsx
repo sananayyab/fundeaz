@@ -69,6 +69,14 @@ function AllocationBarCategory(props)
             fontSize: 20,
             color: 'white',
         },
+        textAvailable: {
+            top: '5%',
+            height: '100%',
+            width: '100%',
+            textAlign: 'center',
+            fontSize: 20,
+            color: 'white',
+        },
     });
     const [styleToUse, setStyle] = useState(((parseInt(props.fundAllocated) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative));
     const textFieldRef = createRef();
@@ -182,6 +190,11 @@ function AllocationBarCategory(props)
                     <View style={styles.innerContainerText}>
                         <Text style={styles.textText}>{props.name}</Text>
                     </View>
+                    <View style={((parseInt(props.fundAvailable) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                            <Text style={styles.textAvailable}>
+                                {props.fundAvailable}
+                            </Text>
+                    </View>
                     <View style={styleToUse}>
                         <TextInput
                             pointerEvents={'none'}
@@ -214,10 +227,11 @@ function AllocationBarCategory(props)
                                     {
                                         if (oldAmount > 0)
                                         {
+                                            let amountToUse = ((oldAmount - event.nativeEvent.text >= 0) ? oldAmount - event.nativeEvent.text : oldAmount)
 
-                                            props.updateStatistics({thisMonth: ( props.categoryStatistics - (parseInt(event.nativeEvent.text)))});
-                                            props.deallocate(parseInt(event.nativeEvent.text));
-                                            setAmount(oldAmount - parseInt(event.nativeEvent.text));
+                                            props.updateStatistics({thisMonth: ( props.categoryStatistics - (parseInt(amountToUse)))});
+                                            props.deallocate(parseInt(amountToUse));
+                                            setAmount(oldAmount - amountToUse);
                                             setStyle(styles.innerContainerTextPositive);
                                             mode= ''
                                         } else
@@ -262,6 +276,7 @@ const mapStateToProps = (state, ownProps) =>
     return {
         name: groupData.categories[categoryID].name,
         fundAllocated: fund.categories[categoryID].allocated,
+        fundAvailable: fund.categories[categoryID].available,
         categoryStatistics:  statistics[categoryID].allocated.thisMonth,
     };
 };
