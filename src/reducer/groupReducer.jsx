@@ -14,7 +14,7 @@
 */
 const initialState = {
     currentID: 0,
-    groups: {},
+    categories: {},
 };
 
 export function groupReducer(state = initialState, action)
@@ -23,6 +23,8 @@ export function groupReducer(state = initialState, action)
     {
         case 'RESET':
             return initialState;
+
+/*
         case 'ADD_GROUP':
             return {
                 ...state,
@@ -55,74 +57,54 @@ export function groupReducer(state = initialState, action)
                     },
                 },
             };
+
+
+ */
         case 'ADD_CATEGORY':
             return {
                 ...state,
-                groups: {
-                    ...state.groups,
-                    [action.groupID]: {
-                        ...state.groups[action.groupID],
-                        currentCategoryID: ++state.groups[action.groupID].currentCategoryID,
-                        categories: {
-                            ...state.groups[action.groupID].categories,
-                            [state.groups[action.groupID].currentCategoryID + 1]: {
-                                ...action.data,
-                                lastTransaction: 0,
-                            },
-                        },
-
-
+                currentID: ++state.currentID,
+                categories: {
+                    ...state.categories,
+                    [state.currentID + 1]: {
+                        ...action.data,
+                        lastTransaction: 0,
                     },
+
+
                 },
+
             };
         case 'REMOVE_CATEGORY':
             return {
                 ...state,
-                groups: {
-                    ...state.groups,
-                    [action.groupID]: {
-                        ...state.groups[action.groupID],
-                        categories: Object.fromEntries(Object.entries(state.groups[action.groupID].categories).filter(([key, value]) => key !== action.categoryID)),
-
-                    },
+                categories: Object.fromEntries(Object.entries(state.categories[action.categoryID]).filter(([key, value]) => key !== action.categoryID)),
 
 
-                },
             };
         case 'UPDATE_CATEGORY':
             return {
-                ...state,
-                groups: {
-                    ...state.groups,
-                    [action.groupID]: {
-                        ...state.groups[action.groupID],
-                        categories: {
-                            ...state.groups[action.groupID].categories,
-                            [action.categoryID]: {
-                                ...state.groups[action.groupID].categories[action.categoryID],
-                                ...action.data,
-                            },
-                        },
 
+                ...state,
+                categories: {
+                    ...state.categories,
+                    [action.categoryID]: {
+                        ...state.categories[action.categoryID],
+                        ...action.data,
 
                     },
+
+
                 },
             };
         case 'SET_TRANSACTION_TIME_GROUP':
             return {
                 ...state,
-                groups: {
-                    ...state.groups,
-                    [action.groupID]: {
-                        ...state.groups[action.groupID],
+                categories: {
+                    ...state.categories,
+                    [action.categoryID]: {
+                        ...state.groups[action.categoryID],
                         lastTransaction: action.time,
-                        categories: {
-                            ...state.groups[action.groupID].categories,
-                            [action.categoryID]: {
-                                ...state.groups[action.groupID].categories[action.categoryID],
-                                lastTransaction: action.time,
-                            },
-                        },
                     },
                 },
 
