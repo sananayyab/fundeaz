@@ -13,62 +13,33 @@ function CategorySection(props)
 
     const getData = () =>
     {
-        if (props.section === 'group')
-        {
-            let groupArray = makeGroupArray();
 
-            return groupArray.map((value,key) => <CategoryItem key={key} id={value.groupID}
-                                                                                        name={value.name} item={'group'}
-                                                                                        amount={props.groupFunds[value.groupID].available}/>);
+        let groupArray = makeCategoryArray();
+
+        return groupArray.map((value, key) => <CategoryItem key={key} id={value.categoryID}
+                                                            name={value.name}
+                                                            amount={props.groupFunds[value.categoryID].available}/>);
 
 
-        }
-        if (props.section === 'category')
-        {
-            let categoryArray = makeCategoryArray()
-
-            return categoryArray.map((value, key) => <CategoryItem
-                key={key} id={value.categoryID} groupID={props.groupID} groupName={props.groupName} name={value.name}
-                item={'category'} amount={props.groupFunds[props.groupID].categories[value.categoryID].available}/>);
-
-        }
     };
     const [itemList, setItems] = useState(getData());
     useEffect(() =>
     {
         setItems(getData());
-    }, [props.groupList, props.groupList.categories, props.groupFunds]);
+    }, [props.groupList, props.groupFunds]);
 
-    function makeGroupArray()
+
+    function makeCategoryArray()
     {
         let temp = [];
         for (let key in props.groupList)
         {
 
-            let tempItem = props.groupList[key]
-            tempItem = {
-                ...tempItem,
-                groupID: key,
-            }
-            temp.push(tempItem);
-
-        }
-        temp.sort((a, b) => parseInt(b.lastTransaction) - parseInt(a.lastTransaction));
-
-        return temp;
-    }
-
-    function makeCategoryArray()
-    {
-        let temp = [];
-        for (let key in props.groupList[props.groupID].categories)
-        {
-
-            let tempItem = props.groupList[props.groupID].categories[key]
+            let tempItem = props.groupList[key];
             tempItem = {
                 ...tempItem,
                 categoryID: key,
-            }
+            };
             temp.push(tempItem);
 
         }
@@ -76,6 +47,7 @@ function CategorySection(props)
 
         return temp;
     }
+
     const items = ({item, index}) =>
     {
         return (
@@ -91,18 +63,11 @@ function CategorySection(props)
 
     function loadCategoryList()
     {
-        if (props.page === 'home')
-        {
-            navigation.navigate('GroupList', {
-                page: 'home',
-            });
-        } else if (props.page === 'group')
-        {
-            navigation.navigate('CategoryList', {
-                page: 'group',
-                groupID: props.groupID,
-            });
-        }
+
+        navigation.navigate('GroupList', {
+            page: 'home',
+        });
+
     }
 
     const styles = StyleSheet.create({
@@ -190,8 +155,8 @@ const mapStateToProps = (state) =>
 {
     const {groupData, fund} = state;
     return {
-        groupList: groupData.groups,
-        groupFunds: fund.groups,
+        groupList: groupData.categories,
+        groupFunds: fund.categories,
     };
 };
 export default connect(mapStateToProps)(CategorySection);

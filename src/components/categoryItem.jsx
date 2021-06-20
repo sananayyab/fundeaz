@@ -11,33 +11,14 @@ function CategoryItem(props)
     function pressed()
     {
 
-        if (props.item === 'group')
-        {
-            /*var tags;
-            var list = props.groupList
-            for (var key in list)
-            {
-                tags.push( <CategoryItem key={key} name={item.name} />)
-            }*/
 
-
-            // passing , navigation: navigation was causing the issue, find another way to pass navigation
-            navigation.navigate('GroupPage', {
-                name: props.name,
-                id: props.id,
-            });
-
-
-        } else if (props.item === 'category')
-        {
             navigation.navigate('CategoryPage', {
                 name: props.name,
-                groupID: props.groupID,
                 categoryID: props.id,
 
             });
 
-        }
+
 
 
     }
