@@ -16,10 +16,7 @@ function AllocationBarCategory(props)
         container: {
             height: 45,
             width: '97%',
-            marginLeft: 5,
-            marginRight: 5,
-            marginTop: 5,
-            marginBottom: 5,
+         margin: 5,
             borderRadius: 10,
             flexDirection: 'row',
             backgroundColor: '#385782',
@@ -59,7 +56,7 @@ function AllocationBarCategory(props)
         },
         innerContainerAmount: {},
         textText: {
-            paddingLeft: 0,
+            paddingLeft: 10,
             fontSize: 17,
             color: 'white',
             marginLeft: '5%',
@@ -175,7 +172,7 @@ function AllocationBarCategory(props)
     }
 
     return (
-        <FlingGestureHandler direction={Directions.RIGHT | Directions.LEFT}
+        <FlingGestureHandler direction={Directions.RIGHT | Directions.LEFT | Directions.UP | Directions.DOWN}
                              onHandlerStateChange={handleState}>
             <View style={{
                 height: 50,
