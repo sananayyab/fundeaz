@@ -36,7 +36,7 @@ function AllocationBarCategory(props)
             backgroundColor: '#385782',
         },
         innerContainerTextPositive: {
-            flex: 1.63,
+            flex: 1.2,
             marginRight: '3%',
             height: '70%',
             borderRadius: 6,
@@ -46,7 +46,27 @@ function AllocationBarCategory(props)
             backgroundColor: '#05845D',
         },
         innerContainerTextNegative: {
-            flex: 1.63,
+            flex: 1.2,
+            marginRight: '3%',
+            height: '70%',
+            borderRadius: 6,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#85041C',
+        },
+        innerContainerTextPositiveAvailable: {
+           flex: 1.2,
+            marginRight: '3%',
+            height: '70%',
+            borderRadius: 6,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#05845D',
+        },
+        innerContainerTextNegativeAvailable: {
+            flex: 1.2,
             marginRight: '3%',
             height: '70%',
             borderRadius: 6,
@@ -189,7 +209,7 @@ function AllocationBarCategory(props)
                     <View style={styles.innerContainerText}>
                         <Text style={styles.textText}>{props.name}</Text>
                     </View>
-                    <View style={((parseInt(props.fundAvailable) >= 0) ? styles.innerContainerTextPositive : styles.innerContainerTextNegative)}>
+                    <View style={((parseInt(props.fundAvailable) >= 0) ? styles.innerContainerTextPositiveAvailable : styles.innerContainerTextNegativeAvailable)}>
                             <Text style={styles.textAvailable}>
                                 {props.fundAvailable}
                             </Text>

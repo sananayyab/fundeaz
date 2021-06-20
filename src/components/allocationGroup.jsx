@@ -27,7 +27,7 @@ function AllocationGroup(props)
         },
         categoryTags: {
             height: 'auto',
-            width: '97%',
+            width: '100%',
             alignSelf: 'center'
         },
     });
