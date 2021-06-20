@@ -103,7 +103,7 @@ export function groupReducer(state = initialState, action)
                 categories: {
                     ...state.categories,
                     [action.categoryID]: {
-                        ...state.groups[action.categoryID],
+                        ...state.categories[action.categoryID],
                         lastTransaction: action.time,
                     },
                 },
