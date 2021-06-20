@@ -43,7 +43,6 @@ function TransactionEdit(props)
 
 
     const [originalAmount, setOriginalAmount] = useState(data.amount);
-    const [originalGroup, setOriginalGroup] = useState(data.groupID);
     const [originalCategory, setOriginalCategory] = useState(data.categoryID);
     const [oldType, setOriginalType] = useState(data.type);
     const [categoryAlive, setCategoryStatus] = useState(() =>
@@ -51,16 +50,9 @@ function TransactionEdit(props)
 
         if (data.type === 'category')
         {
-            if (props.groupData[data.groupID] == null)
-            {
 
+                return props.groupData[data.categoryID] != null;
 
-                return false;
-            }
-            else
-            {
-                return props.groupData[data.groupID].categories[data.categoryID] != null;
-            }
         }
         else
         {
@@ -122,19 +114,12 @@ function TransactionEdit(props)
         {
 
             let categoryAlive = null;
-            if (props.groupData[data.groupID] == null)
-            {
 
+                categoryAlive = props.groupData[data.categoryID] != null;
 
-                categoryAlive = false;
-            }
-            else
-            {
-                categoryAlive = props.groupData[data.groupID].categories[data.categoryID] != null;
-            }
             if(categoryAlive)
             {
-                props.removeSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
+                props.removeSpending(parseInt(data.amount), parseInt(data.categoryID));
             }
             else {
                 props.addTotalAvailable(parseInt(data.amount))
@@ -163,7 +148,7 @@ function TransactionEdit(props)
             if (data.type === 'category' && oldType === 'category')
             {
 
-                if (originalGroup === data.groupID && originalCategory === data.categoryID)
+                if ( originalCategory === data.categoryID)
                 {
 
 
@@ -171,110 +156,53 @@ function TransactionEdit(props)
                     {
 
 
-                        props.updateSpending(parseInt(data.amount) - parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+                        props.updateSpending(parseInt(data.amount) - parseInt(originalAmount),  parseInt(data.categoryID));
 
                     }
                     else if (parseInt(originalAmount) > parseInt(data.amount))
                     {
 
 
-                        props.removeSpending(parseInt(originalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
+                        props.removeSpending(parseInt(originalAmount) - parseInt(data.amount), parseInt(data.categoryID));
 
                     }
 
                 }
                 else
                 {
-                    if (originalGroup === data.groupID && originalCategory !== data.categoryID)
-                    {
 
 
                         if (parseInt(originalAmount) < parseInt(data.amount))
                         {
 
-                            if (categoryAlive)
-                            {
-                                props.spendOnlyCategory(parseInt(data.amount) - parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
-                            }
-                            else
-                            {
-                                props.updateSpending(parseInt(data.amount) - parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
-                            }
 
-
-                        }
-                        else if (parseInt(originalAmount) > parseInt(data.amount))
-                        {
-
-                            if (categoryAlive)
-                            {
-                                props.spendOnlyCategory(parseInt(originalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
-                            }
-                            else
-                            {
-                                props.updateSpending(parseInt(originalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
-                            }
-
-                        }
-                        else
-                        {
-
-                            if (categoryAlive)
-                            {
-                                props.spendOnlyCategory(parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
-                            }
-                            else
-                            {
-                                props.updateSpending(parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
-                            }
-
-                        }
-                        if (categoryAlive)
-                        {
-                            props.removeSpendOnlyCategory(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
-                        }
-                        else
-                        {
-
-                                props.addTotalAvailable(parseInt(originalAmount));
-
-                        }
-                    }
-
-                    else
-                    {
-
-                        if (parseInt(originalAmount) < parseInt(data.amount))
-                        {
-
-
-                            props.updateSpending(parseInt(data.amount) - parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+                            props.updateSpending(parseInt(data.amount) - parseInt(originalAmount), parseInt(data.categoryID));
 
                         }
                         else if (parseInt(originalAmount) > parseInt(data.amount))
                         {
 
 
-                            props.updateSpending(parseInt(originalAmount) - parseInt(data.amount), data.groupID, parseInt(data.categoryID));
+                            props.updateSpending(parseInt(originalAmount) - parseInt(data.amount), parseInt(data.categoryID));
 
                         }
                         else
                         {
 
-                            props.updateSpending(parseInt(originalAmount), data.groupID, parseInt(data.categoryID));
+                            props.updateSpending(parseInt(originalAmount),  parseInt(data.categoryID));
 
 
                         }
                         if (categoryAlive)
                         {
-                            props.removeSpending(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
+                            props.removeSpending(parseInt(originalAmount), parseInt(originalCategory));
                         }
                         else
                         {
                             props.addTotalAvailable(parseInt(originalAmount));
 
                         }
-                    }
+
 
 
                 }
@@ -307,7 +235,7 @@ function TransactionEdit(props)
                 props.addTotalAvailable(parseInt(data.amount));
                 if (categoryAlive)
                 {
-                    props.removeSpending(parseInt(originalAmount), originalGroup, parseInt(originalCategory));
+                    props.removeSpending(parseInt(originalAmount), parseInt(originalCategory));
                 }
                 else
                 {
@@ -315,7 +243,7 @@ function TransactionEdit(props)
                 }
                 setData({
                     ...data,
-                    groupID: '',
+
                     categoryID: '',
                 });
                 props.updateTransaction(data, props.route.params.key);
@@ -325,7 +253,7 @@ function TransactionEdit(props)
 
 
                 props.removeTotalAvailable(parseInt(originalAmount));
-                props.updateSpending(parseInt(data.amount), data.groupID, parseInt(data.categoryID));
+                props.updateSpending(parseInt(data.amount), parseInt(data.categoryID));
                 props.updateTransaction(data, props.route.params.key);
             }
 
@@ -416,7 +344,7 @@ function TransactionEdit(props)
                             pageName: 'home',
                         }} fieldName={data.type}
                                                        categoryName={data.categoryName}
-                                                       groupID={data.groupID}
+
                                                        categoryID={data.categoryID}
                                                        dropDown={dropDownActive}
                                                        handlDropDown={handleDropDown}
@@ -476,15 +404,15 @@ const mapDispatchToProps = (dispatch) =>
     return {
         addTransaction: (data) => dispatch(addTransaction(data)),
         removeTransaction: (id) => dispatch(removeTransaction(id)),
-        updateSpending: (amount, groupID, categoryID) => dispatch(spendCategory(amount, groupID, categoryID)),
-        spendOnlyCategory: (amount, groupID, categoryID) => dispatch(spendOnlyCategory(amount, groupID, categoryID)),
-        removeSpending: (amount, groupID, categoryID) => dispatch(removeSpendCategory(amount, groupID, categoryID)),
-        removeSpendOnlyCategory: (amount, groupID, categoryID) => dispatch(removeSpendOnlyCategory(amount, groupID, categoryID)),
+        updateSpending: (amount, categoryID) => dispatch(spendCategory(amount, categoryID)),
+
+        removeSpending: (amount, categoryID) => dispatch(removeSpendCategory(amount, categoryID)),
+
         addToUnallocated: (amount) => dispatch(addToUnallocated(amount)),
         addTotalAvailable: (amount) => dispatch(addTotalAvailable(amount)),
         removeTotalAvailable: (amount) => dispatch(removeTotalAvailable(amount)),
         updateTransaction: (data, id) => dispatch(updateTransaction(data, id)),
-        unallocatedFromGroup: (amount, groupID) => dispatch(unallocatedFromGroup(amount, groupID)),
+
 
     };
 };
@@ -493,7 +421,7 @@ const mapStateToProps = (state) =>
 {
     const {transactions, groupData} = state;
     return {
-        groupData: groupData.groups,
+        groupData: groupData.categories,
         transactions: transactions.transactions,
     };
 };
