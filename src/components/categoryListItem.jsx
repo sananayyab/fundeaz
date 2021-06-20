@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect, useDispatch} from 'react-redux';
-import {removeCategory, removeGroup, updateCategory, updateGroup} from '../action/groupActions';
+import {removeCategory, updateCategory} from '../action/groupActions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/core';
-import {addToUnallocated, categoryRemovedFundAction} from '../action/fundActions';
+import {addToUnallocated} from '../action/fundActions';
 
 const styles = StyleSheet.create({
     container: {
@@ -125,24 +125,14 @@ function CategoryListItem(props)
     };
     const deleteSelected = () =>
     {
-        if (props.item === 'group')
+
+      if (props.item === 'category')
         {
 
 
-            let categoryAmount = props.groupFunds[props.id].available;
+            let categoryAmount = props.groupFunds[props.id].available
             dispatch(addToUnallocated(categoryAmount));
-
-
-            dispatch(removeGroup(props.id));
-            setElement();
-        }
-        else if (props.item === 'category')
-        {
-
-
-            dispatch(categoryRemovedFundAction(props.groupID, props.id));
-
-            dispatch(removeCategory(props.id, props.groupID));
+            dispatch(removeCategory( props.id));
             setElement();
 
 
@@ -159,23 +149,16 @@ function CategoryListItem(props)
                 <View style={styles.textInputBar}>
                     <TextInput autoFocus={true} onSubmitEditing={(event) =>
                     {
-                        if (props.item === 'group')
-                        {
 
-                            dispatch(updateGroup({
-                                name: event.nativeEvent.text.trim(),
-                                itemStatus: 'created',
-                            }, props.id));
-                        }
-                        else if (props.item === 'category')
+                       if (props.item === 'category')
                         {
 
                             dispatch(updateCategory({
                                 name: event.nativeEvent.text.trim(),
                                 itemStatus: 'created',
-                            }, props.id, props.groupID));
+                            }, props.id));
                         }
-
+                        setCreatedType(event.nativeEvent.text.trim(), 0);
                         props.setEditing(true);
 
                     }}
@@ -211,24 +194,17 @@ function CategoryListItem(props)
                 let nameToUse = '';
                 if (name !== null)
                 {
-                    nameToUse = event.nativeEvent.text;
+                    nameToUse = event.nativeEvent.text.trim();
                     nameToUse.trim();
-                }
-                if (props.item === 'group')
-                {
-                    dispatch(updateGroup({
-                        name: nameToUse,
-                        itemStatus: 'created',
-                    }, props.id));
                 }
                 else if (props.item === 'category')
                 {
                     dispatch(updateCategory({
                         name: nameToUse,
                         itemStatus: 'created',
-                    }, props.id, props.groupID));
+                    }, props.id));
                 }
-                setCreatedType(event.nativeEvent.text, 0);
+                setCreatedType(event.nativeEvent.text.trim(), 0);
                 props.setEditing(true);
             }}
                        style={styles.editTextField}>{name}</TextInput>
@@ -280,8 +256,8 @@ const mapStateToProps = (state) =>
 {
     const {groupData, fund} = state;
     return {
-        groupList: groupData.groups,
-        groupFunds: fund.groups,
+        groupList: groupData.categories,
+        groupFunds: fund.categories,
     };
 };
 export default connect(mapStateToProps)(CategoryListItem);
