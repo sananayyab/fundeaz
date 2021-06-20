@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, ToastAndroid, View} from 'react-native';
 import {connect} from 'react-redux';
-import FundOverviewBarGroup from './fundOverviewBarGroup.jsx';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {addCategory} from '../action/groupActions';
 import {initializeCategory} from '../action/fundActions';
