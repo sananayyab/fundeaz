@@ -1,3 +1,5 @@
+/*
+
 export function addGroup(data)
 {
     return {
@@ -6,23 +8,6 @@ export function addGroup(data)
     };
 }
 
-export function resetGroup()
-{
-    return {
-        type: 'RESET',
-
-    };
-}
-
-export function addLastTransactionTimeInGroup(groupID, categoryID, time)
-{
-    return{
-        type: 'SET_TRANSACTION_TIME_GROUP',
-        groupID,
-        categoryID,
-        time
-    }
-}
 export function removeGroup(groupID)
 {
     return {
@@ -41,30 +26,48 @@ export function updateGroup(data, groupID)
 }
 
 
-export function addCategory(data, groupID)
+ */
+
+
+export function resetGroup()
+{
+    return {
+        type: 'RESET',
+
+    };
+}
+
+export function addLastTransactionTimeInGroup( categoryID, time)
+{
+    return{
+        type: 'SET_TRANSACTION_TIME_GROUP',
+        categoryID,
+        time
+    }
+}
+
+
+export function addCategory(data)
 {
     return {
         type: 'ADD_CATEGORY',
-        groupID,
         data,
     };
 }
 
-export function removeCategory(categoryID, groupID)
+export function removeCategory(categoryID)
 {
     return {
         type: 'REMOVE_CATEGORY',
         categoryID,
-        groupID,
     };
 }
 
-export function updateCategory(data, categoryID, groupID)
+export function updateCategory(data, categoryID)
 {
     return {
         type: 'UPDATE_CATEGORY',
         categoryID,
-        groupID,
         data,
     };
 }
