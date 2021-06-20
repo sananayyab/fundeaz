@@ -132,7 +132,9 @@ function TransactionInputFieldCategory(props)
         {
 
 
+
             categoryName = props.categoryName;
+
 
 
         }

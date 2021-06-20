@@ -91,6 +91,7 @@ function CategoryPage(props)
                 <BottomBar data={{
                     page: 'category',
                     categoryID: categoryID,
+                    categoryName: name,
                     type: 'landing',
                 }}/>
             </View>

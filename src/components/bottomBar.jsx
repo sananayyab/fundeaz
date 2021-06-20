@@ -178,12 +178,14 @@ function BottomBar(props)
                     navigation.navigate('TransactionInput', {
                         page: 'home',
                         categoryID: '',
+                        categoryName: ''
                     });
                     break;
                 case 'category':
                     navigation.navigate('TransactionInput', {
                         page: 'category',
                         categoryID: props.data.categoryID,
+                        categoryName: props.data.categoryName
                     });
                     break;
             }

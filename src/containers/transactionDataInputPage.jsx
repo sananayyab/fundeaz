@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Keyboard,
     KeyboardAvoidingView,
@@ -44,9 +44,24 @@ function TransactionInput(props)
     const pageDetails = {
         pageName: route.params.page,
         categoryID: route.params.categoryID,
+        categoryName: route.params.categoryName,
 
 
     };
+
+
+    useEffect(() => {
+        if(pageDetails.categoryID != null)
+        {
+            setData({
+                ...data,
+                type: 'category',
+                categoryID: pageDetails.categoryID,
+                categoryName: pageDetails.categoryName,
+
+            })
+        }
+    }, [])
     const handleDropDown = () =>
     {
 
@@ -211,6 +226,7 @@ function TransactionInput(props)
                         <TransactionInputFieldDate dismissDropDown={() => {setDropDown(false)}}  data={getData} value={''} fieldName={'date'}/>
                         <TransactionInputFieldText dismissDropDown={() => {setDropDown(false)}}  data={getData} value={''} fieldName={'note'}/>
                         <TransactionInputFieldCategory data={getData} categoryID={pageDetails.categoryID}
+                                                       categoryName={pageDetails.categoryName}
                                                       page={pageDetails}
                                                        dropDown={dropDownActive}
                                                        handlDropDown={handleDropDown}
@@ -264,10 +280,11 @@ const mapDispatchToProps = (dispatch) =>
 
 const mapStateToProps = (state) =>
 {
-    const {statistics} = state;
+    const {statistics,groupData } = state;
 
     return {
         statistics,
+        categories: groupData.categories
 
 
     };
