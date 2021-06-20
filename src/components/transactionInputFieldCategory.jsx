@@ -173,14 +173,13 @@ function TransactionInputFieldCategory(props)
         props.data({
             type: 'Income',
             categoryID: '',
-            groupID: '',
             categoryName: 'Income',
         });
 
         props.setDropDown();
     }
 
-    function Categoryselected(categoryName, groupName, amount, group, category)
+    function Categoryselected(categoryName, amount, category)
     {
 
         setData({
@@ -191,10 +190,8 @@ function TransactionInputFieldCategory(props)
         });
         props.data({
             type: 'category',
-            groupID: group,
             categoryID: category,
             categoryName: categoryName,
-            groupName: groupName,
         });
         props.setDropDown();
     }
@@ -202,37 +199,20 @@ function TransactionInputFieldCategory(props)
     function getInfo()
     {
         let categoryLists = [];
-        if (props.page.pageName === 'home')
-        {
-            for (let group in props.groupList)
-            {
-                for (let category in props.groupList[group].categories)
-                {
-                    let groupName = props.groupList[group].name;
-                    let categoryName = props.groupList[group].categories[category].name;
-                    let categoryAvailable = props.groupFunds[group].categories[category].available;
-                    categoryLists.push(<TransactionCategoryListItem press={Categoryselected} key={category + group}
-                                                                    groupID={group} categoryID={category}
-                                                                    amount={categoryAvailable} name={categoryName}
-                                                                    item={'category'} groupName={groupName}/>);
-                }
-            }
-        }
-        else if (props.page.pageName === 'group')
-        {
 
 
-            for (let category in props.groupList[props.page.groupID].categories)
+
+            for (let category in props.groupList)
             {
-                let groupName = props.groupList[props.page.groupID].name;
-                let categoryName = props.groupList[props.page.groupID].categories[category].name;
-                let categoryAvailable = props.groupFunds[props.page.groupID].categories[category].available;
+
+                let categoryName = props.groupList[category].name;
+                let categoryAvailable = props.groupFunds[category].available;
                 categoryLists.push(<TransactionCategoryListItem press={Categoryselected} key={category}
-                                                                groupID={props.page.groupID} categoryID={category}
+                                                               categoryID={category}
                                                                 amount={categoryAvailable} name={categoryName}
-                                                                item={'category'} groupName={groupName}/>);
+                                                                item={'category'}/>);
             }
-        }
+
         return categoryLists;
     }
 
@@ -274,8 +254,8 @@ const mapStateToProps = (state) =>
 {
     const {groupData, fund} = state;
     return {
-        groupList: groupData.groups,
-        groupFunds: fund.groups,
+        groupList: groupData.categories,
+        groupFunds: fund.categories,
     };
 };
 export default connect(mapStateToProps)(TransactionInputFieldCategory);
