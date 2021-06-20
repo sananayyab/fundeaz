@@ -70,46 +70,6 @@ function BottomBar(props)
                     />
                 </View>);
             }
-            else if (props.data.page === 'group')
-            {
-                elements =(<View style={{
-                    flex: 1,
-                    borderRadius: 10,
-                    flexDirection: 'row',
-                    marginLeft: '5%',
-                    marginRight: '5%',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                }}>
-                    <Icon.Button
-                        backgroundColor="#98B0D3"
-                        name="add"
-                        color="black"
-                        size={35}
-                        onPress={processAction}
-                        iconStyle={{
-                            marginRight: 0,
-                            paddingLeft: 20,
-                            paddingRight: 20,
-
-                        }}
-                    />
-
-                    <Icon.Button
-                        backgroundColor="#98B0D3"
-                        name="pie-chart"
-                        color="black"
-                        size={35}
-                        onPress={loadStatistics}
-                        iconStyle={{
-                            marginRight: 0,
-                            paddingLeft: 20,
-                            paddingRight: 20,
-
-                        }}
-                    />
-                </View>);
-            }
             else if (props.data.page === 'category')
             {
                 elements =(<View style={{
@@ -162,18 +122,12 @@ function BottomBar(props)
 
     function loadStatistics()
     {
-        const source = props.data.page;
-        switch (source)
-        {
-            case 'home':
-                navigation.navigate('GroupStatisticsPage');
-                break;
-            case 'group':
-                navigation.navigate('CategoryStatisticsPage', {
-                    groupID: props.data.groupID,
 
-                });
-        }
+
+                navigation.navigate('GroupStatisticsPage');
+
+
+
     }
 
     function processAction()
@@ -182,15 +136,15 @@ function BottomBar(props)
 
         const type = props.data.type;
         const source = props.data.page;
-        if (type === 'category' && props.finsihedEditing)
+        if (props.finsihedEditing)
         {
-            switch (source)
-            {
-                case 'home':
 
-                    props.addGroup({itemStatus: 'new'});
-                    props.initializeGroup(props.currentID + 1);
-                    props.addGroupStatistics(props.currentID + 1, {
+
+
+
+                    props.addCategory({itemStatus: 'new'});
+                    props.initializeCategory( props.currentID + 1);
+                    props.addCategoryStatistics( props.currentID + 1, {
                         allocated: {
                             average: 0,
                             lastMonth: 0,
@@ -203,29 +157,9 @@ function BottomBar(props)
                         },
                     });
                     props.setEditing(false);
-                    break;
-                case 'group':
-                    let groupID = props.data.groupID;
 
-                    props.addCategory({itemStatus: 'new'}, groupID);
-                    props.initializeCategory(groupID, props.groups[props.data.groupID].currentCategoryID + 1);
-                    props.addCategoryStatistics(groupID, props.groups[props.data.groupID].currentCategoryID + 1, {
-                        allocated: {
-                            average: 0,
-                            lastMonth: 0,
-                            thisMonth: 0,
-                        },
-                        spent: {
-                            average: 0,
-                            lastMonth: 0,
-                            thisMonth: 0,
-                        },
-                    });
-                    props.setEditing(false);
-                    break;
-            }
         }
-        else if(type === 'category' && !props.finsihedEditing)
+        else if( !props.finsihedEditing)
         {
 
             ToastAndroid.showWithGravity(
@@ -242,21 +176,12 @@ function BottomBar(props)
                 case 'home':
                     navigation.navigate('TransactionInput', {
                         page: 'home',
-                        groupID: null,
-                        categoryID: '',
-                    });
-                    break;
-                case 'group':
-                    navigation.navigate('TransactionInput', {
-                        page: 'group',
-                        groupID: props.data.groupID,
                         categoryID: '',
                     });
                     break;
                 case 'category':
                     navigation.navigate('TransactionInput', {
                         page: 'category',
-                        groupID: props.data.groupID,
                         categoryID: props.data.categoryID,
                     });
                     break;
@@ -276,13 +201,12 @@ const mapDispatchToProps = (dispatch) =>
 {
     return {
 
-        addGroup: (data) => dispatch(addGroup(data)),
+
         addTransaction: (data) => dispatch(addTransaction(data)),
-        initializeGroup: (groupID) => dispatch(initializeGroup(groupID)),
-        addCategory: (data, groupID) => dispatch(addCategory(data, groupID)),
-        initializeCategory: (groupID, categoryID) => dispatch(initializeCategory(groupID, categoryID)),
-        addCategoryStatistics: (groupID, categoryID, data) => dispatch(addCategoryStatistics(groupID, categoryID, data)),
-        addGroupStatistics: (groupID, data) => dispatch(addGroupStatistics(groupID, data)),
+        addCategory: (data) => dispatch(addCategory(data)),
+        initializeCategory: ( categoryID) => dispatch(initializeCategory(categoryID)),
+        addCategoryStatistics: (categoryID, data) => dispatch(addCategoryStatistics(categoryID, data)),
+
     };
 };
 const mapStateToProps = (state, ownProps) =>
