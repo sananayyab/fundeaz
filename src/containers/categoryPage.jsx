@@ -17,7 +17,7 @@ function CategoryPage(props)
 
 
     const categoryID = route.params.categoryID;
-    const groupID = route.params.groupID;
+
     const name = route.params.name;
 
     const styles = StyleSheet.create({
@@ -76,21 +76,20 @@ function CategoryPage(props)
         <View style={styles.container}>
             <StatusBar style="default"/>
             <View style={styles.topContainer}>
-                <TopBar section={'category'} groupID={groupID} categoryID={categoryID}/>
+                <TopBar section={'category'} categoryID={categoryID}/>
             </View>
             <View style={styles.categoryContainer}>
 
-                <SpentSection section={'category'} page={'group'} groupName={name} groupID={groupID}
+                <SpentSection section={'category'} page={'group'}
                               categoryID={categoryID} style={{flex: 1}}/>
             </View>
             <View style={styles.spendingContainer}>
 
-                <TransactionSection page={'category'} groupID={groupID} categoryID={categoryID}/>
+                <TransactionSection page={'category'}  categoryID={categoryID}/>
             </View>
             <View style={styles.bottomBar}>
                 <BottomBar data={{
                     page: 'category',
-                    groupID: groupID,
                     categoryID: categoryID,
                     type: 'landing',
                 }}/>
